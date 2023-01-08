@@ -39,6 +39,22 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns the player character's main camera.
         /// </summary>
         public abstract Camera GetCameraWorld();
+        public abstract float GetCameraRecoilY();
+
+        /// <summary>
+        /// Returns the player character's aim camera position.
+        /// </summary>
+        public abstract Vector3 GetAimCameraPosition();
+
+        /// <summary>
+        /// Returns the player character's aim camera field of view.
+        /// </summary>
+        public abstract float GetAimCameraFieldOfView();
+
+        /// <summary>
+        /// Returns the player character's scoping camera speed.
+        /// </summary>
+        public abstract float GetScopingCameraSpeed();
         
         /// <summary>
         /// Returns a reference to the Inventory component.

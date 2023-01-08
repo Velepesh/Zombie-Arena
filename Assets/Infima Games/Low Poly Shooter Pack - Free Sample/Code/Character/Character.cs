@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.iOS;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -28,7 +29,19 @@ namespace InfimaGames.LowPolyShooterPack
 		[SerializeField]
 		private Camera cameraWorld;
 
-		[Header("Animation")]
+        [Tooltip("Aim Camera Position.")]
+        [SerializeField]
+        private Vector3 _aimCameraPosition;
+
+        [Tooltip("Aim Camera Field Of View.")]
+        [SerializeField]
+        private float _aimCameraFieldOfView;
+
+        [Tooltip("Aim Camera Scoping Speed.")]
+        [SerializeField]
+        private float _scopingSpeed;
+
+        [Header("Animation")]
 
 		[Tooltip("Determines how smooth the locomotion blendspace is.")]
 		[SerializeField]
@@ -186,7 +199,8 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Refresh!
 			RefreshWeaponSetup();
-		}
+        }
+
 		protected override void Start()
 		{
 			//Cache a reference to the holster layer's index.
@@ -213,12 +227,20 @@ namespace InfimaGames.LowPolyShooterPack
 					//Has fire rate passed.
 					if (Time.time - lastShotTime > 60.0f / equippedWeapon.GetRateOfFire())
 						Fire();
-				}	
+				}
 			}
 
-			//Update Animator.
-			UpdateAnimator();
+			if (aiming)
+				equippedWeapon.Scope();
+			else
+				equippedWeapon.Unscope();
+
+            equippedWeapon.Recoil();
+            //Update Animator.
+            UpdateAnimator();
 		}
+
+
 
 		protected override void LateUpdate()
 		{
@@ -243,6 +265,10 @@ namespace InfimaGames.LowPolyShooterPack
 		#region GETTERS
 
 		public override Camera GetCameraWorld() => cameraWorld;
+		public override float GetCameraRecoilY() => equippedWeapon.GetRecoilY();
+		public override Vector3 GetAimCameraPosition() => _aimCameraPosition;
+		public override float GetAimCameraFieldOfView() => _aimCameraFieldOfView;
+		public override float GetScopingCameraSpeed() => _scopingSpeed;
 
 		public override InventoryBehaviour GetInventory() => inventory;
 		
@@ -300,10 +326,10 @@ namespace InfimaGames.LowPolyShooterPack
 			//Save the shot time, so we can calculate the fire rate correctly.
 			lastShotTime = Time.time;
 			//Fire the weapon! Make sure that we also pass the scope's spread multiplier if we're aiming.
-			equippedWeapon.Fire();
+			equippedWeapon.Fire(0);
 
-			//Play firing animation.
-			const string stateName = "Fire";
+            //Play firing animation.
+            const string stateName = "Fire";
 			characterAnimator.CrossFade(stateName, 0.05f, layerOverlay, 0);
 		}
 
@@ -572,27 +598,30 @@ namespace InfimaGames.LowPolyShooterPack
 				case {phase: InputActionPhase.Started}:
 					//Hold.
 					holdingButtonFire = true;
-					break;
+                    equippedWeapon.TryResetIndex();
+                    break;
 				//Performed.
 				case {phase: InputActionPhase.Performed}:
 					//Ignore if we're not allowed to actually fire.
 					if (!CanPlayAnimationFire())
 						break;
-					
+
 					//Check.
 					if (equippedWeapon.HasAmmunition())
 					{
 						//Check.
 						if (equippedWeapon.IsAutomatic())
 							break;
-							
+
 						//Has fire rate passed.
 						if (Time.time - lastShotTime > 60.0f / equippedWeapon.GetRateOfFire())
 							Fire();
 					}
 					//Fire Empty.
 					else
+					{
 						FireEmpty();
+					}
 					break;
 				//Canceled.
 				case {phase: InputActionPhase.Canceled}:
@@ -661,8 +690,8 @@ namespace InfimaGames.LowPolyShooterPack
 			switch (context.phase)
 			{
 				case InputActionPhase.Started:
-					//Started.
-					holdingButtonAim = true;
+                    //Started.
+                    holdingButtonAim = true;
 					break;
 				case InputActionPhase.Canceled:
 					//Canceled.

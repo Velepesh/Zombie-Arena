@@ -86,7 +86,7 @@ namespace InfimaGames.LowPolyShooterPack
             rotationCharacter *= rotationYaw;
             
             //Local Rotation.
-            Quaternion localRotation = transform.localRotation;
+            Quaternion localRotation = transform.localRotation * Quaternion.Euler(new Vector3(-playerCharacter.GetCameraRecoilY(), 0f, 0f));
 
             //Smooth.
             if (smooth)
@@ -106,7 +106,7 @@ namespace InfimaGames.LowPolyShooterPack
                 //Rotate character.
                 playerCharacterRigidbody.MoveRotation(playerCharacterRigidbody.rotation * rotationYaw);
             }
-            
+
             //Set.
             transform.localRotation = localRotation;
         }

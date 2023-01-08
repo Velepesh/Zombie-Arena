@@ -166,11 +166,8 @@ namespace InfimaGames.LowPolyShooterPack
             //Running speed calculation.
             if(playerCharacter.IsRunning())
                 movement *= speedRunning;
-            else
-            {
-                //Multiply by the normal walking speed.
+            else//Multiply by the normal walking speed.
                 movement *= speedWalking;
-            }
 
             //World space velocity calculation. This allows us to add it to the rigidbody's velocity properly.
             movement = transform.TransformDirection(movement);
@@ -182,7 +179,7 @@ namespace InfimaGames.LowPolyShooterPack
         }
 
         /// <summary>
-        /// Plays Footstep Sounds. This code is slightly old, so may not be great, but it functions alright-y!
+        /// Plays Footstep Sounds. This code is slightly old, so may not be great, but it functions alright-_recoilY!
         /// </summary>
         private void PlayFootstepSounds()
         {

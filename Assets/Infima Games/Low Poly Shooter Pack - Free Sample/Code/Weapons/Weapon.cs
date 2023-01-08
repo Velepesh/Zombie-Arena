@@ -1,5 +1,6 @@
 ﻿// Copyright 2021, Infima Games. All Rights Reserved.
 
+using System.Collections;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -16,7 +17,15 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("Is this weapon automatic? If yes, then holding down the firing button will continuously fire.")]
         [SerializeField] 
         private bool automatic;
-        
+
+        [Tooltip("Amount of shots fired at once. Helpful for things like shotguns, where there are multiple projectiles fired at once.")]
+        [SerializeField]
+        private int shotCount = 1;
+
+        [Tooltip("How far the weapon can fire from the center of the screen.")]
+        [SerializeField]
+        private float spread = 0.25f;
+
         [Tooltip("How fast the projectiles are.")]
         [SerializeField]
         private float projectileImpulse = 400.0f;
@@ -83,6 +92,17 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private AudioClip audioClipFireEmpty;
 
+        [SerializeField] private Vector2[] _recoilPattern;
+        [SerializeField] private float _duration;
+        [SerializeField] private float _recoilDivision;
+
+        private int _index;
+        private float _time;
+        private float _recoilAmountY;
+        private float _recoilAmountX;
+        private float _recoilX;
+        private float _recoilY;
+
         #endregion
 
         #region FIELDS
@@ -126,12 +146,19 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// The player character's camera.
         /// </summary>
-        private Transform playerCamera;
-        
+        private Transform playerCameraTransform;
+        private float _aimFieldOfView ;
+        private float _scopingCameraSpeed;
+
+        private Camera _playerCamera;
+        private float _startCameraFieldOfView;
+        private Vector3 _startCameraPosition;
+        private Vector3 _aimCameraPosition;
+
         #endregion
 
         #region UNITY
-        
+
         protected override void Awake()
         {
             //Get Animator.
@@ -144,8 +171,22 @@ namespace InfimaGames.LowPolyShooterPack
             //Cache the player character.
             characterBehaviour = gameModeService.GetPlayerCharacter();
             //Cache the world camera. We use this in line traces.
-            playerCamera = characterBehaviour.GetCameraWorld().transform;
+            SetCameraSettings();
         }
+
+        private void SetCameraSettings()
+        {
+            //Cache the world camera. We use this in line traces.
+            _playerCamera = characterBehaviour.GetCameraWorld();
+            playerCameraTransform = _playerCamera.transform;
+            _startCameraFieldOfView = _playerCamera.fieldOfView;
+
+            _startCameraPosition = playerCameraTransform.localPosition;
+            _aimFieldOfView = characterBehaviour.GetAimCameraFieldOfView();
+            _scopingCameraSpeed = characterBehaviour.GetScopingCameraSpeed();
+            _aimCameraPosition = characterBehaviour.GetAimCameraPosition();
+        }
+
         protected override void Start()
         {
             #region Cache Attachment References
@@ -201,19 +242,64 @@ namespace InfimaGames.LowPolyShooterPack
             //Play Reload Animation.
             animator.Play(HasAmmunition() ? "Reload" : "Reload Empty", 0, 0.0f);
         }
+
+        public override void Recoil()
+        {
+            if (_time > 0)
+            {
+                _recoilX += _recoilAmountX / _recoilDivision * Time.deltaTime / _duration;
+                _recoilY = _recoilAmountY / _recoilDivision * Time.deltaTime / _duration;
+
+                _time -= Time.deltaTime;
+                return;
+            }
+
+            if (_recoilY != 0)
+            {
+                _recoilX = 0;
+                _recoilY = 0;
+            }
+        }
+
+        public override void GenerateRecoil()
+        {
+            _time = _duration;
+
+            _recoilAmountX = _recoilPattern[_index].x;
+            _recoilAmountY = _recoilPattern[_index].y;
+
+            _index = NextIndex(_index);
+        }
+
+        public override float GetRecoilY()
+        {
+            return _recoilY;
+        }
+
+        private int NextIndex(int index)
+        {
+            return (index + 1) % _recoilPattern.Length;
+        }
+
+        public override void TryResetIndex()
+        {
+            if (_time <= 0)
+                _index = 0;
+        }
+
         public override void Fire(float spreadMultiplier = 1.0f)
         {
             //We need a muzzle in order to fire this weapon!
             if (muzzleBehaviour == null)
                 return;
-            
+
             //Make sure that we have a camera cached, otherwise we don't really have the ability to perform traces.
-            if (playerCamera == null)
+            if (_playerCamera == null)
                 return;
 
             //Get Muzzle Socket. This is the point we fire from.
             Transform muzzleSocket = muzzleBehaviour.GetSocket();
-            
+
             //Play the firing animation.
             const string stateName = "Fire";
             animator.Play(stateName, 0, 0.0f);
@@ -222,19 +308,41 @@ namespace InfimaGames.LowPolyShooterPack
 
             //Play all muzzle effects.
             muzzleBehaviour.Effect();
-            
-            //Determine the rotation that we want to shoot our projectile in.
-            Quaternion rotation = Quaternion.LookRotation(playerCamera.forward * 1000.0f - muzzleSocket.position);
-            
-            //If there's something blocking, then we can aim directly at that thing, which will result in more accurate shooting.
-            if (Physics.Raycast(new Ray(playerCamera.position, playerCamera.forward),
-                out RaycastHit hit, maximumDistance, mask))
-                rotation = Quaternion.LookRotation(hit.point - muzzleSocket.position);
-                
-            //Spawn projectile from the projectile spawn point.
-            GameObject projectile = Instantiate(prefabProjectile, muzzleSocket.position, rotation);
-            //Add velocity to the projectile.
-            projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;   
+            GenerateRecoil();
+            //Spawn as many projectiles as we need.
+            for (var i = 0; i < shotCount; i++)
+            {
+                //Determine a random spread value using all of our multipliers.
+                Vector3 spreadValue = Random.insideUnitSphere * (spread * spreadMultiplier);
+                //Remove the forward spread component, since locally this would go inside the object we're shooting!
+                spreadValue.z = 0;
+                //Convert to world space.
+                spreadValue = muzzleSocket.TransformDirection(spreadValue) + new Vector3(_recoilX, 0f, 0f);
+
+                //Determine the rotation that we want to shoot our projectile in.
+                Quaternion rotation = Quaternion.LookRotation(playerCameraTransform.forward * 1000.0f + spreadValue - muzzleSocket.position);
+
+                //If there's something blocking, then we can aim directly at that thing, which will result in more accurate shooting.
+                if (Physics.Raycast(new Ray(playerCameraTransform.position, playerCameraTransform.forward),
+                    out RaycastHit hit, maximumDistance, mask))
+                    rotation = Quaternion.LookRotation(hit.point + spreadValue - muzzleSocket.position);
+
+                //Spawn projectile from the projectile spawn point.
+                GameObject projectile = Instantiate(prefabProjectile, muzzleSocket.position, rotation);
+
+                //Add velocity to the projectile.
+                projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;
+            }
+        }
+
+        public override void Scope()
+        {
+            OnScope(_aimFieldOfView, _aimCameraPosition);
+        }
+
+        public override void Unscope()
+        {
+            OnScope(_startCameraFieldOfView, _startCameraPosition);
         }
 
         public override void FillAmmunition(int amount)
@@ -252,5 +360,11 @@ namespace InfimaGames.LowPolyShooterPack
         }
 
         #endregion
+
+        private void OnScope(float targetFieldOfView, Vector3 targetCameraPosition)
+        {
+            _playerCamera.fieldOfView = Mathf.MoveTowards(_playerCamera.fieldOfView, targetFieldOfView, _scopingCameraSpeed * Time.deltaTime);
+            playerCameraTransform.localPosition = Vector3.MoveTowards(playerCameraTransform.localPosition, targetCameraPosition, _scopingCameraSpeed * Time.deltaTime);
+        }
     }
 }

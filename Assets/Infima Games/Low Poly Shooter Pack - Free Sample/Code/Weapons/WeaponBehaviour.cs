@@ -119,11 +119,34 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Reloads the weapon.
         /// </summary>
+        /// 
+        public abstract void Scope();
+        /// <summary>
+        /// Scope the weapon.
+        /// </summary>
+        /// 
+
+        public abstract void Unscope();
+        /// <summary>
+        /// Unscope the weapon.
+        /// </summary>
+        /// 
+
         public abstract void Reload();
 
         /// <summary>
         /// Fills the character's equipped weapon's ammunition by a certain amount, or fully if set to -1.
         /// </summary>
+        /// 
+        public abstract void Recoil();
+        public abstract void GenerateRecoil();
+        public abstract void TryResetIndex();
+        public abstract float GetRecoilY();
+
+        /// <summary>
+        /// Weapon Recoil
+        /// </summary>
+        /// 
         public abstract void FillAmmunition(int amount);
 
         /// <summary>
