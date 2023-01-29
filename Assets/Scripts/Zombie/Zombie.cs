@@ -1,18 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Zombie : MonoBehaviour
+public class Zombie : MonoBehaviour, IDamageable
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Health _health;
+    [SerializeField] private ZombieOptions _options;
+    [SerializeField] private int _score;
+
+    private ITarget _target;
+
+    public ZombieOptions Options => _options;
+    public bool IsDied => _health.Value <= 0;
+
+    public Health Health => _health;
+    public Vector3 TargetPosition => _target.Position;
+
+    public event UnityAction<IDamageable> Died;
+
+    private void Start()
     {
-        
+        InitDamageHandler();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void InitDamageHandler()
     {
-        
+        var damageHandlers = GetComponentsInChildren<DamageHandler>();
+
+        foreach (var handler in damageHandlers) 
+            handler.Init(this);
+    }
+
+    public void Die()
+    {
+        Died?.Invoke(this);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        _health.TakeDamage(damage);
+
+        if (IsDied)
+            Die();
+    }
+
+    public void Init(ITarget target)
+    {
+        _target = target;
     }
 }

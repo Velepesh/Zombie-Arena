@@ -57,14 +57,14 @@ namespace InfimaGames.LowPolyShooterPack
 		[SerializeField]
 		private Animator characterAnimator;
 
-		#endregion
+        #endregion
 
-		#region FIELDS
+        #region FIELDS
 
-		/// <summary>
-		/// True if the character is aiming.
-		/// </summary>
-		private bool aiming;
+        /// <summary>
+        /// True if the character is aiming.
+        /// </summary>
+        private bool aiming;
 		/// <summary>
 		/// True if the character is running.
 		/// </summary>
@@ -138,11 +138,12 @@ namespace InfimaGames.LowPolyShooterPack
 		/// Look Axis Values.
 		/// </summary>
 		private Vector2 axisMovement;
-		
-		/// <summary>
-		/// True if the player is holding the aiming button.
-		/// </summary>
-		private bool holdingButtonAim;
+
+
+        /// <summary>
+        /// True if the player is holding the aiming button.
+        /// </summary>
+        private bool holdingButtonAim;
 		/// <summary>
 		/// True if the player is holding the running button.
 		/// </summary>
@@ -283,14 +284,14 @@ namespace InfimaGames.LowPolyShooterPack
 		public override Vector2 GetInputMovement() => axisMovement;
 		public override Vector2 GetInputLook() => axisLook;
 
-		#endregion
+        #endregion
 
-		#region METHODS
+        #region METHODS
 
-		/// <summary>
-		/// Updates all the animator properties for this frame.
-		/// </summary>
-		private void UpdateAnimator()
+        /// <summary>
+        /// Updates all the animator properties for this frame.
+        /// </summary>
+        private void UpdateAnimator()
 		{
 			//Movement Value. This value affects absolute movement. Aiming movement uses this, as opposed to per-axis movement.
 			characterAnimator.SetFloat(HashMovement, Mathf.Clamp01(Mathf.Abs(axisMovement.x) + Mathf.Abs(axisMovement.y)), dampTimeLocomotion, Time.deltaTime);
@@ -815,10 +816,10 @@ namespace InfimaGames.LowPolyShooterPack
 			axisLook = cursorLocked ? context.ReadValue<Vector2>() : default;
 		}
 
-		/// <summary>
-		/// Called in order to update the tutorial text value.
-		/// </summary>
-		public void OnUpdateTutorial(InputAction.CallbackContext context)
+        /// <summary>
+        /// Called in order to update the tutorial text value.
+        /// </summary>
+        public void OnUpdateTutorial(InputAction.CallbackContext context)
 		{
 			//Switch.
 			tutorialTextVisible = context switch

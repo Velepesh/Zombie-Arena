@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayParticles : MonoBehaviour
 {
-    [Header("Delay Settings")]
+    [Header("DelayBeforeMove Settings")]
     public float initialDelay = 1.0f;
     public float waitBetweenPlaying = 5.0f;
 

@@ -26,7 +26,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         [Header("Setup")]
         
-        [Tooltip("Delay at which the audio is played.")]
+        [Tooltip("DelayBeforeMove at which the audio is played.")]
         [SerializeField]
         private float delay;
         

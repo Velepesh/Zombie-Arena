@@ -12,25 +12,7 @@ public class Health
     public int Value => _health;
     public int StartValue => _startValue;
 
-    public event UnityAction Healed;
     public event UnityAction<int> HealthChanged;
-
-    public void AddHealth(int health)
-    {
-        IncreaseHealth(health);
-    }
-
-    public void Heal(int health)
-    {
-        IncreaseHealth(health);
-
-        Healed?.Invoke();
-    }
-
-    public void RecordHealth()
-    {
-        _startValue = _health;
-    }
 
     public void RestoreHealth()
     {
@@ -53,13 +35,6 @@ public class Health
 
         if (_health <= 0)
             _health = 0;
-
-        HealthChanged?.Invoke(_health);
-    }
-
-    private void IncreaseHealth(int health)
-    {
-        _health += health;
 
         HealthChanged?.Invoke(_health);
     }

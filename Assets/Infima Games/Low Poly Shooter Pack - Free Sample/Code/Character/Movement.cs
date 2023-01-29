@@ -2,12 +2,38 @@
 
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace InfimaGames.LowPolyShooterPack
 {
     [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
     public class Movement : MovementBehaviour
     {
+        /// <summary>
+        /// A helper for assistance with smoothing the movement.
+        /// </summary>
+        private class SmoothVelocity
+        {
+            /// <summary>
+            /// Value Getter.
+            /// </summary>
+            public Vector3 Value { get; private set; }
+
+            /// <summary>
+            /// Current Velocity. Used for proper SmoothDamp use.
+            /// </summary>
+            private Vector3 currentVelocity;
+
+            /// <summary>
+            /// Updates the value!
+            /// </summary>
+            /// <param name="target">Target value.</param>
+            /// <param name="smoothTime">How smooth the motion should be.</param>
+            /// <returns></returns>
+            public Vector3 Update(Vector3 target, float smoothTime) => Value = Vector3.SmoothDamp(Value,
+                target, ref currentVelocity, smoothTime);
+        }
+
         #region FIELDS SERIALIZED
 
         [Header("Audio Clips")]
@@ -28,6 +54,14 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("How fast the player moves while running."), SerializeField]
         private float speedRunning = 9.0f;
 
+        [SerializeField]
+        private JumpAnimation phisicsJump;
+
+        [Header("Interpolation")]
+
+        [Tooltip("Approximately the amount of time it will take for the player to reach maximum running or walking speed.")]
+        [SerializeField]
+        private float movementSmoothness = 0.125f;
         #endregion
 
         #region PROPERTIES
@@ -38,7 +72,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Getter.
             get => rigidBody.velocity;
             //Setter.
-            set => rigidBody.velocity = value;
+            set => rigidBody.velocity = smoothVelocity.Update(value, movementSmoothness);
         }
 
         #endregion
@@ -57,7 +91,11 @@ namespace InfimaGames.LowPolyShooterPack
         /// Attached AudioSource.
         /// </summary>
         private AudioSource audioSource;
-        
+        /// <summary>
+        /// Velocity Smoothing Helper. Basically does what it says, it helps us make the velocity smoother.
+        /// </summary>
+        private SmoothVelocity smoothVelocity;
+
         /// <summary>
         /// True if the character is currently grounded.
         /// </summary>
@@ -91,7 +129,7 @@ namespace InfimaGames.LowPolyShooterPack
         }
 
         /// Initializes the FpsController on start.
-        protected override  void Start()
+        protected override void Start()
         {
             //Rigidbody Setup.
             rigidBody = GetComponent<Rigidbody>();
@@ -103,6 +141,9 @@ namespace InfimaGames.LowPolyShooterPack
             audioSource = GetComponent<AudioSource>();
             audioSource.clip = audioClipWalking;
             audioSource.loop = true;
+
+            //Create our smooth velocity helper. Will be useful to get some smoother motion.
+            smoothVelocity = new SmoothVelocity();
         }
 
         /// Checks if the character is on the ground.
@@ -117,7 +158,7 @@ namespace InfimaGames.LowPolyShooterPack
             
             //Cast. This checks whether there is indeed ground, or not.
             Physics.SphereCastNonAlloc(bounds.center, radius, Vector3.down,
-                groundHits, extents.y - radius * 0.5f, ~0, QueryTriggerInteraction.Ignore);
+                groundHits, extents.y - radius * 0.65f, ~0, QueryTriggerInteraction.Ignore);
             
             //We can ignore the rest if we don't have any proper hits.
             if (!groundHits.Any(hit => hit.collider != null && hit.collider != capsule)) 
@@ -153,6 +194,15 @@ namespace InfimaGames.LowPolyShooterPack
         #endregion
 
         #region METHODS
+
+        /// <summary>
+		/// Jump.
+		/// </summary>
+		public void OnJump(InputAction.CallbackContext context)
+        {
+            if(grounded)
+                phisicsJump.Jump(Velocity);
+        }
 
         private void MoveCharacter()
         {
