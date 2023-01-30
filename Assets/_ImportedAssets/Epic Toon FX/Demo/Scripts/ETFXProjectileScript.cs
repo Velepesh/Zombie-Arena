@@ -46,7 +46,7 @@ using System.Collections;
 
             if (Physics.SphereCast(transform.position, radius, direction, out hit, detectionDistance)) // Checks if collision will happen
             {
-                transform.position = hit.point + (hit.normal * collideOffset); // Move projectile to point of collision
+                transform.position = hit.point + (hit.normal * collideOffset); // MoveDown projectile to point of collision
 
                 GameObject impactP = Instantiate(impactParticle, transform.position, Quaternion.FromToRotation(Vector3.up, hit.normal)) as GameObject; // Spawns impact effect
 

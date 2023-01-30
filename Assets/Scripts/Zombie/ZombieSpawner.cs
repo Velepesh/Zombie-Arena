@@ -1,13 +1,10 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ZombieSpawner : MonoBehaviour
 {
     [SerializeField] private List<Wave> _waves;
-    [SerializeField] private Player _player;
-    [SerializeField] private Tower _tower;
-    [SerializeField] private Game _game;
     [SerializeField] private List<SpawnPoint> _spawnPoints;
     [SerializeField] private bool _isSpawnWhenStart;
 
@@ -17,20 +14,7 @@ public class ZombieSpawner : MonoBehaviour
     private int _spawned;
     private List<Zombie> _zombies = new List<Zombie>();
     private bool _isAllEnemiesDied => _zombies.Count == 0;
-
-    private void OnEnable()
-    {
-        _player.Died += OnPlayerDied;
-        _game.LevelStarted += OnLevelStarted;
-        //////////////////////////////////////////////
-        OnLevelStarted();
-    }
-
-    private void OnDisable()
-    {
-        _player.Died += OnPlayerDied;
-        _game.LevelStarted -= OnLevelStarted;
-    }
+    private ITarget _target;
 
     private void Update()
     {
@@ -47,6 +31,15 @@ public class ZombieSpawner : MonoBehaviour
 
         if (_currentWave.Count <= _spawned)
             _currentWave = null;
+    }
+
+    public void StartSpawn(ITarget target)
+    {
+        if (target == null)
+            throw new ArgumentNullException(nameof(target));
+
+        _target = target;
+        OnLevelStarted();
     }
 
     private void OnLevelStarted()
@@ -79,7 +72,7 @@ public class ZombieSpawner : MonoBehaviour
         if (template.TryGetComponent(out Zombie zombie))
         {
             zombie = Instantiate(template, spawnPoint.Position, template.transform.rotation).GetComponent<Zombie>();
-            zombie.Init(_player);
+            zombie.Init(_target);
             spawnPoint.Init(zombie);
             zombie.Died += OnDied;
             _zombies.Add(zombie);
@@ -90,7 +83,7 @@ public class ZombieSpawner : MonoBehaviour
 
     private SpawnPoint GetSpawnPoint()
     {
-        return _spawnPoints[Random.Range(0, _spawnPoints.Count)];
+        return _spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Count)];
     }
 
     private bool CanSpawn()
@@ -142,7 +135,6 @@ public class ZombieSpawner : MonoBehaviour
         }
     }
 }
-
 
 [System.Serializable]
 public class Wave

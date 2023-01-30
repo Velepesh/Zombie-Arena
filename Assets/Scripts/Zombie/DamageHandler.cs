@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 
+[RequireComponent(typeof(Collider))]
 public class DamageHandler : MonoBehaviour
 {
     [SerializeField] private DamageHandlerType _type;
@@ -9,12 +10,19 @@ public class DamageHandler : MonoBehaviour
 
     private IDamageable _damageable;
 
+    public Collider Collider { get; private set; }
+
+    private void Start()
+    {
+        Collider = GetComponent<Collider>();
+    }
+
     public void Init(IDamageable damageable)
     {
         _damageable = damageable;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 contactPoint)
     {
         if (_damageable == null)
             Debug.LogError("Don't Init" + nameof(IDamageable));
@@ -25,7 +33,7 @@ public class DamageHandler : MonoBehaviour
         if (_type == DamageHandlerType.Head)
             damage *= _headDamageMultiplier;
 
-        _damageable.TakeDamage(damage);
+        _damageable.TakeDamage(damage, contactPoint);
     }
 }
 

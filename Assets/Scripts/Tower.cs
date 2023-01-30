@@ -19,7 +19,7 @@ public class Tower : MonoBehaviour, IDamageable, ITarget
         Died?.Invoke(this);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 contatPosition)
     {
         _health.TakeDamage(damage);
 

@@ -451,10 +451,10 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Block.
 			if (inspecting)
-				return false;
+                AnimationEndedInspect();
 
-			//Return.
-			return true;
+            //Return.
+            return true;
 		}
 
 		/// <summary>
@@ -468,10 +468,10 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Block while inspecting.
 			if (inspecting)
-				return false;
-			
-			//Return.
-			return true;
+				AnimationEndedInspect();
+
+            //Return.
+            return true;
 		}
 
 		/// <summary>
@@ -486,10 +486,10 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Block.
 			if (inspecting)
-				return false;
-			
-			//Return.
-			return true;
+                AnimationEndedInspect();
+
+            //Return.
+            return true;
 		}
 
 		/// <summary>
@@ -508,10 +508,10 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Block.
 			if (inspecting)
-				return false;
-			
-			//Return.
-			return true;
+                AnimationEndedInspect();
+
+            //Return.
+            return true;
 		}
 
 		/// <summary>
@@ -560,8 +560,8 @@ namespace InfimaGames.LowPolyShooterPack
 		private bool CanRun()
 		{
 			//Block.
-			if (inspecting)
-				return false;
+			//if (inspecting)
+			//	return false;
 
 			//Block.
 			if (reloading || aiming)
@@ -864,13 +864,14 @@ namespace InfimaGames.LowPolyShooterPack
 
 		public override void AnimationEndedInspect()
 		{
-			//Stop Inspecting.
-			inspecting = false;
+            //Stop Inspecting.
+            characterAnimator.CrossFade("Default", 0.0f, layerActions, 0);
+            inspecting = false;
 		}
 		public override void AnimationEndedHolster()
 		{
-			//Stop Holstering.
-			holstering = false;
+            //Stop Holstering.
+            holstering = false;
 		}
 
 		#endregion

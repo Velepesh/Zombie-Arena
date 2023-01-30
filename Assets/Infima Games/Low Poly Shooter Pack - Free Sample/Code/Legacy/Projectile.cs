@@ -50,7 +50,7 @@ public class Projectile : MonoBehaviour
 		//coroutine with random destroy timer
 		if (!destroyOnImpact) 
 		{
-			StartCoroutine (DestroyTimer ());
+			StartCoroutine(DestroyTimer());
 		}
 		//Otherwise, destroy bullet on impact
 		else 
@@ -60,57 +60,64 @@ public class Projectile : MonoBehaviour
 
         if (collision.gameObject.TryGetComponent(out DamageHandler damageHandler))
         {
-			damageHandler.TakeDamage(_damage);
+			damageHandler.TakeDamage(_damage, collision.contacts[0].normal);
             //Instantiate random impact prefab from array
-            Instantiate(bloodImpactPrefabs[Random.Range
+            var go = Instantiate(bloodImpactPrefabs[Random.Range
                 (0, bloodImpactPrefabs.Length)], transform.position,
                 Quaternion.LookRotation(collision.contacts[0].normal));
-            //Destroy bullet object
+			//Destroy bullet object
+			go.SetParent(collision.gameObject.transform);
             Destroy(gameObject);
         }
 
         //If bullet collides with "Blood" tag
         if (collision.transform.tag == "Blood") 
 		{
-			//Instantiate random impact prefab from array
-			Instantiate (bloodImpactPrefabs [Random.Range 
+            //Instantiate random impact prefab from array
+            var go = Instantiate(bloodImpactPrefabs [Random.Range 
 				(0, bloodImpactPrefabs.Length)], transform.position, 
 				Quaternion.LookRotation (collision.contacts [0].normal));
-			//Destroy bullet object
-			Destroy(gameObject);
+
+            go.SetParent(collision.gameObject.transform);
+            //Destroy bullet object
+            Destroy(gameObject);
 		}
 
 		//If bullet collides with "Metal" tag
 		if (collision.transform.tag == "Metal") 
 		{
-			//Instantiate random impact prefab from array
-			Instantiate (metalImpactPrefabs [Random.Range 
+            //Instantiate random impact prefab from array
+            var go = Instantiate(metalImpactPrefabs [Random.Range 
 				(0, bloodImpactPrefabs.Length)], transform.position, 
 				Quaternion.LookRotation (collision.contacts [0].normal));
-			//Destroy bullet object
-			Destroy(gameObject);
+            //Destroy bullet object
+
+            go.SetParent(collision.gameObject.transform);
+            Destroy(gameObject);
 		}
 
 		//If bullet collides with "Dirt" tag
 		if (collision.transform.tag == "Dirt") 
 		{
-			//Instantiate random impact prefab from array
-			Instantiate (dirtImpactPrefabs [Random.Range 
+            //Instantiate random impact prefab from array
+            var go = Instantiate (dirtImpactPrefabs [Random.Range 
 				(0, bloodImpactPrefabs.Length)], transform.position, 
 				Quaternion.LookRotation (collision.contacts [0].normal));
-			//Destroy bullet object
-			Destroy(gameObject);
+            //Destroy bullet object
+            go.SetParent(collision.gameObject.transform);
+            Destroy(gameObject);
 		}
 
 		//If bullet collides with "Concrete" tag
 		if (collision.transform.tag == "Concrete") 
 		{
-			//Instantiate random impact prefab from array
-			Instantiate (concreteImpactPrefabs [Random.Range 
+            //Instantiate random impact prefab from array
+            var go = Instantiate(concreteImpactPrefabs [Random.Range 
 				(0, bloodImpactPrefabs.Length)], transform.position, 
 				Quaternion.LookRotation (collision.contacts [0].normal));
-			//Destroy bullet object
-			Destroy(gameObject);
+            //Destroy bullet object
+            go.SetParent(collision.gameObject.transform);
+            Destroy(gameObject);
 		}
 
 		//If bullet collides with "Target" tag

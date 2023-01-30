@@ -6,9 +6,8 @@ public class ZombieDestroyer : State
     [SerializeField] private float _undergroundSpeed;
     [SerializeField] private float _time;
     [SerializeField] private float _delayBeforMoving;
-    [SerializeField] private ParticleSystem _dieEffect;
 
-    private bool _isMoving = false;
+    private bool _isMovingDown = false;
 
     private void OnValidate()
     {
@@ -22,41 +21,29 @@ public class ZombieDestroyer : State
 
     private void Update()
     {
-        if (_isMoving == false)
+        if (_isMovingDown == false)
             return;
 
         if (_time > 0)
-        {
-            _time -= Time.deltaTime;
-            Move();
-        }
+            MoveDown();
         else
-        {
             DestroyZombie();
-        }
     }
 
     private IEnumerator DelayBeforeMove()
     {
-        float delayBeforEffect = _delayBeforMoving / 2;
-
-        yield return new WaitForSeconds(delayBeforEffect);
-        ShowEffect();
-
         yield return new WaitForSeconds(_delayBeforMoving);
 
-        _isMoving = true;
+        _isMovingDown = true;
     }
 
-    private void Move()
+    private void MoveDown()
     {
+        _time -= Time.deltaTime;
+
         transform.Translate(Vector3.down * _undergroundSpeed * Time.deltaTime);
     }
 
-    private void ShowEffect()
-    {
-        Instantiate(_dieEffect.gameObject, transform.position, Quaternion.identity);
-    }
 
     private void DestroyZombie()//ObjectPool???
     {

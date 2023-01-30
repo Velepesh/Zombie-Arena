@@ -9,13 +9,12 @@ public class Game : MonoBehaviour
     //[SerializeField] private SceneChanger _sceneChanger;
     [SerializeField] private Player _player;
     [SerializeField] private Tower _tower;
+    [SerializeField] private ZombieSpawner _zombieSpawner;
 
     private const string CURRENT_LEVEL_ID = "CurrentLevelID";
 
-    private float _spentTime = 0f;
     private bool _isPlaying = false;
     public int CurrentLevel => PlayerPrefs.GetInt(CURRENT_LEVEL_ID, 1);
-    public int SpentTime => (int)_spentTime;
 
     public event UnityAction LevelStarted;
     public event UnityAction LevelWon;
@@ -38,12 +37,11 @@ public class Game : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
-    }
-
-    private void Update()
-    {
-        if (_isPlaying)
-            _spentTime += Time.deltaTime;
+        _zombieSpawner.StartSpawn(_player);//—делать логику поиска цели
+        //изначально рандом
+        //ѕотом если игрок близко, то его
+        //≈сли башн€ близко, а игрок на каком-то рассто€нии, то башню
+        //—мена происходит в Zombie
     }
 
     public void MainMenu()

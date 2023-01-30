@@ -14,7 +14,7 @@ public class Player : MonoBehaviour, IDamageable, ITarget
 
     public event UnityAction<IDamageable> Died;
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 contactPosition)
     {
         _health.TakeDamage(damage);
 

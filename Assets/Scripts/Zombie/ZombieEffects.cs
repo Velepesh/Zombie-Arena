@@ -1,18 +1,55 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Zombie))]
 public class ZombieEffects : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private ParticleSystem _spawnEffect;
+    [SerializeField] private ParticleSystem _dieEffect;
+    [SerializeField] private Vector3 _spawnOffset;
+    [SerializeField] private float _delayBeforeDieEffect;
+
+    private Zombie _zombie;
+
+    private void OnValidate()
     {
-        
+        _delayBeforeDieEffect = Mathf.Clamp(_delayBeforeDieEffect, 0f, float.MaxValue);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        _zombie = GetComponent<Zombie>();
+    }
+
+    private void OnEnable()
+    {
+        _zombie.Died += OnDied;
+    }
+
+    private void OnDisable()
+    {
+        _zombie.Died -= OnDied;
+    }
+
+    private void Start()
+    {
+        ShowSpawnEffect();
+    }
+
+    private void OnDied(IDamageable damageable)
+    {
+        StartCoroutine(ShowDieEffect());
+    }
+
+    private void ShowSpawnEffect()
+    {
+        Instantiate(_spawnEffect.gameObject, transform.position + _spawnOffset, Quaternion.identity);
+    }
+
+    private IEnumerator ShowDieEffect()
+    {
+        yield return new WaitForSeconds(_delayBeforeDieEffect);
+
+        Instantiate(_dieEffect.gameObject, transform.position + _spawnOffset, Quaternion.identity);
     }
 }

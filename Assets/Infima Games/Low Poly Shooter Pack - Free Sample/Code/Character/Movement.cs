@@ -174,7 +174,7 @@ namespace InfimaGames.LowPolyShooterPack
 			
         protected override void FixedUpdate()
         {
-            //Move.
+            //MoveDown.
             MoveCharacter();
             
             //Unground.
@@ -196,7 +196,7 @@ namespace InfimaGames.LowPolyShooterPack
         #region METHODS
 
         /// <summary>
-		/// Jump.
+		/// Impact.
 		/// </summary>
 		public void OnJump(InputAction.CallbackContext context)
         {

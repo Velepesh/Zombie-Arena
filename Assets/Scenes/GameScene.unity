@@ -22,10 +22,10 @@ RenderSettings:
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.95390093, g: 1.0093603, b: 1.0592737, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
-  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientEquatorColor: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
+  m_AmbientGroundColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 3
+  m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.23529412, g: 0.24705882, b: 0.28235295, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0
@@ -5237,6 +5237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 8163229473672137391}
   _tower: {fileID: 450585589}
+  _zombieSpawner: {fileID: 1766793292}
 --- !u!4 &432314600
 Transform:
   m_ObjectHideFlags: 0
@@ -18239,9 +18240,6 @@ MonoBehaviour:
   - Templates:
     - {fileID: 5035928492457674910, guid: bd2c7a1743a5d224e9fe0f1aca7daaf9, type: 3}
     Delay: 0.5
-  _player: {fileID: 8163229473672137391}
-  _tower: {fileID: 450585589}
-  _game: {fileID: 432314599}
   _spawnPoints:
   - {fileID: 51083984}
   _isSpawnWhenStart: 1
@@ -19126,12 +19124,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4634678132177570467, guid: ec359f99037709646a1a187546ca52c6,
     type: 3}
   m_PrefabInstance: {fileID: 1910094594}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1915622069 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7304872515596049584, guid: 726d05d4cef9a3945b38fe9b772456d6,
-    type: 3}
-  m_PrefabInstance: {fileID: 4849677245293891822}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1919271343 stripped
 Transform:
@@ -22673,36 +22665,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4849677245714721814, guid: 726d05d4cef9a3945b38fe9b772456d6,
-        type: 3}
-      propertyPath: phisicsJump
-      value: 
-      objectReference: {fileID: 8163229473672137402}
-    - target: {fileID: 5411741983053722493, guid: 726d05d4cef9a3945b38fe9b772456d6,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5411741983053722493, guid: 726d05d4cef9a3945b38fe9b772456d6,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 8163229473672137397}
-    - target: {fileID: 5411741983053722493, guid: 726d05d4cef9a3945b38fe9b772456d6,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnJump
-      objectReference: {fileID: 0}
-    - target: {fileID: 5411741983053722493, guid: 726d05d4cef9a3945b38fe9b772456d6,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: InfimaGames.LowPolyShooterPack.Movement, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5763239342432345093, guid: 726d05d4cef9a3945b38fe9b772456d6,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 494903
-      objectReference: {fileID: 0}
     - target: {fileID: 7304872515596049584, guid: 726d05d4cef9a3945b38fe9b772456d6,
         type: 3}
       propertyPath: m_Name
@@ -23697,7 +23659,7 @@ PrefabInstance:
     - target: {fileID: 5039326012571859514, guid: bd2c7a1743a5d224e9fe0f1aca7daaf9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.0894368
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5039326012571859514, guid: bd2c7a1743a5d224e9fe0f1aca7daaf9,
         type: 3}
@@ -23707,7 +23669,7 @@ PrefabInstance:
     - target: {fileID: 5039326012571859514, guid: bd2c7a1743a5d224e9fe0f1aca7daaf9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.5136464
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5039326012571859514, guid: bd2c7a1743a5d224e9fe0f1aca7daaf9,
         type: 3}
@@ -24352,71 +24314,12 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 4849677245293891822}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915622069}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb4250b83df8a7d44a6f05d035d74ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8163229473672137397 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4849677245714721814, guid: 726d05d4cef9a3945b38fe9b772456d6,
-    type: 3}
-  m_PrefabInstance: {fileID: 4849677245293891822}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915622069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ba9a63e484e8f142b3b13cfd976e290, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8163229473672137402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915622069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1e92b04c0ea82d4f88c2cb34b7c1031, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _yAnimation:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.00013006243
-      inSlope: 3.3835893
-      outSlope: 3.3835893
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.50001025
-      value: 1.6919594
-      inSlope: 0.00043976307
-      outSlope: 0.00043976307
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1.0002179
-      value: -0.00009803835
-      inSlope: -3.3827097
-      outSlope: -3.3827097
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _length: 1
-  _duration: 0.83
 --- !u!1 &8267263322329992298
 GameObject:
   m_ObjectHideFlags: 0

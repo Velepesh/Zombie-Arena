@@ -11,12 +11,21 @@ public class ZombieMover : State
 
     public event UnityAction Moved;
 
-    private void Start()
+    private void Awake()
     {
         _zombie = GetComponent<Zombie>();
         _agent = GetComponent<NavMeshAgent>();
+    }
 
+    private void OnEnable()
+    {
+        _agent.isStopped = false;
         Moved?.Invoke();
+    }
+
+    private void OnDisable()
+    {
+        _agent.isStopped = true;
     }
 
     private void Update()

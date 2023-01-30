@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Zombie))]
@@ -6,6 +7,7 @@ public class MoveTransition : Transition
 {
     private Zombie _zombie;
     private SpawningZombie _spawning;
+    private bool _isSpawned;
 
     private void Awake()
     {
@@ -24,21 +26,25 @@ public class MoveTransition : Transition
         _spawning.Spawned += OnSpawned;
     }
 
-    private void Update()//Если до этого был удар
+    private void Update()
     {
-        //Vector3 targetPosition = _zombie.TargetPosition;
+        if (_isSpawned == false)
+            return;
 
-        //if (targetPosition == null)
-        //    return;
+        Vector3 targetPosition = _zombie.TargetPosition;
 
-        //float distance = Vector3.Distance(targetPosition, transform.position);
+        if (targetPosition == null)
+            return;
 
-        //if (distance > _zombie.Options.AttackDistance)
-        //    Transit();
+        float distance = Vector3.Distance(targetPosition, transform.position);
+
+        if (distance > _zombie.Options.AttackDistance)
+            Transit();
     }
 
     private void OnSpawned()
     {
+        _isSpawned = true;
         Transit();
     }
 
