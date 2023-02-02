@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 public class DamageHandler : MonoBehaviour
@@ -11,6 +12,8 @@ public class DamageHandler : MonoBehaviour
     private IDamageable _damageable;
 
     public Collider Collider { get; private set; }
+
+    public event UnityAction<DamageHandlerType> HitTaken;
 
     private void Start()
     {
@@ -33,11 +36,12 @@ public class DamageHandler : MonoBehaviour
         if (_type == DamageHandlerType.Head)
             damage *= _headDamageMultiplier;
 
+        HitTaken?.Invoke(_type);
         _damageable.TakeDamage(damage, contactPoint);
     }
 }
 
-enum DamageHandlerType
+public enum DamageHandlerType
 {
     Body,
     Head

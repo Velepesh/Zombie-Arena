@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StateMachine : MonoBehaviour
+public class StateMachine : MonoCache
 {
     [SerializeField] private State _firstState;
 
@@ -9,12 +9,16 @@ public class StateMachine : MonoBehaviour
 
     public State Current => _currentState;
 
+    private void OnEnable() => AddUpdate();
+
+    private void OnDisable() => RemoveUpdate();
+
     private void Start()
     {
         Reset(_firstState);
     }
 
-    private void Update()
+    public override void OnTick()
     {
         if (_currentState == null)
             return;

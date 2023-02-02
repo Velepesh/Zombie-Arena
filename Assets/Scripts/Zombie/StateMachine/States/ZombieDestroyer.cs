@@ -14,12 +14,15 @@ public class ZombieDestroyer : State
         _undergroundSpeed = Mathf.Clamp(_undergroundSpeed, 0f, float.MaxValue);
     }
 
-    private void Start()
+    private void OnEnable()
     {
+        AddUpdate();
         StartCoroutine(DelayBeforeMove());
     }
 
-    private void Update()
+    private void OnDisable() => RemoveUpdate();
+
+    public override void OnTick()
     {
         if (_isMovingDown == false)
             return;
@@ -28,6 +31,8 @@ public class ZombieDestroyer : State
             MoveDown();
         else
             DestroyZombie();
+
+        _time -= Time.deltaTime;
     }
 
     private IEnumerator DelayBeforeMove()
@@ -39,14 +44,8 @@ public class ZombieDestroyer : State
 
     private void MoveDown()
     {
-        _time -= Time.deltaTime;
-
         transform.Translate(Vector3.down * _undergroundSpeed * Time.deltaTime);
     }
 
-
-    private void DestroyZombie()//ObjectPool???
-    {
-        Destroy(gameObject);
-    }
+    private void DestroyZombie() => gameObject.SetActive(false);
 }

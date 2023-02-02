@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class State : MonoBehaviour
+public class State : MonoCache
 {
     [SerializeField] private List<Transition> _transitions;
 

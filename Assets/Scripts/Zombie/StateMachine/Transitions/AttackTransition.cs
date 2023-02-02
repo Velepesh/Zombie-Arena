@@ -1,21 +1,28 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Zombie))]
+[RequireComponent(typeof(NavAgentEnabler))]
 public class AttackTransition : Transition
 {
     private Zombie _zombie;
+    private NavAgentEnabler _agent;
 
     private void Awake()
     {
         _zombie = GetComponent<Zombie>();
+        _agent = GetComponent<NavAgentEnabler>();
     }
 
     private void OnEnable()
     {
         NeedTransit = false;
+        AddUpdate();
     }
 
-    private void Update()//Здесь проверяется только расстояние
+    private void OnDisable() => RemoveUpdate();
+
+    public override void OnTick()
     {  
         Vector3 targetPosition = _zombie.TargetPosition;
 
@@ -31,5 +38,6 @@ public class AttackTransition : Transition
     private void Transit()
     {
         NeedTransit = true;
+        _agent.StopAgent();
     }
 }

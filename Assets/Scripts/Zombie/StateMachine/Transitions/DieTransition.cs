@@ -2,16 +2,16 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(Zombie))]
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavAgentEnabler))]
 public class DieTransition : Transition
 {
     private Zombie _zombie;
-    private NavMeshAgent _agent;
+    private NavAgentEnabler _agent;
 
     private void Awake()
     {
         _zombie = GetComponent<Zombie>();
-        _agent = GetComponent<NavMeshAgent>();
+        _agent = GetComponent<NavAgentEnabler>();
     }
 
     private void OnEnable()
@@ -26,7 +26,7 @@ public class DieTransition : Transition
 
     private void OnDied(IDamageable damageable)
     {
-        _agent.enabled = false;
+        _agent.DisableAgent();
         NeedTransit = true;
     }
 }
