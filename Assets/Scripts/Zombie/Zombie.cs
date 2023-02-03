@@ -9,11 +9,13 @@ public class Zombie : MonoBehaviour, IDamageable
     [SerializeField] private ZombieType _type;
 
     private ITarget _target;
+    private DamageHandlerType _lastDamageHandlerType;
     private Vector3 _contactPosition;
     private DamageHandler[] _damageHandlers = new DamageHandler[] { };
 
     public ZombieOptions Options => _options;
     public ZombieType Type => _type;
+    public DamageHandlerType LastDamageHandlerType => _lastDamageHandlerType;
     public bool IsDied => _health.Value <= 0;
 
     public Health Health => _health;
@@ -75,6 +77,7 @@ public class Zombie : MonoBehaviour, IDamageable
 
     private void OnHitTaken(DamageHandlerType type)
     {
+        _lastDamageHandlerType = type;
         HitTaken?.Invoke(type);
     }
 }

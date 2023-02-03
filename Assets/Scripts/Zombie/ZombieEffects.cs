@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Zombie))]
 public class ZombieEffects : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _bloodShowerEffect;
     [SerializeField] private ParticleSystem _spawnEffect;
     [SerializeField] private ParticleSystem _dieEffect;
     [SerializeField] private Vector3 _spawnOffset;
@@ -38,7 +39,10 @@ public class ZombieEffects : MonoBehaviour
 
     private void OnDied(IDamageable damageable)
     {
-        StartCoroutine(ShowDieEffect());
+        if (_zombie.LastDamageHandlerType == DamageHandlerType.Head)
+            PlayBloodShowerEffect();
+
+        StartCoroutine(ShowDieSpanEffect());
     }
 
     private void ShowSpawnEffect()
@@ -46,10 +50,15 @@ public class ZombieEffects : MonoBehaviour
         Instantiate(_spawnEffect.gameObject, transform.position + _spawnOffset, Quaternion.identity);
     }
 
-    private IEnumerator ShowDieEffect()
+    private IEnumerator ShowDieSpanEffect()
     {
         yield return new WaitForSeconds(_delayBeforeDieEffect);
 
         Instantiate(_dieEffect.gameObject, transform.position + _spawnOffset, Quaternion.identity);
+    }
+
+    private void PlayBloodShowerEffect()
+    {
+        _bloodShowerEffect.Play();
     }
 }

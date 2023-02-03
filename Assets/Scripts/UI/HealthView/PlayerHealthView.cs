@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerHealthView : HealthView//Добавить анимацию текста, менять цвет здоровья
+public class PlayerHealthView : HealthView
 {
     [SerializeField] private Player _player;
     [SerializeField] private TextScaleAnimation _textScaleAnimation;

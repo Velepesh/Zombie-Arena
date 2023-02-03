@@ -5,9 +5,14 @@ using UnityEngine.UI;
 public abstract class HealthView : MonoBehaviour
 { 
     [SerializeField] private Slider _slider;
-    [SerializeField] private float _speed;
+    [SerializeField] private float _duration;
 
     private int _currentHealth;
+
+    private void OnValidate()
+    {
+        _duration = Mathf.Clamp(_duration, 0f, float.MaxValue);
+    }
 
     protected Slider Slider => _slider;
 
@@ -28,7 +33,7 @@ public abstract class HealthView : MonoBehaviour
 
     protected void ChangeSliderValue()
     {
-        _slider.DOValue(_currentHealth, _speed);
+        _slider.DOValue(_currentHealth, _duration);
     }
 
     protected void SetHealth(int health)
