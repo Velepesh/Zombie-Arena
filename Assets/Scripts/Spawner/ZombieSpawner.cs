@@ -21,6 +21,7 @@ public class ZombieSpawner : ObjectPool
 
     public event UnityAction HeadshotReceived;
     public event UnityAction BodyshotReceived;
+    public event UnityAction<Zombie> ZombieDied;
 
     private void OnEnable() => AddUpdate();
 
@@ -143,6 +144,7 @@ public class ZombieSpawner : ObjectPool
     {
         if (damageable is Zombie zombie)
         {
+            ZombieDied?.Invoke(zombie);
             zombie.Died -= OnDied;
             zombie.HitTaken -= OnHitTaken;
             _zombies.Remove(zombie);

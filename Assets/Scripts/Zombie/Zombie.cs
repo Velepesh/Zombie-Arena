@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Zombie : MonoBehaviour, IDamageable
+public class Zombie : MonoBehaviour, IDamageable//Bool что было попадание в голову, в скор обращается спавнер при смерти зомби
 {
     [SerializeField] private Health _health;
     [SerializeField] private ZombieOptions _options;
@@ -9,14 +9,14 @@ public class Zombie : MonoBehaviour, IDamageable
     [SerializeField] private ZombieType _type;
 
     private ITarget _target;
-    private DamageHandlerType _lastDamageHandlerType;
     private Vector3 _contactPosition;
     private DamageHandler[] _damageHandlers = new DamageHandler[] { };
 
     public ZombieOptions Options => _options;
     public ZombieType Type => _type;
-    public DamageHandlerType LastDamageHandlerType => _lastDamageHandlerType;
     public bool IsDied => _health.Value <= 0;
+    public DamageHandlerType LastDamageHandlerType { get; private set; }
+    public bool WasHeadHit { get; private set; }
 
     public Health Health => _health;
     public Vector3 TargetPosition => _target.Position;
@@ -77,7 +77,10 @@ public class Zombie : MonoBehaviour, IDamageable
 
     private void OnHitTaken(DamageHandlerType type)
     {
-        _lastDamageHandlerType = type;
+        if (type == DamageHandlerType.Head)
+            WasHeadHit = true;
+
+        LastDamageHandlerType = type;
         HitTaken?.Invoke(type);
     }
 }
