@@ -1,3 +1,4 @@
+using DG.DemiLib.External;
 using DG.Tweening;
 using System.Collections;
 using TMPro;
@@ -13,6 +14,7 @@ public class AnimatedScoreView : MonoBehaviour
     [SerializeField] private TMP_Text _addedScoreText;
     [SerializeField] private TMP_Text _totalScoreText;
     [SerializeField] private Canvas _copyOfMainCanvas;
+    [SerializeField] private CanvasGroup _canvasGroup;
 
 
     private void OnValidate()
@@ -39,7 +41,8 @@ public class AnimatedScoreView : MonoBehaviour
 
     private void PlayAnimation()
     {
-        FadeText(1);
+        FadeText(_moveDuration);
+       
         MoveText();
     }
 
@@ -52,7 +55,7 @@ public class AnimatedScoreView : MonoBehaviour
 
     private void FadeText(float duration = 0)
     {
-        _addedScoreText.DOFade(0, duration);
+        _canvasGroup.DOFade(0, duration);
     }
 
     private IEnumerator AddScore(int addedScore, int totalScore)
@@ -70,6 +73,6 @@ public class AnimatedScoreView : MonoBehaviour
     {
         _addedScoreText.text = score.ToString();
         _addedScoreText.rectTransform.position = _spawnPoint.position;
-        _addedScoreText.DOFade(255, _startAppeareDuration);
+        _canvasGroup.DOFade(255, _startAppeareDuration);
     }
 }
