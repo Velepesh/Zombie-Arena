@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
@@ -8,23 +6,22 @@ public class SpawnPoint : MonoBehaviour
 
     public bool CanSpawn => _zombie == null;
     public Vector3 Position => transform.position;
-
     private void OnDisable()
     {
         if (_zombie != null)
-            _zombie.Died -= OnDied;
+            _zombie.Spawned -= OnSpawned;
     }
 
     public void Init(Zombie zombie)
     {
         _zombie = zombie;
-        _zombie.Died += OnDied;
+        _zombie.Spawned += OnSpawned;
     }
 
 
-    private void OnDied(IDamageable damageable)
+    private void OnSpawned(Zombie zombie)
     {
-        _zombie.Died -= OnDied;
+        _zombie.Spawned -= OnSpawned;
         _zombie = null;
     }
 }

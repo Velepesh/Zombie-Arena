@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,16 +11,19 @@ public class ZombieSpawner : ObjectPool
     [SerializeField] private bool _isSpawnWhenStart;
 
     private Wave _currentWave;
-    private int _currentWaveNumber = 0;
     private float _timeAfterLastSpawn;
     private int _spawned;
     private List<Zombie> _zombies = new List<Zombie>();
     private bool _isAllEnemiesDied => _zombies.Count == 0;
     private ITarget _target;
 
+    public int CurrentWaveNumber { get; private set; }
+    public int ZombiesNumberInWave => _currentWave.Count;
+
     public event UnityAction HeadshotReceived;
     public event UnityAction BodyshotReceived;
     public event UnityAction<Zombie> ZombieDied;
+    public event UnityAction<int> WaveSetted;
 
     private void OnEnable() => AddUpdate();
 
@@ -78,7 +80,8 @@ public class ZombieSpawner : ObjectPool
 
     private void OnLevelStarted()
     {
-        SetWave(_currentWaveNumber);
+        StartGenerate();
+        SetWave(CurrentWaveNumber);
 
         if(_isSpawnWhenStart)
             _timeAfterLastSpawn = _currentWave.Delay - 1;
@@ -130,13 +133,13 @@ public class ZombieSpawner : ObjectPool
     {
         _currentWave = _waves[index];
 
-        StartGenerate();
+        WaveSetted?.Invoke(index + 1);
     }
 
     private void NextWave()
     {
         _zombies = new List<Zombie>();
-        SetWave(++_currentWaveNumber);
+        SetWave(++CurrentWaveNumber);
         _spawned = 0;
     }
 
@@ -149,7 +152,7 @@ public class ZombieSpawner : ObjectPool
             zombie.HitTaken -= OnHitTaken;
             _zombies.Remove(zombie);
 
-            TrySpawnNexWave();
+            TrySpawnNextWave();
         }
     }
 
@@ -167,11 +170,11 @@ public class ZombieSpawner : ObjectPool
         damageable.Died -= OnPlayerDied;  
     }
 
-    private void TrySpawnNexWave()
+    private void TrySpawnNextWave()
     {
         if (_isAllEnemiesDied)
         {
-            if (_waves.Count > _currentWaveNumber + 1)
+            if (_waves.Count > CurrentWaveNumber + 1)
                 NextWave();
         }
     }

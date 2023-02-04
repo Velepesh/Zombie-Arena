@@ -22,12 +22,14 @@ public class Zombie : MonoBehaviour, IDamageable//Bool что было попадание в голо
     public Vector3 TargetPosition => _target.Position;
     public Vector3 ContactPosition => _contactPosition;
 
+    public event UnityAction<Zombie> Spawned;
     public event UnityAction<IDamageable> Died;
     public event UnityAction<DamageHandlerType> HitTaken;
 
     private void Start()
     {
         InitDamageHandler();
+        Spawned?.Invoke(this);
     }
 
     private void OnDisable()

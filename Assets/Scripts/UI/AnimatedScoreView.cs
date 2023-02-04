@@ -1,4 +1,3 @@
-using DG.DemiLib.External;
 using DG.Tweening;
 using System.Collections;
 using TMPro;
@@ -24,11 +23,6 @@ public class AnimatedScoreView : MonoBehaviour
         _moveDuration = Mathf.Clamp(_moveDuration, 0f, float.MaxValue);
     }
 
-    private void Start()
-    {
-        FadeText();
-    }
-
     public void SetScoreValue(int value)
     {
         _totalScoreText.text = value.ToString();
@@ -41,8 +35,7 @@ public class AnimatedScoreView : MonoBehaviour
 
     private void PlayAnimation()
     {
-        FadeText(_moveDuration);
-       
+        FadeText();
         MoveText();
     }
 
@@ -53,9 +46,9 @@ public class AnimatedScoreView : MonoBehaviour
         _addedScoreText.rectTransform.DOAnchorPos(finalPosition, _moveDuration);
     }
 
-    private void FadeText(float duration = 0)
+    private void FadeText()
     {
-        _canvasGroup.DOFade(0, duration);
+        _canvasGroup.DOFade(0, _moveDuration);
     }
 
     private IEnumerator AddScore(int addedScore, int totalScore)
@@ -73,6 +66,6 @@ public class AnimatedScoreView : MonoBehaviour
     {
         _addedScoreText.text = score.ToString();
         _addedScoreText.rectTransform.position = _spawnPoint.position;
-        _canvasGroup.DOFade(255, _startAppeareDuration);
+        _canvasGroup.DOFade(1, _startAppeareDuration);
     }
 }
