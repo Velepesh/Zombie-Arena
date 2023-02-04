@@ -559,16 +559,19 @@ namespace InfimaGames.LowPolyShooterPack
 		/// <returns></returns>
 		private bool CanRun()
 		{
-			//Block.
-			//if (inspecting)
-			//	return false;
+            //Block.
+            //if (inspecting)
+            //	return false;
 
-			//Block.
-			if (reloading || aiming)
-				return false;
+            //Block.
+            //if (reloading || aiming)
+            //	return false;
 
-			//While trying to fire, we don't want to run. We do this just in case we do fire.
-			if (holdingButtonFire && equippedWeapon.HasAmmunition())
+            if (aiming)
+            	return false;
+
+            //While trying to fire, we don't want to run. We do this just in case we do fire.
+            if (holdingButtonFire && equippedWeapon.HasAmmunition())
 				return false;
 
 			//This blocks running backwards, or while fully moving sideways.
