@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 public class bl_HudDamageManager : MonoBehaviour {
-
+    [SerializeField] private Player _player;
     [Header("Settings")]
     [Range(0,10)]
     [SerializeField]private float DelayFade = 0.25f;
@@ -62,8 +62,8 @@ public class bl_HudDamageManager : MonoBehaviour {
     /// </summary>
     void OnEnable()
     {
-        bl_DamageDelegate.OnDamageEvent += OnDamage;
-        bl_DamageDelegate.OnDieEvent += OnDie;
+        _player.Health.HealthChanged += OnDamage;
+        _player.Died += OnDie;
     }
 
     /// <summary>
@@ -71,34 +71,29 @@ public class bl_HudDamageManager : MonoBehaviour {
     /// </summary>
     void OnDisable()
     {
-        bl_DamageDelegate.OnDamageEvent -= OnDamage;
-        bl_DamageDelegate.OnDieEvent -= OnDie;
+        _player.Health.HealthChanged -= OnDamage;
+        _player.Died -= OnDie;
     }
 
-    /// <summary>
-    /// This is called by event delegate
-    /// sure to call when player receive the damage.
-    /// </summary>
-    void OnDamage(bl_DamageInfo info)
+    void OnDamage(int health)
     {
-        //Calculate health
-        Health -= info.Damage;
         //Calculate the diference in health for apply to the alpha.
-        Alpha = (MaxHealth - Health) / 100;
+        Alpha = (_player.Health.StartValue - health) / 100;
         //Ensure that alpha is never less than the minimum allowed
         Alpha = Mathf.Clamp(Alpha, MinAlpha, 1);
         //Update delay
         NextDelay = Time.time + DelayFade;
-        if (AnimateHealthInfo) { HealthInfoControll(); }
-        if (useShake && ShakeObject != null) { StopAllCoroutines(); StartCoroutine(Shake()); }
+        if (AnimateHealthInfo)
+            HealthInfoControll();
+
+        if (useShake && ShakeObject != null) 
+        { 
+            StopAllCoroutines(); 
+            StartCoroutine(Shake()); 
+        }
     }
 
-    /// <summary>
-    /// Call by event delegate (OnDie)
-    /// send the event when the player die.
-    /// see the example bl_DamageCallbak as reference of usage.
-    /// </summary>
-    void OnDie()
+    void OnDie(IDamageable damageable)
     {
         //Active the death hud.
         DeathHUD.SetActive(true);
@@ -149,9 +144,6 @@ public class bl_HudDamageManager : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     void HealthHUDControll()
     {
         if(HealthSlider != null)
@@ -201,37 +193,7 @@ public class bl_HudDamageManager : MonoBehaviour {
         ShakeObject.localPosition = originPosition;
         ShakeObject.localRotation = originRotation;
     }
+    public float BloodFadeSpeed { get; set; }
 
-    /// <summary>
-    /// Simple restart 
-    /// this is not requiered to use in your project.
-    /// </summary>
-    public void Restart()
-    {
-        Application.LoadLevel(Application.loadedLevel);
-    }
-
-    public float BloodFadeSpeed 
-    {
-        get
-        {
-           return FadeSpeed;
-        }
-        set
-        {
-            FadeSpeed = value;
-        }
-    }
-
-    public float FadeDelay
-    {
-        get
-        {
-            return DelayFade;
-        }
-        set
-        {
-            DelayFade = value;
-        }
-    }
+    public float FadeDelay { get; set; }
 }

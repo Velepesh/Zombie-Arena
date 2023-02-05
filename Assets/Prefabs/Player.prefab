@@ -1297,6 +1297,7 @@ GameObject:
   - component: {fileID: 1417976346489068231}
   - component: {fileID: 3638575202224195758}
   - component: {fileID: 8894583623962674792}
+  - component: {fileID: 1807145722}
   m_Layer: 9
   m_Name: Camera
   m_TagString: MainCamera
@@ -1330,7 +1331,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.5295123, g: 0.5950793, b: 0.6981132, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1455,6 +1456,22 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &1807145722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4866714269393325735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29605f3ea8b3ece41b8ca4e9590074d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 3604038819872217665}
+  _shakeDecay: 0.0035
+  _shakeIntensity: 0.05
+  _shakeAmount: 0.2
 --- !u!1 &4940205775997520849
 GameObject:
   m_ObjectHideFlags: 0
@@ -2017,9 +2034,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7304872515596049584}
   serializedVersion: 2
-  m_Mass: 5
-  m_Drag: 1
-  m_AngularDrag: 1
+  m_Mass: 10
+  m_Drag: 0
+  m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
@@ -3618,13 +3635,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6046589879588722185, guid: 9482e0a2ae6a92742bbe72e00f29f763,
         type: 3}
+      propertyPath: spread
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6046589879588722185, guid: 9482e0a2ae6a92742bbe72e00f29f763,
+        type: 3}
       propertyPath: _duration
       value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 6046589879588722185, guid: 9482e0a2ae6a92742bbe72e00f29f763,
         type: 3}
+      propertyPath: automatic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6046589879588722185, guid: 9482e0a2ae6a92742bbe72e00f29f763,
+        type: 3}
       propertyPath: _recoilDivision
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6046589879588722185, guid: 9482e0a2ae6a92742bbe72e00f29f763,
+        type: 3}
+      propertyPath: roundsPerMinutes
+      value: 130
       objectReference: {fileID: 0}
     - target: {fileID: 6046589879588722185, guid: 9482e0a2ae6a92742bbe72e00f29f763,
         type: 3}

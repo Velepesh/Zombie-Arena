@@ -168,7 +168,7 @@ namespace InfimaGames.LowPolyShooterPack
 		#region CONSTANTS
 
 		/// <summary>
-		/// Aiming Alpha Value.
+		/// Aiming _alpha Value.
 		/// </summary>
 		private static readonly int HashAimingAlpha = Animator.StringToHash("Aiming");
 
