@@ -504,10 +504,11 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Block.
 			if (reloading)
-				return false;
+				AnimationEndedReload();
 
-			//Block.
-			if (inspecting)
+
+            //Block.
+            if (inspecting)
                 AnimationEndedInspect();
 
             //Return.
@@ -559,14 +560,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// <returns></returns>
 		private bool CanRun()
 		{
-            //Block.
-            //if (inspecting)
-            //	return false;
-
-            //Block.
-            //if (reloading || aiming)
-            //	return false;
-
             if (aiming)
             	return false;
 
@@ -634,10 +627,12 @@ namespace InfimaGames.LowPolyShooterPack
 					break;
 			}
 		}
-		/// <summary>
-		/// Reload.
-		/// </summary>
-		public void OnTryPlayReload(InputAction.CallbackContext context)
+
+		public override bool IsReloading() => reloading;
+        /// <summary>
+        /// Reload.
+        /// </summary>
+        public void OnTryPlayReload(InputAction.CallbackContext context)
 		{
 			//Block while the cursor is unlocked.
 			if (!cursorLocked)

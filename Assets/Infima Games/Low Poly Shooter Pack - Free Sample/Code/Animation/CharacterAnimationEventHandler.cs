@@ -47,7 +47,7 @@ namespace InfimaGames.LowPolyShooterPack
 		private void OnAmmunitionFill(int amount = 0)
 		{
 			//Notify the character.
-			if(playerCharacter != null)
+			if(playerCharacter != null && playerCharacter.IsReloading())
 				playerCharacter.FillAmmunition(amount);
 		}
 		/// <summary>

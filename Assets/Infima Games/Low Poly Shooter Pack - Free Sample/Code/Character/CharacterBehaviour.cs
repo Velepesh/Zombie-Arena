@@ -9,6 +9,7 @@ namespace InfimaGames.LowPolyShooterPack
     /// </summary>
     public abstract class CharacterBehaviour : MonoBehaviour
     {
+        public virtual bool IsReloading() { return false; }
         #region UNITY
 
         /// <summary>
