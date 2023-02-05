@@ -47,8 +47,10 @@ namespace InfimaGames.LowPolyShooterPack
 		private void OnAmmunitionFill(int amount = 0)
 		{
 			//Notify the character.
-			if(playerCharacter != null && playerCharacter.IsReloading())
-				playerCharacter.FillAmmunition(amount);
+			if (playerCharacter != null && playerCharacter.IsReloading())
+			{
+                playerCharacter.FillAmmunition(amount);
+			}
 		}
 		/// <summary>
 		/// Sets the character's knife active value. This function is called from an Animation Event.

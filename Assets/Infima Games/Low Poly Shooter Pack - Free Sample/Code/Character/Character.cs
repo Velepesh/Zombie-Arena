@@ -352,10 +352,15 @@ namespace InfimaGames.LowPolyShooterPack
 			equippedWeapon.Reload();
 		}
 
-		/// <summary>
-		/// Equip Weapon Coroutine.
-		/// </summary>
-		private IEnumerator Equip(int index = 0)
+        private void PlayeDefaultAnimation()
+        {
+            characterAnimator.Play("Default", layerActions, 0.0f);
+        }
+
+        /// <summary>
+        /// Equip Weapon Coroutine.
+        /// </summary>
+        private IEnumerator Equip(int index = 0)
 		{
 			//Only if we're not holstered, holster. If we are already, we don't need to wait.
 			if(!holstered)
@@ -426,8 +431,10 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		private void SetHolstered(bool value = true)
 		{
-			//Update value.
-			holstered = value;
+            //if (reloading)
+                PlayeDefaultAnimation();
+            //Update value.
+            holstered = value;
 			
 			//Update Animator.
 			const string boolName = "Holstered";
@@ -588,6 +595,8 @@ namespace InfimaGames.LowPolyShooterPack
 			if (!cursorLocked)
 				return;
 
+			if (reloading)
+				return;
 			//Switch.
 			switch (context)
 			{
