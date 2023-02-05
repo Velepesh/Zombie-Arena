@@ -5,9 +5,10 @@ using UnityEngine;
 public class ZombieEffects : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _bloodShowerEffect;
-    [SerializeField] private ParticleSystem _spawnEffect;
-    [SerializeField] private ParticleSystem _dieEffect;
-    [SerializeField] private Vector3 _spawnOffset;
+    [SerializeField] private ParticleSystem _spawnSpinZoneEffect;
+    [SerializeField] private ParticleSystem _dieSpinZonEffect;
+    [SerializeField] private ParticleSystem _diePoolEffect;
+    [SerializeField] private Vector3 _spawnSpanZoneOffset;
     [SerializeField] private float _delayBeforeDieEffect;
 
     private Zombie _zombie;
@@ -42,19 +43,20 @@ public class ZombieEffects : MonoBehaviour
         if (_zombie.LastDamageHandlerType == DamageHandlerType.Head)
             PlayBloodShowerEffect();
 
-        StartCoroutine(ShowDieSpanEffect());
+        StartCoroutine(ShowDieEffects());
     }
 
     private void ShowSpawnEffect()
     {
-        Instantiate(_spawnEffect.gameObject, transform.position + _spawnOffset, Quaternion.identity);
+        Instantiate(_spawnSpinZoneEffect.gameObject, transform.position + _spawnSpanZoneOffset, Quaternion.identity);
     }
 
-    private IEnumerator ShowDieSpanEffect()
+    private IEnumerator ShowDieEffects()
     {
         yield return new WaitForSeconds(_delayBeforeDieEffect);
 
-        Instantiate(_dieEffect.gameObject, transform.position + _spawnOffset, Quaternion.identity);
+        _diePoolEffect.Play();
+        Instantiate(_dieSpinZonEffect.gameObject, transform.position + _spawnSpanZoneOffset, Quaternion.identity);
     }
 
     private void PlayBloodShowerEffect()
