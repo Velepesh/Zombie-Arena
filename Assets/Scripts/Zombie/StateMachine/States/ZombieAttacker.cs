@@ -41,7 +41,7 @@ public class ZombieAttacker : State
 
     private void Attack()
     {
-        _attackCollider.Attack();
+        _attackCollider.Attack(_zombie);
         Attacked?.Invoke();
     }
 }

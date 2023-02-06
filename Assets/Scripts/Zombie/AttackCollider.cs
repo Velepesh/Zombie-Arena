@@ -8,6 +8,7 @@ public class AttackCollider : MonoBehaviour
     [SerializeField] private int _damage;
 
     private Collider _collider;
+    private Zombie _zombie;
 
     private void OnValidate()
     {
@@ -20,8 +21,9 @@ public class AttackCollider : MonoBehaviour
         StopAttack();
     }
 
-    public void Attack()
+    public void Attack(Zombie zombie)
     {
+        _zombie = zombie;
         EnableCollider();
     }
 
@@ -42,8 +44,17 @@ public class AttackCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent(out ITarget target))
+        if (other.TryGetComponent(out ITarget target))
+        {
             if (other.TryGetComponent(out IDamageable damageable))
+            {
                 damageable.TakeDamage(_damage, Vector3.zero);
+
+                if (damageable is Player player)
+                {
+                    player.SetAttackingZombie(_zombie);
+                }
+            }
+        }
     }
 }

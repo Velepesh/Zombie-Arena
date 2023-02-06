@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Zombie : MonoBehaviour, IDamageable//Bool что было попадание в голову, в скор обращается спавнер при смерти зомби
+public class Zombie : MonoBehaviour, IDamageable
 {
     [SerializeField] private Health _health;
     [SerializeField] private ZombieOptions _options;

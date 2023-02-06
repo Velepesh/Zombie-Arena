@@ -13,6 +13,7 @@ public class Player : MonoBehaviour, IDamageable, ITarget
     public Vector3 Position => transform.position;
 
     public event UnityAction<IDamageable> Died;
+    public event UnityAction<Zombie> Attacked;
 
     public void TakeDamage(int damage, Vector3 contactPosition)
     {
@@ -20,6 +21,11 @@ public class Player : MonoBehaviour, IDamageable, ITarget
 
         if (IsDied)
             Die();
+    }
+
+    public void SetAttackingZombie(Zombie zombie)
+    {
+        Attacked?.Invoke(zombie);
     }
 
     public void Die()

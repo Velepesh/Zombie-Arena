@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class HudDamageScreen : MonoBehaviour
@@ -9,6 +10,7 @@ public class HudDamageScreen : MonoBehaviour
     [SerializeField] private AnimationCurve _curveFade;
     [SerializeField] private CanvasGroup _canvasGroup;
 
+    private Coroutine _fadeRedScreenJob;
     private float _alpha = 0;
     private float _nextDelay = 0;
 
@@ -28,17 +30,17 @@ public class HudDamageScreen : MonoBehaviour
         _alpha = Mathf.Clamp(_alpha, _minAlpha, 1);
 
         _nextDelay = Time.time + _delayFade;
+
+        if (_fadeRedScreenJob != null)
+            StopCoroutine(_fadeRedScreenJob);
+
+        _fadeRedScreenJob = StartCoroutine(FadeRedScreen());
     }
 
 
-    private void FixedUpdate()
+    private IEnumerator FadeRedScreen()
     {
-        FadeRedScreen();
-    }
-
-    private void FadeRedScreen()
-    {
-        if (_canvasGroup.alpha != _alpha)
+        while (_canvasGroup.alpha != _alpha)
         {
             if (Time.time > _nextDelay && _alpha > 0)
             {
@@ -47,6 +49,8 @@ public class HudDamageScreen : MonoBehaviour
             }
 
             _canvasGroup.alpha = Mathf.Lerp(_canvasGroup.alpha, _alpha, Time.deltaTime * _fadeSpeed);
+
+            yield return null;
         }
     }
 }

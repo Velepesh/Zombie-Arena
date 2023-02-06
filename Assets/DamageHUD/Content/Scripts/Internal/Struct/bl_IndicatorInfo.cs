@@ -16,5 +16,4 @@ public class bl_IndicatorInfo
     {
         Direction = vector;
     }
-
 }

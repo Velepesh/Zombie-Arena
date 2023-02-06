@@ -5902,6 +5902,7 @@ GameObject:
   - component: {fileID: 8638400084924600404}
   - component: {fileID: 8638400084924600403}
   - component: {fileID: 8638400084924600402}
+  - component: {fileID: 2987797872165604900}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Untagged
@@ -5917,7 +5918,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8638400084924600401}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6033,10 +6034,12 @@ MonoBehaviour:
   _health:
     _health: 50
   _options:
+    _maxAward: 0
     _moveSpeed: 3
     _rotationSpeed: 5
     _attackDistance: 1.8
   _score: 50
+  _type: 0
 --- !u!114 &8638400084924600395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6064,9 +6067,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b0116fdd03a3744b95f168b7377e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnEffect: {fileID: 19887274, guid: 9b95de169c5cf5b46b404f6f2bed4afb, type: 3}
-  _dieEffect: {fileID: 19868312, guid: 266d43fb792a34d429dbe3e95f97ec49, type: 3}
-  _spawnOffset: {x: 0, y: 0.05, z: 0}
+  _bloodShowerEffect: {fileID: 0}
+  _spawnSpinZoneEffect: {fileID: 0}
+  _dieSpinZonEffect: {fileID: 0}
+  _diePoolEffect: {fileID: 0}
+  _spawnSpanZoneOffset: {x: 0, y: 0, z: 0}
   _delayBeforeDieEffect: 1
 --- !u!114 &8638400084924600393
 MonoBehaviour:
@@ -6182,6 +6187,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetState: {fileID: 8638400084924600392}
+--- !u!114 &2987797872165604900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8638400084924600401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54a9ffe706c63124bb6a4a52f7b698d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8664849432364941515
 GameObject:
   m_ObjectHideFlags: 0
