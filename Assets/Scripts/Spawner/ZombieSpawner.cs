@@ -15,7 +15,7 @@ public class ZombieSpawner : ObjectPool
     private int _spawned;
     private List<Zombie> _zombies = new List<Zombie>();
     private bool _isAllEnemiesDied => _zombies.Count == 0;
-    private ITarget _target;
+    private ZombieTargets _targets;
 
     public int CurrentWaveNumber { get; private set; }
     public int ZombiesNumberInWave => _currentWave.Count;
@@ -69,12 +69,13 @@ public class ZombieSpawner : ObjectPool
             Init(_templates[i].gameObject);
     }
 
-    public void StartSpawn(ITarget target)
+    public void StartSpawn(ZombieTargets targets)
     {
-        if (target == null)
-            throw new ArgumentNullException(nameof(target));
+        if (targets == null)
+            throw new ArgumentNullException(nameof(targets));
 
-        _target = target;
+        _targets = targets;
+
         OnLevelStarted();
     }
 
@@ -103,7 +104,7 @@ public class ZombieSpawner : ObjectPool
         {
             zombieObject.SetActive(true);
             zombieObject.transform.position = spawnPoint.Position;
-            zombie.Init(_target);
+            zombie.Init(_targets);
             spawnPoint.Init(zombie);
             zombie.Died += OnDied;
             zombie.HitTaken += OnHitTaken;

@@ -994,7 +994,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51083983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0, z: 11.6}
+  m_LocalPosition: {x: -3.45, y: 0, z: 11.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3503,6 +3503,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec359f99037709646a1a187546ca52c6, type: 3}
+--- !u!1 &172212351
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 172212353}
+  - component: {fileID: 172212352}
+  m_Layer: 0
+  m_Name: SpawnPoint_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &172212352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172212351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc46c5fcc6a0049459fa395fb95e0a01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &172212353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172212351}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.7, y: 0, z: 16.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1766793293}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &172866890
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7102,7 +7146,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &450585589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7116,7 +7160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health:
-    _health: 0
+    _health: 100
 --- !u!65 &450585590
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24482,15 +24526,13 @@ MonoBehaviour:
   - Templates:
     - {fileID: 5035928492457674896, guid: 75e2b98df4f0ffd48bb2feac52020867, type: 3}
     - {fileID: 5035928492457674896, guid: 75e2b98df4f0ffd48bb2feac52020867, type: 3}
-    - {fileID: 5035928492457674896, guid: 75e2b98df4f0ffd48bb2feac52020867, type: 3}
-    - {fileID: 5035928492457674896, guid: 75e2b98df4f0ffd48bb2feac52020867, type: 3}
-    - {fileID: 5035928492457674896, guid: 75e2b98df4f0ffd48bb2feac52020867, type: 3}
     Delay: 3
   - Templates:
     - {fileID: 5035928492457674896, guid: 75e2b98df4f0ffd48bb2feac52020867, type: 3}
     Delay: 3
   _spawnPoints:
   - {fileID: 51083984}
+  - {fileID: 172212352}
   _isSpawnWhenStart: 1
 --- !u!4 &1766793293
 Transform:
@@ -24505,6 +24547,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 51083985}
+  - {fileID: 172212353}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

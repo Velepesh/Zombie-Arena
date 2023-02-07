@@ -2,32 +2,33 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerHealthView : HealthView
+public class DamageableHealthView : HealthView
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private MonoBehaviour _damageable;
     [SerializeField] private TextScaleAnimation _textScaleAnimation;
     [SerializeField] private TMP_Text _healthText;
 
+    private IDamageable Damageable => (IDamageable)_damageable;
     private int _startHealth;
 
     public event UnityAction<int, int> HealthChanged;
 
     private void OnEnable()
     {
-        _player.Health.HealthChanged += OnHealthChanged;
-        _startHealth = _player.Health.Value;
+        Damageable.Health.HealthChanged += OnHealthChanged;
+        _startHealth = Damageable.Health.Value;
     }
 
     private void OnDisable()
     {
-        _player.Health.HealthChanged -= OnHealthChanged;
+        Damageable.Health.HealthChanged -= OnHealthChanged;
     }
 
     private void Start()
     {
-        Init(_player);
+        Init(Damageable);
         EnableSlider();
-        ChangeHealthText(_player.Health.Value);
+        ChangeHealthText(Damageable.Health.Value);
     }
 
     private void OnHealthChanged(int health)

@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Experimental.GlobalIllumination;
 
 public class Game : MonoBehaviour
 {
     //[SerializeField] private SceneChanger _sceneChanger;
-    [SerializeField] private Player _player;
-    [SerializeField] private Tower _tower;
+    [SerializeField] private ZombieTargets _targets;
     [SerializeField] private ZombieSpawner _zombieSpawner;
 
     private const string CURRENT_LEVEL_ID = "CurrentLevelID";
@@ -24,20 +20,18 @@ public class Game : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.Died += OnDied;
-        _tower.Died += OnDied;
+        _targets.TargetDied += OnDied;
     }
 
     private void OnDisable()
     {
-        _player.Died -= OnDied;
-        _tower.Died -= OnDied;
+        _targets.TargetDied -= OnDied;
     }
 
     private void Start()
     {
         Application.targetFrameRate = 60;
-        _zombieSpawner.StartSpawn(_player);//—делать логику поиска цели
+        _zombieSpawner.StartSpawn(_targets);//—делать логику поиска цели
         //изначально рандом
         //ѕотом если игрок близко, то его
         //≈сли башн€ близко, а игрок на каком-то рассто€нии, то башню
@@ -63,7 +57,6 @@ public class Game : MonoBehaviour
     public void StartLevel()
     {
         _isPlaying = true;
-        //_zombie.StartLevel();
 
         LevelStarted?.Invoke();
     }

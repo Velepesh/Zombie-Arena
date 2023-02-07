@@ -24,7 +24,7 @@ public class AttackTransition : Transition
 
     public override void OnTick()
     {  
-        Vector3 targetPosition = _zombie.TargetPosition;
+        Vector3 targetPosition = _zombie.CurrentTargetPosition;
 
         if (targetPosition == null)
             return;

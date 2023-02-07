@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class HealthViewColor : MonoBehaviour
 {
-    [SerializeField] private PlayerHealthView _view;
+    [SerializeField] private DamageableHealthView _view;
     [SerializeField] private Image _fillArea;
     [SerializeField] private Color _fullHealthColor;
     [SerializeField] private Color _averageHealthColor;

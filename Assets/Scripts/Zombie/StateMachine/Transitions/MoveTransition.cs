@@ -39,7 +39,7 @@ public class MoveTransition : Transition
         if (_isSpawned == false)
             return;
 
-        Vector3 targetPosition = _zombie.TargetPosition;
+        Vector3 targetPosition = _zombie.CurrentTargetPosition;
 
         if (targetPosition == null)
             return;
