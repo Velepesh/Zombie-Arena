@@ -7689,7 +7689,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
@@ -25374,14 +25374,17 @@ MonoBehaviour:
   _container: {fileID: 1766793291}
   _numberOfEveryTemplate: 10
   _templates:
-  - {fileID: 5035928492457674896, guid: 75e2b98df4f0ffd48bb2feac52020867, type: 3}
+  - {fileID: 6463005642558734763, guid: a02b65d65de9de0449d9b33a794860f3, type: 3}
+  - {fileID: 6981818600854396673, guid: 093ad440958e1e147bf249c375d13eb2, type: 3}
+  - {fileID: 6078061744737966500, guid: ca48b7a4bf1222c4bae83e45aa79362c, type: 3}
+  - {fileID: 1002933756476235599, guid: d26731caa9d4a3f4c80fd1fd06206fff, type: 3}
   _waves:
   - Templates:
-    - {fileID: 6981818600854396673, guid: 093ad440958e1e147bf249c375d13eb2, type: 3}
-    - {fileID: 6981818600854396673, guid: 093ad440958e1e147bf249c375d13eb2, type: 3}
+    - {fileID: 6078061744737966500, guid: ca48b7a4bf1222c4bae83e45aa79362c, type: 3}
+    - {fileID: 6078061744737966500, guid: ca48b7a4bf1222c4bae83e45aa79362c, type: 3}
     Delay: 3
   - Templates:
-    - {fileID: 5035928492457674896, guid: 75e2b98df4f0ffd48bb2feac52020867, type: 3}
+    - {fileID: 6078061744737966500, guid: ca48b7a4bf1222c4bae83e45aa79362c, type: 3}
     Delay: 3
   _spawnPoints:
   - {fileID: 51083984}
@@ -28498,7 +28501,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2029374653 stripped
 Transform:
@@ -31486,7 +31489,7 @@ PrefabInstance:
     - target: {fileID: 7308104344934141714, guid: 726d05d4cef9a3945b38fe9b772456d6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7308104344934141714, guid: 726d05d4cef9a3945b38fe9b772456d6,
         type: 3}
