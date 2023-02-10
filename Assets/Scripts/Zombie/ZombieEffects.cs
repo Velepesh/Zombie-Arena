@@ -55,7 +55,8 @@ public class ZombieEffects : MonoBehaviour
     {
         yield return new WaitForSeconds(_delayBeforeDieEffect);
 
-        _diePoolEffect.Play();
+        //_diePoolEffect.Play();
+        Instantiate(_diePoolEffect.gameObject, transform.position + _spawnSpanZoneOffset, _diePoolEffect.transform.rotation);
         Instantiate(_dieSpinZonEffect.gameObject, transform.position + _spawnSpanZoneOffset, Quaternion.identity);
     }
 
