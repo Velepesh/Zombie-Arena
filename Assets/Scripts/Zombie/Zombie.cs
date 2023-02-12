@@ -46,11 +46,6 @@ public class Zombie : MonoCache, IDamageable
         for (int i = 0; i < _damageHandlers.Length; i++)
             _damageHandlers[i].HitTaken -= OnHitTaken;
     }
-    public event UnityAction Enabled;
-    public void Spawn()
-    {
-        Enabled?.Invoke();
-    }
 
     public void Init(ZombieTargets zombieTargets)
     {

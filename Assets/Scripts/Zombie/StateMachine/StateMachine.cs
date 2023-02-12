@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,14 +15,11 @@ public class StateMachine : MonoCache
 
     private void OnEnable()
     {
-        StartCoroutine(SetStartState());
         AddUpdate();
     }
 
-    private IEnumerator SetStartState()
+    private void Start()
     {
-        Debug.Log("SetStartState");
-        yield return new WaitForSeconds(0.1f);
         SetFirstState();
     }
 
@@ -48,11 +44,6 @@ public class StateMachine : MonoCache
 
         if (nextState != null)
             Transit(nextState);
-    }
-
-    private void OnReseted()
-    {
-     //   Transit(_firstState);
     }
 
     private void Transit(State nextState)

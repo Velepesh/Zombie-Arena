@@ -5,14 +5,12 @@ using UnityEngine.Events;
 
 public class ZombieSpawner : ObjectPool
 {
-    [SerializeField] private List<Zombie> _templates;
     [SerializeField] private List<Wave> _waves;
     [SerializeField] private List<SpawnPoint> _spawnPoints;
-    [SerializeField] private bool _isSpawnWhenStart;
 
     private Wave _currentWave;
     private float _timeAfterLastSpawn;
-    private int _spawned;
+   // private int _spawned;
     private List<Zombie> _zombies = new List<Zombie>();
     private bool _isAllEnemiesDied => _zombies.Count == 0;
     private ZombieTargets _targets;
@@ -50,24 +48,24 @@ public class ZombieSpawner : ObjectPool
 
         if (_timeAfterLastSpawn >= _currentWave.Delay)
         {
-            if (CanSpawn() == false)
+            if (IsSpawnPointEmpty() == false)
                 return;
 
-            if (TryGetObject(out GameObject zombieObject, _currentWave.Templates[_spawned].Type))
+            if (TryGetObject(out GameObject zombieObject))
             {
                 Spawn(zombieObject);
                 _timeAfterLastSpawn = 0;
             }
         }
 
-        if (_currentWave.Count <= _spawned)
-            _currentWave = null;
+        //if (_currentWave.Count <= _spawned)
+        //    _currentWave = null;
     }
 
     public override void StartGenerate()
     {
-        for (int i = 0; i < _templates.Count; i++)
-            Init(_templates[i].gameObject);
+        for (int i = 0; i < _currentWave.Count; i++)
+            Init(_currentWave.Templates[i].gameObject);
     }
 
     public void StartSpawn(ZombieTargets targets)
@@ -82,11 +80,9 @@ public class ZombieSpawner : ObjectPool
 
     private void OnLevelStarted()
     {
-        StartGenerate();
         SetWave(CurrentWaveNumber);
 
-        if(_isSpawnWhenStart)
-            _timeAfterLastSpawn = _currentWave.Delay - 1;
+        _timeAfterLastSpawn = _currentWave.Delay - 1;
     }
 
     private void StopSpawn()
@@ -104,17 +100,14 @@ public class ZombieSpawner : ObjectPool
         if (zombieObject.TryGetComponent(out Zombie zombie))
         {
             zombieObject.SetActive(true);
-            Debug.Log(zombieObject.name);//////////////////////////////////
             zombieObject.transform.position = spawnPoint.Position;
             spawnPoint.Init(zombie);
             zombie.Init(_targets);
             zombie.Died += OnDied;
             zombie.Disabled += OnDisabled;
             zombie.HitTaken += OnHitTaken;
-            zombie.Spawn();
             _zombies.Add(zombie);
-
-            _spawned++;
+           // _spawned++;
         }
     }
 
@@ -123,7 +116,7 @@ public class ZombieSpawner : ObjectPool
         return _spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Count)];
     }
 
-    private bool CanSpawn()
+    private bool IsSpawnPointEmpty()
     {
         for (int i = 0; i < _spawnPoints.Count; i++)
         {
@@ -137,6 +130,7 @@ public class ZombieSpawner : ObjectPool
     private void SetWave(int index)
     {
         _currentWave = _waves[index];
+        StartGenerate();
 
         WaveSetted?.Invoke(index + 1);
     }
@@ -145,7 +139,7 @@ public class ZombieSpawner : ObjectPool
     {
         _zombies = new List<Zombie>();
         SetWave(++CurrentWaveNumber);
-        _spawned = 0;
+        //_spawned = 0;
     }
 
     private void OnDied(IDamageable damageable)

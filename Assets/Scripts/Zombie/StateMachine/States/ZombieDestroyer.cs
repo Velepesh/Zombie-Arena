@@ -66,13 +66,6 @@ public class ZombieDestroyer : State
 
     private void DestroyZombie()
     {
-        _zombie.Health.RestoreHealth();
-        _navAgent.EnableAgent();
-        _meshChanger.WearStandartMesh();
-        _stateMachine.ResetTargetState();
-        Debug.Log("DestroyZombie");
         _zombie.DisableZombie();
-        Exit();
-       // Destroyed?.Invoke();
     }
 }

@@ -19,7 +19,6 @@ public class MoveTransition : Transition
         AddUpdate();
        
         NeedTransit = false;
-        _isSpawned = false;
         EnableNavMeshAgent();
 
         _zombie.Spawned += OnSpawned;

@@ -5,14 +5,8 @@ using UnityEngine;
 public abstract class ObjectPool : MonoCache
 {
     [SerializeField] private GameObject _container;
-    [SerializeField] private int _numberOfEveryTemplate;
 
     private List<GameObject> _pool = new List<GameObject>();
-
-    private void OnValidate()
-    {
-        _numberOfEveryTemplate = Mathf.Clamp(_numberOfEveryTemplate, 0, int.MaxValue);
-    }
 
     public abstract void StartGenerate();
 
@@ -24,18 +18,15 @@ public abstract class ObjectPool : MonoCache
 
     protected void Init(GameObject prefab)
     {
-        for (int i = 0; i < _numberOfEveryTemplate; i++)
-        {
-            GameObject spawned = Instantiate(prefab, _container.transform);
-            spawned.SetActive(false);
+        GameObject spawned = Instantiate(prefab, _container.transform);
+        spawned.SetActive(false);
 
-            _pool.Add(spawned);
-        }
+        _pool.Add(spawned);
     }
 
-    protected bool TryGetObject(out GameObject result, ZombieType type)
+    protected bool TryGetObject(out GameObject result)
     {
-        result = _pool.FirstOrDefault(p => p.activeSelf == false && p.GetComponent<Zombie>().Type == type);
+        result = _pool.FirstOrDefault(p => p.activeSelf == false);
 
         return result != null;
     }
@@ -57,8 +48,10 @@ public abstract class ObjectPool : MonoCache
 
     protected void DisableObject(GameObject result)
     {
-        if (result.activeSelf == true)
-            result.SetActive(false);
+        //if (result.activeSelf == true)
+        //    result.SetActive(false);
+        _pool.Remove(result);
+        Destroy(result);
     }
 
     public void ResetPool()

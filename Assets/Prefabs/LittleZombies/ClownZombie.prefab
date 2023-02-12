@@ -3536,8 +3536,6 @@ GameObject:
   - component: {fileID: 6981818600854396687}
   - component: {fileID: 6981818600854396684}
   - component: {fileID: 4479845331591587901}
-  - component: {fileID: -1829733533358847087}
-  - component: {fileID: -5536239470609598402}
   m_Layer: 0
   m_Name: ClownZombie
   m_TagString: Untagged
@@ -3752,8 +3750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d1eddcda8ab544890d4914689a9e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitions:
-  - {fileID: -1829733533358847087}
+  _transitions: []
   _undergroundSpeed: 0.15
   _time: 5
   _delayBeforMoving: 3
@@ -3822,32 +3819,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _standartMesh: {fileID: 4933132116703200821}
   _withoutHeadMesh: {fileID: 2168931971720714382}
---- !u!114 &-1829733533358847087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6981818600854396685}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec0a867ba0aa65648a0680a934413076, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetState: {fileID: -5536239470609598402}
---- !u!114 &-5536239470609598402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6981818600854396685}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba0f743327367314499310580d29e0a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transitions: []
 --- !u!1 &7032952891194585820
 GameObject:
   m_ObjectHideFlags: 0
