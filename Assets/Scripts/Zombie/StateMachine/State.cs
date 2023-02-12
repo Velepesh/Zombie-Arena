@@ -5,26 +5,16 @@ public class State : MonoCache
 {
     [SerializeField] private List<Transition> _transitions;
 
-    protected ITarget Target { get; private set; }
-
-    public void Enter(ITarget target)
+    public void Enter()
     {
         if (enabled == false)
         {
-            Target = target;
             enabled = true;
 
             foreach (var transition in _transitions)
             {
                 transition.enabled = true;
-                transition.Init(target);
             }
-        }
-
-        foreach (var transition in _transitions)
-        {
-            transition.enabled = true;
-            transition.Init(target);
         }
     }
 

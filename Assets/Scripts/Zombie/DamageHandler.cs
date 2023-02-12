@@ -30,14 +30,17 @@ public class DamageHandler : MonoBehaviour
         if (_damageable == null)
             Debug.LogError("Don't Init" + nameof(IDamageable));
 
-        if (damage <= 0)
-            throw new ArgumentException(nameof(damage));
+        if (_damageable.Health.Value > 0)
+        {
+            if (damage <= 0)
+                throw new ArgumentException(nameof(damage));
 
-        if (_type == DamageHandlerType.Head)
-            damage *= _headDamageMultiplier;
+            if (_type == DamageHandlerType.Head)
+                damage *= _headDamageMultiplier;
 
-        HitTaken?.Invoke(_type);
-        _damageable.TakeDamage(damage, contactPoint);
+            HitTaken?.Invoke(_type);
+            _damageable.TakeDamage(damage, contactPoint);
+        }
     }
 }
 

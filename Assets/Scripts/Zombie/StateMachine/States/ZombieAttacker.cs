@@ -24,12 +24,22 @@ public class ZombieAttacker : State
     private void OnDisable()
     {
         RemoveUpdate();
-        _attackCollider.StopAttack();
+        _attackCollider.DisableCollider();
     }
 
     public override void OnTick()
     {
         Rotate();
+    }
+
+    private void OnStartAttackEvent()
+    {
+        _attackCollider.EnableCollider();
+    }
+
+    private void OnEndAttackEvent()
+    {
+        _attackCollider.DisableCollider();
     }
 
     private void Rotate()
@@ -41,7 +51,7 @@ public class ZombieAttacker : State
 
     private void Attack()
     {
-        _attackCollider.Attack(_zombie);
+        _attackCollider.Init(_zombie);
         Attacked?.Invoke();
 
         if (_zombie.CurrentTarget is Tower)

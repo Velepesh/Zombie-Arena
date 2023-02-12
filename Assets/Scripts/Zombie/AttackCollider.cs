@@ -18,28 +18,22 @@ public class AttackCollider : MonoBehaviour
     private void Awake()
     {
         _collider = GetComponent<Collider>();
-        StopAttack();
-    }
-
-    public void Attack(Zombie zombie)
-    {
-        _zombie = zombie;
-        EnableCollider();
-    }
-
-    public void StopAttack()
-    {
         DisableCollider();
     }
 
-    private void EnableCollider()
+    public void Init(Zombie zombie)
     {
-        _collider.enabled = true;
+        _zombie = zombie;
     }
 
-    private void DisableCollider()
+    public void DisableCollider()
     {
         _collider.enabled = false;
+    }
+
+    public void EnableCollider()
+    {
+        _collider.enabled = true;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -1,5 +1,7 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ZombieDestroyer : State
 {
@@ -7,15 +9,30 @@ public class ZombieDestroyer : State
     [SerializeField] private float _time;
     [SerializeField] private float _delayBeforMoving;
 
-    private bool _isMovingDown = false;
+    private Zombie _zombie;
+    private NavAgentEnabler _navAgent;
+    private MeshChanger _meshChanger;
+    private StateMachine _stateMachine;
+    private bool _isMovingDown;
+
+    public event UnityAction Destroyed;
 
     private void OnValidate()
     {
         _undergroundSpeed = Mathf.Clamp(_undergroundSpeed, 0f, float.MaxValue);
     }
 
+    private void Awake()
+    {
+        _navAgent = GetComponent<NavAgentEnabler>();
+        _meshChanger = GetComponent<MeshChanger>();
+        _zombie = GetComponent<Zombie>();
+        _stateMachine = GetComponent<StateMachine>();
+    }
+
     private void OnEnable()
     {
+        _isMovingDown = false;
         AddUpdate();
         StartCoroutine(DelayBeforeMove());
     }
@@ -47,5 +64,15 @@ public class ZombieDestroyer : State
         transform.Translate(Vector3.down * _undergroundSpeed * Time.deltaTime);
     }
 
-    private void DestroyZombie() => gameObject.SetActive(false);
+    private void DestroyZombie()
+    {
+        _zombie.Health.RestoreHealth();
+        _navAgent.EnableAgent();
+        _meshChanger.WearStandartMesh();
+        _stateMachine.ResetTargetState();
+        Debug.Log("DestroyZombie");
+        _zombie.DisableZombie();
+        Exit();
+       // Destroyed?.Invoke();
+    }
 }

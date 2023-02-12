@@ -1,21 +1,42 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
+[RequireComponent(typeof(Zombie))]
 public class StateMachine : MonoCache
 {
     [SerializeField] private State _firstState;
 
-    private ITarget _target;
     private State _currentState;
 
     public State Current => _currentState;
 
-    private void OnEnable() => AddUpdate();
+    public event UnityAction Enabled;
+
+
+    private void OnEnable()
+    {
+        StartCoroutine(SetStartState());
+        AddUpdate();
+    }
+
+    private IEnumerator SetStartState()
+    {
+        Debug.Log("SetStartState");
+        yield return new WaitForSeconds(0.1f);
+        SetFirstState();
+    }
 
     private void OnDisable() => RemoveUpdate();
 
-    private void Start()
+    public void SetFirstState()
     {
-        Reset(_firstState);
+        Transit(_firstState);
+    }
+
+    public void ResetTargetState()
+    {
+        _currentState = null;
     }
 
     public override void OnTick()
@@ -24,16 +45,14 @@ public class StateMachine : MonoCache
             return;
 
         var nextState = _currentState.GetNextState();
+
         if (nextState != null)
             Transit(nextState);
     }
 
-    private void Reset(State startState)
+    private void OnReseted()
     {
-        _currentState = startState;
-
-        if (_currentState != null)
-            _currentState.Enter(_target);
+     //   Transit(_firstState);
     }
 
     private void Transit(State nextState)
@@ -44,6 +63,6 @@ public class StateMachine : MonoCache
         _currentState = nextState;
 
         if (_currentState != null)
-            _currentState.Enter(_target);
+            _currentState.Enter();
     }
 }

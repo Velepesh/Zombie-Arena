@@ -14,19 +14,15 @@ public class Health
 
     public event UnityAction<int> HealthChanged;
 
+
+    public void SetStartHealth()
+    {
+        _startValue = _health;
+    }
+
     public void RestoreHealth()
     {
         _health = _startValue;
-    }
-
-    public void RemoveHealth(int health)
-    {
-        if (health > _health)
-            _health = 0;
-        else
-            _health -= health;
-
-        HealthChanged?.Invoke(_health);
     }
 
     public void TakeDamage(int damage)

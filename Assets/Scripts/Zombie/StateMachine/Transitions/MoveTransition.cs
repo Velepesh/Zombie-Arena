@@ -1,20 +1,16 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(Zombie))]
-[RequireComponent(typeof(SpawningZombie))]
 [RequireComponent(typeof(NavAgentEnabler))]
 public class MoveTransition : Transition
 {
     private Zombie _zombie;
-    private SpawningZombie _spawning;
     private NavAgentEnabler _agent;
     private bool _isSpawned;
 
     private void Awake()
     {
         _zombie = GetComponent<Zombie>();
-        _spawning = GetComponent<SpawningZombie>();
         _agent = GetComponent<NavAgentEnabler>();
     }
 
@@ -23,15 +19,16 @@ public class MoveTransition : Transition
         AddUpdate();
        
         NeedTransit = false;
+        _isSpawned = false;
         EnableNavMeshAgent();
 
-        _spawning.Spawned += OnSpawned;
+        _zombie.Spawned += OnSpawned;
     }
 
     private void OnDisable()
     {
         RemoveUpdate();
-        _spawning.Spawned -= OnSpawned;
+        _zombie.Spawned -= OnSpawned;
     }
 
     public override void OnTick()
@@ -55,7 +52,7 @@ public class MoveTransition : Transition
         _agent.EnableAgent();
     }
 
-    private void OnSpawned()
+    private void OnSpawned(Zombie zombie)
     {
         _isSpawned = true;
         Transit();

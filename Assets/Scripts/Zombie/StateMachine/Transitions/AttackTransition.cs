@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(Zombie))]
 [RequireComponent(typeof(NavAgentEnabler))]

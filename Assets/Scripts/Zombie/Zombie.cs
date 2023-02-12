@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 using UnityEngine.Events;
 
 public class Zombie : MonoCache, IDamageable
@@ -30,13 +29,15 @@ public class Zombie : MonoCache, IDamageable
     public event UnityAction HeadKilled;
     public event UnityAction<Zombie> Spawned;
     public event UnityAction<IDamageable> Died;
+    public event UnityAction<Zombie> Disabled;
     public event UnityAction<DamageHandlerType> HitTaken;
+
+    private void OnEnable() => AddUpdate();
 
     private void Start()
     {
-        AddUpdate();
         InitDamageHandler();
-        Spawned?.Invoke(this);
+        _health.SetStartHealth();
     }
 
     private void OnDisable()
@@ -44,6 +45,11 @@ public class Zombie : MonoCache, IDamageable
         RemoveUpdate();
         for (int i = 0; i < _damageHandlers.Length; i++)
             _damageHandlers[i].HitTaken -= OnHitTaken;
+    }
+    public event UnityAction Enabled;
+    public void Spawn()
+    {
+        Enabled?.Invoke();
     }
 
     public void Init(ZombieTargets zombieTargets)
@@ -54,16 +60,18 @@ public class Zombie : MonoCache, IDamageable
         _mainTarget = _currentTarget;
     }
 
+    public void EndSpawn()
+    {
+        Spawned?.Invoke(this);
+    }
+
     public void TakeDamage(int damage, Vector3 contactPosition)
     {
         _health.TakeDamage(damage);
         _contactPosition = contactPosition;
 
         if (IsDied)
-        {
-            DisableDamageHendlers();
             Die();
-        }
     }
 
     public override void OnTick()
@@ -98,6 +106,11 @@ public class Zombie : MonoCache, IDamageable
         Died?.Invoke(this);
     }
 
+    public void DisableZombie()
+    {
+        Disabled?.Invoke(this);
+    }
+
     private void InitDamageHandler()
     {
         _damageHandlers = GetComponentsInChildren<DamageHandler>();
@@ -107,12 +120,6 @@ public class Zombie : MonoCache, IDamageable
             _damageHandlers[i].Init(this);
             _damageHandlers[i].HitTaken += OnHitTaken;
         }
-    }
-
-    private void DisableDamageHendlers()
-    {
-        foreach (DamageHandler handler in _damageHandlers)
-            handler.Collider.isTrigger = true;
     }
 
     private void OnHitTaken(DamageHandlerType type)

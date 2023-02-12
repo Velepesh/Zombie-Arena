@@ -35,6 +35,7 @@ public class ZombieSpawner : ObjectPool
         {
             Zombie zombie = _zombies[i];
 
+            zombie.Disabled -= OnDisabled;
             zombie.Died -= OnDied;
             zombie.HitTaken -= OnHitTaken;
         }
@@ -103,11 +104,14 @@ public class ZombieSpawner : ObjectPool
         if (zombieObject.TryGetComponent(out Zombie zombie))
         {
             zombieObject.SetActive(true);
+            Debug.Log(zombieObject.name);//////////////////////////////////
             zombieObject.transform.position = spawnPoint.Position;
-            zombie.Init(_targets);
             spawnPoint.Init(zombie);
+            zombie.Init(_targets);
             zombie.Died += OnDied;
+            zombie.Disabled += OnDisabled;
             zombie.HitTaken += OnHitTaken;
+            zombie.Spawn();
             _zombies.Add(zombie);
 
             _spawned++;
@@ -155,6 +159,12 @@ public class ZombieSpawner : ObjectPool
 
             TrySpawnNextWave();
         }
+    }
+
+    private void OnDisabled(Zombie zombie)
+    {
+        DisableObject(zombie.gameObject);
+        zombie.Disabled -= OnDisabled;
     }
 
     private void OnHitTaken(DamageHandlerType type)

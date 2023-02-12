@@ -16,6 +16,7 @@ public class DieTransition : Transition
 
     private void OnEnable()
     {
+        NeedTransit = false;
         _zombie.Died += OnDied;
     }
 
