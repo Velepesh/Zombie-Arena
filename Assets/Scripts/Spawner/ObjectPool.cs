@@ -18,7 +18,8 @@ public abstract class ObjectPool : MonoCache
 
     protected void Init(GameObject prefab)
     {
-        GameObject spawned = Instantiate(prefab, _container.transform);
+        GameObject spawned = Instantiate(prefab, _container.transform.position, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+        spawned.transform.SetParent(_container.transform);
         spawned.SetActive(false);
 
         _pool.Add(spawned);

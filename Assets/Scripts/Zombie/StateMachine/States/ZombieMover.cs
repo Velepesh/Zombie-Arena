@@ -33,7 +33,7 @@ public class ZombieMover : State
     {
         Vector3 targetPosition = _zombie.CurrentTargetPosition;
 
-        if (targetPosition == null)
+        if (targetPosition == null || _agent.Agent.enabled == false)
             return;
 
         _agent.Agent.SetDestination(targetPosition);

@@ -25372,11 +25372,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _container: {fileID: 1766793291}
-  _numberOfEveryTemplate: 10
-  _templates:
-  - {fileID: 6078061744737966500, guid: ca48b7a4bf1222c4bae83e45aa79362c, type: 3}
-  - {fileID: 6463005642558734763, guid: 0abd9a3d548aa384ca2957ec80519810, type: 3}
-  - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
   _waves:
   - Templates:
     - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
@@ -25384,10 +25379,19 @@ MonoBehaviour:
     - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
     - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
     - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    Delay: 5
+    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
+    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
+    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
+    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
+    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
+    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
+    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
+    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
+    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
+    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
+    Delay: 3
   _spawnPoints:
   - {fileID: 51083984}
-  _isSpawnWhenStart: 1
 --- !u!4 &1766793293
 Transform:
   m_ObjectHideFlags: 0
@@ -31479,6 +31483,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4849677245699880729, guid: 726d05d4cef9a3945b38fe9b772456d6,
+        type: 3}
+      propertyPath: _aimCameraPosition.y
+      value: 0.0015
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849677245699880729, guid: 726d05d4cef9a3945b38fe9b772456d6,
+        type: 3}
+      propertyPath: _aimCameraPosition.z
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7304872515596049584, guid: 726d05d4cef9a3945b38fe9b772456d6,
         type: 3}
       propertyPath: m_Name

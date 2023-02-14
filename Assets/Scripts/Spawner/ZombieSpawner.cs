@@ -10,7 +10,6 @@ public class ZombieSpawner : ObjectPool
 
     private Wave _currentWave;
     private float _timeAfterLastSpawn;
-   // private int _spawned;
     private List<Zombie> _zombies = new List<Zombie>();
     private bool _isAllEnemiesDied => _zombies.Count == 0;
     private ZombieTargets _targets;
@@ -57,9 +56,6 @@ public class ZombieSpawner : ObjectPool
                 _timeAfterLastSpawn = 0;
             }
         }
-
-        //if (_currentWave.Count <= _spawned)
-        //    _currentWave = null;
     }
 
     public override void StartGenerate()
@@ -107,7 +103,6 @@ public class ZombieSpawner : ObjectPool
             zombie.Disabled += OnDisabled;
             zombie.HitTaken += OnHitTaken;
             _zombies.Add(zombie);
-           // _spawned++;
         }
     }
 
@@ -139,7 +134,6 @@ public class ZombieSpawner : ObjectPool
     {
         _zombies = new List<Zombie>();
         SetWave(++CurrentWaveNumber);
-        //_spawned = 0;
     }
 
     private void OnDied(IDamageable damageable)

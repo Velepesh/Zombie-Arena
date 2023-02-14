@@ -27,6 +27,7 @@ public class Zombie : MonoCache, IDamageable
     public ITarget CurrentTarget => _currentTarget;
 
     public event UnityAction HeadKilled;
+    public event UnityAction HeadDamaged;
     public event UnityAction<Zombie> Spawned;
     public event UnityAction<IDamageable> Died;
     public event UnityAction<Zombie> Disabled;
@@ -120,7 +121,10 @@ public class Zombie : MonoCache, IDamageable
     private void OnHitTaken(DamageHandlerType type)
     {
         if (type == DamageHandlerType.Head)
+        {
+            HeadDamaged?.Invoke();
             WasHeadHit = true;
+        }
 
         LastDamageHandlerType = type;
         HitTaken?.Invoke(type);

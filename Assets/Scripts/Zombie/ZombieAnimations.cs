@@ -27,6 +27,7 @@ public class ZombieAnimations : MonoBehaviour
     private void OnEnable()
     {
         _zombie.Died += OnDied;
+        _zombie.Spawned += OnSpawned;
         _mover.Moved += OnMoved;
         _attacker.Attacked += OnAttacked;
     }
@@ -34,6 +35,7 @@ public class ZombieAnimations : MonoBehaviour
     private void OnDisable()
     {
         _zombie.Died -= OnDied;
+        _zombie.Spawned -= OnSpawned;
         _mover.Moved -= OnMoved;
         _attacker.Attacked -= OnAttacked;
     }
@@ -54,9 +56,19 @@ public class ZombieAnimations : MonoBehaviour
         StopAttack();
     }
 
+    private void OnSpawned(Zombie zombie)
+    {
+        Run();
+    }
+
     private void Attack()
     {
         _animator.SetBool(ZombieAnimatorController.States.IsAttack, true);
+    }
+
+    private void Run()
+    {
+        _animator.SetTrigger(ZombieAnimatorController.States.Run);
     }
 
     private void StopAttack()
