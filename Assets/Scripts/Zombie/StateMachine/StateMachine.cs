@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(Zombie))]
 public class StateMachine : MonoCache
@@ -9,9 +8,6 @@ public class StateMachine : MonoCache
     private State _currentState;
 
     public State Current => _currentState;
-
-    public event UnityAction Enabled;
-
 
     private void OnEnable()
     {

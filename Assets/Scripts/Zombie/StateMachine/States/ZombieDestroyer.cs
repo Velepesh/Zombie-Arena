@@ -1,7 +1,5 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class ZombieDestroyer : State
 {
@@ -10,12 +8,7 @@ public class ZombieDestroyer : State
     [SerializeField] private float _delayBeforMoving;
 
     private Zombie _zombie;
-    private NavAgentEnabler _navAgent;
-    private MeshChanger _meshChanger;
-    private StateMachine _stateMachine;
     private bool _isMovingDown;
-
-    public event UnityAction Destroyed;
 
     private void OnValidate()
     {
@@ -24,10 +17,7 @@ public class ZombieDestroyer : State
 
     private void Awake()
     {
-        _navAgent = GetComponent<NavAgentEnabler>();
-        _meshChanger = GetComponent<MeshChanger>();
         _zombie = GetComponent<Zombie>();
-        _stateMachine = GetComponent<StateMachine>();
     }
 
     private void OnEnable()

@@ -15,6 +15,19 @@ public class ZombieTargets : MonoBehaviour
     public Player Player => _player;
     public Tower Tower => _tower;
 
+
+    private void OnEnable()
+    {
+        _player.Died += OnDied;
+        _tower.Died += OnDied;
+    }
+
+    private void OnDisable()
+    {
+        _player.Died -= OnDied;
+        _tower.Died -= OnDied;
+    }
+
     private void Start()
     {
         SetupTargets();       
@@ -58,5 +71,10 @@ public class ZombieTargets : MonoBehaviour
             else
                 throw new System.Exception($"{_targets[i]} must be IDamageable");
         }
+    }
+
+    private void OnDied(IDamageable damageable)
+    {
+        TargetDied?.Invoke(damageable);
     }
 }

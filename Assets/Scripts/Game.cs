@@ -3,20 +3,13 @@ using UnityEngine.Events;
 
 public class Game : MonoBehaviour
 {
-    //[SerializeField] private SceneChanger _sceneChanger;
     [SerializeField] private ZombieTargets _targets;
     [SerializeField] private ZombieSpawner _zombieSpawner;
 
-    private const string CURRENT_LEVEL_ID = "CurrentLevelID";
-
-    private bool _isPlaying = false;
-    public int CurrentLevel => PlayerPrefs.GetInt(CURRENT_LEVEL_ID, 1);
-
-    public event UnityAction LevelStarted;
-    public event UnityAction LevelWon;
-    public event UnityAction LevelLost;
-    public event UnityAction LevelRestart;
-    public event UnityAction LevelMainMenu;
+    public event UnityAction GameStarted;
+    public event UnityAction GameOver;
+    public event UnityAction Restarted;
+    public event UnityAction Paused;
 
     private void OnEnable()
     {
@@ -40,42 +33,33 @@ public class Game : MonoBehaviour
 
     public void MainMenu()
     {
-        LevelMainMenu?.Invoke();
+       // LevelMainMenu?.Invoke();
     }
 
-    public void NextLevel()
-    {
-        //_sceneChanger.LoadLevel(CurrentLevel);
-    }
 
-    public void RestartLevel()
+    public void RestartGame()
     {
-        LevelRestart?.Invoke();
+        Restarted?.Invoke();
         //_sceneChanger.LoadLevel(CurrentLevel);
     }
 
     public void StartLevel()
     {
-        _isPlaying = true;
-
-        LevelStarted?.Invoke();
+        GameStarted?.Invoke();
     }
 
-    public void WinGame()
+    public void EndGame()
     {
-        _isPlaying = false;
-        LevelWon?.Invoke();
-        PlayerPrefs.SetInt(CURRENT_LEVEL_ID, CurrentLevel + 1);
+        GameOver?.Invoke();
     }
 
-    public void LoseGame()
+    public void Pause()
     {
-        _isPlaying = false;
-        LevelLost?.Invoke();
+        Paused?.Invoke();
     }
 
     private void OnDied(IDamageable damageable)
     {
-        LoseGame();
+        EndGame();
     }
 }

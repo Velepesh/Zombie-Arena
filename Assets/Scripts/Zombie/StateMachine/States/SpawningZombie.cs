@@ -1,12 +1,9 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(Zombie))]
 public class SpawningZombie : State
 {
     private Zombie _zombie;
-
-    public event UnityAction Spawned;
 
     private void Awake()
     {
