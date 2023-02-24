@@ -6,9 +6,12 @@ public class HitMarkers : MonoBehaviour
     [SerializeField] private Marker _killMark;
     [SerializeField] private Marker _headshotMark;
     [SerializeField] private Marker _bodyShotMark;
+    [SerializeField] private Marker _killHeadMark;
     [SerializeField] private Marker _skullImage;
     [SerializeField] private float _lineDuration;
     [SerializeField] private float _skullDuration;
+
+    private Zombie _lastHitZombie;
 
     private void OnValidate()
     {
@@ -32,10 +35,10 @@ public class HitMarkers : MonoBehaviour
 
     private void OnZombieDied(Zombie zombie)
     {
-        ShowKillMark();
-
         if (zombie.LastDamageHandlerType == DamageHandlerType.Head)
             ShowSkull();
+        else
+            ShowKillMark();
     }
 
     private void OnHeadshotReceived()
@@ -65,6 +68,7 @@ public class HitMarkers : MonoBehaviour
 
     private void ShowSkull()
     {
+        _killHeadMark.Show(_skullDuration);
         _skullImage.Show(_skullDuration);
     }
 }

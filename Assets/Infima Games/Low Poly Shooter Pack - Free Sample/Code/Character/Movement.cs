@@ -30,8 +30,14 @@ namespace InfimaGames.LowPolyShooterPack
             /// <param name="target">Target value.</param>
             /// <param name="smoothTime">How smooth the motion should be.</param>
             /// <returns></returns>
-            public Vector3 Update(Vector3 target, float smoothTime) => Value = Vector3.SmoothDamp(Value,
-                target, ref currentVelocity, smoothTime);
+            public Vector3 Update(Vector3 target, float smoothTime)
+            {
+                float velocityY = target.y;
+                target = new Vector3(target.x, 0f, target.z);
+                Value = Vector3.SmoothDamp(Value, target, ref currentVelocity, smoothTime);
+
+                return Value + new Vector3(0f, velocityY, 0f);
+            }
         }
 
         #region FIELDS SERIALIZED
@@ -54,8 +60,8 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("How fast the player moves while running."), SerializeField]
         private float speedRunning = 9.0f;
 
-        [SerializeField]
-        private JumpAnimation phisicsJump;
+        [Tooltip("Jump height"), SerializeField]
+        private float jumpHeight = 3;
 
         [Header("Interpolation")]
 
@@ -115,6 +121,13 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private readonly RaycastHit[] groundHits = new RaycastHit[8];
 
+        private float velocityY;
+        [SerializeField] private float gravity = 9.81f;
+
+        private void OnValidate()
+        {
+            gravity = Mathf.Clamp(gravity, 0f, float.MaxValue);
+        }
         #endregion
 
         #region UNITY FUNCTIONS
@@ -200,8 +213,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnJump(InputAction.CallbackContext context)
         {
-            if(grounded)
-                phisicsJump.Jump(Velocity);
+            if (grounded)
+                velocityY = Mathf.Sqrt(jumpHeight * -2f * (-gravity));
         }
 
         private void MoveCharacter()
@@ -221,11 +234,39 @@ namespace InfimaGames.LowPolyShooterPack
 
             //World space velocity calculation. This allows us to add it to the rigidbody's velocity properly.
             movement = transform.TransformDirection(movement);
+            if(grounded == false)
+            {
+                velocityY -= gravity * Time.fixedDeltaTime;
+            }
+            else
+            {
+                if(velocityY <= 0f)
+                    velocityY = 0;
+            }
 
             #endregion
-            
             //Update Velocity.
-            Velocity = new Vector3(movement.x, 0.0f, movement.z);
+            
+            Velocity = new Vector3(movement.x, velocityY, movement.z);
+        }
+        float currentJumpStartTime;
+        Vector3 momentum;
+        void OnJumpStart()
+        {
+            //If local momentum is used, transform momentum into world coordinates first;
+                momentum = transform.localToWorldMatrix * momentum;
+
+            //Add jump force to momentum;
+            momentum += transform.up * jumpHeight;
+
+            //Set jump start time;
+            currentJumpStartTime = Time.time;
+
+            //Lock jump input until jump key is released again;
+
+          
+
+                momentum = transform.worldToLocalMatrix * momentum;
         }
 
         /// <summary>
