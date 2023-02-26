@@ -15,7 +15,6 @@ public class ZombieTargets : MonoBehaviour
     public Player Player => _player;
     public Tower Tower => _tower;
 
-
     private void OnEnable()
     {
         _player.Died += OnDied;
@@ -28,9 +27,18 @@ public class ZombieTargets : MonoBehaviour
         _tower.Died -= OnDied;
     }
 
-    private void Start()
+    public void Init()
     {
-        SetupTargets();       
+        _targets.Add(_player);
+        _targets.Add(_tower);
+
+        for (int i = 0; i < _targets.Count; i++)
+        {
+            if (_targets[i] is IDamageable damageable)
+                _damageables.Add(damageable);
+            else
+                throw new System.Exception($"{_targets[i]} must be IDamageable");
+        }
     }
 
     public ITarget GetRandomTarget()
@@ -57,20 +65,6 @@ public class ZombieTargets : MonoBehaviour
         }
 
         return _targets[index];
-    }
-
-    private void SetupTargets()
-    {
-        _targets.Add(_player);
-        _targets.Add(_tower);
-
-        for (int i = 0; i < _targets.Count; i++)
-        {
-            if (_targets[i] is IDamageable damageable)
-                _damageables.Add(damageable);
-            else
-                throw new System.Exception($"{_targets[i]} must be IDamageable");
-        }
     }
 
     private void OnDied(IDamageable damageable)

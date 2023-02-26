@@ -58,12 +58,12 @@ public class bl_Indicator : MonoBehaviour {
     /// <returns></returns>
     IEnumerator Fade()
     {
-        yield return new WaitForSeconds(Info.TimeToShow);
+        yield return new WaitForSecondsRealtime(Info.TimeToShow);
         float curveTime = 1;
         while(Alpha.alpha > 0)
         {
             Alpha.alpha = FadeCurve.Evaluate(curveTime);
-            curveTime -= Time.deltaTime;
+            curveTime -= Time.unscaledDeltaTime;
             yield return null;
         }
         //When fade is end, them remove indicator from list

@@ -9,21 +9,18 @@ public abstract class HealthView : MonoBehaviour
 
     private int _currentHealth;
 
+    protected int StartHealth { get; private set; }
+    protected Slider Slider => _slider;
+
     private void OnValidate()
     {
         _duration = Mathf.Clamp(_duration, 0f, float.MaxValue);
     }
 
-    protected Slider Slider => _slider;
 
     protected void Init(IDamageable damageable)
     {
         AssignStartValues(damageable);
-    }
-
-    protected void EnableSlider()
-    {
-        _slider.gameObject.SetActive(true);
     }
 
     protected void DisableSlider()
@@ -45,8 +42,10 @@ public abstract class HealthView : MonoBehaviour
 
     private void AssignStartValues(IDamageable damageable)
     {
-        _currentHealth = damageable.Health.Value;
-        _slider.maxValue = _currentHealth;
-        _slider.value = _currentHealth;
+        StartHealth = damageable.Health.Value;
+
+        _currentHealth = StartHealth;
+        _slider.maxValue = StartHealth;
+        _slider.value = StartHealth;
     }
 }

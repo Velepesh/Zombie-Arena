@@ -71,11 +71,6 @@ public class ZombieSpawner : ObjectPool
 
         _targets = targets;
 
-        OnLevelStarted();
-    }
-
-    private void OnLevelStarted()
-    {
         SetWave(CurrentWaveNumber);
 
         _timeAfterLastSpawn = _currentWave.Delay - 1;

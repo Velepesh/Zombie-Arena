@@ -24,11 +24,6 @@ public class Game : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
-        _zombieSpawner.StartSpawn(_targets);//—делать логику поиска цели
-        //изначально рандом
-        //ѕотом если игрок близко, то его
-        //≈сли башн€ близко, а игрок на каком-то рассто€нии, то башню
-        //—мена происходит в Zombie
     }
 
     public void MainMenu()
@@ -40,17 +35,18 @@ public class Game : MonoBehaviour
     public void RestartGame()
     {
         Restarted?.Invoke();
-        //_sceneChanger.LoadLevel(CurrentLevel);
     }
 
     public void StartLevel()
     {
+        Init();
         GameStarted?.Invoke();
     }
 
     public void EndGame()
     {
         GameOver?.Invoke();
+        Time.timeScale = 0;
     }
 
     public void Pause()
@@ -61,5 +57,11 @@ public class Game : MonoBehaviour
     private void OnDied(IDamageable damageable)
     {
         EndGame();
+    }
+
+    private void Init()//ѕробросить начало, что игрок начинает с анимации на H
+    {
+        _targets.Init();
+        _zombieSpawner.StartSpawn(_targets);
     }
 }

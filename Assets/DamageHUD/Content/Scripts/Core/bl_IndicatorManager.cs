@@ -13,42 +13,35 @@ public class bl_IndicatorManager : MonoCache
     [SerializeField] private Color _spriteColor = Color.white;
     [Header("References")]
     [Tooltip("This can be the root of player or the camera player.")]
-    [SerializeField] private Player _player;
     [SerializeField] private GameObject _indicatorUI;
     [Tooltip("RectTransform where indicators will be instantiate (Default Root Canvas)")]
     [SerializeField] private Transform _panelIndicator;
+    [SerializeField] private Canvas _canvas;
 
     private List<bl_Indicator> _indicatorsEntrys = new List<bl_Indicator>();
+    private Player _player;
+    private void OnEnable() => AddUpdate();
+    
+    private void OnDisable() => RemoveUpdate();
 
-    private void OnEnable()
-    {
-        _player.Attacked += OnAttacked;
-        AddUpdate();
-    }
-
-    private void OnDisable()
-    {
-        _player.Attacked -= OnAttacked;
-        RemoveUpdate();
-    }
 
     private void Start()
     {
-        if (_panelIndicator.transform.root.GetComponent<Canvas>().renderMode == RenderMode.ScreenSpaceCamera)
+        if (_canvas.renderMode == RenderMode.ScreenSpaceCamera)
             _panelIndicator.localEulerAngles = new Vector3(_inclination, 0, 0);
     }
 
-    public void SetIndicator(Color customColor, Zombie zombie)
+    public void SetPlayer(Player player)
+    {
+        _player = player;
+    }
+
+    public void SetIndicator(Zombie zombie)
     {
         bl_IndicatorInfo info = new bl_IndicatorInfo(zombie.transform.position);
         info.Sender = zombie.gameObject;
-        info.Color = customColor;
+        info.Color = _spriteColor;
         OnNewIndicator(info);
-    }
-
-    private void OnAttacked(Zombie zombie)
-    {
-        SetIndicator(_spriteColor, zombie);
     }
 
     private void OnNewIndicator(bl_IndicatorInfo info)

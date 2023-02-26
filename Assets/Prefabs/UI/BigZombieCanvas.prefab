@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7963498645690195577}
   - component: {fileID: 4745572786166506641}
   - component: {fileID: 1375315644839169409}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7525765235820182363}
   - component: {fileID: 9087418415948451691}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 202020207953343989}
   - component: {fileID: 9135092150540100954}
   - component: {fileID: 4815262007998766140}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7777986755568580418}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,8 +294,8 @@ GameObject:
   - component: {fileID: 2864298464383903866}
   - component: {fileID: 7720343835030067025}
   - component: {fileID: 7145169219435646445}
-  m_Layer: 5
-  m_Name: ZombieCanvas
+  m_Layer: 16
+  m_Name: BigZombieCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slider: {fileID: 9087418415948451691}
-  _duration: 0.3
+  _duration: 0.1
   _zombie: {fileID: 0}
   _fader: {fileID: 7720343835030067025}
 --- !u!114 &7720343835030067025

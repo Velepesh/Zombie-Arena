@@ -27,7 +27,7 @@ public class DieTransition : Transition
 
     private void OnDied(IDamageable damageable)
     {
-        _agent.DisableAgent();
         NeedTransit = true;
+        _agent.DisableAgent();
     }
 }

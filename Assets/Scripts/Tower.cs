@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,11 +11,6 @@ public class Tower : MonoBehaviour, IDamageable, ITarget
     public Vector3 Position => transform.position;
 
     public event UnityAction<IDamageable> Died;
-  
-    public void Die()
-    {
-        Died?.Invoke(this);
-    }
 
     public void TakeDamage(int damage, Vector3 contatPosition)
     {
@@ -25,5 +18,10 @@ public class Tower : MonoBehaviour, IDamageable, ITarget
 
         if (IsDied)
             Die();
+    }
+
+    public void Die()
+    {
+        Died?.Invoke(this);
     }
 }
