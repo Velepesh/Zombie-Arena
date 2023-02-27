@@ -1,3 +1,4 @@
+using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,7 @@ public class PlayerBuilder : Builder
     [SerializeField] private PlayerInput _input;
     [SerializeField] private Animator _animator;
     [SerializeField] private PlayerViewSetup _setup;
+    [SerializeField] private Character _character;
 
     public Player Player => _player;
 
@@ -15,6 +17,7 @@ public class PlayerBuilder : Builder
         _input.enabled = true;
         _animator.enabled = true;
         _setup.enabled = true;
+        _character.UnlockCursor();
     }
 
     public override void Deactivate()

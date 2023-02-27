@@ -186,7 +186,6 @@ namespace InfimaGames.LowPolyShooterPack
 			#region Lock Cursor
 
 			//Always make sure that our cursor is locked when the game starts!
-			cursorLocked = true;
 			//Update the cursor's state.
 			UpdateCursorState();
 
@@ -365,14 +364,12 @@ namespace InfimaGames.LowPolyShooterPack
 			//Only if we're not holstered, holster. If we are already, we don't need to wait.
 			if(!holstered)
 			{
-				Debug.Log("!holstered" + !holstered);
 				//Holster.
 				SetHolstered(holstering = true);
 				//Wait.
 				yield return new WaitUntil(() => holstering == false);
 			}
 
-            Debug.Log("!SetHolstered" + holstered);
             //Unholster. We do this just in case we were holstered.
             SetHolstered(false);
 			//Play Unholster Animation.
@@ -793,8 +790,17 @@ namespace InfimaGames.LowPolyShooterPack
 					break;
 			}
 		}
-		
-		public void OnLockCursor(InputAction.CallbackContext context)
+
+        public void UnlockCursor()
+		{  
+            //Toggle the cursor locked value.
+            cursorLocked = !cursorLocked;
+            //Update the cursor's state.
+            UpdateCursorState();
+        }
+
+
+        public void OnLockCursor(InputAction.CallbackContext context)
 		{
 			//Switch.
 			switch (context)
