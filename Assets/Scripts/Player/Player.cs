@@ -1,11 +1,9 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour, IDamageable, ITarget
 {
     [SerializeField] private Health _health;
-    [SerializeField] private PlayerInput _input;
 
     public bool IsDied => _health.Value <= 0;
 

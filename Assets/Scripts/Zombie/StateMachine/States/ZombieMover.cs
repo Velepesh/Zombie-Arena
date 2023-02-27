@@ -24,6 +24,8 @@ public class ZombieMover : State
     private void OnEnable()
     {
         AddUpdate();
+        _agent.EnableAgent();
+        _agent.StartAgent();
         Moved?.Invoke();
     }
 

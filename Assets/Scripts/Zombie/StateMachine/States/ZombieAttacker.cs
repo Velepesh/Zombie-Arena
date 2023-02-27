@@ -2,22 +2,26 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Zombie))]
+[RequireComponent(typeof(NavAgentEnabler))]
 public class ZombieAttacker : State
 {
     [SerializeField] private AttackCollider _attackCollider;
 
     private Zombie _zombie;
+    private NavAgentEnabler _agent;
 
     public event UnityAction Attacked;
 
     private void Awake()
     {
         _zombie = GetComponent<Zombie>();
+        _agent = GetComponent<NavAgentEnabler>();
     }
 
     private void OnEnable()
     {
         AddUpdate();
+        _agent.StopAgent();
         Attack();
     }
 

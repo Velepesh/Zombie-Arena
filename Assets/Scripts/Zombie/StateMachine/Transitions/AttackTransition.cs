@@ -1,16 +1,13 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Zombie))]
-[RequireComponent(typeof(NavAgentEnabler))]
 public class AttackTransition : Transition
 {
     private Zombie _zombie;
-    private NavAgentEnabler _agent;
 
     private void Awake()
     {
         _zombie = GetComponent<Zombie>();
-        _agent = GetComponent<NavAgentEnabler>();
     }
 
     private void OnEnable()
@@ -30,13 +27,12 @@ public class AttackTransition : Transition
 
         float distance = Vector3.Distance(targetPosition, transform.position);
 
-        if (distance <= _zombie.Options.AttackDistance)
+        if (distance <= _zombie.Options.AttackDistance && _zombie.IsDied == false)
             Transit();
     }
 
     private void Transit()
     {
         NeedTransit = true;
-        _agent.StopAgent();
     }
 }

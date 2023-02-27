@@ -1,17 +1,14 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Zombie))]
-[RequireComponent(typeof(NavAgentEnabler))]
 public class MoveTransition : Transition
 {
     private Zombie _zombie;
-    private NavAgentEnabler _agent;
     private bool _isSpawned;
 
     private void Awake()
     {
         _zombie = GetComponent<Zombie>();
-        _agent = GetComponent<NavAgentEnabler>();
     }
 
     private void OnEnable()
@@ -19,7 +16,6 @@ public class MoveTransition : Transition
         AddUpdate();
        
         NeedTransit = false;
-        EnableNavMeshAgent();
 
         _zombie.Spawned += OnSpawned;
     }
@@ -46,11 +42,6 @@ public class MoveTransition : Transition
             Transit();
     }
 
-    private void EnableNavMeshAgent()
-    {
-        _agent.EnableAgent();
-    }
-
     private void OnSpawned(Zombie zombie)
     {
         _isSpawned = true;
@@ -60,6 +51,5 @@ public class MoveTransition : Transition
     private void Transit()
     {
         NeedTransit = true;
-        _agent.StartAgent();
     }
 }
