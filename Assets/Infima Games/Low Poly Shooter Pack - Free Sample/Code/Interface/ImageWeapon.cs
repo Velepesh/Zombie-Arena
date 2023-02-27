@@ -73,7 +73,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         {
             //Update.
             image.sprite = sprite;
-            //Disable image if needed.
+            //Deactivate image if needed.
             image.enabled = sprite != null && !forceHide;
         }
 

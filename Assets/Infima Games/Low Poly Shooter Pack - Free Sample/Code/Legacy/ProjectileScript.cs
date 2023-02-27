@@ -92,7 +92,7 @@ public class ProjectileScript : MonoBehaviour {
 		gameObject.GetComponent<MeshRenderer> ().enabled = false;
 		//Freeze object
 		gameObject.GetComponent<Rigidbody> ().isKinematic = true;
-		//Disable collider
+		//Deactivate collider
 		gameObject.GetComponent<BoxCollider>().isTrigger = true;
 		//Stop particles and let them finish playing before destroying
 		if (usesParticles == true) {
@@ -134,7 +134,7 @@ public class ProjectileScript : MonoBehaviour {
 		gameObject.GetComponent<MeshRenderer> ().enabled = false;
 		//Freeze object
 		gameObject.GetComponent<Rigidbody> ().isKinematic = true;
-		//Disable collider
+		//Deactivate collider
 		gameObject.GetComponent<BoxCollider>().isTrigger = true;
 
 		if (usesParticles == true) {

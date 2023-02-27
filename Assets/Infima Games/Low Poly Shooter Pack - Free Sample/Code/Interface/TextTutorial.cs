@@ -31,7 +31,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
             //Enable the prompt by default.
             prompt.enabled = true;
-            //Disable the tutorial by default.
+            //Deactivate the tutorial by default.
             tutorial.enabled = false;
         }
 

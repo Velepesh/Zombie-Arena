@@ -210,7 +210,7 @@ namespace InfimaGames.LowPolyShooterPack
 			layerActions = characterAnimator.GetLayerIndex("Layer Actions");
 			//Cache a reference to the overlay layer's index.
 			layerOverlay = characterAnimator.GetLayerIndex("Layer Overlay");
-		}
+        }
 
 		protected override void Update()
 		{
@@ -365,13 +365,16 @@ namespace InfimaGames.LowPolyShooterPack
 			//Only if we're not holstered, holster. If we are already, we don't need to wait.
 			if(!holstered)
 			{
+				Debug.Log("!holstered" + !holstered);
 				//Holster.
 				SetHolstered(holstering = true);
 				//Wait.
 				yield return new WaitUntil(() => holstering == false);
 			}
-			//Unholster. We do this just in case we were holstered.
-			SetHolstered(false);
+
+            Debug.Log("!SetHolstered" + holstered);
+            //Unholster. We do this just in case we were holstered.
+            SetHolstered(false);
 			//Play Unholster Animation.
 			characterAnimator.Play("Unholster", layerHolster, 0);
 			

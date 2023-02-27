@@ -14,7 +14,6 @@ public class Health
 
     public event UnityAction<int> HealthChanged;
 
-
     public void SetStartHealth()
     {
         _startValue = _health;
@@ -23,6 +22,11 @@ public class Health
     public void RestoreHealth()
     {
         _health = _startValue;
+    }
+
+    public void AddHealth(int value)
+    {
+
     }
 
     public void TakeDamage(int damage)

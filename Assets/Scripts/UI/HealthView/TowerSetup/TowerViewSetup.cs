@@ -1,23 +1,23 @@
 using UnityEngine;
 
-public class TowerViewSetup : MonoBehaviour
+public class TowerViewSetup : Setup
 {
     [SerializeField] private Tower _tower;
     [SerializeField] private DamageableHealthView _view;
 
     private TowerViewPresenter _presenter;
 
-    private void Awake()
+    protected override void Awake()
     {
         _presenter = new TowerViewPresenter(_view, _tower);
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
         _presenter.Enable();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         _presenter.Disable();
     }

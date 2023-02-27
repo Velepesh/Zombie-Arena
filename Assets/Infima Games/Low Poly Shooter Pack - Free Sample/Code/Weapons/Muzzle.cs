@@ -98,7 +98,7 @@ namespace InfimaGames.LowPolyShooterPack
                 
                 //Get reference.
                 flashLight = spawnedFlashLightPrefab.GetComponent<Light>();
-                //Disable.
+                //Deactivate.
                 flashLight.enabled = false;
             }
         }
@@ -118,7 +118,7 @@ namespace InfimaGames.LowPolyShooterPack
             {
                 //Enable the light.
                 flashLight.enabled = true;
-                //Disable the light after a few seconds.
+                //Deactivate the light after a few seconds.
                 StartCoroutine(nameof(DisableLight));
             }
         }
@@ -142,7 +142,7 @@ namespace InfimaGames.LowPolyShooterPack
         {
             //Wait.
             yield return new WaitForSeconds(flashLightDuration);
-            //Disable.
+            //Deactivate.
             flashLight.enabled = false;
         }
 

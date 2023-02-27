@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 using System.Collections;
 public class bl_HudDamageManager : MonoBehaviour {
-    [SerializeField] private Player _player;
     [Header("Settings")]
     [Range(0,10)]
     [SerializeField]private float DelayFade = 0.25f;
@@ -57,28 +56,11 @@ public class bl_HudDamageManager : MonoBehaviour {
         originRotation = ShakeObject.localRotation;
     }
 
-    /// <summary>
-    /// Register all callbacks 
-    /// </summary>
-    void OnEnable()
-    {
-        _player.Health.HealthChanged += OnDamage;
-        _player.Died += OnDie;
-    }
-
-    /// <summary>
-    /// UnRegister all callbacks 
-    /// </summary>
-    void OnDisable()
-    {
-        _player.Health.HealthChanged -= OnDamage;
-        _player.Died -= OnDie;
-    }
 
     void OnDamage(int health)
     {
         //Calculate the diference in health for apply to the alpha.
-        Alpha = (_player.Health.StartValue - health) / 100;
+        //Alpha = (_player.Health.StartValue - health) / 100;
         //Ensure that alpha is never less than the minimum allowed
         Alpha = Mathf.Clamp(Alpha, MinAlpha, 1);
         //Update delay

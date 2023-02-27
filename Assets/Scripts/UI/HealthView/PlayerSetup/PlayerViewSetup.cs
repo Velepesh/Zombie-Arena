@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerHealthSetup : MonoBehaviour
+public class PlayerViewSetup : Setup
 {
     [SerializeField] private Player _player;
     [SerializeField] private DamageableHealthView _view;
@@ -9,17 +9,17 @@ public class PlayerHealthSetup : MonoBehaviour
 
     private PlayerViewPresenter _presenter;
 
-    private void Awake()
+    protected override void Awake()
     {
         _presenter = new PlayerViewPresenter(_view, _player, _indicator, _damageScreen);
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
         _presenter.Enable();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         _presenter.Disable();
     }

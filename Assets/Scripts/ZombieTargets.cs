@@ -4,9 +4,8 @@ using UnityEngine.Events;
 
 public class ZombieTargets : MonoBehaviour
 {
-    [SerializeField] private Player _player;
-    [SerializeField] private Tower _tower;
-
+    private Player _player;
+    private Tower _tower;
     private List<ITarget> _targets = new List<ITarget>();
     private List<IDamageable> _damageables = new List<IDamageable>();
 
@@ -15,22 +14,18 @@ public class ZombieTargets : MonoBehaviour
     public Player Player => _player;
     public Tower Tower => _tower;
 
-    private void OnEnable()
-    {
-        _player.Died += OnDied;
-        _tower.Died += OnDied;
-    }
-
     private void OnDisable()
     {
-        _player.Died -= OnDied;
-        _tower.Died -= OnDied;
+        if(_player != null)
+            _player.Died -= OnDied;
+
+        if (_tower != null)
+            _tower.Died -= OnDied;
     }
 
-    public void Init()
+    public void Init(Player player, Tower tower)
     {
-        _targets.Add(_player);
-        _targets.Add(_tower);
+       SetTargets(player, tower);
 
         for (int i = 0; i < _targets.Count; i++)
         {
@@ -65,6 +60,18 @@ public class ZombieTargets : MonoBehaviour
         }
 
         return _targets[index];
+    }
+
+    private void SetTargets(Player player, Tower tower)
+    {
+        _player = player;
+        _tower = tower;
+
+        _targets.Add(_player);
+        _targets.Add(_tower);
+
+        _player.Died += OnDied;
+        _tower.Died += OnDied;
     }
 
     private void OnDied(IDamageable damageable)
