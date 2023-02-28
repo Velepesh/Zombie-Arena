@@ -40,7 +40,7 @@ public class ZombieEffects : MonoBehaviour
 
     private void OnDied(IDamageable damageable)
     {
-        if (_zombie.LastDamageHandlerType == DamageHandlerType.Head)
+        if (_zombie.IsHeadKill)
             PlayBloodShowerEffect();
 
         StartCoroutine(ShowDieEffects());

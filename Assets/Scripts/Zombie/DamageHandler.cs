@@ -11,13 +11,13 @@ public class DamageHandler : MonoBehaviour
 
     private IDamageable _damageable;
 
-    public Collider Collider { get; private set; }
+    private Collider _collider;
 
     public event UnityAction<DamageHandlerType> HitTaken;
 
     private void Start()
     {
-        Collider = GetComponent<Collider>();
+        _collider = GetComponent<Collider>();
     }
 
     public void Init(IDamageable damageable)
@@ -41,6 +41,11 @@ public class DamageHandler : MonoBehaviour
             HitTaken?.Invoke(_type);
             _damageable.TakeDamage(damage, contactPoint);
         }
+    }
+
+    public void DisableCollider()
+    {
+        _collider.enabled = false;
     }
 }
 

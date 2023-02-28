@@ -35,7 +35,7 @@ public class HitMarkers : MonoBehaviour
 
     private void OnZombieDied(Zombie zombie)
     {
-        if (zombie.LastDamageHandlerType == DamageHandlerType.Head)
+        if (zombie.IsHeadKill)
             ShowSkull();
         else
             ShowKillMark();

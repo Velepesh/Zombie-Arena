@@ -14,12 +14,13 @@ public class Zombie : MonoCache, IDamageable
     private Vector3 _contactPosition;
     private DamageHandler[] _damageHandlers = new DamageHandler[] { };
     private bool _isAttackedTower;
+    private DamageHandlerType _lastDamageHandlerType;
 
     public ZombieOptions Options => _options;
     public ZombieType Type => _type;
     public bool IsDied => _health.Value <= 0;
-    public DamageHandlerType LastDamageHandlerType { get; private set; }
     public bool WasHeadHit { get; private set; }
+    public bool IsHeadKill { get; private set; }
 
     public Health Health => _health;
     public Vector3 CurrentTargetPosition => _currentTarget.Position;
@@ -95,8 +96,13 @@ public class Zombie : MonoCache, IDamageable
 
     public void Die()
     {
-        if (LastDamageHandlerType == DamageHandlerType.Head)
+        if (_lastDamageHandlerType == DamageHandlerType.Head)
+        {
+            IsHeadKill = true;
             HeadKilled?.Invoke();
+        }
+
+        DisableAllColliders();
 
         Died?.Invoke(this);
     }
@@ -122,7 +128,13 @@ public class Zombie : MonoCache, IDamageable
         if (type == DamageHandlerType.Head)
             WasHeadHit = true;
 
-        LastDamageHandlerType = type;
+        _lastDamageHandlerType = type;
         HitTaken?.Invoke(type);
+    }
+
+    private void DisableAllColliders()
+    {
+        for (int i = 0; i < _damageHandlers.Length; i++)
+            _damageHandlers[i].DisableCollider();
     }
 }

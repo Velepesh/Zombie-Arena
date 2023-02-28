@@ -32,7 +32,7 @@ public class ZombieSpawnerAudio : MonoBehaviour
 
     private void OnZombieDied(Zombie zombie)
     {
-        if(zombie.LastDamageHandlerType == DamageHandlerType.Head)
+        if(zombie.IsHeadKill)
             audioManagerService.PlayOneShotDelayed(_headKilledAudioClip, _audioSettings, 0f);
     }
 }

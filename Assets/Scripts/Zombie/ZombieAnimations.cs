@@ -42,24 +42,22 @@ public class ZombieAnimations : MonoBehaviour
 
     private void OnDied(IDamageable damageable)
     {
-        Impact(_zombie.ContactPosition);
-        _animator.SetTrigger(ZombieAnimatorController.States.Die);
+        if (_zombie.IsHeadKill)
+        {
+            Impact(_zombie.ContactPosition);
+            _animator.SetTrigger(ZombieAnimatorController.States.HeadDie);
+        }
+        else
+        {
+            _animator.SetTrigger(ZombieAnimatorController.States.BodyDie);
+        }
     }
 
-    private void OnAttacked()
-    {
-        Attack();
-    }
+    private void OnAttacked() => Attack();
 
-    private void OnMoved()
-    {
-        StopAttack();
-    }
+    private void OnMoved() => StopAttack();
 
-    private void OnSpawned(Zombie zombie)
-    {
-        Run();
-    }
+    private void OnSpawned(Zombie zombie) => Run();
 
     private void Attack()
     {
