@@ -8,7 +8,8 @@ using UnityEngine;
 public class ZombieAnimations : MonoBehaviour
 {
     [SerializeField] private float _zombiePositionY;
-    [SerializeField] private float _impactLength;
+    [SerializeField] private float _headKillimpactLength;
+    [SerializeField] private float _bodyKillimpactLength;
     [SerializeField] private float _impactDuration;
 
     private Zombie _zombie;
@@ -43,14 +44,18 @@ public class ZombieAnimations : MonoBehaviour
     private void OnDied(IDamageable damageable)
     {
         if (_zombie.IsHeadKill)
-        {
-            Impact(_zombie.ContactPosition);
-            _animator.SetTrigger(ZombieAnimatorController.States.HeadDie);
-        }
+            SetDiedAnimation(ZombieAnimatorController.States.HeadDie, _headKillimpactLength);
         else
-        {
-            _animator.SetTrigger(ZombieAnimatorController.States.BodyDie);
-        }
+            SetDiedAnimation(ZombieAnimatorController.States.BodyDie, _bodyKillimpactLength);
+    }
+
+    private void SetDiedAnimation(string parametrName, float impactLength)
+    {
+        if (Random.Range(0, 2) == 1)
+            _animator.SetBool(ZombieAnimatorController.States.IsMirror, true);
+
+        Impact(_zombie.ContactPosition, impactLength);
+        _animator.SetTrigger(parametrName);
     }
 
     private void OnAttacked() => Attack();
@@ -75,9 +80,9 @@ public class ZombieAnimations : MonoBehaviour
             _animator.SetBool(ZombieAnimatorController.States.IsAttack, false);
     }
 
-    private void Impact(Vector3 direction)
+    private void Impact(Vector3 direction, float length)
     {
-        Vector3 target = transform.position + (-direction * _impactLength);
+        Vector3 target = transform.position + (-direction * length);
         target = new Vector3(target.x, _zombiePositionY, target.z);
 
         StartCoroutine(ImpactByTime(target));

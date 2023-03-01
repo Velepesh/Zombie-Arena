@@ -3661,7 +3661,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zombiePositionY: 0.007
-  _impactLength: 3
+  _headKillimpactLength: 3
+  _bodyKillimpactLength: 0.3
   _impactDuration: 1
 --- !u!114 &6981818600854396679
 MonoBehaviour:
@@ -3723,8 +3724,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transitions:
-  - {fileID: 6981818600854396686}
   - {fileID: 6981818600854396687}
+  - {fileID: 6981818600854396686}
 --- !u!114 &6981818600854396683
 MonoBehaviour:
   m_ObjectHideFlags: 0

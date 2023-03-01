@@ -224,7 +224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zombiePositionY: 0.007
-  _impactLength: 0.5
+  _headKillimpactLength: 1
+  _bodyKillimpactLength: 0.2
   _impactDuration: 1
 --- !u!114 &6463005642558734761
 MonoBehaviour:
@@ -383,7 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802ea8ea112ee694db4ae560e7450a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentMesh: {fileID: 7383363112689040920}
+  _standartMesh: {fileID: 0}
   _withoutHeadMesh: {fileID: 606611251282358243}
 --- !u!1 &388645996056489148
 GameObject:
