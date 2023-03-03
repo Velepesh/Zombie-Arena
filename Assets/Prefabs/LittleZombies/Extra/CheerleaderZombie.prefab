@@ -275,7 +275,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 972962969275653987}
   m_LocalRotation: {x: 0.000000081460335, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2424,7 +2424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2856577742917702878
 Transform:
   m_ObjectHideFlags: 0
@@ -3536,10 +3536,10 @@ GameObject:
   - component: {fileID: 6981818600854396687}
   - component: {fileID: 6981818600854396684}
   - component: {fileID: 4479845331591587901}
-  - component: {fileID: 4965323190092327810}
-  - component: {fileID: -6188666930253161291}
-  m_Layer: 16
-  m_Name: PoliceZombie
+  - component: {fileID: 5021141238135140684}
+  - component: {fileID: 1491496589834492806}
+  m_Layer: 0
+  m_Name: CheerleaderZombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3557,7 +3557,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4456872177650372792}
+  - {fileID: 2369906132537468049}
   - {fileID: 1666159208103384361}
   - {fileID: 8850090828096842136}
   - {fileID: 4011005989512246241}
@@ -3648,9 +3648,6 @@ MonoBehaviour:
     _changeTargetDistance: 10
   _score: 50
   _type: 0
-  _ignorePlayerLayerMask:
-    serializedVersion: 2
-    m_Bits: 524288
 --- !u!114 &6981818600854396678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3727,8 +3724,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transitions:
-  - {fileID: 6981818600854396687}
   - {fileID: 6981818600854396686}
+  - {fileID: 6981818600854396687}
 --- !u!114 &6981818600854396683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3824,9 +3821,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802ea8ea112ee694db4ae560e7450a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _standartMesh: {fileID: 5544638325999865642}
-  _withoutHeadMesh: {fileID: 5994627120957374847}
---- !u!114 &4965323190092327810
+  _standartMesh: {fileID: 3458787325549613795}
+  _withoutHeadMesh: {fileID: 7428073053552022059}
+--- !u!114 &5021141238135140684
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3842,7 +3839,7 @@ MonoBehaviour:
     automaticCleanup: 1
     volume: 1
     spatialBlend: 0
---- !u!82 &-6188666930253161291
+--- !u!82 &1491496589834492806
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4487,7 +4484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6371619167267727878
 Transform:
   m_ObjectHideFlags: 0
@@ -4946,7 +4943,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4604298156785723331}
   - component: {fileID: 7937407902280911474}
-  - component: {fileID: 2123321691660238447}
+  - component: {fileID: 1653245240966739914}
   m_Layer: 19
   m_Name: Hand_R
   m_TagString: Untagged
@@ -4985,7 +4982,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.28, z: 0.1}
   m_Center: {x: 0, y: 0.09, z: 0}
---- !u!114 &2123321691660238447
+--- !u!114 &1653245240966739914
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5983,7 +5980,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2144693245109474238}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &9142987384132110016
+--- !u!1001 &7194515962770813673
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -6122,9 +6119,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b894fc55e683bf74ab7193322fbfb5c6, type: 3}
---- !u!224 &4456872177650372792 stripped
+--- !u!224 &2369906132537468049 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4844632075359131256, guid: b894fc55e683bf74ab7193322fbfb5c6,
     type: 3}
-  m_PrefabInstance: {fileID: 9142987384132110016}
+  m_PrefabInstance: {fileID: 7194515962770813673}
   m_PrefabAsset: {fileID: 0}

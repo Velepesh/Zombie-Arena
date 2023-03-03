@@ -3538,7 +3538,7 @@ GameObject:
   - component: {fileID: 4479845331591587901}
   - component: {fileID: 2742883870745861123}
   - component: {fileID: -3780015139479024023}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: RoadworkerZombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3648,6 +3648,9 @@ MonoBehaviour:
     _changeTargetDistance: 10
   _score: 50
   _type: 0
+  _ignorePlayerLayerMask:
+    serializedVersion: 2
+    m_Bits: 524288
 --- !u!114 &6981818600854396678
 MonoBehaviour:
   m_ObjectHideFlags: 0

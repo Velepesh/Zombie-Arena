@@ -10,7 +10,7 @@ public class DamageHandler : MonoBehaviour
     readonly private int _headDamageMultiplier = 2;
 
     private IDamageable _damageable;
-
+    private bool _isIgnoringPlayer;
     private Collider _collider;
 
     public event UnityAction<DamageHandlerType> HitTaken;
@@ -43,9 +43,16 @@ public class DamageHandler : MonoBehaviour
         }
     }
 
-    public void DisableCollider()
+    public void IgnorePLayerCollider()
     {
-        _collider.enabled = false;
+        _isIgnoringPlayer = true;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (_isIgnoringPlayer && collision.gameObject.TryGetComponent(out PlayerCollider player))
+            Physics.IgnoreCollision(player.Collider, _collider);
+
     }
 }
 

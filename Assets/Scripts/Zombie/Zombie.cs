@@ -135,6 +135,6 @@ public class Zombie : MonoCache, IDamageable
     private void DisableAllColliders()
     {
         for (int i = 0; i < _damageHandlers.Length; i++)
-            _damageHandlers[i].DisableCollider();
+            _damageHandlers[i].IgnorePLayerCollider();
     }
 }
