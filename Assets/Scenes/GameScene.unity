@@ -28381,23 +28381,10 @@ MonoBehaviour:
   _waves:
   - Templates:
     - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
-    - {fileID: 6981818600854396673, guid: cb45d716b94bc8445b220efc6c6dce55, type: 3}
     Delay: 3
   _spawnPoints:
   - {fileID: 51083984}
+  _numberOfCircleWave: 1
 --- !u!4 &1766793293
 Transform:
   m_ObjectHideFlags: 0
@@ -28431,7 +28418,7 @@ MonoBehaviour:
     type: 3}
   _audioSettings:
     automaticCleanup: 1
-    volume: 0.5
+    volume: 0.3
     spatialBlend: 0
 --- !u!82 &1766793295
 AudioSource:

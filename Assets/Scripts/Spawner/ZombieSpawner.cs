@@ -7,6 +7,7 @@ public class ZombieSpawner : ObjectPool
 {
     [SerializeField] private List<Wave> _waves;
     [SerializeField] private List<SpawnPoint> _spawnPoints;
+    [SerializeField] private int _numberOfCircleWave;
 
     private Wave _currentWave;
     private float _timeAfterLastSpawn;
@@ -122,7 +123,12 @@ public class ZombieSpawner : ObjectPool
         _currentWave = _waves[index];
         StartGenerate();
 
-        WaveSetted?.Invoke(index + 1);
+        int nextWaveIndex = index + 1;
+
+        if (_numberOfCircleWave <= nextWaveIndex)
+            nextWaveIndex = _numberOfCircleWave;
+
+        WaveSetted?.Invoke(nextWaveIndex);//index + 1
     }
 
     private void NextWave()

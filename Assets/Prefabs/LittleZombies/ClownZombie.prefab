@@ -3835,10 +3835,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0815d2c36dac22e49a8bef2374031efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClipWalkiing: {fileID: 8300000, guid: dbaad28258131304d8bc8f7cc7bcb0c9, type: 3}
+  _deadAudioClip: {fileID: 8300000, guid: cb40a60198c4d8d48b4553a9369f0e73, type: 3}
   _audioSettings:
     automaticCleanup: 1
-    volume: 1
-    spatialBlend: 0
+    volume: 0.5
+    spatialBlend: 0.5
 --- !u!82 &2760049977315265144
 AudioSource:
   m_ObjectHideFlags: 0
