@@ -11,13 +11,13 @@ public class ZombieSpawnerAudio : MonoBehaviour
     private InfimaGames.LowPolyShooterPack.AudioSettings _audioSettings = new InfimaGames.LowPolyShooterPack.AudioSettings(1.0f, 0.0f, true);
 
     private ZombieSpawner _zombieSpawner;
-    private IAudioManagerService audioManagerService;
+    private IAudioManagerService _audioManagerService;
 
     private void Awake()
     {
         _zombieSpawner = GetComponent<ZombieSpawner>();
 
-        audioManagerService ??= ServiceLocator.Current.Get<IAudioManagerService>();
+        _audioManagerService ??= ServiceLocator.Current.Get<IAudioManagerService>();
     }
 
     private void OnEnable()
@@ -33,6 +33,6 @@ public class ZombieSpawnerAudio : MonoBehaviour
     private void OnZombieDied(Zombie zombie)
     {
         if(zombie.IsHeadKill)
-            audioManagerService.PlayOneShotDelayed(_headKilledAudioClip, _audioSettings, 0f);
+            _audioManagerService.PlayOneShotDelayed(_headKilledAudioClip, _audioSettings, 0f);
     }
 }
