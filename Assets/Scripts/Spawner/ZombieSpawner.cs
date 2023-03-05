@@ -123,18 +123,22 @@ public class ZombieSpawner : ObjectPool
         _currentWave = _waves[index];
         StartGenerate();
 
-        int nextWaveIndex = index + 1;
-
-        if (_numberOfCircleWave <= nextWaveIndex)
-            nextWaveIndex = _numberOfCircleWave;
-
-        WaveSetted?.Invoke(nextWaveIndex);//index + 1
+        WaveSetted?.Invoke(CurrentWaveNumber + 1);
     }
 
     private void NextWave()
     {
         _zombies = new List<Zombie>();
-        SetWave(++CurrentWaveNumber);
+
+        int nextWaveIndex = 0;
+        ++CurrentWaveNumber;
+
+        if (CurrentWaveNumber >= _numberOfCircleWave)
+            nextWaveIndex = _numberOfCircleWave;
+        else
+            nextWaveIndex = CurrentWaveNumber;
+
+        SetWave(nextWaveIndex);
     }
 
     private void OnDied(IDamageable damageable)
@@ -174,7 +178,7 @@ public class ZombieSpawner : ObjectPool
     {
         if (_isAllEnemiesDied)
         {
-            if (_waves.Count > CurrentWaveNumber + 1)
+            //if (_waves.Count > CurrentWaveNumber + 1)
                 NextWave();
         }
     }
