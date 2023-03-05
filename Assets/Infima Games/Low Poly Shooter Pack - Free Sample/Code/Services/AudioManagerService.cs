@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Audio;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -84,6 +85,7 @@ namespace InfimaGames.LowPolyShooterPack
             newAudioSource.volume = settings.Volume;
             //Set spatial blend.
             newAudioSource.spatialBlend = settings.SpatialBlend;
+            newAudioSource.outputAudioMixerGroup = settings.MixerGroup;
             
             //Play the clip!
             newAudioSource.PlayOneShot(clip);

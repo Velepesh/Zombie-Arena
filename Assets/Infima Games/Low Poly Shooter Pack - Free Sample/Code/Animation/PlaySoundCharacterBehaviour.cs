@@ -1,6 +1,7 @@
 ﻿// Copyright 2021, Infima Games. All Rights Reserved.
 
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -38,7 +39,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         [Tooltip("Audio Settings.")]
         [SerializeField]
-        private AudioSettings audioSettings = new AudioSettings(1.0f, 0.0f, true);
+        private AudioSettings audioSettings = new AudioSettings(null, 1.0f, 0.0f, true);
 
         #endregion
 

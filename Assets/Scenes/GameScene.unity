@@ -28551,12 +28551,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1adf289d78e8d4fb095270a9cc1a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioSource: {fileID: 0}
   _headKilledAudioClip: {fileID: 8300000, guid: c01ea578d6c412b469694f8f491dabf5,
     type: 3}
-  _audioSettings:
-    automaticCleanup: 1
-    volume: 0.3
-    spatialBlend: 0
 --- !u!82 &1766793295
 AudioSource:
   m_ObjectHideFlags: 0
@@ -28569,8 +28566,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.8
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0

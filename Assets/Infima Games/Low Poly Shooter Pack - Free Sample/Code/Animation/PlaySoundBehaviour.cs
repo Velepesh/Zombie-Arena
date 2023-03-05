@@ -19,7 +19,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         [Tooltip("Audio Settings.")]
         [SerializeField]
-        private AudioSettings settings = new AudioSettings(1.0f, 0.0f, true);
+        private AudioSettings settings = new AudioSettings(null, 1.0f, 0.0f, true);
 
         /// <summary>
         /// Audio Manager Service. Handles all game audio.

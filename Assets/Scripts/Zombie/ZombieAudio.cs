@@ -1,6 +1,5 @@
 using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
-using UnityEngine.Networking.Types;
 
 [RequireComponent(typeof(Zombie))]
 [RequireComponent(typeof(AudioSource))]
@@ -8,10 +7,6 @@ public class ZombieAudio : MonoBehaviour
 {
     [SerializeField] private AudioClip _audioClipWalkiing;
     [SerializeField] private AudioClip _deadAudioClip;
-
-    [Tooltip("Audio Settings.")]
-    [SerializeField]
-    private InfimaGames.LowPolyShooterPack.AudioSettings _audioSettings = new InfimaGames.LowPolyShooterPack.AudioSettings(1.0f, 0.0f, true);
 
     private Zombie _zombie;
     private AudioSource _audioSource;
@@ -21,7 +16,6 @@ public class ZombieAudio : MonoBehaviour
     {
         _zombie = GetComponent<Zombie>();
         _audioSource = GetComponent<AudioSource>();
-        _audioManagerService ??= ServiceLocator.Current.Get<IAudioManagerService>();
     }
 
     private void OnEnable()
@@ -52,8 +46,8 @@ public class ZombieAudio : MonoBehaviour
     private void OnDied(IDamageable damageable)
     {
         if (_audioSource.isPlaying)
-            _audioSource.Pause();
+            _audioSource.Stop();
 
-        _audioManagerService.PlayOneShotDelayed(_deadAudioClip, _audioSettings, 0f);
+        _audioSource.PlayOneShot(_deadAudioClip);
     }
 }

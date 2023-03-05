@@ -3616,8 +3616,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.8
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3661,7 +3661,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3934,10 +3934,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioClipWalkiing: {fileID: 8300000, guid: dbaad28258131304d8bc8f7cc7bcb0c9, type: 3}
   _deadAudioClip: {fileID: 8300000, guid: cb40a60198c4d8d48b4553a9369f0e73, type: 3}
-  _audioSettings:
-    automaticCleanup: 1
-    volume: 0.5
-    spatialBlend: 0.5
 --- !u!1 &7032952891194585820
 GameObject:
   m_ObjectHideFlags: 0

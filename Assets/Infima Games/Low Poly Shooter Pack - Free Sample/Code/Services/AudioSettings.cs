@@ -1,6 +1,7 @@
 ﻿// Copyright 2021, Infima Games. All Rights Reserved.
 
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -22,6 +23,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// Spatial Blend Getter.
         /// </summary>
         public float SpatialBlend => spatialBlend;
+        public AudioMixerGroup MixerGroup => mixerGroup;
 
         [Header("Settings")]
         
@@ -39,11 +41,16 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private float spatialBlend;
 
+        [Tooltip("AudioMixer.")]
+        [SerializeField]
+        private AudioMixerGroup mixerGroup;
+
         /// <summary>
         /// Constructor.
         /// </summary>
-        public AudioSettings(float volume = 1.0f, float spatialBlend = 0.0f, bool automaticCleanup = true)
+        public AudioSettings(AudioMixerGroup mixerGroup, float volume = 1.0f, float spatialBlend = 0.0f, bool automaticCleanup = true)
         {
+            this.mixerGroup = mixerGroup;
             //Volume.
             this.volume = volume;
             //Spatial Blend.
