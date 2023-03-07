@@ -56,7 +56,7 @@ public class Game : MonoBehaviour
         EndGame();
     }
 
-    private void Init()//Пробросить начало, что игрок начинает с анимации на H
+    private void Init()
     {
         _playerBuilder.Form();
         _towerBuilder.Form();

@@ -13,9 +13,7 @@ namespace InfimaGames.LowPolyShooterPack
         
         [Header("Settings")]
         
-        [Tooltip("Sensitivity when looking around.")]
-        [SerializeField]
-        private Vector2 sensitivity = new Vector2(1, 1);
+        private Sensitivity _sensitivity = new Sensitivity();
 
         [Tooltip("Minimum and maximum up/down rotation angle the camera can have.")]
         [SerializeField]
@@ -28,6 +26,8 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("The speed at which the look rotation is interpolated.")]
         [SerializeField]
         private float interpolationSpeed = 25.0f;
+
+        public Sensitivity Sensitivity => _sensitivity;
         
         #endregion
         
@@ -71,10 +71,13 @@ namespace InfimaGames.LowPolyShooterPack
         }
         private void LateUpdate()
         {
+            if (_sensitivity == null)
+                return;
+
             //Frame Input. The Input to add this frame!
             Vector2 frameInput = playerCharacter.IsCursorLocked() ? playerCharacter.GetInputLook() : default;
             //Sensitivity.
-            frameInput *= sensitivity;
+            frameInput *= _sensitivity.SensitivityVector;
 
             //Yaw.
             Quaternion rotationYaw = Quaternion.Euler(0.0f, frameInput.x, 0.0f);

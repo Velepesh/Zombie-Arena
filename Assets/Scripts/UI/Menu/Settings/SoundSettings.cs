@@ -27,10 +27,7 @@ public class SoundSettings : MonoBehaviour
         });
     }
 
-    private void Start()
-    {
-        Load();
-    }
+    private void Start() => Load();
 
     public void UpdateVolumeValue(float value)
     {

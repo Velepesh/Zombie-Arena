@@ -177,10 +177,7 @@ public class ZombieSpawner : ObjectPool
     private void TrySpawnNextWave()
     {
         if (_isAllEnemiesDied)
-        {
-            //if (_waves.Count > CurrentWaveNumber + 1)
-                NextWave();
-        }
+            NextWave();
     }
 }
 
