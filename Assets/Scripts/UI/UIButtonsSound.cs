@@ -13,6 +13,7 @@ public class UIButtonsSound : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         _buttons = GetComponentsInChildren<Button>();
+        _audioSource.ignoreListenerPause = true;
     }
 
     private void OnEnable()

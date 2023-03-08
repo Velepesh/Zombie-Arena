@@ -158,11 +158,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		private bool tutorialTextVisible;
 
-		/// <summary>
-		/// True if the game cursor is locked! Used when pressing "Escape" to allow developers to more easily access the editor.
-		/// </summary>
-		private bool cursorLocked;
-
 		#endregion
 
 		#region CONSTANTS
@@ -183,14 +178,6 @@ namespace InfimaGames.LowPolyShooterPack
 
 		protected override void Awake()
 		{
-			#region Lock Cursor
-
-			//Always make sure that our cursor is locked when the game starts!
-			//Update the cursor's state.
-			UpdateCursorState();
-
-			#endregion
-
 			//Cache the CharacterKinematics component.
 			characterKinematics = GetComponent<CharacterKinematics>();
 
@@ -276,7 +263,6 @@ namespace InfimaGames.LowPolyShooterPack
 		public override bool IsRunning() => running;
 		
 		public override bool IsAiming() => aiming;
-		public override bool IsCursorLocked() => cursorLocked;
 		
 		public override bool IsTutorialTextVisible() => tutorialTextVisible;
 		
@@ -415,16 +401,6 @@ namespace InfimaGames.LowPolyShooterPack
 			characterAnimator.CrossFade("Fire Empty", 0.05f, layerOverlay, 0);
 		}
 
-		/// <summary>
-		/// Updates the cursor state based on the value of the cursorLocked variable.
-		/// </summary>
-		private void UpdateCursorState()
-		{
-			//Update cursor visibility.
-			Cursor.visible = !cursorLocked;
-			//Update cursor lock state.
-			Cursor.lockState = cursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
-		}
 
 		/// <summary>
 		/// Updates the "Holstered" variable, along with the Character's Animator value.
@@ -591,10 +567,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryFire(InputAction.CallbackContext context)
 		{
-			//Block while the cursor is unlocked.
-			if (!cursorLocked)
-				return;
-
 			if (reloading)
 				return;
 			//Switch.
@@ -643,10 +615,6 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public void OnTryPlayReload(InputAction.CallbackContext context)
 		{
-			//Block while the cursor is unlocked.
-			if (!cursorLocked)
-				return;
-			
 			//Block.
 			if (!CanPlayAnimationReload())
 				return;
@@ -667,10 +635,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryInspect(InputAction.CallbackContext context)
 		{
-			//Block while the cursor is unlocked.
-			if (!cursorLocked)
-				return;
-			
 			//Block.
 			if (!CanPlayAnimationInspect())
 				return;
@@ -690,10 +654,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryAiming(InputAction.CallbackContext context)
 		{
-			//Block while the cursor is unlocked.
-			if (!cursorLocked)
-				return;
-
 			//Switch.
 			switch (context.phase)
 			{
@@ -713,10 +673,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryHolster(InputAction.CallbackContext context)
 		{
-			//Block while the cursor is unlocked.
-			if (!cursorLocked)
-				return;
-			
 			//Switch.
 			switch (context.phase)
 			{
@@ -738,10 +694,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryRun(InputAction.CallbackContext context)
 		{
-			//Block while the cursor is unlocked.
-			if (!cursorLocked)
-				return;
-			
 			//Switch.
 			switch (context.phase)
 			{
@@ -762,10 +714,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryInventoryNext(InputAction.CallbackContext context)
 		{
-			//Block while the cursor is unlocked.
-			if (!cursorLocked)
-				return;
-			
 			//Null Check.
 			if (inventory == null)
 				return;
@@ -790,30 +738,6 @@ namespace InfimaGames.LowPolyShooterPack
 					break;
 			}
 		}
-
-        public void UnlockCursor()
-		{  
-            //Toggle the cursor locked value.
-            cursorLocked = !cursorLocked;
-            //Update the cursor's state.
-            UpdateCursorState();
-        }
-
-
-        public void OnLockCursor(InputAction.CallbackContext context)
-		{
-			//Switch.
-			switch (context)
-			{
-				//Performed.
-				case {phase: InputActionPhase.Performed}:
-					//Toggle the cursor locked value.
-					cursorLocked = !cursorLocked;
-					//Update the cursor's state.
-					UpdateCursorState();
-					break;
-			}
-		}
 		
 		/// <summary>
 		/// Movement.
@@ -821,7 +745,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public void OnMove(InputAction.CallbackContext context)
 		{
 			//Read.
-			axisMovement = cursorLocked ? context.ReadValue<Vector2>() : default;
+			axisMovement = context.ReadValue<Vector2>();
 		}
 		/// <summary>
 		/// Look.
@@ -829,7 +753,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public void OnLook(InputAction.CallbackContext context)
 		{
 			//Read.
-			axisLook = cursorLocked ? context.ReadValue<Vector2>() : default;
+			axisLook = context.ReadValue<Vector2>();
 		}
 
         /// <summary>

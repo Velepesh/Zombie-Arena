@@ -10,7 +10,7 @@ namespace InfimaGames.LowPolyShooterPack
     public class CameraLook : MonoBehaviour
     {
         #region FIELDS SERIALIZED
-        
+        [SerializeField] private CursorStates _cursorStates;
         [Header("Settings")]
         
         private Sensitivity _sensitivity = new Sensitivity();
@@ -71,11 +71,11 @@ namespace InfimaGames.LowPolyShooterPack
         }
         private void LateUpdate()
         {
-            if (_sensitivity == null)
+            if (_cursorStates.CursorLocked == false)
                 return;
 
             //Frame Input. The Input to add this frame!
-            Vector2 frameInput = playerCharacter.IsCursorLocked() ? playerCharacter.GetInputLook() : default;
+            Vector2 frameInput = playerCharacter.GetInputLook();
             //Sensitivity.
             frameInput *= _sensitivity.SensitivityVector;
 

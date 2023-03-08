@@ -1216,7 +1216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74379b44be369043afd8160e1b39c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: {x: 1, y: 1}
+  _cursorStates: {fileID: 0}
   yClamp: {x: -89, y: 89}
   smooth: 0
   interpolationSpeed: 35
@@ -2000,7 +2000,6 @@ GameObject:
   - component: {fileID: 4849677245714721814}
   - component: {fileID: 4849677245699880729}
   - component: {fileID: 3604038819872217664}
-  - component: {fileID: 8747336093074065349}
   - component: {fileID: 5411741983053722493}
   - component: {fileID: 3191029264026901146}
   m_Layer: 10
@@ -2232,19 +2231,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasPrefab: {fileID: 5393623835024644669, guid: 48d7771c50bd625489d38055025597a3,
     type: 3}
---- !u!114 &8747336093074065349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7304872515596049584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e55e7a428d82413e839adb23b9351c98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  increment: 0.1
 --- !u!114 &5411741983053722493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2352,19 +2338,7 @@ MonoBehaviour:
     m_ActionId: ba2b842b-3f5c-4fb3-83eb-219eb3515445
     m_ActionName: Player/Look[/XInputControllerWindows/rightStick,/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4849677245699880729}
-        m_TargetAssemblyTypeName: InfimaGames.LowPolyShooterPack.Character, Assembly-CSharp
-        m_MethodName: OnTryHolster
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 4989ad3b-04e9-4d5d-8aeb-d8f00ab4550b
     m_ActionName: Player/Holster[/Keyboard/h,/XInputControllerWindows/rightShoulder]
   - m_PersistentCalls:
@@ -2432,51 +2406,15 @@ MonoBehaviour:
     m_ActionId: f2d17bd7-8d54-496b-99fd-8cb954650514
     m_ActionName: Player/Inspect[/Keyboard/t,/XInputControllerWindows/dpad/left]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8747336093074065349}
-        m_TargetAssemblyTypeName: InfimaGames.LowPolyShooterPack.TimeHandler, Assembly-CSharp
-        m_MethodName: OnToggle
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: bfdda7d2-cee8-4cb7-91a0-f3d4411e7f97
     m_ActionName: Player/Time Speed Stop[/Keyboard/5]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8747336093074065349}
-        m_TargetAssemblyTypeName: InfimaGames.LowPolyShooterPack.TimeHandler, Assembly-CSharp
-        m_MethodName: OnIncrease
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 418359b7-9253-4bb8-a363-e1fb23da7133
     m_ActionName: Player/Time Speed Up[/Keyboard/9,/XInputControllerWindows/dpad/up]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8747336093074065349}
-        m_TargetAssemblyTypeName: InfimaGames.LowPolyShooterPack.TimeHandler, Assembly-CSharp
-        m_MethodName: OnDecrease
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: e3ef7edf-7ab7-43b4-8fdc-67547435a45b
     m_ActionName: Player/Time Speed Down[/Keyboard/8,/XInputControllerWindows/dpad/down]
   - m_PersistentCalls:
@@ -2497,10 +2435,10 @@ MonoBehaviour:
     m_ActionName: Player/Inventory Next Wheel[/Mouse/scroll]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4849677245699880729}
-        m_TargetAssemblyTypeName: InfimaGames.LowPolyShooterPack.Character, Assembly-CSharp
-        m_MethodName: OnLockCursor
-        m_Mode: 0
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Game, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2512,19 +2450,7 @@ MonoBehaviour:
     m_ActionId: 9beb2473-ee7d-4a54-857b-b42a64a66a65
     m_ActionName: Player/Lock Cursor[/Keyboard/escape]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4849677245699880729}
-        m_TargetAssemblyTypeName: InfimaGames.LowPolyShooterPack.Character, Assembly-CSharp
-        m_MethodName: OnUpdateTutorial
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 207fb2a2-8add-4ddb-bda7-c1887aeb313a
     m_ActionName: Player/Tutorial[/Keyboard/tab]
   - m_PersistentCalls:
