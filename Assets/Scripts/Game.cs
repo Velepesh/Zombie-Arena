@@ -11,9 +11,6 @@ public class Game : MonoBehaviour
 
     public event UnityAction GameStarted;
     public event UnityAction GameOver;
-    public event UnityAction Settings;
-    public event UnityAction Controls;
-    public event UnityAction Restarted;
     public event UnityAction Continued;
     public event UnityAction Paused;
 
@@ -33,37 +30,24 @@ public class Game : MonoBehaviour
         DeactivateBuildingObjects();
     }
 
-    public void RestartGame()
-    {
-        Restarted?.Invoke();
-    }
-
     public void StartLevel()
     {
         Init();
         GameStarted?.Invoke();
     }
 
-    public void OpenSettings()
-    {
-        Settings?.Invoke();
-    }
-
-    public void OpenControls()
-    {
-        Controls?.Invoke();
-    }
-
     public void Continue()
     {
-        _cursor.LockCursor();
         Continued?.Invoke();
+        _cursor.LockCursor();
         StartTimeScale();
+        _playerBuilder.Form();
         AudioListener.pause = false;
     }
 
     public void Pause()
     {
+        _playerBuilder.Deactivate();
         _cursor.UnlockCursor();
         AudioListener.pause = true;
         Paused?.Invoke();
