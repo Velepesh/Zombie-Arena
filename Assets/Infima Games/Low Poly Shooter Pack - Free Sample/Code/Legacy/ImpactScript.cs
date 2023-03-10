@@ -18,7 +18,7 @@ public class ImpactScript : MonoBehaviour {
 		//Get a random impact sound from the array
 		audioSource.clip = impactSounds
 			[Random.Range(0, impactSounds.Length)];
-		//Play the random impact sound
+		//PlayOneShot the random impact sound
 		audioSource.Play();
 	}
 	

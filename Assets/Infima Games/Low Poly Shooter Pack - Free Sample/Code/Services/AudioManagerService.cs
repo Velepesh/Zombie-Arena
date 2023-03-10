@@ -2,7 +2,8 @@
 
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Audio;
+using Unity.VisualScripting;
+using static Unity.VisualScripting.Member;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -49,13 +50,20 @@ namespace InfimaGames.LowPolyShooterPack
         private IEnumerator DestroySourceWhenFinished(AudioSource source)
         {
             //Wait for the audio source to complete playing the clip.
-            yield return new WaitWhile(() => source.isPlaying);
-            
+            yield return new WaitWhile(() => IsPlaying(source));
+
             //Destroy the audio game object, since we're not using it anymore.
             //This isn't really too great for performance, but it works, for now.
-            DestroyImmediate(source.gameObject);
+            if (source.IsDestroyed() == false)
+                DestroyImmediate(source.gameObject);
         }
-
+        private bool IsPlaying(AudioSource source)
+        {
+            if (source.IsDestroyed())
+                return false;
+            
+            return source.isPlaying;
+        }
         /// <summary>
         /// Waits for a certain amount of time before starting to play a one shot sound.
         /// </summary>
@@ -63,7 +71,7 @@ namespace InfimaGames.LowPolyShooterPack
         {
             //Wait for the delay.
             yield return new WaitForSeconds(value.Delay);
-            //Play.
+            //PlayOneShot.
             PlayOneShot_Internal(value.Clip, value.Settings);
         }
         
@@ -87,7 +95,7 @@ namespace InfimaGames.LowPolyShooterPack
             newAudioSource.spatialBlend = settings.SpatialBlend;
             newAudioSource.outputAudioMixerGroup = settings.MixerGroup;
             
-            //Play the clip!
+            //PlayOneShot the clip!
             newAudioSource.PlayOneShot(clip);
             
             //Start a coroutine that will destroy the whole object once it is done!
@@ -99,13 +107,13 @@ namespace InfimaGames.LowPolyShooterPack
 
         public void PlayOneShot(AudioClip clip, AudioSettings settings = default)
         {
-            //Play.
+            //PlayOneShot.
             PlayOneShot_Internal(clip, settings);
         }
 
         public void PlayOneShotDelayed(AudioClip clip, AudioSettings settings = default, float delay = 1.0f)
         {
-            //Play.
+            //PlayOneShot.
             StartCoroutine(nameof(PlayOneShotAfterDelay), new OneShotCoroutine(clip, settings, delay));
         }
 

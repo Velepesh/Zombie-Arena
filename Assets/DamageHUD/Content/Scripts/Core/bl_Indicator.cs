@@ -35,9 +35,9 @@ public class bl_Indicator : MonoBehaviour {
             StopAllCoroutines();
             Alpha.alpha = 1;
         }
-        //Play push animation if update or not.
+        //PlayOneShot push animation if update or not.
         if (Animater != null) { Animater.Play("IndicatorPush",0,0); }
-        //Play countdown for fade.
+        //PlayOneShot countdown for fade.
         StartCoroutine(Fade());
     }
 

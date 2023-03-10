@@ -1,5 +1,8 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -13,6 +16,8 @@ public class Game : MonoBehaviour
     public event UnityAction GameOver;
     public event UnityAction Continued;
     public event UnityAction Paused;
+
+    private bool _isGameOver;
 
     private void OnEnable()
     {
@@ -40,33 +45,49 @@ public class Game : MonoBehaviour
     {
         Continued?.Invoke();
         _cursor.LockCursor();
-        StartTimeScale();
+        StartTime();
         _playerBuilder.Form();
-        AudioListener.pause = false;
     }
 
     public void Pause()
     {
+        if (_isGameOver)
+            return;
+
         _playerBuilder.Deactivate();
         _cursor.UnlockCursor();
-        AudioListener.pause = true;
         Paused?.Invoke();
-        StopTimeScale();
+        StopTime();
+    }
+
+    public void OnRestart(InputAction.CallbackContext context)
+    {
+        if(_isGameOver)
+            Restart();
+    }
+
+    public void Restart()
+    {
+        DOTween.Clear(true);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void EndGame()
     {
+        _isGameOver = true;
         GameOver?.Invoke();
-        StopTimeScale();
+        StopTime();
     }
 
-    private void StartTimeScale()
+    private void StartTime()
     {
+        AudioListener.pause = false;
         Time.timeScale = 1;
     }
 
-    private void StopTimeScale()
+    private void StopTime()
     {
+        AudioListener.pause = true;
         Time.timeScale = 0;
     }
 
@@ -77,6 +98,7 @@ public class Game : MonoBehaviour
 
     private void Init()
     {
+        StartTime();
         _cursor.LockCursor();
         _playerBuilder.Form();
         _towerBuilder.Form();

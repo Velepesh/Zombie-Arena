@@ -3,7 +3,7 @@
 namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
-    /// Play Sound Behaviour. Plays an AudioClip using our custom AudioManager!
+    /// PlayOneShot Sound Behaviour. Plays an AudioClip using our custom AudioManager!
     /// </summary>
     public class PlaySoundBehaviour : StateMachineBehaviour
     {
@@ -35,7 +35,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Try grab a reference to the sound managing service.
             audioManagerService ??= ServiceLocator.Current.Get<IAudioManagerService>();
 
-            //Play!
+            //PlayOneShot!
             audioManagerService?.PlayOneShot(clip, settings);
         }
 

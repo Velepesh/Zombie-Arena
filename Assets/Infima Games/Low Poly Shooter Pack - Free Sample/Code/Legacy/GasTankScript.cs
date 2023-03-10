@@ -80,9 +80,9 @@ public class GasTankScript : MonoBehaviour {
 			transform.Rotate (randomRotationValue,0,randomValue * 
 			                  rotationSpeed * Time.deltaTime); 
 
-			//Play the flame particles
+			//PlayOneShot the flame particles
 			flameParticles.Play ();
-			//Play the smoke particles
+			//PlayOneShot the smoke particles
 			smokeParticles.Play ();
 
 			//Increase the flame sound pitch over time
@@ -107,7 +107,7 @@ public class GasTankScript : MonoBehaviour {
 		}
 	}
 	private void OnCollisionEnter (Collision collision) {
-		//Play the impact sound on every collision
+		//PlayOneShot the impact sound on every collision
 		impactSound.Play ();
 	}
 

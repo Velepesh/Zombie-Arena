@@ -31,7 +31,7 @@ public class PlayParticles : MonoBehaviour
     {
         //Wait for set amount of time
         yield return new WaitForSeconds(waitBetweenPlaying);
-        //Play effects here
+        //PlayOneShot effects here
         particles.Play();
         //Restart the coroutine
         StartCoroutine(PlayEffect());

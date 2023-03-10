@@ -23,7 +23,7 @@ public class ExplosionScript : MonoBehaviour {
 		//Get a random impact sound from the array
 		audioSource.clip = explosionSounds
 			[Random.Range(0, explosionSounds.Length)];
-		//Play the random explosion sound
+		//PlayOneShot the random explosion sound
 		audioSource.Play();
 	}
 

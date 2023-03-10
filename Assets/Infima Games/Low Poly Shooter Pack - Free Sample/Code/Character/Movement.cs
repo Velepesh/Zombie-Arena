@@ -150,7 +150,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Cache the CapsuleCollider.
             capsule = GetComponent<CapsuleCollider>();
 
-            //Audio Source Setup.
+            //Audio IsPlaying Setup.
             audioSource = GetComponent<AudioSource>();
             audioSource.clip = audioClipWalking;
             audioSource.loop = true;
@@ -200,7 +200,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Get the equipped weapon!
             equippedWeapon = playerCharacter.GetInventory().GetEquipped();
             
-            //Play Sounds!
+            //PlayOneShot Sounds!
             PlayFootstepSounds();
         }
 
@@ -249,25 +249,6 @@ namespace InfimaGames.LowPolyShooterPack
             
             Velocity = new Vector3(movement.x, velocityY, movement.z);
         }
-        float currentJumpStartTime;
-        Vector3 momentum;
-        void OnJumpStart()
-        {
-            //If local momentum is used, transform momentum into world coordinates first;
-                momentum = transform.localToWorldMatrix * momentum;
-
-            //Add jump force to momentum;
-            momentum += transform.up * jumpHeight;
-
-            //Set jump start time;
-            currentJumpStartTime = Time.time;
-
-            //Lock jump input until jump key is released again;
-
-          
-
-                momentum = transform.worldToLocalMatrix * momentum;
-        }
 
         /// <summary>
         /// Plays Footstep Sounds. This code is slightly old, so may not be great, but it functions alright-_recoilY!
@@ -279,7 +260,7 @@ namespace InfimaGames.LowPolyShooterPack
             {
                 //Select the correct audio clip to play.
                 audioSource.clip = playerCharacter.IsRunning() ? audioClipRunning : audioClipWalking;
-                //Play it!
+                //PlayOneShot it!
                 if (!audioSource.isPlaying)
                     audioSource.Play();
             }

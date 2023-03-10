@@ -77,7 +77,7 @@ public class CasingScript : MonoBehaviour {
 		//Get a random casing sound from the array 
 		audioSource.clip = casingSounds
 			[Random.Range(0, casingSounds.Length)];
-		//Play the random casing sound
+		//PlayOneShot the random casing sound
 		audioSource.Play();
 	}
 

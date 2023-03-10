@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CanvasFade))]
 [RequireComponent(typeof(CanvasGroup))]
@@ -25,17 +23,6 @@ public class GameOverScreen : MonoBehaviour
     private void OnDisable()
     {
         _canvasFade.Showed -= OnShowed;
-    }
-
-    public void OnRestart(InputAction.CallbackContext context)
-    {
-        if (_canvasGroup.alpha == 1)
-            Restart();
-    }
-
-    private void Restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnShowed()

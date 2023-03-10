@@ -4,7 +4,6 @@ using System;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.iOS;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -300,7 +299,7 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			//State.
 			inspecting = true;
-			//Play.
+			//PlayOneShot.
 			characterAnimator.CrossFade("Inspect", 0.0f, layerActions, 0);
 		}
 		
@@ -314,7 +313,7 @@ namespace InfimaGames.LowPolyShooterPack
 			//Fire the weapon! Make sure that we also pass the scope's spread multiplier if we're aiming.
 			equippedWeapon.Fire(0);
 
-            //Play firing animation.
+            //PlayOneShot firing animation.
             const string stateName = "Fire";
 			characterAnimator.CrossFade(stateName, 0.05f, layerOverlay, 0);
 		}
@@ -325,7 +324,7 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Get the name of the animation state to play, which depends on weapon settings, and ammunition!
 			string stateName = equippedWeapon.HasAmmunition() ? "Reload" : "Reload Empty";
-			//Play the animation state!
+			//PlayOneShot the animation state!
 			characterAnimator.Play(stateName, layerActions, 0.0f);
 
 			//Set.
@@ -358,7 +357,7 @@ namespace InfimaGames.LowPolyShooterPack
 
             //Unholster. We do this just in case we were holstered.
             SetHolstered(false);
-			//Play Unholster Animation.
+			//PlayOneShot Unholster Animation.
 			characterAnimator.Play("Unholster", layerHolster, 0);
 			
 			//Equip The New Weapon.
@@ -397,7 +396,7 @@ namespace InfimaGames.LowPolyShooterPack
 			 * empty shots.
 			 */
 			lastShotTime = Time.time;
-			//Play.
+			//PlayOneShot.
 			characterAnimator.CrossFade("Fire Empty", 0.05f, layerOverlay, 0);
 		}
 
@@ -624,7 +623,7 @@ namespace InfimaGames.LowPolyShooterPack
 			{
 				//Performed.
 				case {phase: InputActionPhase.Performed}:
-					//Play Animation.
+					//PlayOneShot Animation.
 					PlayReloadAnimation();
 					break;
 			}
@@ -644,7 +643,7 @@ namespace InfimaGames.LowPolyShooterPack
 			{
 				//Performed.
 				case {phase: InputActionPhase.Performed}:
-					//Play Animation.
+					//PlayOneShot Animation.
 					Inspect();
 					break;
 			}

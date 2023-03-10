@@ -107,7 +107,7 @@ namespace InfimaGames.LowPolyShooterPack
             };
 
             #endregion
-            //Play with some delay. Granted, if the delay is set to zero, this will just straight-up play!
+            //PlayOneShot with some delay. Granted, if the delay is set to zero, this will just straight-up play!
             audioManagerService.PlayOneShotDelayed(clip, audioSettings, delay);
         }
         

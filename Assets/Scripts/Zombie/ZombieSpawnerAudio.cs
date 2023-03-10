@@ -1,17 +1,15 @@
 using UnityEngine;
 
 [RequireComponent(typeof(ZombieSpawner))]
-[RequireComponent(typeof(AudioSource))]
-public class ZombieSpawnerAudio : MonoBehaviour
+public class ZombieSpawnerAudio : Audio
 {
     [SerializeField] private AudioClip _headKilledAudioClip;
 
-    private AudioSource _audioSource;
     private ZombieSpawner _zombieSpawner;
 
-    private void Awake()
+    protected override void Awake()
     {
-        _audioSource = GetComponent<AudioSource>();
+        base.Awake();
         _zombieSpawner = GetComponent<ZombieSpawner>();
     }
 
@@ -28,6 +26,6 @@ public class ZombieSpawnerAudio : MonoBehaviour
     private void OnZombieDied(Zombie zombie)
     {
         if (zombie.IsHeadKill)
-            _audioSource.PlayOneShot(_headKilledAudioClip);
+            PlayOneShot(_headKilledAudioClip);
     }
 }
