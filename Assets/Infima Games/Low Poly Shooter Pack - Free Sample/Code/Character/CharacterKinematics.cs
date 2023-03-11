@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
+
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -11,7 +13,13 @@ namespace InfimaGames.LowPolyShooterPack
     {
         #region FIELDS SERIALIZED
 
-        [Header("Settings Arm Left")]
+        [Title(label: "References")]
+
+        [Tooltip("Reference to the character's Animator component.")]
+        [SerializeField, NotNull]
+        private Animator characterAnimator;
+
+        [Title(label: "Settings Arm Left")]
         
         [Tooltip("Left Arm Target. Determines what the IK target is.")]
         [SerializeField] 
@@ -31,7 +39,7 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private Transform[] armLeftHierarchy;
         
-        [Header("Settings Arm Right")]
+        [Title(label: "Settings Arm Right")]
         
         [Tooltip("Left Arm Target. Determines what the IK target is.")]
         [SerializeField] 
@@ -51,7 +59,7 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private Transform[] armRightHierarchy;
 
-        [Header("Generic")]
+        [Title(label: "Generic")]
 
         [Tooltip("Hint.")]
         [SerializeField]
@@ -75,6 +83,10 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private bool maintainTargetRotationOffset;
 
+        private float alphaLeft;
+
+        private float alphaRight;
+
         #endregion
         
         #region CONSTANTS
@@ -82,16 +94,50 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Constant.
         /// </summary>
-        private const float KSqrEpsilon = 1e-8f;
+        private const float kSqrEpsilon = 1e-8f;
 
         #endregion
         
+        #region UNITY
+
+        /// <summary>
+        /// Update.
+        /// </summary>
+        private void Update()
+        {
+            //Get Left Constraint Alpha.
+            alphaLeft = characterAnimator.GetFloat(AHashes.AlphaIKHandLeft);
+            //Get Right Constraint Alpha.
+            alphaRight = characterAnimator.GetFloat(AHashes.AlphaIKHandRight);
+        }
+
+        /// <summary>
+        /// Late Update.
+        /// </summary>
+        private void LateUpdate()
+        {
+            //Check References.
+            if (characterAnimator == null)
+            {
+                //ReferenceError.
+                Log.ReferenceError(this, gameObject);
+                
+                //Return.
+                return;
+            }
+
+            //Compute.
+            Compute(alphaLeft, alphaRight);
+        }
+        
+        #endregion
+
         #region METHODS
         
         /// <summary>
         /// Computes the Inverse Kinematics for both arms.
         /// </summary>
-        public void Compute(float weightLeft = 1.0f, float weightRight = 1.0f)
+        private void Compute(float weightLeft = 1.0f, float weightRight = 1.0f)
         {
             //Compute Left Arm.
             ComputeOnce(armLeftHierarchy, armLeftTarget, 
@@ -148,14 +194,14 @@ namespace InfimaGames.LowPolyShooterPack
             // try computing a bend normal given the desired target position.
             // If this also fails, try resolving axis using hint if provided.
             Vector3 axis = Vector3.Cross(ab, bc);
-            if (axis.sqrMagnitude < KSqrEpsilon)
+            if (axis.sqrMagnitude < kSqrEpsilon)
             {
                 axis = hasHint ? Vector3.Cross(hint.position - aPosition, bc) : Vector3.zero;
 
-                if (axis.sqrMagnitude < KSqrEpsilon)
+                if (axis.sqrMagnitude < kSqrEpsilon)
                     axis = Vector3.Cross(at, bc);
 
-                if (axis.sqrMagnitude < KSqrEpsilon)
+                if (axis.sqrMagnitude < kSqrEpsilon)
                     axis = Vector3.up;
             }
             axis = Vector3.Normalize(axis);

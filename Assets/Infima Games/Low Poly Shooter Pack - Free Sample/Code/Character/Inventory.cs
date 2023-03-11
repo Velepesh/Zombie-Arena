@@ -1,6 +1,4 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
-
-using UnityEngine;
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -31,7 +29,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Cache all weapons. Beware that weapons need to be parented to the object this component is on!
             weapons = GetComponentsInChildren<WeaponBehaviour>(true);
             
-            //Deactivate all weapons. This makes it easier for us to only activate the one we need.
+            //Disable all weapons. This makes it easier for us to only activate the one we need.
             foreach (WeaponBehaviour weapon in weapons)
                 weapon.gameObject.SetActive(false);
 
@@ -53,7 +51,7 @@ namespace InfimaGames.LowPolyShooterPack
             if (equippedIndex == index)
                 return equipped;
             
-            //Deactivate the currently equipped weapon, if we have one.
+            //Disable the currently equipped weapon, if we have one.
             if (equipped != null)
                 equipped.gameObject.SetActive(false);
 

@@ -1,4 +1,4 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
 //Implementation from: https://medium.com/medialesson/simple-service-locator-for-your-unity-project-40e317aad307
 
 using System;

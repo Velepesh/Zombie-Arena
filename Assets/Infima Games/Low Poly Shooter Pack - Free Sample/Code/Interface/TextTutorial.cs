@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
+
+using TMPro;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack.Interface
@@ -10,7 +12,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
     {
         #region FIELDS SERIALIZED
         
-        [Header("References")]
+        [Title(label: "References")]
         
         [Tooltip("Tutorial prompt text.")]
         [SerializeField]
@@ -31,7 +33,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
             //Enable the prompt by default.
             prompt.enabled = true;
-            //Deactivate the tutorial by default.
+            //Disable the tutorial by default.
             tutorial.enabled = false;
         }
 
@@ -42,7 +44,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         protected override void Tick()
         {
             //Get whether we should be showing the tutorial text, or not.
-            bool isVisible = playerCharacter.IsTutorialTextVisible();
+            bool isVisible = characterBehaviour.IsTutorialTextVisible();
             //Hide the prompt if the tutorial is visible.
             prompt.enabled = !isVisible;
             //Show the tutorial if needed.

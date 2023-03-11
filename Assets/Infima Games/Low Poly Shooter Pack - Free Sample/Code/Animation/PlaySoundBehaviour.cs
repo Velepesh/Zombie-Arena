@@ -1,21 +1,23 @@
-﻿using UnityEngine;
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
+
+using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
-    /// PlayOneShot Sound Behaviour. Plays an AudioClip using our custom AudioManager!
+    /// Play Sound Behaviour. Plays an AudioClip using our custom AudioManager!
     /// </summary>
     public class PlaySoundBehaviour : StateMachineBehaviour
     {
         #region FIELDS SERIALIZED
         
-        [Header("Setup")]
+        [Title(label: "Setup")]
         
         [Tooltip("AudioClip to play!")]
         [SerializeField]
         private AudioClip clip;
         
-        [Header("Settings")]
+        [Title(label: "Settings")]
 
         [Tooltip("Audio Settings.")]
         [SerializeField]
@@ -35,7 +37,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Try grab a reference to the sound managing service.
             audioManagerService ??= ServiceLocator.Current.Get<IAudioManagerService>();
 
-            //PlayOneShot!
+            //Play!
             audioManagerService?.PlayOneShot(clip, settings);
         }
 

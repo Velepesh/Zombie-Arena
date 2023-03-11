@@ -1,4 +1,4 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
 
@@ -37,6 +37,10 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         /// <returns></returns>
         public abstract Sprite GetSpriteBody();
+        /// <summary>
+        /// Returns the value of multiplierMovementSpeed;
+        /// </summary>
+        public abstract float GetMultiplierMovementSpeed();
 
         /// <summary>
         /// Returns the holster audio clip.
@@ -55,11 +59,28 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns the reload empty audio clip.
         /// </summary>
         public abstract AudioClip GetAudioClipReloadEmpty();
+        
+        /// <summary>
+        /// Returns the reload open audio clip.
+        /// </summary>
+        public abstract AudioClip GetAudioClipReloadOpen();
+        /// <summary>
+        /// Returns the reload insert audio clip.
+        /// </summary>
+        public abstract AudioClip GetAudioClipReloadInsert();
+        /// <summary>
+        /// Returns the reload close audio clip.
+        /// </summary>
+        public abstract AudioClip GetAudioClipReloadClose();
 
         /// <summary>
         /// Returns the fire empty audio clip.
         /// </summary>
         public abstract AudioClip GetAudioClipFireEmpty();
+        /// <summary>
+        /// Returns the bolt action audio clip.
+        /// </summary>
+        public abstract AudioClip GetAudioClipBoltAction();
 
         /// <summary>
         /// Returns the fire audio clip.
@@ -76,9 +97,32 @@ namespace InfimaGames.LowPolyShooterPack
         public abstract int GetAmmunitionTotal();
 
         /// <summary>
+        /// Determines if this Weapon reloads in cycles.
+        /// </summary>
+        public abstract bool HasCycledReload();
+
+        /// <summary>
         /// Returns the Weapon's Animator component.
         /// </summary>
         public abstract Animator GetAnimator();
+
+        /// <summary>
+        /// Returns the value of canReloadAimed.
+        /// </summary>
+
+        public abstract void Scope();
+        /// <summary>
+        /// Scope the weapon.
+        /// </summary>
+        /// 
+
+        public abstract void Unscope();
+        /// <summary>
+        /// Unscope the weapon.
+        /// </summary>
+        /// 
+
+        public abstract bool CanReloadAimed();
         
         /// <summary>
         /// Returns true if this weapon shoots in automatic.
@@ -94,9 +138,36 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public abstract bool IsFull();
         /// <summary>
+        /// Returns true if this is a bolt-action weapon.
+        /// </summary>
+        public abstract bool IsBoltAction();
+
+        /// <summary>
+        /// Returns true if the weapon should be automatically reload when empty.
+        /// </summary>
+        public abstract bool GetAutomaticallyReloadOnEmpty();
+        /// <summary>
+        /// Returns the delay after firing the last shot when the weapon should start automatically reloading.
+        /// </summary>
+        public abstract float GetAutomaticallyReloadOnEmptyDelay();
+
+        /// <summary>
+        /// Can this weapon be reloaded when it is full?
+        /// </summary>
+        public abstract bool CanReloadWhenFull();
+        /// <summary>
         /// Returns the weapon's rate of fire.
         /// </summary>
         public abstract float GetRateOfFire();
+
+        /// <summary>
+        /// Returns the field of view multiplier when aiming.
+        /// </summary>
+        public abstract float GetFieldOfViewMultiplierAim();
+        /// <summary>
+        /// Returns the field of view multiplier when aiming for the weapon camera.
+        /// </summary>
+        public abstract float GetFieldOfViewMultiplierAimWeapon();
 
         /// <summary>
         /// Returns the RuntimeAnimationController the Character needs to use when this Weapon is equipped!
@@ -119,35 +190,16 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Reloads the weapon.
         /// </summary>
-        /// 
-        public abstract void Scope();
-        /// <summary>
-        /// Scope the weapon.
-        /// </summary>
-        /// 
-
-        public abstract void Unscope();
-        /// <summary>
-        /// Unscope the weapon.
-        /// </summary>
-        /// 
-
         public abstract void Reload();
 
         /// <summary>
         /// Fills the character's equipped weapon's ammunition by a certain amount, or fully if set to -1.
         /// </summary>
-        /// 
-        public abstract void Recoil();
-        public abstract void GenerateRecoil();
-        public abstract void TryResetIndex();
-        public abstract float GetRecoilY();
-
-        /// <summary>
-        /// Weapon Recoil
-        /// </summary>
-        /// 
         public abstract void FillAmmunition(int amount);
+        /// <summary>
+        /// Sets the slide back pose.
+        /// </summary>
+        public abstract void SetSlideBack(int back);
 
         /// <summary>
         /// Ejects a casing from the weapon. This is commonly called from animation events, but can be called from anywhere.

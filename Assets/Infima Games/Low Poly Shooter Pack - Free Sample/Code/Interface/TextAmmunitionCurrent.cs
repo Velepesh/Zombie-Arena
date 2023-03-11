@@ -1,4 +1,4 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
 using System.Globalization;
@@ -12,7 +12,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
     {
         #region FIELDS SERIALIZED
         
-        [Header("Colors")]
+        [Title(label: "Colors")]
         
         [Tooltip("Determines if the color of the text should changes as ammunition is fired.")]
         [SerializeField]
@@ -36,9 +36,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         protected override void Tick()
         {
             //Current Ammunition.
-            float current = equippedWeapon.GetAmmunitionCurrent();
+            float current = equippedWeaponBehaviour.GetAmmunitionCurrent();
             //Total Ammunition.
-            float total = equippedWeapon.GetAmmunitionTotal();
+            float total = equippedWeaponBehaviour.GetAmmunitionTotal();
             
             //Update Text.
             textMesh.text = current.ToString(CultureInfo.InvariantCulture);
@@ -46,7 +46,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             //Determine if we should update the text's color.
             if (updateColor)
             {
-                //Calculate Color _alpha. Helpful to make the text color change based on count.
+                //Calculate Color Alpha. Helpful to make the text color change based on count.
                 float colorAlpha = (current / total) * emptySpeed;
                 //Lerp Color. This makes sure that the text color changes based on count.
                 textMesh.color = Color.Lerp(emptyColor, Color.white, colorAlpha);   

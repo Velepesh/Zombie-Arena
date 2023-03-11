@@ -1,4 +1,4 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
 
@@ -11,15 +11,19 @@ namespace InfimaGames.LowPolyShooterPack.Interface
     {
         #region FIELDS SERIALIZED
 
-        [Header("Settings")]
+        [Title(label: "Settings")]
         
         [Tooltip("Canvas prefab spawned at start. Displays the player's user interface.")]
         [SerializeField]
         private GameObject canvasPrefab;
+        
+        [Tooltip("Quality settings menu prefab spawned at start. Used for switching between different quality settings in-game.")]
+        [SerializeField]
+        private GameObject qualitySettingsPrefab;
 
         #endregion
 
-        #region UNITY FUNCTIONS
+        #region UNITY
 
         /// <summary>
         /// Awake.
@@ -27,7 +31,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         private void Awake()
         {
             //Spawn Interface.
-           // Instantiate(canvasPrefab);
+            Instantiate(canvasPrefab);
+            //Spawn Quality Settings Menu.
+            Instantiate(qualitySettingsPrefab);
         }
 
         #endregion

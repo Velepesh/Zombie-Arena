@@ -1,4 +1,4 @@
-// Copyright 2021, Infima Games. All Rights Reserved.
+//Copyright 2022, Infima Games. All Rights Reserved.
 
 using TMPro;
 using UnityEngine;
@@ -12,7 +12,7 @@ namespace InfimaGames.LowPolyShooterPack
     {
         #region FIELDS SERIALIZED
 
-        [Header("Settings")]
+        [Title(label: "Settings")]
         
         [Tooltip("Mesh.")]
         [SerializeField]

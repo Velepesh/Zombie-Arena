@@ -1,4 +1,4 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using System.Globalization;
 
@@ -17,7 +17,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         protected override void Tick()
         {
             //Total Ammunition.
-            float ammunitionTotal = equippedWeapon.GetAmmunitionTotal();
+            float ammunitionTotal = equippedWeaponBehaviour.GetAmmunitionTotal();
             
             //Update Text.
             textMesh.text = ammunitionTotal.ToString(CultureInfo.InvariantCulture);

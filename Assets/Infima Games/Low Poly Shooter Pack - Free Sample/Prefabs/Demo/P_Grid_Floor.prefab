@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4634678132177570467}
-  m_Layer: 17
+  m_Layer: 0
   m_Name: P_Grid_Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3733551219596336711}
   m_Father: {fileID: 0}
@@ -131,11 +130,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 96af6349713f9cd4ea4c829bf26d0b0b,
         type: 3}
-      propertyPath: m_Layer
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 96af6349713f9cd4ea4c829bf26d0b0b,
-        type: 3}
       propertyPath: m_TagString
       value: Concrete
       objectReference: {fileID: 0}
@@ -146,15 +140,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96af6349713f9cd4ea4c829bf26d0b0b, type: 3}
---- !u!4 &3733551219596336711 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 96af6349713f9cd4ea4c829bf26d0b0b,
-    type: 3}
-  m_PrefabInstance: {fileID: 3772473258414799276}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4079115163401471229 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 96af6349713f9cd4ea4c829bf26d0b0b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3772473258414799276}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3733551219596336711 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 96af6349713f9cd4ea4c829bf26d0b0b,
     type: 3}
   m_PrefabInstance: {fileID: 3772473258414799276}
   m_PrefabAsset: {fileID: 0}

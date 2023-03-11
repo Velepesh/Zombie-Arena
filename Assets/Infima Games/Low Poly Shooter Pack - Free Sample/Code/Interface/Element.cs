@@ -1,4 +1,4 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
 
@@ -10,7 +10,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
     public abstract class Element : MonoBehaviour
     {
         #region FIELDS
-        
+        protected CharacterBehaviour playerCharacter;
         /// <summary>
         /// Game Mode Service.
         /// </summary>
@@ -19,16 +19,16 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         /// <summary>
         /// Player Character.
         /// </summary>
-        protected CharacterBehaviour playerCharacter;
+        protected CharacterBehaviour characterBehaviour;
         /// <summary>
         /// Player Character Inventory.
         /// </summary>
-        protected InventoryBehaviour playerCharacterInventory;
+        protected InventoryBehaviour inventoryBehaviour;
 
         /// <summary>
         /// Equipped Weapon.
         /// </summary>
-        protected WeaponBehaviour equippedWeapon;
+        protected WeaponBehaviour equippedWeaponBehaviour;
         
         #endregion
 
@@ -43,9 +43,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             gameModeService = ServiceLocator.Current.Get<IGameModeService>();
             
             //Get Player Character.
-            playerCharacter = gameModeService.GetPlayerCharacter();
+            characterBehaviour = gameModeService.GetPlayerCharacter();
             //Get Player Character Inventory.
-            playerCharacterInventory = playerCharacter.GetInventory();
+            inventoryBehaviour = characterBehaviour.GetInventory();
         }
         
         /// <summary>
@@ -54,11 +54,11 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         private void Update()
         {
             //Ignore if we don't have an Inventory.
-            if (Equals(playerCharacterInventory, null))
+            if (Equals(inventoryBehaviour, null))
                 return;
 
             //Get Equipped Weapon.
-            equippedWeapon = playerCharacterInventory.GetEquipped();
+            equippedWeaponBehaviour = inventoryBehaviour.GetEquipped();
             
             //Tick.
             Tick();

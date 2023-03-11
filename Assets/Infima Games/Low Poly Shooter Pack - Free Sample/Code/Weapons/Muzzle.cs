@@ -1,4 +1,4 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
 using System.Collections;
@@ -12,7 +12,7 @@ namespace InfimaGames.LowPolyShooterPack
     {
         #region FIELDS SERIALIZED
 
-        [Header("Settings")]
+        [Title(label: "Settings")]
         
         [Tooltip("Socket at the tip of the Muzzle. Commonly used as a firing point.")]
         [SerializeField]
@@ -26,7 +26,7 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private AudioClip audioClipFire;
         
-        [Header("Particles")]
+        [Title(label: "Particles")]
         
         [Tooltip("Firing Particles.")]
         [SerializeField]
@@ -36,7 +36,7 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private int flashParticlesCount = 5;
 
-        [Header("Flash Light")]
+        [Title(label: "Flash Light")]
 
         [Tooltip("Muzzle Flash Prefab. A small light we use when firing.")]
         [SerializeField]
@@ -98,7 +98,7 @@ namespace InfimaGames.LowPolyShooterPack
                 
                 //Get reference.
                 flashLight = spawnedFlashLightPrefab.GetComponent<Light>();
-                //Deactivate.
+                //Disable.
                 flashLight.enabled = false;
             }
         }
@@ -118,7 +118,7 @@ namespace InfimaGames.LowPolyShooterPack
             {
                 //Enable the light.
                 flashLight.enabled = true;
-                //Deactivate the light after a few seconds.
+                //Disable the light after a few seconds.
                 StartCoroutine(nameof(DisableLight));
             }
         }
@@ -142,7 +142,7 @@ namespace InfimaGames.LowPolyShooterPack
         {
             //Wait.
             yield return new WaitForSeconds(flashLightDuration);
-            //Deactivate.
+            //Disable.
             flashLight.enabled = false;
         }
 

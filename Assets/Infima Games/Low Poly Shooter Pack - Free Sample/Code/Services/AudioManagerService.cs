@@ -1,6 +1,4 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting;
 using static Unity.VisualScripting.Member;
@@ -29,7 +27,7 @@ namespace InfimaGames.LowPolyShooterPack
             /// DelayBeforeMove.
             /// </summary>
             public float Delay { get; }
-            
+
             /// <summary>
             /// Constructor.
             /// </summary>
@@ -61,7 +59,7 @@ namespace InfimaGames.LowPolyShooterPack
         {
             if (source.IsDestroyed())
                 return false;
-            
+
             return source.isPlaying;
         }
         /// <summary>
@@ -74,7 +72,7 @@ namespace InfimaGames.LowPolyShooterPack
             //PlayOneShot.
             PlayOneShot_Internal(value.Clip, value.Settings);
         }
-        
+
         /// <summary>
         /// Internal PlayOneShot. Basically does the whole function's name!
         /// </summary>
@@ -83,7 +81,7 @@ namespace InfimaGames.LowPolyShooterPack
             //No need to do absolutely anything if the clip is null.
             if (clip == null)
                 return;
-            
+
             //Spawn a game object for the audio source.
             var newSourceObject = new GameObject($"Audio Source -> {clip.name}");
             //Add an audio source component to that object.
@@ -94,12 +92,12 @@ namespace InfimaGames.LowPolyShooterPack
             //Set spatial blend.
             newAudioSource.spatialBlend = settings.SpatialBlend;
             newAudioSource.outputAudioMixerGroup = settings.MixerGroup;
-            
+
             //PlayOneShot the clip!
             newAudioSource.PlayOneShot(clip);
-            
+
             //Start a coroutine that will destroy the whole object once it is done!
-            if(settings.AutomaticCleanup)
+            if (settings.AutomaticCleanup)
                 StartCoroutine(nameof(DestroySourceWhenFinished), newAudioSource);
         }
 

@@ -1,5 +1,6 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using System;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -10,6 +11,21 @@ namespace InfimaGames.LowPolyShooterPack
 	/// </summary>
 	public class AnimationReceiver : MonoBehaviour
 	{
+		/// <summary>
+		/// Demonstration Component Reference.
+		/// </summary>
+		private CharacterDemonstration characterDemonstration;
+
+		#region UNITY
+
+		private void Awake()
+		{
+			//Cache the demonstration component.
+			characterDemonstration = GetComponent<CharacterDemonstration>();
+		}
+
+		#endregion
+		
 		#region ANIMATION
 
 		private void OnAmmunitionFill(int amount = 0)
@@ -54,6 +70,16 @@ namespace InfimaGames.LowPolyShooterPack
 
 		private void OnSetActiveKnife()
 		{
+		}
+
+		/// <summary>
+		/// Spawns a magazine! This function is called from an Animation Event.
+		/// </summary>
+		private void OnDropMagazine(int drop = 0)
+		{
+			//Drop the magazine.
+			if(characterDemonstration != null)
+				characterDemonstration.DropMagazine(drop == 0);
 		}
 
 		#endregion

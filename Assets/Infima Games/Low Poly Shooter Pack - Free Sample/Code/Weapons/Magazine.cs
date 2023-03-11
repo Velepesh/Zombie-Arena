@@ -1,4 +1,4 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
 
@@ -11,13 +11,13 @@ namespace InfimaGames.LowPolyShooterPack
     {
         #region FIELDS SERIALIZED
 
-        [Header("Settings")]
+        [Title(label: "Settings")]
         
         [Tooltip("Total Ammunition.")]
         [SerializeField]
         private int ammunitionTotal = 10;
 
-        [Header("Interface")]
+        [Title(label: "Interface")]
 
         [Tooltip("Interface Sprite.")]
         [SerializeField]

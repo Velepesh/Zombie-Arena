@@ -40,6 +40,19 @@ namespace InfimaGames.LowPolyShooterPack
 
         public static void oopsie(Exception oopsie, UnityEngine.Object context = default(UnityEngine.Object)) { Debug.LogException(oopsie, context); }
 
+        /// <summary>
+        /// Throws a reference error. We have this as a specific function so we don't have to repeat it
+        /// everywhere, which would be quite tedious.
+        /// </summary>
+        /// <param name="behaviour">Behaviour throwing the error.</param>
+        /// <param name="gameObject">GameObject that the behaviour is added to.</param>
+        public static void ReferenceError(MonoBehaviour behaviour, GameObject gameObject)
+        {
+            //Error Message.
+            kill($"Component {behaviour.GetType().Name} on GameObject {gameObject.name} has missing references, and will " +
+                     $"not correctly function. Please fix this so the component can work properly!");
+        }
+
         private static void Internal_Log(string message, LogType type)
         {
             // Null case.

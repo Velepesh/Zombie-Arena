@@ -38,7 +38,7 @@
                     "id": "a9c8dffd-02dc-46bc-aa77-d0e60902e6e5",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
@@ -56,13 +56,40 @@
                     "id": "4989ad3b-04e9-4d5d-8aeb-d8f00ab4550b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Lower Weapon",
+                    "type": "Button",
+                    "id": "48620936-869d-449d-a2b8-144b256bad4a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap",
                     "initialStateCheck": false
                 },
                 {
                     "name": "Jump",
                     "type": "Button",
                     "id": "6bf74daf-8a98-48de-b071-9a4f6efdc3f3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Grenade",
+                    "type": "Button",
+                    "id": "b48c7f02-acf4-4c91-9a97-f85d78b40a00",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Melee",
+                    "type": "Button",
+                    "id": "ee72309b-00d2-4acf-aa85-8779c255d656",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -148,6 +175,42 @@
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "885a3c54-aad8-4b06-8b4d-8a026bbb94f1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Leaning",
+                    "type": "Value",
+                    "id": "26aac017-d754-4777-a1c8-2ae5121d9795",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Toggle Laser",
+                    "type": "Button",
+                    "id": "1500b140-0b9e-469c-91ca-e7f4462b5b66",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "e1ba90be-8b16-4d83-b537-6b079e5a19ea",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -222,7 +285,7 @@
                     "id": "70861d89-1a53-4df4-99fe-73a6861806f3",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
-                    "processors": "ScaleVector2(x=1.2,y=1.2)",
+                    "processors": "ScaleVector2(x=2,y=2)",
                     "groups": "",
                     "action": "Look",
                     "isComposite": false,
@@ -280,6 +343,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f1f0667-d05b-44ff-b033-6af3c4c78b8b",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grenade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0d06c74c-75fd-4f5f-95f2-6bd81b9f1d99",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grenade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ab3c0c1-413c-4596-93a8-b92c2eb0157b",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Melee",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7dd98274-256a-4623-973f-5995b0f261fa",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Melee",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -374,7 +481,7 @@
                 {
                     "name": "",
                     "id": "64767df0-dd96-438b-878e-fe24248339dd",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -420,7 +527,7 @@
                     "id": "cb6cccc0-3b41-4272-9fa9-a7193c1096be",
                     "path": "Dpad",
                     "interactions": "",
-                    "processors": "NormalizeVector2",
+                    "processors": "",
                     "groups": "",
                     "action": "Movement",
                     "isComposite": true,
@@ -494,6 +601,28 @@
                 },
                 {
                     "name": "",
+                    "id": "84f67f9e-d7e6-4db3-8ca5-39f8f2727aa0",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lock Cursor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ac8aaf0e-baa6-466d-a2fd-5c3eb2bf85d7",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lock Cursor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e2c127bc-a838-4782-a49c-063fa51f1d76",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
@@ -513,17 +642,149 @@
                     "action": "Tutorial",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e34aa957-68ff-4253-9abe-971e52e76acf",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9bad842a-e017-416e-80ca-481f772d9d95",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93bda953-bb6f-4c70-aa9c-d0fd6d420ab7",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a228bb0-edfd-47a8-9460-9bfd27c254ae",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lower Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9ba79389-e708-44b5-8bcd-b41de23140f5",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lower Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Axis",
+                    "id": "68aa6a8d-a25f-4d8e-9d6c-a30a3a8785d5",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Leaning",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "59413d97-c602-4903-aad8-4431c1a75e61",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Leaning",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "175d3f8c-31d0-4904-b1d8-63260c5ea0ad",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Leaning",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "307728e7-3fce-4425-8ef6-4c59a83c83ae",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Laser",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ca97e879-6f93-4998-a1a0-efd5ea2c25a9",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Laser",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17563b9a-58b2-42c8-a076-6b072becd0e9",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f3bb831e-417c-421e-ac1a-d0b7ea51d41c",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
             "name": "Menu",
-            "id": "81282dd8-34fe-461c-a159-17b6398ea1c1",
+            "id": "be8390f8-51c1-4a70-9cb9-5418f57d4b57",
             "actions": [
                 {
                     "name": "Restart",
                     "type": "Button",
-                    "id": "7c90314b-53e7-4058-ba69-b1a809ebbf38",
+                    "id": "910154ac-f94d-48c4-8d1f-3870768e5bd6",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -533,7 +794,7 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "46a6aa91-27d0-4875-858d-94a73623e596",
+                    "id": "dab5b4be-beb8-4286-b196-666ae2486d0c",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
@@ -544,7 +805,7 @@
                 },
                 {
                     "name": "",
-                    "id": "8d0d947d-6868-4393-9f52-4d417babf442",
+                    "id": "bc96dee5-6317-43ab-a7e9-febd6d003c9a",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",

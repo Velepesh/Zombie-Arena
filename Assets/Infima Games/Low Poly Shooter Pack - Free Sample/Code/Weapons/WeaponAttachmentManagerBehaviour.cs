@@ -1,4 +1,4 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
 
@@ -52,6 +52,15 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns the equipped muzzle.
         /// </summary>
         public abstract MuzzleBehaviour GetEquippedMuzzle();
+        
+        /// <summary>
+        /// Returns the equipped laser.
+        /// </summary>
+        public abstract LaserBehaviour GetEquippedLaser();
+        /// <summary>
+        /// Returns the equipped grip.
+        /// </summary>
+        public abstract GripBehaviour GetEquippedGrip();
         
         #endregion
     }

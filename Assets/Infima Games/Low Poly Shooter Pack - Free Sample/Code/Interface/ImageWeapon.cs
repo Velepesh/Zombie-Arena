@@ -1,4 +1,4 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,15 +12,37 @@ namespace InfimaGames.LowPolyShooterPack.Interface
     {
         #region FIELDS SERIALIZED
 
-        [Header("Settings")]
+        [Title(label: "Colors")]
+
+        [Tooltip("Color applied to all images.")]
+        [SerializeField]
+        private Color imageColor = Color.white;
+        
+        [Title(label: "Settings")]
         
         [Tooltip("Weapon Body Image.")]
         [SerializeField]
         private Image imageWeaponBody;
+
+        [Tooltip("Weapon Grip Image.")]
+        [SerializeField]
+        private Image imageWeaponGrip;
+
+        [Tooltip("Weapon Laser Image.")]
+        [SerializeField]
+        private Image imageWeaponLaser;
+        
+        [Tooltip("Weapon Silencer Image.")]
+        [SerializeField]
+        private Image imageWeaponMuzzle;
         
         [Tooltip("Weapon Magazine Image.")]
         [SerializeField]
         private Image imageWeaponMagazine;
+        
+        [Tooltip("Weapon Scope Image.")]
+        [SerializeField]
+        private Image imageWeaponScope;
         
         [Tooltip("Weapon Scope Default Image.")]
         [SerializeField]
@@ -41,10 +63,15 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
         protected override void Tick()
         {
+            //Calculate what color and alpha we need to apply.
+            Color toAssign = imageColor;
+            foreach (Image image in GetComponents<Image>())
+                image.color = toAssign;
+            
             //Get Attachment Manager.
-            attachmentManagerBehaviour = equippedWeapon.GetAttachmentManager();
+            attachmentManagerBehaviour = equippedWeaponBehaviour.GetAttachmentManager();
             //Update the weapon's body sprite!
-            imageWeaponBody.sprite = equippedWeapon.GetSpriteBody();
+            imageWeaponBody.sprite = equippedWeaponBehaviour.GetSpriteBody();
 
             //Sprite.
             Sprite sprite = default;
@@ -56,6 +83,14 @@ namespace InfimaGames.LowPolyShooterPack.Interface
                 sprite = scopeDefaultBehaviour.GetSprite();
             //Assign Sprite!
             AssignSprite(imageWeaponScopeDefault, sprite, scopeDefaultBehaviour == null);
+            
+            //Scope.
+            ScopeBehaviour scopeBehaviour = attachmentManagerBehaviour.GetEquippedScope();
+            //Get Sprite.
+            if (scopeBehaviour != null)
+                sprite = scopeBehaviour.GetSprite();
+            //Assign Sprite!
+            AssignSprite(imageWeaponScope, sprite, scopeBehaviour == null || scopeBehaviour == scopeDefaultBehaviour);
 
             //Magazine.
             MagazineBehaviour magazineBehaviour = attachmentManagerBehaviour.GetEquippedMagazine();
@@ -64,6 +99,30 @@ namespace InfimaGames.LowPolyShooterPack.Interface
                 sprite = magazineBehaviour.GetSprite();
             //Assign Sprite!
             AssignSprite(imageWeaponMagazine, sprite, magazineBehaviour == null);
+
+            //Laser.
+            LaserBehaviour laserBehaviour = attachmentManagerBehaviour.GetEquippedLaser();
+            //Get Sprite.
+            if (laserBehaviour != null)
+                sprite = laserBehaviour.GetSprite();
+            //Assign Sprite!
+            AssignSprite(imageWeaponLaser, sprite, laserBehaviour == null);
+            
+            //Grip.
+            GripBehaviour gripBehaviour = attachmentManagerBehaviour.GetEquippedGrip();
+            //Get Sprite.
+            if (gripBehaviour != null)
+                sprite = gripBehaviour.GetSprite();
+            //Assign Sprite!
+            AssignSprite(imageWeaponGrip, sprite, gripBehaviour == null);
+            
+            //Muzzle.
+            MuzzleBehaviour muzzleBehaviour = attachmentManagerBehaviour.GetEquippedMuzzle();
+            //Get Sprite.
+            if (muzzleBehaviour != null)
+                sprite = muzzleBehaviour.GetSprite();
+            //Assign Sprite!
+            AssignSprite(imageWeaponMuzzle, sprite, muzzleBehaviour == null);
         }
 
         /// <summary>
@@ -73,7 +132,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         {
             //Update.
             image.sprite = sprite;
-            //Deactivate image if needed.
+            //Disable image if needed.
             image.enabled = sprite != null && !forceHide;
         }
 

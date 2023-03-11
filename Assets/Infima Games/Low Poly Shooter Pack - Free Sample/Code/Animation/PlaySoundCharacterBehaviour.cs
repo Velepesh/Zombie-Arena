@@ -1,7 +1,6 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
-using UnityEngine.Audio;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -15,19 +14,25 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private enum SoundType
         {
+            //Character Actions.
+            GrenadeThrow, Melee,
             //Holsters.
             Holster, Unholster,
             //Normal Reloads.
             Reload, ReloadEmpty,
+            //Cycled Reloads.
+            ReloadOpen, ReloadInsert, ReloadClose,
             //Firing.
             Fire, FireEmpty,
+            //Bolt.
+            BoltAction
         }
 
         #region FIELDS SERIALIZED
 
-        [Header("Setup")]
+        [Title(label: "Setup")]
         
-        [Tooltip("DelayBeforeMove at which the audio is played.")]
+        [Tooltip("Delay at which the audio is played.")]
         [SerializeField]
         private float delay;
         
@@ -35,7 +40,7 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private SoundType soundType;
         
-        [Header("Audio Settings")]
+        [Title(label: "Audio Settings")]
 
         [Tooltip("Audio Settings.")]
         [SerializeField]
@@ -87,6 +92,11 @@ namespace InfimaGames.LowPolyShooterPack
             //Switch.
             AudioClip clip = soundType switch
             {
+                //Grenade Throw.
+                SoundType.GrenadeThrow => playerCharacter.GetAudioClipsGrenadeThrow().GetRandom(),
+                //Melee.
+                SoundType.Melee => playerCharacter.GetAudioClipsMelee().GetRandom(),
+                
                 //Holster.
                 SoundType.Holster => weaponBehaviour.GetAudioClipHolster(),
                 //Unholster.
@@ -97,17 +107,28 @@ namespace InfimaGames.LowPolyShooterPack
                 //Reload Empty.
                 SoundType.ReloadEmpty => weaponBehaviour.GetAudioClipReloadEmpty(),
                 
+                //Reload Open.
+                SoundType.ReloadOpen => weaponBehaviour.GetAudioClipReloadOpen(),
+                //Reload Insert.
+                SoundType.ReloadInsert => weaponBehaviour.GetAudioClipReloadInsert(),
+                //Reload Close.
+                SoundType.ReloadClose => weaponBehaviour.GetAudioClipReloadClose(),
+                
                 //Fire.
                 SoundType.Fire => weaponBehaviour.GetAudioClipFire(),
                 //Fire Empty.
                 SoundType.FireEmpty => weaponBehaviour.GetAudioClipFireEmpty(),
+                
+                //Bolt Action.
+                SoundType.BoltAction => weaponBehaviour.GetAudioClipBoltAction(),
                 
                 //Default.
                 _ => default
             };
 
             #endregion
-            //PlayOneShot with some delay. Granted, if the delay is set to zero, this will just straight-up play!
+
+            //Play with some delay. Granted, if the delay is set to zero, this will just straight-up play!
             audioManagerService.PlayOneShotDelayed(clip, audioSettings, delay);
         }
         
