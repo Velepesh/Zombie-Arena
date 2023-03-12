@@ -64,17 +64,17 @@ namespace InfimaGames.LowPolyShooterPack
 		[SerializeField]
 		private Camera cameraWorld;
 
-        [Tooltip("Aim Camera Position.")]
-        [SerializeField]
-        private Vector3 _aimCameraPosition;
+        //[Tooltip("Aim Camera Position.")]
+        //[SerializeField]
+        //private Vector3 _aimCameraPosition;
 
-        [Tooltip("Aim Camera Field Of View.")]
-        [SerializeField]
-        private float _aimCameraFieldOfView;
+        //[Tooltip("Aim Camera Field Of View.")]
+        //[SerializeField]
+        //private float _aimCameraFieldOfView;
 
-        [Tooltip("Aim Camera Scoping Speed.")]
-        [SerializeField]
-        private float _scopingSpeed;
+        //[Tooltip("Aim Camera Scoping Speed.")]
+        //[SerializeField]
+        //private float _scopingSpeed;
 
         [Tooltip("Weapon-Only Camera. Depth.")]
 		[SerializeField]
@@ -367,13 +367,13 @@ namespace InfimaGames.LowPolyShooterPack
 			//Update Animator.
 			UpdateAnimator();
 
-            //if (aiming)
-            //    equippedWeapon.Scope();
-            //else
-            //    equippedWeapon.Unscope();
+			//if (aiming)
+			//	equippedWeapon.Scope();
+			//else
+			//	equippedWeapon.Unscope();
 
-            //Update Aiming Alpha. We need to get this here because we're using the Animator to interpolate the aiming value.
-            aimingAlpha = characterAnimator.GetFloat(AHashes.AimingAlpha);
+			//Update Aiming Alpha. We need to get this here because we're using the Animator to interpolate the aiming value.
+			aimingAlpha = characterAnimator.GetFloat(AHashes.AimingAlpha);
 			
 			//Interpolate the crouching alpha. We do this here as a quick and dirty shortcut, but there's definitely better ways to do this.
 			crouchingAlpha = Mathf.Lerp(crouchingAlpha, movementBehaviour.IsCrouching() ? 1.0f : 0.0f, Time.deltaTime * 12.0f);
@@ -419,9 +419,9 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public override Camera GetCameraWorld() => cameraWorld;
 
-        public override Vector3 GetAimCameraPosition() => _aimCameraPosition;
-        public override float GetAimCameraFieldOfView() => _aimCameraFieldOfView;
-        public override float GetScopingCameraSpeed() => _scopingSpeed;
+        //public override Vector3 GetAimCameraPosition() => _aimCameraPosition;
+        //public override float GetAimCameraFieldOfView() => _aimCameraFieldOfView;
+        //public override float GetScopingCameraSpeed() => _scopingSpeed;
         /// <summary>
         /// GetCameraDepth.
         /// </summary>
@@ -677,10 +677,15 @@ namespace InfimaGames.LowPolyShooterPack
 			//Refresh.
 			RefreshWeaponSetup();
 		}
-		/// <summary>
-		/// Refresh all weapon things to make sure we're all set up!
-		/// </summary>
-		private void RefreshWeaponSetup()
+
+        private void PlayeDefaultAnimation()
+        {
+            characterAnimator.Play("Default", layerActions, 0.0f);
+        }
+        /// <summary>
+        /// Refresh all weapon things to make sure we're all set up!
+        /// </summary>
+        private void RefreshWeaponSetup()
 		{
 			//Make sure we have a weapon. We don't want errors!
 			if ((equippedWeapon = inventory.GetEquipped()) == null)
@@ -759,9 +764,9 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			//Update value.
 			holstered = value;
-			
-			//Update Animator.
-			const string boolName = "Holstered";
+			PlayeDefaultAnimation();
+            //Update Animator.
+            const string boolName = "Holstered";
 			characterAnimator.SetBool(boolName, holstered);	
 		}
 		
@@ -786,10 +791,10 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Block.
 			if (inspecting)
-				return false;
+                AnimationEndedInspect();
 
-			//Return.
-			return true;
+            //Return.
+            return true;
 		}
 
 		/// <summary>
@@ -813,12 +818,12 @@ namespace InfimaGames.LowPolyShooterPack
 			if (throwingGrenade)
 				return false;
 
-			//Block while inspecting.
-			if (inspecting)
-				return false;
-			
-			//Block Full Reloading if needed.
-			if (!equippedWeapon.CanReloadWhenFull() && equippedWeapon.IsFull())
+            //Block while inspecting.
+            if (inspecting)
+                AnimationEndedInspect();
+
+            //Block Full Reloading if needed.
+            if (!equippedWeapon.CanReloadWhenFull() && equippedWeapon.IsFull())
 				return false;
 			
 			//Return.
@@ -842,12 +847,12 @@ namespace InfimaGames.LowPolyShooterPack
 			if (reloading || bolting)
 				return false;
 
-			//Block.
-			if (inspecting)
-				return false;
-			
-			//We need to have grenades!
-			if (!grenadesUnlimited && grenadeCount == 0)
+            //Block.
+            if (inspecting)
+                AnimationEndedInspect();
+
+            //We need to have grenades!
+            if (!grenadesUnlimited && grenadeCount == 0)
 				return false;
 			
 			//Return.
@@ -871,12 +876,12 @@ namespace InfimaGames.LowPolyShooterPack
 			if (reloading || bolting)
 				return false;
 
-			//Block.
-			if (inspecting)
-				return false;
-			
-			//Return.
-			return true;
+            //Block.
+            if(inspecting)
+                AnimationEndedInspect();
+
+            //Return.
+            return true;
 		}
 
 		/// <summary>
@@ -893,12 +898,12 @@ namespace InfimaGames.LowPolyShooterPack
 			if (reloading || bolting)
 				return false;
 
-			//Block.
-			if (inspecting)
-				return false;
-			
-			//Return.
-			return true;
+            //Block.
+            if (inspecting)
+                AnimationEndedInspect();
+
+            //Return.
+            return true;
 		}
 
 		/// <summary>
@@ -919,12 +924,12 @@ namespace InfimaGames.LowPolyShooterPack
 			if (reloading || bolting)
 				return false;
 
-			//Block.
-			if (inspecting)
-				return false;
-			
-			//Return.
-			return true;
+            //Block.
+            if (inspecting)
+                AnimationEndedInspect();
+
+            //Return.
+            return true;
 		}
 
 		/// <summary>
@@ -947,9 +952,9 @@ namespace InfimaGames.LowPolyShooterPack
 			//Block.
 			if (inspecting)
 				return false;
-			
-			//Return.
-			return true;
+
+            //Return.
+            return true;
 		}
 
 		/// <summary>
@@ -958,8 +963,10 @@ namespace InfimaGames.LowPolyShooterPack
 		/// <returns></returns>
 		private bool CanAim()
 		{
-			//Block.
-			if (holstered || inspecting)
+            if (inspecting)
+                AnimationEndedInspect();
+            //Block.
+            if (holstered)
 				return false;
 
 			//Block.
@@ -981,11 +988,14 @@ namespace InfimaGames.LowPolyShooterPack
 		private bool CanRun()
 		{
 			//Block.
-			if (inspecting || bolting)
+			if (bolting)
 				return false;
 
-			//No running while crouching.
-			if (movementBehaviour.IsCrouching())
+            if (inspecting)
+                AnimationEndedInspect();
+
+            //No running while crouching.
+            if (movementBehaviour.IsCrouching())
 				return false;
 
 			//Block.
@@ -1413,8 +1423,10 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public override void AnimationEndedInspect()
 		{
-			//Stop Inspecting.
-			inspecting = false;
+			Debug.Log("AnimationEndedInspect");
+            characterAnimator.CrossFade("Default", 0.0f, layerActions, 0);
+            //Stop Inspecting.
+            inspecting = false;
 		}
 		/// <summary>
 		/// AnimationEndedHolster.

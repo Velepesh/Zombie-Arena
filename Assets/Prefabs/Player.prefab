@@ -1181,7 +1181,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4443805104658281365}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b0299d1388028864e9874bcacb6c2123, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 2c56a83c3431ae248a78a389fa783ea8, type: 3}
   m_Controller: {fileID: 22100000, guid: 1288116e5192cd84b808721e453eb7e7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -1408,13 +1408,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeTrigger: {fileID: 2021908090132718944}
+  volumeTrigger: {fileID: 0}
   volumeLayer:
     serializedVersion: 2
     m_Bits: 2048
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
-  antialiasingMode: 0
+  antialiasingMode: 2
   temporalAntialiasing:
     jitterSpread: 0.75
     sharpness: 0.25
@@ -2008,7 +2008,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7308104344934141714
 Transform:
   m_ObjectHideFlags: 0
@@ -2165,7 +2165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health:
-    _health: 50
+    _health: 10
 --- !u!114 &4252383770599021789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2190,13 +2190,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ba9a63e484e8f142b3b13cfd976e290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClipWalking: {fileID: 8300000, guid: 74abbbf1b1724e34b894191db38e10a0, type: 3}
-  audioClipRunning: {fileID: 8300000, guid: d2add02f58e61e640aba3ae9110591cb, type: 3}
+  acceleration: 9
+  accelerationInAir: 3
+  deceleration: 11
   speedWalking: 4
+  speedAiming: 3.2
+  speedCrouching: 3.5
   speedRunning: 6.8
-  jumpHeight: 1.25
-  movementSmoothness: 0.125
+  walkingMultiplierForward: 1
+  walkingMultiplierSideways: 1
+  walkingMultiplierBackwards: 1
+  airControl: 0.8
   gravity: 20
+  jumpGravity: 1
+  jumpForce: 100
+  stickToGroundForce: 0.03
+  canCrouch: 1
+  canCrouchWhileFalling: 0
+  canJumpWhileCrouching: 1
+  crouchHeight: 1
+  crouchOverlapsMask:
+    serializedVersion: 2
+    m_Bits: 0
+  rigidbodyPushForce: 1
 --- !u!114 &4849677245699880729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2209,14 +2225,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cedea47162792a74cb9ec77109d20e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lowerWeapon: {fileID: 0}
+  weaponIndexEquippedAtStart: 0
   inventory: {fileID: 3672167138144090218}
+  grenadesUnlimited: 0
+  grenadeTotal: 10
+  grenadeSpawnOffset: 1
+  grenadePrefab: {fileID: 0}
+  knife: {fileID: 0}
   cameraWorld: {fileID: 5763239342432345093}
   _aimCameraPosition: {x: 0, y: 0.0015, z: 0.3}
   _aimCameraFieldOfView: 50
   _scopingSpeed: 200
+  cameraDepth: {fileID: 0}
+  dampTimeTurning: 0.4
   dampTimeLocomotion: 0.1
   dampTimeAiming: 0.3
+  runningInterpolationSpeed: 12
+  aimingSpeedMultiplier: 1
   characterAnimator: {fileID: 7879509212114766411}
+  fieldOfView: 100
+  fieldOfViewRunningMultiplier: 1.05
+  fieldOfViewWeapon: 55
+  audioClipsMelee: []
+  audioClipsGrenadeThrow: []
+  holdToRun: 1
+  holdToAim: 1
 --- !u!114 &3604038819872217664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2231,6 +2265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasPrefab: {fileID: 5393623835024644669, guid: 48d7771c50bd625489d38055025597a3,
     type: 3}
+  qualitySettingsPrefab: {fileID: 0}
 --- !u!114 &5411741983053722493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2455,7 +2490,35 @@ MonoBehaviour:
     m_ActionName: Player/Tutorial[/Keyboard/tab]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 7c90314b-53e7-4058-ba69-b1a809ebbf38
+    m_ActionId: 48620936-869d-449d-a2b8-144b256bad4a
+    m_ActionName: Player/Lower Weapon[/Keyboard/h]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b48c7f02-acf4-4c91-9a97-f85d78b40a00
+    m_ActionName: Player/Grenade[/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ee72309b-00d2-4acf-aa85-8779c255d656
+    m_ActionName: Player/Melee[/Keyboard/v]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 885a3c54-aad8-4b06-8b4d-8a026bbb94f1
+    m_ActionName: Player/Crouch[/Keyboard/c,/Keyboard/leftCtrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 26aac017-d754-4777-a1c8-2ae5121d9795
+    m_ActionName: Player/Leaning[/Keyboard/q,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1500b140-0b9e-469c-91ca-e7f4462b5b66
+    m_ActionName: Player/Toggle Laser[/Keyboard/j]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e1ba90be-8b16-4d83-b537-6b079e5a19ea
+    m_ActionName: Player/Interact[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 910154ac-f94d-48c4-8d1f-3870768e5bd6
     m_ActionName: Menu/Restart[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
@@ -2474,6 +2537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef46ecb879c940f3bd09e457dd5a4e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterAnimator: {fileID: 0}
   armLeftTarget: {fileID: 6287319061123929802}
   armLeftWeightPosition: 1
   armLeftWeightRotation: 1

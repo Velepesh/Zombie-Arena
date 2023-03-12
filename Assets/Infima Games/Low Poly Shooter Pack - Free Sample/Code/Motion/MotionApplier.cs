@@ -16,6 +16,7 @@ namespace InfimaGames.LowPolyShooterPack
     /// </summary>
     public class MotionApplier : MonoBehaviour
     {
+        [SerializeField] private CursorStates _cursorStates;
         #region FIELDS SERIALIZED
         
         [Title(label: "Settings")]
@@ -55,6 +56,9 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private void LateUpdate()
         {
+            if (_cursorStates.IsCursorLocked == false)
+                return;
+
             //Final Location.
             Vector3 finalLocation = default;
             //Final Euler Angles.

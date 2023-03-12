@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CursorStates : MonoBehaviour
 {
-    public bool CursorLocked { get; private set; }
+    public bool IsCursorLocked { get; private set; }
 
     private void Awake()
     {
@@ -11,19 +11,19 @@ public class CursorStates : MonoBehaviour
 
     public void LockCursor()
     {
-        CursorLocked = true;
+        IsCursorLocked = true;
         UpdateCursorState();
     }
 
     public void UnlockCursor()
     {
-        CursorLocked = false;
+        IsCursorLocked = false;
         UpdateCursorState();
     }
 
     private void UpdateCursorState()
     {
-        Cursor.visible = !CursorLocked;
-        Cursor.lockState = CursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !IsCursorLocked;
+        Cursor.lockState = IsCursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
     }
 }

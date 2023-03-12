@@ -79,12 +79,12 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private void LateUpdate()
         {
-            if (_cursorStates.CursorLocked == false)
+            if (_cursorStates.IsCursorLocked == false)
                 return;
            
             //Frame Input. The Input to add this frame!
             Vector2 frameInput = playerCharacter.GetInputLook();
-            Debug.Log(playerCharacter.GetInputLook() + " " + _sensitivity.SensitivityVector);
+
             //Sensitivity.
             frameInput *= _sensitivity.SensitivityVector;
 

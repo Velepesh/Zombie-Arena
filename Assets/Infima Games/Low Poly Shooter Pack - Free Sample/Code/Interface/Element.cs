@@ -10,7 +10,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
     public abstract class Element : MonoBehaviour
     {
         #region FIELDS
-        protected CharacterBehaviour playerCharacter;
+        
         /// <summary>
         /// Game Mode Service.
         /// </summary>

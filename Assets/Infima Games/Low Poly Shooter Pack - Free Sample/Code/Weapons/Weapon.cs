@@ -197,13 +197,13 @@ namespace InfimaGames.LowPolyShooterPack
       //  private Transform playerCamera;
 
         private Transform playerCameraTransform;
-        private float _aimFieldOfView;
-        private float _scopingCameraSpeed;
+        //private float _aimFieldOfView;
+        //private float _scopingCameraSpeed;
 
-        private Camera _playerCamera;
-        private float _startCameraFieldOfView;
-        private Vector3 _startCameraPosition;
-        private Vector3 _aimCameraPosition;
+        //private Camera _playerCamera;
+        //private float _startCameraFieldOfView;
+        //private Vector3 _startCameraPosition;
+        //private Vector3 _aimCameraPosition;
 
         #endregion
 
@@ -229,14 +229,15 @@ namespace InfimaGames.LowPolyShooterPack
         private void SetCameraSettings()
         {
             //Cache the world camera. We use this in line traces.
-            _playerCamera = characterBehaviour.GetCameraWorld();
-            playerCameraTransform = _playerCamera.transform;
-            _startCameraFieldOfView = _playerCamera.fieldOfView;
+            //_playerCamera = characterBehaviour.GetCameraWorld();
+            //playerCameraTransform = _playerCamera.transform;
+            playerCameraTransform = characterBehaviour.GetCameraWorld().transform; ;
+            //_startCameraFieldOfView = _playerCamera.fieldOfView;
 
-            _startCameraPosition = playerCameraTransform.localPosition;
-            _aimFieldOfView = characterBehaviour.GetAimCameraFieldOfView();
-            _scopingCameraSpeed = characterBehaviour.GetScopingCameraSpeed();
-            _aimCameraPosition = characterBehaviour.GetAimCameraPosition();
+            //_startCameraPosition = playerCameraTransform.localPosition;
+            //_aimFieldOfView = characterBehaviour.GetAimCameraFieldOfView();
+            //_scopingCameraSpeed = characterBehaviour.GetScopingCameraSpeed();
+            //_aimCameraPosition = characterBehaviour.GetAimCameraPosition();
         }
 
         protected override void Start()
@@ -447,7 +448,7 @@ namespace InfimaGames.LowPolyShooterPack
                 return;
             
             //Make sure that we have a camera cached, otherwise we don't really have the ability to perform traces.
-            if (_playerCamera == null)
+            if (playerCameraTransform == null)
                 return;
 
             //Play the firing animation.
@@ -511,18 +512,18 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override void Scope()
         {
-            OnScope(_aimFieldOfView, _aimCameraPosition);
+          //  OnScope(_aimFieldOfView, _aimCameraPosition);
         }
 
         public override void Unscope()
         {
-            OnScope(_startCameraFieldOfView, _startCameraPosition);
+            //OnScope(_startCameraFieldOfView, _startCameraPosition);
         }
 
         private void OnScope(float targetFieldOfView, Vector3 targetCameraPosition)
         {
-            _playerCamera.fieldOfView = Mathf.MoveTowards(_playerCamera.fieldOfView, targetFieldOfView, _scopingCameraSpeed * Time.deltaTime);
-            playerCameraTransform.localPosition = Vector3.MoveTowards(playerCameraTransform.localPosition, targetCameraPosition, _scopingCameraSpeed * Time.deltaTime);
+           // _playerCamera.fieldOfView = Mathf.MoveTowards(_playerCamera.fieldOfView, targetFieldOfView, _scopingCameraSpeed * Time.deltaTime);
+            //playerCameraTransform.localPosition = Vector3.MoveTowards(playerCameraTransform.localPosition, targetCameraPosition, _scopingCameraSpeed * Time.deltaTime);
         }
 
         #endregion
