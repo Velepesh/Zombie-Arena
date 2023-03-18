@@ -8,13 +8,11 @@ public class State : MonoCache
     public void Enter()
     {
         if (enabled == false)
-        {
             enabled = true;
 
-            foreach (var transition in _transitions)
-            {
-                transition.enabled = true;
-            }
+        foreach (var transition in _transitions)
+        {
+            transition.enabled = true;
         }
     }
 

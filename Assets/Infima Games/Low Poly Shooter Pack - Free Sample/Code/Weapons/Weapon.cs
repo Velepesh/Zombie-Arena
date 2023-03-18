@@ -510,22 +510,6 @@ namespace InfimaGames.LowPolyShooterPack
                 Instantiate(prefabCasing, socketEjection.position, socketEjection.rotation);
         }
 
-        public override void Scope()
-        {
-          //  OnScope(_aimFieldOfView, _aimCameraPosition);
-        }
-
-        public override void Unscope()
-        {
-            //OnScope(_startCameraFieldOfView, _startCameraPosition);
-        }
-
-        private void OnScope(float targetFieldOfView, Vector3 targetCameraPosition)
-        {
-           // _playerCamera.fieldOfView = Mathf.MoveTowards(_playerCamera.fieldOfView, targetFieldOfView, _scopingCameraSpeed * Time.deltaTime);
-            //playerCameraTransform.localPosition = Vector3.MoveTowards(playerCameraTransform.localPosition, targetCameraPosition, _scopingCameraSpeed * Time.deltaTime);
-        }
-
         #endregion
     }
 }

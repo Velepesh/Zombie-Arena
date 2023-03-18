@@ -110,18 +110,6 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns the value of canReloadAimed.
         /// </summary>
 
-        public abstract void Scope();
-        /// <summary>
-        /// Scope the weapon.
-        /// </summary>
-        /// 
-
-        public abstract void Unscope();
-        /// <summary>
-        /// Unscope the weapon.
-        /// </summary>
-        /// 
-
         public abstract bool CanReloadAimed();
         
         /// <summary>

@@ -31,6 +31,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -54,6 +55,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -112,20 +114,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acff82b1c71481f48a9f9884f9f62d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumXForce: 25
-  maximumXForce: 40
-  minimumYForce: 10
-  maximumYForce: 20
-  minimumZForce: -12
-  maximumZForce: 12
-  minimumRotation: -360
-  maximumRotation: 360
-  despawnTime: 1
-  casingSounds:
-  - {fileID: 8300000, guid: 5abd563adef73b9458e6895ff5669486, type: 3}
-  - {fileID: 8300000, guid: 26f913fb9bdb6e647b78944b58999339, type: 3}
-  - {fileID: 8300000, guid: 89e7f4cad8c1c0845936e650d58bf005, type: 3}
-  audioSource: {fileID: 82444821930212418}
+  minimumXForce: 0
+  maximumXForce: 0
+  minimumYForce: 0
+  maximumYForce: 0
+  minimumZForce: 0
+  maximumZForce: 0
+  minimumRotation: 0
+  maximumRotation: 0
+  despawnTime: 0
+  casingSounds: []
+  audioSource: {fileID: 0}
   speed: 2500
 --- !u!82 &82444821930212418
 AudioSource:
@@ -136,7 +135,8 @@ AudioSource:
   m_GameObject: {fileID: 1492315059354262}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.2

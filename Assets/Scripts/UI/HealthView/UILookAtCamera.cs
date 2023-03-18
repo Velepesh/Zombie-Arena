@@ -1,16 +1,20 @@
 ﻿using System;
 using UnityEngine;
 
-public class UILookAtCamera : MonoBehaviour
+public class UILookAtCamera : MonoCache
 {
     private Camera _camera;
 
-    private void Start()
+    private void Awake()
     {
         _camera = Camera.main;
     }
 
-    private void Update()
+    private void OnEnable() => AddUpdate();
+   
+    private void OnDisable() => RemoveUpdate();
+   
+    public override void OnTick()
     {
         if (_camera == null)
             throw new NullReferenceException(nameof(_camera));

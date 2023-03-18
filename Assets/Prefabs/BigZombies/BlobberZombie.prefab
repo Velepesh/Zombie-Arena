@@ -112,11 +112,11 @@ GameObject:
   - component: {fileID: 6463005642558734764}
   - component: {fileID: 6463005642558734766}
   - component: {fileID: 6463005642558734769}
-  - component: {fileID: 6463005642558734767}
   - component: {fileID: 6463005642558734775}
   - component: {fileID: 6463005642558734772}
   - component: {fileID: 6463005642558734770}
   - component: {fileID: 6463005642558734771}
+  - component: {fileID: 6463005642558734767}
   - component: {fileID: 591320811812121638}
   - component: {fileID: 6028602168819594137}
   m_Layer: 17
@@ -134,7 +134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 295769846262694253}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.9763632, y: 0.00999999, z: 11.378012}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -178,7 +178,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 295769846262694253}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
@@ -323,18 +323,6 @@ MonoBehaviour:
   _undergroundSpeed: 0.25
   _time: 5
   _delayBeforMoving: 3
---- !u!114 &6463005642558734767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 295769846262694253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54a9ffe706c63124bb6a4a52f7b698d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6463005642558734775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,6 +376,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _standartMesh: {fileID: 3739565760935047783}
   _withoutHeadMesh: {fileID: 5226356394012116484}
+--- !u!114 &6463005642558734767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295769846262694253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54a9ffe706c63124bb6a4a52f7b698d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &591320811812121638
 AudioSource:
   m_ObjectHideFlags: 0
@@ -401,7 +401,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -410,9 +410,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -445,7 +445,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.5
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -497,8 +497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0815d2c36dac22e49a8bef2374031efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioClipWalkiing: {fileID: 8300000, guid: 9ad523042117d6c48a665d5220d69694, type: 3}
-  _deadAudioClip: {fileID: 8300000, guid: ea98f92e029c80a4385f25e47d21aa71, type: 3}
+  _audioClipWalkiing: {fileID: 8300000, guid: 77e2e05eae6d49b4d81c0a097896925c, type: 3}
+  _deadAudioClip: {fileID: 8300000, guid: 569786f94d920eb4da43f1039bc90a54, type: 3}
 --- !u!1 &388645996056489148
 GameObject:
   m_ObjectHideFlags: 0
@@ -3367,7 +3367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff353cbfdfe680e4cb25eaa953029e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 50
+  _damage: 40
 --- !u!1 &8224844092398850042
 GameObject:
   m_ObjectHideFlags: 0

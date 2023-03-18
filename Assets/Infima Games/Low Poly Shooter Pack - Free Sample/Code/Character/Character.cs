@@ -1423,7 +1423,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public override void AnimationEndedInspect()
 		{
-			Debug.Log("AnimationEndedInspect");
             characterAnimator.CrossFade("Default", 0.0f, layerActions, 0);
             //Stop Inspecting.
             inspecting = false;

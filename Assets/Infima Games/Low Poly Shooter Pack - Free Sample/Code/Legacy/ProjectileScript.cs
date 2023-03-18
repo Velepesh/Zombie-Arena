@@ -143,10 +143,10 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		private void OnCollisionEnter(Collision collision)
 		{
 			//Ignore The Player. If we don't do this, we get initial explosions, meaning the projectile hits as soon as it is spawned.
-			if (collision.transform.CompareTag("Player"))
-				return;
+            if (collision.gameObject.TryGetComponent(out Player player))
+                return;
 
-			hasCollided = true;
+            hasCollided = true;
 
 			//Hide projectile
 			gameObject.GetComponent<MeshRenderer>().enabled = false;
