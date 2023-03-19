@@ -37,7 +37,7 @@ namespace InfimaGames.LowPolyShooterPack
         #region METHODS
 
         /// <summary>
-        /// Init. This function is called when the game starts. We don't use Awake or Start because we need the
+        /// SpawnPrefab. This function is called when the game starts. We don't use Awake or Start because we need the
         /// PlayerCharacter component to run this with the index it wants to equip!
         /// </summary>
         /// <param name="equippedAtStart">Inventory index of the weapon we want to equip when the game starts.</param>

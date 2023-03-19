@@ -763,8 +763,8 @@ namespace InfimaGames.LowPolyShooterPack
 		private void SetHolstered(bool value = true)
 		{
 			//Update value.
-			holstered = value;
 			PlayeDefaultAnimation();
+			holstered = value;
             //Update Animator.
             const string boolName = "Holstered";
 			characterAnimator.SetBool(boolName, holstered);	
@@ -895,7 +895,7 @@ namespace InfimaGames.LowPolyShooterPack
 				return false;
 
 			//Block.
-			if (reloading || bolting)
+			if (bolting)
 				return false;
 
             //Block.
@@ -921,7 +921,7 @@ namespace InfimaGames.LowPolyShooterPack
 				return false;
 
 			//Block.
-			if (reloading || bolting)
+			if (bolting)
 				return false;
 
             //Block.

@@ -1,6 +1,7 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -10,9 +11,12 @@ namespace InfimaGames.LowPolyShooterPack
     public class Weapon : WeaponBehaviour
     {
         #region FIELDS SERIALIZED
-        
+
         [Title(label: "Settings")]
-        
+
+        [SerializeField] private BulletPool _bulletPool;
+        [SerializeField] private AudioMixerGroup _mixerGroup;      
+
         [Tooltip("Weapon Name. Currently not used for anything, but in the future, we will use this for pickups!")]
         [SerializeField] 
         private string weaponName;
@@ -81,9 +85,9 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private GameObject prefabCasing;
         
-        [Tooltip("Projectile Prefab. This is the prefab spawned when the weapon shoots.")]
-        [SerializeField]
-        private GameObject prefabProjectile;
+        //[Tooltip("Projectile Prefab. This is the prefab spawned when the weapon shoots.")]
+        //[SerializeField]
+        //private GameObject prefabProjectile;
         
         [Tooltip("The AnimatorController a player character needs to use while wielding this weapon.")]
         [SerializeField] 
@@ -194,16 +198,9 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// The player character's camera.
         /// </summary>
-      //  private Transform playerCamera;
 
         private Transform playerCameraTransform;
-        //private float _aimFieldOfView;
-        //private float _scopingCameraSpeed;
 
-        //private Camera _playerCamera;
-        //private float _startCameraFieldOfView;
-        //private Vector3 _startCameraPosition;
-        //private Vector3 _aimCameraPosition;
 
         #endregion
 
@@ -223,21 +220,13 @@ namespace InfimaGames.LowPolyShooterPack
             //Cache the world camera. We use this in line traces.
 
             SetCameraSettings();
-            //playerCamera = characterBehaviour.GetCameraWorld().transform;
         }
 
         private void SetCameraSettings()
         {
             //Cache the world camera. We use this in line traces.
-            //_playerCamera = characterBehaviour.GetCameraWorld();
-            //playerCameraTransform = _playerCamera.transform;
-            playerCameraTransform = characterBehaviour.GetCameraWorld().transform; ;
-            //_startCameraFieldOfView = _playerCamera.fieldOfView;
 
-            //_startCameraPosition = playerCameraTransform.localPosition;
-            //_aimFieldOfView = characterBehaviour.GetAimCameraFieldOfView();
-            //_scopingCameraSpeed = characterBehaviour.GetScopingCameraSpeed();
-            //_aimCameraPosition = characterBehaviour.GetAimCameraPosition();
+            playerCameraTransform = characterBehaviour.GetCameraWorld().transform; ;
         }
 
         protected override void Start()
@@ -433,7 +422,7 @@ namespace InfimaGames.LowPolyShooterPack
             animator.SetBool(boolName, true);
             
             //Try Play Reload Sound.
-            ServiceLocator.Current.Get<IAudioManagerService>().PlayOneShot(HasAmmunition() ? audioClipReload : audioClipReloadEmpty, new AudioSettings(null, 1.0f, 0.0f, false));
+            ServiceLocator.Current.Get<IAudioManagerService>().PlayOneShot(HasAmmunition() ? audioClipReload : audioClipReloadEmpty, new AudioSettings(_mixerGroup, 1.0f, 0.0f, false));
             
             //Play Reload Animation.
             animator.Play(cycledReload ? "Reload Open" : (HasAmmunition() ? "Reload" : "Reload Empty"), 0, 0.0f);
@@ -443,6 +432,11 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public override void Fire(float spreadMultiplier = 1.0f)
         {
+            //Тут мы при спавне инстантиируем патроны
+            //далее берем нужные
+            //Дамаг перенести в оружие и передавать в патрон????
+            //Это для того,чтобы не плодить патроны
+
             //We need a muzzle in order to fire this weapon!
             if (muzzleBehaviour == null)
                 return;
@@ -475,7 +469,11 @@ namespace InfimaGames.LowPolyShooterPack
                 spreadValue = playerCameraTransform.TransformDirection(spreadValue);
 
                 //Spawn projectile from the projectile spawn point.
-                GameObject projectile = Instantiate(prefabProjectile, playerCameraTransform.position, Quaternion.Euler(playerCameraTransform.eulerAngles + spreadValue));
+                GameObject projectile = _bulletPool.GetBullet();
+
+                _bulletPool.SetBulletTransform(projectile, playerCameraTransform.position, 
+                    Quaternion.Euler(playerCameraTransform.eulerAngles + spreadValue));
+
                 //Add velocity to the projectile.
                 projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;
             }

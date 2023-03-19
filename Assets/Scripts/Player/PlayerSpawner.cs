@@ -10,7 +10,7 @@ public class PlayerSpawner : ObjectPool
 
     public override void StartGenerate()
     {
-        Init(_prefab.gameObject);
+        SpawnPrefab(_prefab.gameObject);
 
         if (TryGetObject(out GameObject player))
             Spawn(player);

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class ZombieSpawner : ObjectPool
 {
@@ -62,7 +63,7 @@ public class ZombieSpawner : ObjectPool
     public override void StartGenerate()
     {
         for (int i = 0; i < _currentWave.Count; i++)
-            Init(_currentWave.Templates[i].gameObject);
+            SpawnPrefab(_currentWave.Templates[i].gameObject);
     }
 
     public void StartSpawn(ZombieTargets targets)
@@ -91,6 +92,7 @@ public class ZombieSpawner : ObjectPool
 
         if (zombieObject.TryGetComponent(out Zombie zombie))
         {
+            zombieObject.transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
             zombieObject.SetActive(true);
             zombieObject.transform.position = spawnPoint.Position;
             spawnPoint.Init(zombie);

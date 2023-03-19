@@ -92,7 +92,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Set spatial blend.
             newAudioSource.spatialBlend = settings.SpatialBlend;
             newAudioSource.outputAudioMixerGroup = settings.MixerGroup;
-
+           // Debug.Log(settings.MixerGroup.name + " !");
             //PlayOneShot the clip!
             newAudioSource.PlayOneShot(clip);
 

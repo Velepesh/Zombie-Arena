@@ -10,15 +10,9 @@ public abstract class ObjectPool : MonoCache
 
     public abstract void StartGenerate();
 
-    public void DisableAllObjects()
+    protected void SpawnPrefab(GameObject prefab)
     {
-        for (int i = 0; i < _pool.Count; i++)
-            DisableObject(_pool[i]);
-    }
-
-    protected void Init(GameObject prefab)
-    {
-        GameObject spawned = Instantiate(prefab, _container.transform.position, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+        GameObject spawned = Instantiate(prefab, _container.transform.position, Quaternion.identity);
         spawned.transform.SetParent(_container.transform);
         spawned.SetActive(false);
 
@@ -32,10 +26,6 @@ public abstract class ObjectPool : MonoCache
         return result != null;
     }
 
-    protected GameObject GetFirstObject()
-    {
-        return _pool.FirstOrDefault();
-    }
 
     protected void DisableObject(Vector3 disablePosition)
     {
@@ -49,27 +39,7 @@ public abstract class ObjectPool : MonoCache
 
     protected void DisableObject(GameObject result)
     {
-        //if (result.activeSelf == true)
-        //    result.SetActive(false);
         _pool.Remove(result);
         Destroy(result);
-    }
-
-    public void ResetPool()
-    {
-        foreach (var item in _pool)
-            item.SetActive(false);
-    }
-
-    protected void Shuffle()
-    {
-        for (int i = _pool.Count - 1; i >= 1; i--)
-        {
-            int j = Random.Range(0, i + 1);
-
-            GameObject temp = _pool[j];
-            _pool[j] = _pool[i];
-            _pool[i] = temp;
-        }
     }
 }
