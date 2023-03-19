@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 
 public class ZombieSpawner : ObjectPool
 {
+    [SerializeField] private ZombieTargetsCompositeRoot _targets;
     [SerializeField] private List<Wave> _waves;
     [SerializeField] private List<SpawnPoint> _spawnPoints;
     [SerializeField] private int _numberOfCircleWave;
@@ -14,7 +15,6 @@ public class ZombieSpawner : ObjectPool
     private float _timeAfterLastSpawn;
     private List<Zombie> _zombies = new List<Zombie>();
     private bool _isAllEnemiesDied => _zombies.Count == 0;
-    private ZombieTargets _targets;
 
     public int CurrentWaveNumber { get; private set; }
     public int ZombiesNumberInWave => _currentWave.Count;
@@ -24,7 +24,10 @@ public class ZombieSpawner : ObjectPool
     public event UnityAction<Zombie> ZombieDied;
     public event UnityAction<int> WaveSetted;
 
-    private void OnEnable() => AddUpdate();
+    private void OnEnable()
+    {
+        AddUpdate();
+    }
 
     private void OnDisable()
     {
@@ -66,12 +69,10 @@ public class ZombieSpawner : ObjectPool
             SpawnPrefab(_currentWave.Templates[i].gameObject);
     }
 
-    public void StartSpawn(ZombieTargets targets)
+    public void StartSpawn()
     {
-        if (targets == null)
-            throw new ArgumentNullException(nameof(targets));
-
-        _targets = targets;
+        if (_targets == null)
+            throw new ArgumentNullException(nameof(_targets));
 
         SetWave(CurrentWaveNumber);
 

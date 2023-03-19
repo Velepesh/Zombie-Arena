@@ -7,7 +7,7 @@ public abstract class ObjectPool : MonoCache
     [SerializeField] private GameObject _container;
 
     private List<GameObject> _pool = new List<GameObject>();
-
+    
     public abstract void StartGenerate();
 
     protected void SpawnPrefab(GameObject prefab)

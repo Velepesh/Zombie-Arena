@@ -8,7 +8,7 @@ public class Zombie : MonoCache, IDamageable
     [SerializeField] private int _score;
     [SerializeField] private ZombieType _type;
 
-    private ZombieTargets _zombieTargets;
+    private ZombieTargetsCompositeRoot _zombieTargets;
     private ITarget _currentTarget;
     private ITarget _mainTarget;
     private Vector3 _contactPosition;
@@ -48,7 +48,7 @@ public class Zombie : MonoCache, IDamageable
             _damageHandlers[i].HitTaken -= OnHitTaken;
     }
 
-    public void Init(ZombieTargets zombieTargets)
+    public void Init(ZombieTargetsCompositeRoot zombieTargets)
     {
         _zombieTargets = zombieTargets;
 

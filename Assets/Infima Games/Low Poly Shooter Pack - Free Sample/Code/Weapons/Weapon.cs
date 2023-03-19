@@ -14,7 +14,8 @@ namespace InfimaGames.LowPolyShooterPack
 
         [Title(label: "Settings")]
 
-        [SerializeField] private BulletPool _bulletPool;
+        [SerializeField] private ProjectilePool _bulletPool;
+        [SerializeField] private CasingPool _casingPool;
         [SerializeField] private AudioMixerGroup _mixerGroup;      
 
         [Tooltip("Weapon Name. Currently not used for anything, but in the future, we will use this for pickups!")]
@@ -81,9 +82,9 @@ namespace InfimaGames.LowPolyShooterPack
 
         [Title(label: "Resources")]
 
-        [Tooltip("Casing Prefab.")]
-        [SerializeField]
-        private GameObject prefabCasing;
+        //[Tooltip("Casing Prefab.")]
+        //[SerializeField]
+        //private GameObject prefabCasing;
         
         //[Tooltip("Projectile Prefab. This is the prefab spawned when the weapon shoots.")]
         //[SerializeField]
@@ -432,11 +433,6 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public override void Fire(float spreadMultiplier = 1.0f)
         {
-            //Тут мы при спавне инстантиируем патроны
-            //далее берем нужные
-            //Дамаг перенести в оружие и передавать в патрон????
-            //Это для того,чтобы не плодить патроны
-
             //We need a muzzle in order to fire this weapon!
             if (muzzleBehaviour == null)
                 return;
@@ -504,8 +500,11 @@ namespace InfimaGames.LowPolyShooterPack
         public override void EjectCasing()
         {
             //Spawn casing prefab at spawn point.
-            if(prefabCasing != null && socketEjection != null)
-                Instantiate(prefabCasing, socketEjection.position, socketEjection.rotation);
+            if (socketEjection != null)
+            {
+                GameObject casing = _casingPool.GetCasing();
+                _casingPool.SetCasingTransform(casing, socketEjection.position, socketEjection.rotation);
+            }
         }
 
         #endregion

@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;
+using UnityEngine.Events;
 
 namespace InfimaGames.LowPolyShooterPack.Legacy
 {
@@ -24,21 +25,27 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		[Header("Impact Effect Prefabs")]
 		public Transform[] bloodImpactPrefabs;
-
 		public Transform[] metalImpactPrefabs;
 		public Transform[] dirtImpactPrefabs;
 		public Transform[] concreteImpactPrefabs;
 
+		public event UnityAction<Projectile> Impacted;
+
+        private void OnEnable()
+        {
+            StartCoroutine(DestroyAfter());
+        }
+
         private void Start()
 		{
-			//Grab the game mode service, we need it to access the player character!
-			var gameModeService = ServiceLocator.Current.Get<IGameModeService>();
-			//Ignore the main player character's collision. A little hacky, but it should work.
-			Physics.IgnoreCollision(gameModeService.GetPlayerCharacter().GetComponent<Collider>(),
-				GetComponent<Collider>());
+			////Grab the game mode service, we need it to access the player character!
+			//var gameModeService = ServiceLocator.Current.Get<IGameModeService>();
+			////Ignore the main player character's collision. A little hacky, but it should work.
+			//Physics.IgnoreCollision(gameModeService.GetPlayerCharacter().GetComponent<Collider>(),
+			//	GetComponent<Collider>());
 
 			//Start destroy timer
-			StartCoroutine(DestroyAfter());
+			//StartCoroutine(DestroyAfter());
 		}
 
 		//If the bullet collides with anything
@@ -48,17 +55,16 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			if (collision.gameObject.GetComponent<Projectile>() != null)
 				return;
 
-			//If destroy on impact is false, start 
-			//coroutine with random destroy timer
-			if (!destroyOnImpact)
+            //If destroy on impact is false, start 
+            //coroutine with random destroy timer
+            if (!destroyOnImpact)
 			{
 				StartCoroutine(DestroyTimer());
 			}
 			//Otherwise, destroy bullet on impact
 			else
 			{
-				//Destroy(gameObject);
-                gameObject.SetActive(false);
+                DisableProjectile();
             }
 
             if (collision.gameObject.TryGetComponent(out DamageHandler damageHandler))
@@ -69,11 +75,12 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
                     (0, bloodImpactPrefabs.Length)], transform.position,
                     Quaternion.LookRotation(collision.contacts[0].normal));
                 //Destroy bullet object
-                go.SetParent(collision.gameObject.transform);/////////////////////////////////////////////////
-                //Destroy(gameObject);
-                gameObject.SetActive(false);
+                go.SetParent(collision.gameObject.transform);
+
+                DisableProjectile();
             }
 
+		
             //If bullet collides with "Blood" tag
             if (collision.transform.tag == "Blood")
 			{
@@ -81,9 +88,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				Instantiate(bloodImpactPrefabs[Random.Range
 						(0, bloodImpactPrefabs.Length)], transform.position,
 					Quaternion.LookRotation(collision.contacts[0].normal));
-				//Destroy bullet object
-				//Destroy(gameObject);
-                gameObject.SetActive(false);
+
+                DisableProjectile();
             }
 
 			//If bullet collides with "Metal" tag
@@ -93,9 +99,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				Instantiate(metalImpactPrefabs[Random.Range
 						(0, bloodImpactPrefabs.Length)], transform.position,
 					Quaternion.LookRotation(collision.contacts[0].normal));
-				//Destroy bullet object
-				//Destroy(gameObject);
-                gameObject.SetActive(false);
+
+                DisableProjectile();
             }
 
 			//If bullet collides with "Dirt" tag
@@ -105,9 +110,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				Instantiate(dirtImpactPrefabs[Random.Range
 						(0, bloodImpactPrefabs.Length)], transform.position,
 					Quaternion.LookRotation(collision.contacts[0].normal));
-				//Destroy bullet object
-				//Destroy(gameObject);
-                gameObject.SetActive(false);
+
+                DisableProjectile();
             }
 
 			//If bullet collides with "Concrete" tag
@@ -117,9 +121,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				Instantiate(concreteImpactPrefabs[Random.Range
 						(0, bloodImpactPrefabs.Length)], transform.position,
 					Quaternion.LookRotation(collision.contacts[0].normal));
-				//Destroy bullet object
-				//Destroy(gameObject);
-                gameObject.SetActive(false);
+
+                DisableProjectile();
             }
 
 			//If bullet collides with "Target" tag
@@ -128,9 +131,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				//Toggle "isHit" on target object
 				collision.transform.gameObject.GetComponent
 					<TargetScript>().isHit = true;
-				//Destroy bullet object
-				//Destroy(gameObject);
-                gameObject.SetActive(false);
+
+                DisableProjectile();
             }
 
 			//If bullet collides with "ExplosiveBarrel" tag
@@ -139,9 +141,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				//Toggle "explode" on explosive barrel object
 				collision.transform.gameObject.GetComponent
 					<ExplosiveBarrelScript>().explode = true;
-                //Destroy bullet object
-                //Destroy(gameObject);
-                gameObject.SetActive(false);
+
+                DisableProjectile();
             }
 
 			//If bullet collides with "GasTank" tag
@@ -150,30 +151,31 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				//Toggle "isHit" on gas tank object
 				collision.transform.gameObject.GetComponent
 					<GasTankScript>().isHit = true;
-				//Destroy bullet object
-				//Destroy(gameObject);
-                gameObject.SetActive(false);
+
+				DisableProjectile();
             }
 		}
 
-		private IEnumerator DestroyTimer()
+        private void DisableProjectile()
+        {
+            Impacted?.Invoke(this);
+        }
+
+        private IEnumerator DestroyTimer()
 		{
 			//Wait random time based on min and max values
 			yield return new WaitForSeconds
 				(Random.Range(minDestroyTime, maxDestroyTime));
-			//Destroy bullet object
-			//Destroy(gameObject);
-            gameObject.SetActive(false);
+            
+			DisableProjectile();
         }
 
 		private IEnumerator DestroyAfter()
 		{
 			//Wait for set amount of time
 			yield return new WaitForSeconds(destroyAfter);
-			//Destroy bullet object
-			//Destroy(gameObject);
-            gameObject.SetActive(false);
 
+            DisableProjectile();
         }
 	}
 }

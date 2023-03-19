@@ -7,10 +7,8 @@ using UnityEngine.SceneManagement;
 public class Game : MonoBehaviour
 {
     [SerializeField] private CursorStates _cursor;
-    [SerializeField] private PlayerBuilder _playerBuilder;
-    [SerializeField] private TowerBuilder _towerBuilder;
-    [SerializeField] private ZombieTargets _targets;
-    [SerializeField] private ZombieSpawner _zombieSpawner;
+    [SerializeField] private CompositionOrder _compositionOrder;
+    [SerializeField] private ZombieTargetsCompositeRoot _targets;
 
     public event UnityAction GameStarted;
     public event UnityAction GameOver;
@@ -32,7 +30,6 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         Application.targetFrameRate = 60;
-        DeactivateBuildingObjects();
     }
 
     public void StartLevel()
@@ -46,7 +43,7 @@ public class Game : MonoBehaviour
         Continued?.Invoke();
         _cursor.LockCursor();
         StartTime();
-        _playerBuilder.Form();
+       // _playerBuilder.Form();
     }
 
     public void Pause()
@@ -54,7 +51,7 @@ public class Game : MonoBehaviour
         if (_isGameOver)
             return;
 
-        _playerBuilder.Deactivate();
+        //_playerBuilder.Deactivate();
         _cursor.UnlockCursor();
         Paused?.Invoke();
         StopTime();
@@ -100,15 +97,6 @@ public class Game : MonoBehaviour
     {
         StartTime();
         _cursor.LockCursor();
-        _playerBuilder.Form();
-        _towerBuilder.Form();
-        _targets.Init(_playerBuilder.Player, _towerBuilder.Tower);
-        _zombieSpawner.StartSpawn(_targets);
-    }
-
-    private void DeactivateBuildingObjects()
-    {
-        _playerBuilder.Deactivate();
-        _towerBuilder.Deactivate();
+        _compositionOrder.Compose();
     }
 }

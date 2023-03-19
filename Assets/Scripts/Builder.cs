@@ -1,8 +1,4 @@
-﻿using UnityEngine;
-
-public abstract class Builder : MonoBehaviour
+﻿public abstract class Builder : CompositeRoot
 {
-    public abstract void Form();
-    public abstract void Deactivate();
     public abstract void AddHealth();
 }

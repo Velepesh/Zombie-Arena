@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ZombieTargets : MonoBehaviour
+public class ZombieTargetsCompositeRoot : CompositeRoot
 {
-    private Player _player;
-    private Tower _tower;
+    [SerializeField] private Player _player;
+    [SerializeField] private Tower _tower;
+
     private List<ITarget> _targets = new List<ITarget>();
     private List<IDamageable> _damageables = new List<IDamageable>();
 
@@ -23,9 +24,9 @@ public class ZombieTargets : MonoBehaviour
             _tower.Died -= OnDied;
     }
 
-    public void Init(Player player, Tower tower)
+    public override void Compose()
     {
-       SetTargets(player, tower);
+       SetTargets(_player, _tower);
 
         for (int i = 0; i < _targets.Count; i++)
         {

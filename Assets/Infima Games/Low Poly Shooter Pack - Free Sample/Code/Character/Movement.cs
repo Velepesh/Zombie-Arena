@@ -224,7 +224,7 @@ namespace InfimaGames.LowPolyShooterPack
             if (hitRigidbody == null)
                 return;
             
-            //AddForce.
+            //AddRelativeForce.
             Vector3 force = (hit.moveDirection + Vector3.up * 0.35f) * velocity.magnitude * rigidbodyPushForce;
             hitRigidbody.AddForceAtPosition(force, hit.point);
         }
