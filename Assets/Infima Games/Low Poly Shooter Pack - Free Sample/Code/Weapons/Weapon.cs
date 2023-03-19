@@ -453,7 +453,7 @@ namespace InfimaGames.LowPolyShooterPack
             
             //Play all muzzle effects.
             muzzleBehaviour.Effect();
-
+            Transform muzzleSocket = muzzleBehaviour.GetSocket();
             //Spawn as many projectiles as we need.
             for (var i = 0; i < shotCount; i++)
             {
@@ -467,7 +467,7 @@ namespace InfimaGames.LowPolyShooterPack
                 //Spawn projectile from the projectile spawn point.
                 GameObject projectile = _bulletPool.GetBullet();
 
-                _bulletPool.SetBulletTransform(projectile, playerCameraTransform.position, 
+                _bulletPool.SetBulletTransform(projectile, muzzleSocket.position, 
                     Quaternion.Euler(playerCameraTransform.eulerAngles + spreadValue));
 
                 //Add velocity to the projectile.

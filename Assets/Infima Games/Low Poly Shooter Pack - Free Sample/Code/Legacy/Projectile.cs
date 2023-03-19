@@ -36,18 +36,6 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
             StartCoroutine(DestroyAfter());
         }
 
-        private void Start()
-		{
-			////Grab the game mode service, we need it to access the player character!
-			//var gameModeService = ServiceLocator.Current.Get<IGameModeService>();
-			////Ignore the main player character's collision. A little hacky, but it should work.
-			//Physics.IgnoreCollision(gameModeService.GetPlayerCharacter().GetComponent<Collider>(),
-			//	GetComponent<Collider>());
-
-			//Start destroy timer
-			//StartCoroutine(DestroyAfter());
-		}
-
 		//If the bullet collides with anything
 		private void OnCollisionEnter(Collision collision)
 		{

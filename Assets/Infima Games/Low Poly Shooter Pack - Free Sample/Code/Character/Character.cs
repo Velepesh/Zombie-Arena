@@ -924,6 +924,9 @@ namespace InfimaGames.LowPolyShooterPack
 			if (bolting)
 				return false;
 
+            if (reloading)
+                AnimationEndedReload();
+
             //Block.
             if (inspecting)
                 AnimationEndedInspect();
