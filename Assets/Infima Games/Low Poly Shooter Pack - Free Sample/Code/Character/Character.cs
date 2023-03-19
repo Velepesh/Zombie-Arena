@@ -64,18 +64,6 @@ namespace InfimaGames.LowPolyShooterPack
 		[SerializeField]
 		private Camera cameraWorld;
 
-        //[Tooltip("Aim Camera Position.")]
-        //[SerializeField]
-        //private Vector3 _aimCameraPosition;
-
-        //[Tooltip("Aim Camera Field Of View.")]
-        //[SerializeField]
-        //private float _aimCameraFieldOfView;
-
-        //[Tooltip("Aim Camera Scoping Speed.")]
-        //[SerializeField]
-        //private float _scopingSpeed;
-
         [Tooltip("Weapon-Only Camera. Depth.")]
 		[SerializeField]
 		private Camera cameraDepth;

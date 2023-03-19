@@ -43,15 +43,13 @@ public class Game : MonoBehaviour
         Continued?.Invoke();
         _cursor.LockCursor();
         StartTime();
-       // _playerBuilder.Form();
     }
 
-    public void Pause()
+    public void OnTryPause(InputAction.CallbackContext context)
     {
         if (_isGameOver)
             return;
 
-        //_playerBuilder.Deactivate();
         _cursor.UnlockCursor();
         Paused?.Invoke();
         StopTime();

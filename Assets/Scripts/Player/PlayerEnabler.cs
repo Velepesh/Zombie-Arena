@@ -17,4 +17,9 @@ public class PlayerEnabler : MonoBehaviour
         _input.enabled = false;
         _animator.enabled = false;
     }
+
+    public void OnTryDeactivate(InputAction.CallbackContext context)
+    {
+        Deactivate();
+    }
 }
