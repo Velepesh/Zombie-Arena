@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ZombieCompositeRoot : CompositeRoot
+public class ZombieSpawnerCompositeRoot : CompositeRoot
 {
     [SerializeField] private ZombieSpawner _zombieSpawner;
 

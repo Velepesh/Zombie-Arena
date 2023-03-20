@@ -10,13 +10,15 @@ public abstract class ObjectPool : MonoCache
     
     public abstract void StartGenerate();
 
-    protected void SpawnPrefab(GameObject prefab)
+    protected GameObject SpawnPrefab(GameObject prefab)
     {
         GameObject spawned = Instantiate(prefab, _container.transform.position, Quaternion.identity);
         spawned.transform.SetParent(_container.transform);
         spawned.SetActive(false);
 
         _pool.Add(spawned);
+
+        return spawned;
     }
 
     protected bool TryGetObject(out GameObject result)

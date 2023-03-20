@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;
@@ -28,6 +29,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		public Transform[] metalImpactPrefabs;
 		public Transform[] dirtImpactPrefabs;
 		public Transform[] concreteImpactPrefabs;
+		
+		private List<ImpactPool> _impactPools = new List<ImpactPool>();
 
 		public event UnityAction<Projectile> Impacted;
 
@@ -36,9 +39,16 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
             StartCoroutine(DestroyAfter());
         }
 
+		public void SetImpactPools(List<ImpactPool> impactPools)
+		{
+			_impactPools = impactPools;
+        }
+
 		//If the bullet collides with anything
 		private void OnCollisionEnter(Collision collision)
 		{
+			if (_impactPools.Count == 0)
+				throw new ArgumentNullException(nameof(_impactPools));
 			//Ignore collisions with other projectiles.
 			if (collision.gameObject.GetComponent<Projectile>() != null)
 				return;
@@ -58,95 +68,34 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
             if (collision.gameObject.TryGetComponent(out DamageHandler damageHandler))
             {
                 damageHandler.TakeDamage(_damage, collision.contacts[0].normal);
-                //Instantiate random impact prefab from array
-                var go = Instantiate(bloodImpactPrefabs[Random.Range
-                    (0, bloodImpactPrefabs.Length)], transform.position,
-                    Quaternion.LookRotation(collision.contacts[0].normal));
-                //Destroy bullet object
-                go.SetParent(collision.gameObject.transform);
+                PlayImpact(ImpactPoolType.Blood, collision.contacts[0].normal);
 
                 DisableProjectile();
             }
 
-		
-            //If bullet collides with "Blood" tag
-            if (collision.transform.tag == "Blood")
-			{
-				//Instantiate random impact prefab from array
-				Instantiate(bloodImpactPrefabs[Random.Range
-						(0, bloodImpactPrefabs.Length)], transform.position,
-					Quaternion.LookRotation(collision.contacts[0].normal));
-
-                DisableProjectile();
-            }
-
-			//If bullet collides with "Metal" tag
-			if (collision.transform.tag == "Metal")
-			{
-				//Instantiate random impact prefab from array
-				Instantiate(metalImpactPrefabs[Random.Range
-						(0, bloodImpactPrefabs.Length)], transform.position,
-					Quaternion.LookRotation(collision.contacts[0].normal));
-
-                DisableProjectile();
-            }
-
-			//If bullet collides with "Dirt" tag
-			if (collision.transform.tag == "Dirt")
-			{
-				//Instantiate random impact prefab from array
-				Instantiate(dirtImpactPrefabs[Random.Range
-						(0, bloodImpactPrefabs.Length)], transform.position,
-					Quaternion.LookRotation(collision.contacts[0].normal));
-
-                DisableProjectile();
-            }
-
-			//If bullet collides with "Concrete" tag
 			if (collision.transform.tag == "Concrete")
 			{
-				//Instantiate random impact prefab from array
-				Instantiate(concreteImpactPrefabs[Random.Range
-						(0, bloodImpactPrefabs.Length)], transform.position,
-					Quaternion.LookRotation(collision.contacts[0].normal));
-
+				PlayImpact(ImpactPoolType.Concrete, collision.contacts[0].normal);
                 DisableProjectile();
-            }
-
-			//If bullet collides with "Target" tag
-			if (collision.transform.tag == "Target")
-			{
-				//Toggle "isHit" on target object
-				collision.transform.gameObject.GetComponent
-					<TargetScript>().isHit = true;
-
-                DisableProjectile();
-            }
-
-			//If bullet collides with "ExplosiveBarrel" tag
-			if (collision.transform.tag == "ExplosiveBarrel")
-			{
-				//Toggle "explode" on explosive barrel object
-				collision.transform.gameObject.GetComponent
-					<ExplosiveBarrelScript>().explode = true;
-
-                DisableProjectile();
-            }
-
-			//If bullet collides with "GasTank" tag
-			if (collision.transform.tag == "GasTank")
-			{
-				//Toggle "isHit" on gas tank object
-				collision.transform.gameObject.GetComponent
-					<GasTankScript>().isHit = true;
-
-				DisableProjectile();
             }
 		}
 
         private void DisableProjectile()
         {
             Impacted?.Invoke(this);
+        }
+
+        private void PlayImpact(ImpactPoolType type, Vector3 contactNormal)
+        {
+            for (int i = 0; i < _impactPools.Count; i++)
+            {
+                if (_impactPools[i].Type == type)
+                {
+                    GameObject impact = _impactPools[i].GetImpact();
+                    _impactPools[i].SetBulletTransform(impact, transform.position, Quaternion.LookRotation(contactNormal));
+                    break;
+                }
+            }
         }
 
         private IEnumerator DestroyTimer()

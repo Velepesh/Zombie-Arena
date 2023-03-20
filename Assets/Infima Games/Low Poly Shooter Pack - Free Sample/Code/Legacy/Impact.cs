@@ -2,10 +2,11 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 namespace InfimaGames.LowPolyShooterPack.Legacy
 {
-	public class ImpactScript : MonoBehaviour
+	public class Impact : MonoBehaviour
 	{
 
 		[Header("Impact Despawn Timer")]
@@ -17,7 +18,9 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		public AudioSource audioSource;
 
-		private void Start()
+		public event UnityAction<Impact> Impacted;
+
+        private void OnEnable()
 		{
 			// Start the despawn timer
 			StartCoroutine(DespawnTimer());
@@ -27,14 +30,15 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				[Random.Range(0, impactSounds.Length)];
 			//Play the random impact sound
 			audioSource.Play();
-		}
+        }
 
 		private IEnumerator DespawnTimer()
 		{
 			//Wait for set amount of time
 			yield return new WaitForSeconds(despawnTimer);
-			//Destroy the impact gameobject
-			Destroy(gameObject);
+            //Destroy the impact gameobject
+            Impacted?.Invoke(this);
+            //Destroy(gameObject);
 		}
 	}
 }

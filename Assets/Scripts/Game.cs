@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
-    [SerializeField] private CursorStates _cursor;
     [SerializeField] private CompositionOrder _compositionOrder;
     [SerializeField] private ZombieTargetsCompositeRoot _targets;
 
@@ -41,7 +40,6 @@ public class Game : MonoBehaviour
     public void Continue()
     {
         Continued?.Invoke();
-        _cursor.LockCursor();
         StartTime();
     }
 
@@ -50,7 +48,6 @@ public class Game : MonoBehaviour
         if (_isGameOver)
             return;
 
-        _cursor.UnlockCursor();
         Paused?.Invoke();
         StopTime();
     }
@@ -94,7 +91,6 @@ public class Game : MonoBehaviour
     private void Init()
     {
         StartTime();
-        _cursor.LockCursor();
         _compositionOrder.Compose();
     }
 }

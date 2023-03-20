@@ -2,11 +2,11 @@ using InfimaGames.LowPolyShooterPack.Legacy;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements.Experimental;
 
 public class ProjectilePool : ObjectPool
 {
     [SerializeField] private Projectile _projectile;
+    [SerializeField] private List<ImpactPool> _impactPools;
     [SerializeField] private int _numberOfBullets;
 
     private List<Projectile> _projectiles = new List<Projectile>();
@@ -25,7 +25,10 @@ public class ProjectilePool : ObjectPool
     public override void StartGenerate()
     {
         for (int i = 0; i < _numberOfBullets; i++)
-            SpawnPrefab(_projectile.gameObject);
+        {
+            Projectile projectile = SpawnPrefab(_projectile.gameObject).GetComponent<Projectile>();
+            projectile.SetImpactPools(_impactPools);
+        }
     }
 
     public void SetBulletTransform(GameObject projectile, Vector3 position, Quaternion rotation)

@@ -1367,6 +1367,9 @@ MonoBehaviour:
   _container: {fileID: 98153326}
   _projectile: {fileID: 114243545424532484, guid: a0e38e1af25bdd942bf4862a265859d7,
     type: 3}
+  _impactPools:
+  - {fileID: 2087008827}
+  - {fileID: 1790430742}
   _numberOfBullets: 30
 --- !u!1 &111533899
 GameObject:
@@ -1690,6 +1693,9 @@ MonoBehaviour:
   _container: {fileID: 124381090}
   _projectile: {fileID: 114243545424532484, guid: dd67db5add0adf54e98680ed181a7c2a,
     type: 3}
+  _impactPools:
+  - {fileID: 2087008827}
+  - {fileID: 1790430742}
   _numberOfBullets: 10
 --- !u!114 &129558048 stripped
 MonoBehaviour:
@@ -6395,7 +6401,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e1b6c91c91994a4ea94af53448fd405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cursor: {fileID: 1027166052}
   _compositionOrder: {fileID: 767741215}
   _targets: {fileID: 767741218}
 --- !u!4 &432314600
@@ -8044,6 +8049,9 @@ MonoBehaviour:
   _container: {fileID: 545436557}
   _projectile: {fileID: 114243545424532484, guid: 6040b6c69906dbe4f9f85410891b2abe,
     type: 3}
+  _impactPools:
+  - {fileID: 2087008827}
+  - {fileID: 1790430742}
   _numberOfBullets: 50
 --- !u!1001 &546597089
 PrefabInstance:
@@ -8465,6 +8473,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569779877}
   m_CullTransparentMesh: 0
+--- !u!1 &570491575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 570491576}
+  m_Layer: 0
+  m_Name: ImpactPools
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &570491576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570491575}
+  m_LocalRotation: {x: 0.000000059604638, y: 0.000000010536712, z: 0.00000001053671,
+    w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2087008826}
+  - {fileID: 1790430741}
+  m_Father: {fileID: 1181446744}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &583054552
 GameObject:
   m_ObjectHideFlags: 0
@@ -11872,6 +11914,9 @@ MonoBehaviour:
   _casingPools:
   - {fileID: 1600805956}
   - {fileID: 1912893152}
+  _impactPools:
+  - {fileID: 2087008827}
+  - {fileID: 1790430742}
 --- !u!4 &767879429 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4634678132177570467, guid: ec359f99037709646a1a187546ca52c6,
@@ -14521,6 +14566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa49477e58fe9df4ab014ff5a9bfdc02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _game: {fileID: 432314599}
 --- !u!4 &1028374441 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6446807073419998744, guid: aaae9b0e0cb7c174a8b680c0ed75745f,
@@ -15719,6 +15765,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1180391219}
   m_CullTransparentMesh: 1
+--- !u!1 &1181446743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1181446744}
+  m_Layer: 0
+  m_Name: BulletCompose
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1181446744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181446743}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1570372701}
+  - {fileID: 1756449811}
+  - {fileID: 570491576}
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1184617862
 GameObject:
   m_ObjectHideFlags: 0
@@ -19458,6 +19538,9 @@ MonoBehaviour:
   _container: {fileID: 1484931829}
   _projectile: {fileID: 114243545424532484, guid: 17b260d8e680c1645be1f3855c3c2152,
     type: 3}
+  _impactPools:
+  - {fileID: 2087008827}
+  - {fileID: 1790430742}
   _numberOfBullets: 5
 --- !u!4 &1494852572 stripped
 Transform:
@@ -19994,7 +20077,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1570372701}
   m_Layer: 15
-  m_Name: BulletPools
+  m_Name: ProjectilePools
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20009,7 +20092,7 @@ Transform:
   m_GameObject: {fileID: 1570372700}
   m_LocalRotation: {x: 0.000000059604638, y: 0.000000010536712, z: 0.00000001053671,
     w: 1}
-  m_LocalPosition: {x: -0, y: -0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20018,8 +20101,8 @@ Transform:
   - {fileID: 124381091}
   - {fileID: 545436558}
   - {fileID: 1484931830}
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_Father: {fileID: 1181446744}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1580422442
 GameObject:
@@ -22814,8 +22897,8 @@ Transform:
   m_Children:
   - {fileID: 1600805955}
   - {fileID: 1912893151}
-  m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_Father: {fileID: 1181446744}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1759092279
 GameObject:
@@ -22911,7 +22994,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1766793292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23346,6 +23429,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1785994745}
   m_CullTransparentMesh: 1
+--- !u!1 &1790430740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1790430741}
+  - component: {fileID: 1790430742}
+  m_Layer: 0
+  m_Name: ConcreteImpact
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1790430741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790430740}
+  m_LocalRotation: {x: -0.000000059604638, y: -0.000000010536712, z: -0.00000001053671,
+    w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 570491576}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1790430742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790430740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd7030dba599574a8fcd489171b4a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _container: {fileID: 1790430740}
+  _impactPrefab: {fileID: 114777204554752142, guid: 5e02303289b3c494e8e185be0fbbd405,
+    type: 3}
+  _count: 40
+  _type: 3
 --- !u!1 &1800762920
 GameObject:
   m_ObjectHideFlags: 0
@@ -24919,6 +25052,18 @@ MonoBehaviour:
       - m_Target: {fileID: 432314599}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
         m_MethodName: Continue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9167619081711823238}
+        m_TargetAssemblyTypeName: PlayerEnabler, Assembly-CSharp
+        m_MethodName: Activate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -26790,6 +26935,9 @@ MonoBehaviour:
   _container: {fileID: 2078139203}
   _projectile: {fileID: 114243545424532484, guid: 5953171a59c27394e9ad5cbb564affa8,
     type: 3}
+  _impactPools:
+  - {fileID: 2087008827}
+  - {fileID: 1790430742}
   _numberOfBullets: 10
 --- !u!1001 &2080349120
 PrefabInstance:
@@ -26955,6 +27103,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec359f99037709646a1a187546ca52c6, type: 3}
+--- !u!1 &2087008825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2087008826}
+  - component: {fileID: 2087008827}
+  m_Layer: 0
+  m_Name: BloodImpact
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2087008826
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087008825}
+  m_LocalRotation: {x: -0.000000059604638, y: -0.000000010536712, z: -0.00000001053671,
+    w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 570491576}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2087008827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087008825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd7030dba599574a8fcd489171b4a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _container: {fileID: 2087008825}
+  _impactPrefab: {fileID: 114777204554752142, guid: 96d8ec506f2e7eb4a829ed423e904acc,
+    type: 3}
+  _count: 40
+  _type: 0
 --- !u!1001 &2090836096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28408,7 +28606,7 @@ Transform:
   - {fileID: 6176872242509864603}
   - {fileID: 3043031565599242125}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &151342929316558376
 GameObject:
