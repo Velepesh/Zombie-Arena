@@ -7,6 +7,11 @@ public class TowerCompositeRoot : Builder
 
     public Tower Tower => _tower;
 
+    private void Start()
+    {
+        _setup.enabled = false;
+    }
+
     public override void Compose()
     {
         _setup.enabled = true;
