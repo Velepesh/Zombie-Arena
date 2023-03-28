@@ -17,8 +17,8 @@ public class TowerCompositeRoot : Builder
         _setup.enabled = true;
     }
 
-    public override void AddHealth()
+    public override void AddHealth(int value)
     {
-        _tower.Health.AddHealth(10);
+        _tower.Health.AddHealth(value);
     }
 }

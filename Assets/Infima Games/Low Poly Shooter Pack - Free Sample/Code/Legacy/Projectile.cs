@@ -32,6 +32,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		
 		private List<ImpactPool> _impactPools = new List<ImpactPool>();
 
+		public int Damage => _damage;
 		public event UnityAction<Projectile> Impacted;
 
         private void OnEnable()

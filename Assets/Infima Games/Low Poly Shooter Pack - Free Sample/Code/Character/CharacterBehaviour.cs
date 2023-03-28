@@ -40,7 +40,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// <returns></returns>
         public abstract int GetShotsFired();
         /// <summary>
-        /// Returns true when the character's weapons are lowered.
+        /// Returns true when the character's weaponsBehaviour are lowered.
         /// </summary>
         public abstract bool IsLowered();
 

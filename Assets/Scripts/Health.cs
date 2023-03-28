@@ -26,7 +26,7 @@ public class Health
 
     public void AddHealth(int value)
     {
-
+        _health += value;
     }
 
     public void TakeDamage(int damage)

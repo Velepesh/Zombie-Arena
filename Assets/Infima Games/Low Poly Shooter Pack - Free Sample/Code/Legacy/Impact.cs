@@ -38,7 +38,6 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			yield return new WaitForSeconds(despawnTimer);
             //Destroy the impact gameobject
             Impacted?.Invoke(this);
-            //Destroy(gameObject);
 		}
 	}
 }

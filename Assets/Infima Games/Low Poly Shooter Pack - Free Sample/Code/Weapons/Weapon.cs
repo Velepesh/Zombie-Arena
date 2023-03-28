@@ -2,14 +2,18 @@
 
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 
 namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
-    /// Weapon. This class handles most of the things that weapons need.
+    /// Weapon. This class handles most of the things that weaponsBehaviour need.
     /// </summary>
     public class Weapon : WeaponBehaviour
     {
+        [SerializeField] private WeaponType _type;
+        [SerializeField] private bool _isUnlock;
+        [SerializeField] private bool _isEquip;
         #region FIELDS SERIALIZED
 
         [Title(label: "Settings")]
@@ -82,14 +86,6 @@ namespace InfimaGames.LowPolyShooterPack
 
         [Title(label: "Resources")]
 
-        //[Tooltip("Casing Prefab.")]
-        //[SerializeField]
-        //private GameObject prefabCasing;
-        
-        //[Tooltip("Projectile Prefab. This is the prefab spawned when the weapon shoots.")]
-        //[SerializeField]
-        //private GameObject prefabProjectile;
-        
         [Tooltip("The AnimatorController a player character needs to use while wielding this weapon.")]
         [SerializeField] 
         public RuntimeAnimatorController controller;
@@ -202,10 +198,31 @@ namespace InfimaGames.LowPolyShooterPack
 
         private Transform playerCameraTransform;
 
+        public string Lable => weaponName;
+        public int RoundsPerMinutes => roundsPerMinutes;
+        public int Damage => _bulletPool.Damage * shotCount;
+        public int HipSpread => (int)(100 - (spread * 100));
+        public int AimSpread => (int)(100 - (scopeBehaviour.GetMultiplierSpread() * 100));
+        public int Mobility => (int)(multiplierMovementSpeed * 100) - 20;
+        public bool IsUnlock => _isUnlock;
+        public bool IsEquip => _isEquip;
+        public WeaponType Type => _type;
+
+        public event UnityAction Inited;
+
 
         #endregion
 
         #region UNITY
+        public void Equip()
+        {
+            _isEquip = true;
+        }
+
+        public void UnEquip()
+        {
+            _isEquip = false;
+        }
 
         protected override void Awake()
         {
@@ -251,6 +268,8 @@ namespace InfimaGames.LowPolyShooterPack
 
             //Max Out Ammo.
             ammunitionCurrent = magazineBehaviour.GetAmmunitionTotal();
+
+            Inited?.Invoke();
         }
 
         #endregion

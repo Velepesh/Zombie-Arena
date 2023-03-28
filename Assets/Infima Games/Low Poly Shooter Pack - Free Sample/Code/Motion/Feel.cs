@@ -5,7 +5,7 @@ using UnityEngine;
 namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
-    /// Feel. This object contains basically all of the data relating to how weapons feel according to procedural motions.
+    /// Feel. This object contains basically all of the data relating to how weaponsBehaviour feel according to procedural motions.
     /// </summary>
     [CreateAssetMenu(fileName = "SO_Feel", menuName = "Infima Games/Low Poly Shooter Pack/Feel", order = 0)]
     public class Feel : ScriptableObject

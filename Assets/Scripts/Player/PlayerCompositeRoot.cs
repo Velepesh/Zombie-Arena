@@ -19,9 +19,9 @@ public class PlayerCompositeRoot : Builder
         _enabler.Activate();
     }
 
-    public override void AddHealth()
+    public override void AddHealth(int value)
     {
-        _player.Health.AddHealth(10);
+        _player.Health.AddHealth(value);
     }
 
     private void Deactivate()

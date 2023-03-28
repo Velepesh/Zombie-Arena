@@ -33,7 +33,8 @@ public class Game : MonoBehaviour
 
     public void StartLevel()
     {
-        Init();
+        StartTime();
+        _compositionOrder.Compose();
         GameStarted?.Invoke();
     }
 
@@ -86,11 +87,5 @@ public class Game : MonoBehaviour
     private void OnDied(IDamageable damageable)
     {
         EndGame();
-    }
-
-    private void Init()
-    {
-        StartTime();
-        _compositionOrder.Compose();
     }
 }

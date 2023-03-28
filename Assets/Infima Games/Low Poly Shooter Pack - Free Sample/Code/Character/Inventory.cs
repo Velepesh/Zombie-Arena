@@ -1,15 +1,18 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using UnityEngine;
+
 namespace InfimaGames.LowPolyShooterPack
 {
     public class Inventory : InventoryBehaviour
     {
+        [SerializeField] private Equipment _equipment;
         #region FIELDS
-        
+
         /// <summary>
-        /// Array of all weapons. These are gotten in the order that they are parented to this object.
+        /// Array of all weaponsBehaviour. These are gotten in the order that they are parented to this object.
         /// </summary>
-        private WeaponBehaviour[] weapons;
+        private WeaponBehaviour[] weaponsBehaviour;
         
         /// <summary>
         /// Currently equipped WeaponBehaviour.
@@ -26,25 +29,28 @@ namespace InfimaGames.LowPolyShooterPack
         
         public override void Init(int equippedAtStart = 0)
         {
-            //Cache all weapons. Beware that weapons need to be parented to the object this component is on!
-            weapons = GetComponentsInChildren<WeaponBehaviour>(true);
-            
-            //Disable all weapons. This makes it easier for us to only activate the one we need.
-            foreach (WeaponBehaviour weapon in weapons)
+            //Cache all weaponsBehaviour. Beware that weaponsBehaviour need to be parented to the object this component is on!
+            weaponsBehaviour = GetComponentsInChildren<WeaponBehaviour>(true);
+            Weapon[] weapons = GetComponentsInChildren<Weapon>(true);
+
+            _equipment.Init(weapons);
+            //Disable all weaponsBehaviour. This makes it easier for us to only activate the one we need.
+            foreach (WeaponBehaviour weapon in weaponsBehaviour)
                 weapon.gameObject.SetActive(false);
 
             //Equip.
             Equip(equippedAtStart);
         }
+        
 
         public override WeaponBehaviour Equip(int index)
         {
-            //If we have no weapons, we can't really equip anything.
-            if (weapons == null)
+            //If we have no weaponsBehaviour, we can't really equip anything.
+            if (weaponsBehaviour == null)
                 return equipped;
             
             //The index needs to be within the array's bounds.
-            if (index > weapons.Length - 1)
+            if (index > weaponsBehaviour.Length - 1)
                 return equipped;
 
             //No point in allowing equipping the already-equipped weapon.
@@ -58,7 +64,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Update index.
             equippedIndex = index;
             //Update equipped.
-            equipped = weapons[equippedIndex];
+            equipped = weaponsBehaviour[equippedIndex];
             //Activate the newly-equipped weapon.
             equipped.gameObject.SetActive(true);
 
@@ -75,7 +81,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Get last index with wrap around.
             int newIndex = equippedIndex - 1;
             if (newIndex < 0)
-                newIndex = weapons.Length - 1;
+                newIndex = weaponsBehaviour.Length - 1;
 
             //Return.
             return newIndex;
@@ -85,7 +91,7 @@ namespace InfimaGames.LowPolyShooterPack
         {
             //Get next index with wrap around.
             int newIndex = equippedIndex + 1;
-            if (newIndex > weapons.Length - 1)
+            if (newIndex > weaponsBehaviour.Length - 1)
                 newIndex = 0;
 
             //Return.

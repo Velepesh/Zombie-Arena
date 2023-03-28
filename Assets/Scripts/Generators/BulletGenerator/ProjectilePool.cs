@@ -11,6 +11,8 @@ public class ProjectilePool : ObjectPool
 
     private List<Projectile> _projectiles = new List<Projectile>();
 
+    public int Damage =>_projectile.Damage;
+
     private void OnValidate()
     {
         _numberOfBullets = Mathf.Clamp(_numberOfBullets, 0, int.MaxValue);

@@ -11,7 +11,7 @@ namespace InfimaGames.LowPolyShooterPack
     
     /// <summary>
     /// Motion. This abstract class serves as a base class for all components that apply any sort of cool procedural
-    /// motions to either the weapons, or the camera, in the asset.
+    /// motions to either the weaponsBehaviour, or the camera, in the asset.
     /// It has a bunch of helper things that make it easier to handle, and runs through the MotionApplier, forming
     /// a nice cycle! 
     /// </summary>

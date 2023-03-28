@@ -284,20 +284,19 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			//Cache the movement behaviour.
 			movementBehaviour = GetComponent<MovementBehaviour>();
-
-			//Initialize Inventory.
-			inventory.Init(weaponIndexEquippedAtStart);
-
-			//Refresh!
-			RefreshWeaponSetup();
 		}
 		/// <summary>
 		/// Start.
 		/// </summary>
 		protected override void Start()
 		{
-			//Max out the grenades.
-			grenadeCount = grenadeTotal;
+            //Initialize Inventory.
+            inventory.Init(weaponIndexEquippedAtStart);
+
+            //Refresh!
+            RefreshWeaponSetup();
+            //Max out the grenades.
+            grenadeCount = grenadeTotal;
 			
 			//Hide knife. We do this so we don't see a giant knife stabbing through the character's hands all the time!
 			if (knife != null)

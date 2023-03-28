@@ -61,13 +61,15 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 
         #region METHODS
 
-        protected override void Tick()
+        private void Start()
         {
-            //Calculate what color and alpha we need to apply.
             Color toAssign = imageColor;
             foreach (Image image in GetComponents<Image>())
                 image.color = toAssign;
-            
+        }
+
+        protected override void Tick()
+        {
             //Get Attachment Manager.
             attachmentManagerBehaviour = equippedWeaponBehaviour.GetAttachmentManager();
             //Update the weapon's body sprite!
