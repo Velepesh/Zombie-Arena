@@ -127,7 +127,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private CharacterBehaviour playerCharacter;
         /// <summary>
-        /// The player character's equipped weapon.
+        /// The player character's _equipped weapon.
         /// </summary>
         private WeaponBehaviour equippedWeapon;
 
@@ -189,7 +189,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// Moves the camera to the character, processes jumping and plays sounds every frame.
         protected override void Update()
         {
-            //Get the equipped weapon!
+            //Get the _equipped weapon!
             equippedWeapon = playerCharacter.GetInventory().GetEquipped();
 
             //Get this frame's grounded value.

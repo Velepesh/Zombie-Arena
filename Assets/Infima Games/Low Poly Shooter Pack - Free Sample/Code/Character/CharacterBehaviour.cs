@@ -153,11 +153,11 @@ namespace InfimaGames.LowPolyShooterPack
         #region ANIMATION
 
         /// <summary>
-        /// Ejects a casing from the equipped weapon.
+        /// Ejects a casing from the _equipped weapon.
         /// </summary>
         public abstract void EjectCasing();
         /// <summary>
-        /// Fills the character's equipped weapon's ammunition by a certain amount, or fully if set to -1.
+        /// Fills the character's _equipped weapon's ammunition by a certain amount, or fully if set to -1.
         /// </summary>
         public abstract void FillAmmunition(int amount);
 
@@ -166,7 +166,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public abstract void Grenade();
         /// <summary>
-        /// Sets the equipped weapon's magazine to be active or inactive!
+        /// Sets the _equipped weapon's magazine to be active or inactive!
         /// </summary>
         public abstract void SetActiveMagazine(int active);
         
@@ -198,7 +198,7 @@ namespace InfimaGames.LowPolyShooterPack
         public abstract void AnimationEndedHolster();
 
         /// <summary>
-        /// Sets the equipped weapon's slide back pose.
+        /// Sets the _equipped weapon's slide back pose.
         /// </summary>
         public abstract void SetSlideBack(int back);
 

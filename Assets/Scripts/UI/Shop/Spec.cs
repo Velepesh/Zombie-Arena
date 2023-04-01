@@ -1,6 +1,5 @@
 using InfimaGames.LowPolyShooterPack;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -35,9 +34,6 @@ public class Spec : MonoBehaviour
 
     public void UpdateSpec(Weapon weapon)
     {
-        if (_canvasGroup.alpha != 1f)
-            EnablePanel();
-
         _currentWeapon = weapon;
         SetLabel(weapon.Lable);
         Update—haracteristics(weapon);
@@ -46,16 +42,6 @@ public class Spec : MonoBehaviour
     private void OnBuyButtonClick()
     {
         BuyButtonClicked?.Invoke(_currentWeapon);
-    }
-
-    private void EnablePanel()
-    {
-        _canvasGroup.alpha = 1f;
-    }
-
-    private void DisablePanel()
-    {
-        _canvasGroup.alpha = 0f;
     }
 
     private void SetLabel(string label)

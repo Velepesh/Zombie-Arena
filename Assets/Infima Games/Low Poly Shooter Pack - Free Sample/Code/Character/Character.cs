@@ -175,20 +175,20 @@ namespace InfimaGames.LowPolyShooterPack
 		private MovementBehaviour movementBehaviour;
 		
 		/// <summary>
-		/// The currently equipped weapon.
+		/// The currently _equipped weapon.
 		/// </summary>
 		private WeaponBehaviour equippedWeapon;
 		/// <summary>
-		/// The equipped weapon's attachment manager.
+		/// The _equipped weapon's attachment manager.
 		/// </summary>
 		private WeaponAttachmentManagerBehaviour weaponAttachmentManager;
 		
 		/// <summary>
-		/// The scope equipped on the character's weapon.
+		/// The scope _equipped on the character's weapon.
 		/// </summary>
 		private ScopeBehaviour equippedWeaponScope;
 		/// <summary>
-		/// The magazine equipped on the character's weapon.
+		/// The magazine _equipped on the character's weapon.
 		/// </summary>
 		private MagazineBehaviour equippedWeaponMagazine;
 		
@@ -291,7 +291,7 @@ namespace InfimaGames.LowPolyShooterPack
 		protected override void Start()
 		{
             //Initialize Inventory.
-            inventory.Init(weaponIndexEquippedAtStart);
+            //inventory.Init(weaponIndexEquippedAtStart);
 
             //Refresh!
             RefreshWeaponSetup();
@@ -315,8 +315,11 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		protected override void Update()
 		{
-			//Match Aim.
-			aiming = holdingButtonAim && CanAim();
+            //if (equippedWeapon == null)
+            //    return;
+
+            //Match Aim.
+            aiming = holdingButtonAim && CanAim();
 			//Match Run.
 			running = holdingButtonRun && CanRun();
 
@@ -354,11 +357,6 @@ namespace InfimaGames.LowPolyShooterPack
 			//Update Animator.
 			UpdateAnimator();
 
-			//if (aiming)
-			//	equippedWeapon.Scope();
-			//else
-			//	equippedWeapon.Unscope();
-
 			//Update Aiming Alpha. We need to get this here because we're using the Animator to interpolate the aiming value.
 			aimingAlpha = characterAnimator.GetFloat(AHashes.AimingAlpha);
 			
@@ -369,7 +367,7 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Running Field Of View Multiplier.
 			float runningFieldOfView = Mathf.Lerp(1.0f, fieldOfViewRunningMultiplier, runningAlpha);
-			
+
 			//Interpolate the world camera's field of view based on whether we are aiming or not.
 			cameraWorld.fieldOfView = Mathf.Lerp(fieldOfView, fieldOfView * equippedWeapon.GetFieldOfViewMultiplierAim(), aimingAlpha) * runningFieldOfView;
 			//Interpolate the depth camera's field of view based on whether we are aiming or not.
@@ -686,9 +684,9 @@ namespace InfimaGames.LowPolyShooterPack
 			if (weaponAttachmentManager == null) 
 				return;
 			
-			//Get equipped scope. We need this one for its settings!
+			//Get _equipped scope. We need this one for its settings!
 			equippedWeaponScope = weaponAttachmentManager.GetEquippedScope();
-			//Get equipped magazine. We need this one for its settings!
+			//Get _equipped magazine. We need this one for its settings!
 			equippedWeaponMagazine = weaponAttachmentManager.GetEquippedMagazine();
 		}
 
@@ -1297,7 +1295,7 @@ namespace InfimaGames.LowPolyShooterPack
 			if (equippedWeaponScope == null)
 				return;
 
-			//If we're aiming, multiply by the mouse sensitivity multiplier of the equipped weapon's scope!
+			//If we're aiming, multiply by the mouse sensitivity multiplier of the _equipped weapon's scope!
 			axisLook *= aiming ? equippedWeaponScope.GetMultiplierMouseSensitivity() : 1.0f;
 		}
 

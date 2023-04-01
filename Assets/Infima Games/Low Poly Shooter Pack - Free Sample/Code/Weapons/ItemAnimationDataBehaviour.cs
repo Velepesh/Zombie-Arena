@@ -30,7 +30,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public abstract LowerData GetLowerData();
         /// <summary>
-        /// Returns the LeaningData needed to apply to the equipped weapon while the character is leaning.
+        /// Returns the LeaningData needed to apply to the _equipped weapon while the character is leaning.
         /// </summary>
         public abstract LeaningData GetLeaningData();
         

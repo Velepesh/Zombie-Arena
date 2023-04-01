@@ -235,25 +235,9 @@ namespace InfimaGames.LowPolyShooterPack
             gameModeService = ServiceLocator.Current.Get<IGameModeService>();
             //Cache the player character.
             characterBehaviour = gameModeService.GetPlayerCharacter();
-            //Cache the world camera. We use this in line traces.
 
-            SetCameraSettings();
-        }
-
-        private void SetCameraSettings()
-        {
-            //Cache the world camera. We use this in line traces.
-
-            playerCameraTransform = characterBehaviour.GetCameraWorld().transform; ;
-        }
-
-        protected override void Start()
-        {
-            #region Cache Attachment References
-
-            //Get Scope.
             scopeBehaviour = attachmentManager.GetEquippedScope();
-            
+
             //Get Magazine.
             magazineBehaviour = attachmentManager.GetEquippedMagazine();
             //Get Muzzle.
@@ -270,9 +254,18 @@ namespace InfimaGames.LowPolyShooterPack
             ammunitionCurrent = magazineBehaviour.GetAmmunitionTotal();
 
             Inited?.Invoke();
+            //Cache the world camera. We use this in line traces.
+
+            SetCameraSettings();
         }
 
-        #endregion
+
+        private void SetCameraSettings()
+        {
+            //Cache the world camera. We use this in line traces.
+
+            playerCameraTransform = characterBehaviour.GetCameraWorld().transform; ;
+        }
 
         #region GETTERS
 

@@ -31,7 +31,7 @@ namespace InfimaGames.LowPolyShooterPack
 		#region ANIMATION
 
 		/// <summary>
-		/// Ejects a casing from the character's equipped weapon. This function is called from an Animation Event.
+		/// Ejects a casing from the character's _equipped weapon. This function is called from an Animation Event.
 		/// </summary>
 		private void OnEjectCasing()
 		{
@@ -41,7 +41,7 @@ namespace InfimaGames.LowPolyShooterPack
 		}
 
 		/// <summary>
-		/// Fills the character's equipped weapon's ammunition by a certain amount, or fully if set to 0. This function is called
+		/// Fills the character's _equipped weapon's ammunition by a certain amount, or fully if set to 0. This function is called
 		/// from a Animation Event.
 		/// </summary>
 		private void OnAmmunitionFill(int amount = 0)
@@ -70,7 +70,7 @@ namespace InfimaGames.LowPolyShooterPack
 				playerCharacter.Grenade();
 		}
 		/// <summary>
-		/// Sets the equipped weapon's magazine to be active or inactive! This function is called from an Animation Event.
+		/// Sets the _equipped weapon's magazine to be active or inactive! This function is called from an Animation Event.
 		/// </summary>
 		private void OnSetActiveMagazine(int active)
 		{
@@ -137,7 +137,7 @@ namespace InfimaGames.LowPolyShooterPack
 		}
 
 		/// <summary>
-		/// Sets the character's equipped weapon's slide back pose. This function is called from an Animation Event.
+		/// Sets the character's _equipped weapon's slide back pose. This function is called from an Animation Event.
 		/// </summary>
 		private void OnSlideBack(int back)
 		{

@@ -36,7 +36,7 @@ namespace InfimaGames.LowPolyShooterPack
 			//Get Inventory.
 			playerInventoryBehaviour ??= playerCharacter.GetInventory();
 
-			//Try to get the equipped weapon's Weapon component.
+			//Try to get the _equipped weapon's Weapon component.
 			if (!(playerInventoryBehaviour.GetEquipped() is { } weaponBehaviour))
 				return;
 			

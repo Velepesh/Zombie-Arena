@@ -7,7 +7,7 @@ public class TowerCompositeRoot : Builder
 
     public Tower Tower => _tower;
 
-    private void Start()
+    private void Awake()
     {
         _setup.enabled = false;
     }

@@ -81,14 +81,17 @@ namespace InfimaGames.LowPolyShooterPack
             //We use this by default, but it could be useful to not have it if your lowered poses are different.
             if (stopWhileFiring && characterBehaviour.IsHoldingButtonFire())
                 lowered = false;
-            
-            //Make sure that the equipped weapon has a ItemAnimationDataBehaviour.
+
+            //if (inventoryBehaviour.GetEquipped() == null)
+            //    return;
+
+            //Make sure that the _equipped weapon has a ItemAnimationDataBehaviour.
             var animationData = inventoryBehaviour.GetEquipped().GetComponent<ItemAnimationDataBehaviour>();
             if (animationData == null)
                 lowered = false;
             else
             {
-                //Check that the current weapon equipped has the necessary data for lowering.
+                //Check that the current weapon _equipped has the necessary data for lowering.
                 if (animationData.GetLowerData() == null)
                     lowered = false;
             }
@@ -113,7 +116,7 @@ namespace InfimaGames.LowPolyShooterPack
         #region METHODS
 
         /// <summary>
-        /// Lower. Called to try and lower the character's equipped weapon!
+        /// Lower. Called to try and lower the character's _equipped weapon!
         /// Keep in mind that this method is called by the PlayerInput component on the main character root.
         /// </summary>
         public void Lower(InputAction.CallbackContext context)

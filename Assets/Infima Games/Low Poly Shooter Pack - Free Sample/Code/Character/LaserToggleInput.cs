@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
-    /// LaserToggleInput. This class is called from the PlayerInput component, and tries to toggle the equipped weapon's flashlight/laser
+    /// LaserToggleInput. This class is called from the PlayerInput component, and tries to toggle the _equipped weapon's flashlight/laser
     /// on/off.
     /// </summary>
     public class LaserToggleInput : MonoBehaviour
@@ -60,12 +60,12 @@ namespace InfimaGames.LowPolyShooterPack
                 return;
             }
             
-            //Grab a reference to the currently equipped weapon.
+            //Grab a reference to the currently _equipped weapon.
             WeaponBehaviour weaponBehaviour = inventoryBehaviour.GetEquipped();
             if (weaponBehaviour == null)
                 return;
 
-            //Get a reference to the equipped weapon's laser component, if it has one.
+            //Get a reference to the _equipped weapon's laser component, if it has one.
             laserBehaviour = weaponBehaviour.GetAttachmentManager().GetEquippedLaser();
             if (laserBehaviour == null)
                 return;

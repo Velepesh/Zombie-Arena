@@ -5,7 +5,7 @@ using UnityEngine;
 namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
-    /// WallAvoidance. This component handles lowering the character's equipped item when near a wall.
+    /// WallAvoidance. This component handles lowering the character's _equipped item when near a wall.
     /// </summary>
     public class WallAvoidance : MonoBehaviour
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
-    /// LeaningData. Contains all data related to the player character leaning, and having the camera and equipped item
+    /// LeaningData. Contains all data related to the player character leaning, and having the camera and _equipped item
     /// act on it too.
     /// </summary>
     [CreateAssetMenu(fileName = "SO_Leaning_Name", menuName = "Infima Games/Low Poly Shooter Pack/Leaning Data", order = 0)]

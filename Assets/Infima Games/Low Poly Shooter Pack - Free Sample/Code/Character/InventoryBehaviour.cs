@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -18,17 +19,17 @@ namespace InfimaGames.LowPolyShooterPack
         /// <returns></returns>
         public abstract int GetLastIndex();
         /// <summary>
-        /// Returns the next index after the currently equipped one. Very helpful in order to figure out
+        /// Returns the next index after the currently _equipped one. Very helpful in order to figure out
         /// what the next weapon to equip is.
         /// </summary>
         public abstract int GetNextIndex();
         /// <summary>
-        /// Returns the currently equipped WeaponBehaviour.
+        /// Returns the currently _equipped WeaponBehaviour.
         /// </summary>
         public abstract WeaponBehaviour GetEquipped();
 
         /// <summary>
-        /// Returns the currently equipped index. Meaning the index in the weapon array of the equipped weapon.
+        /// Returns the currently _equipped index. Meaning the index in the weapon array of the _equipped weapon.
         /// </summary>
         public abstract int GetEquippedIndex();
         
@@ -41,13 +42,13 @@ namespace InfimaGames.LowPolyShooterPack
         /// PlayerCharacter component to run this with the index it wants to equip!
         /// </summary>
         /// <param name="equippedAtStart">Inventory index of the weapon we want to equip when the game starts.</param>
-        public abstract void Init(int equippedAtStart = 0);
+        public abstract void Init(List<Weapon> weapons);
         
         /// <summary>
         /// Equips a Weapon.
         /// </summary>
         /// <param name="index">Index of the weapon to equip.</param>
-        /// <returns>Weapon that was just equipped.</returns>
+        /// <returns>Weapon that was just _equipped.</returns>
         public abstract WeaponBehaviour Equip(int index);
 
         #endregion

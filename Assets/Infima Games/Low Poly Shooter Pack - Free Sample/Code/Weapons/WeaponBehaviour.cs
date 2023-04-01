@@ -158,7 +158,7 @@ namespace InfimaGames.LowPolyShooterPack
         public abstract float GetFieldOfViewMultiplierAimWeapon();
 
         /// <summary>
-        /// Returns the RuntimeAnimationController the Character needs to use when this Weapon is equipped!
+        /// Returns the RuntimeAnimationController the Character needs to use when this Weapon is _equipped!
         /// </summary>
         public abstract RuntimeAnimatorController GetAnimatorController();
         /// <summary>
@@ -181,7 +181,7 @@ namespace InfimaGames.LowPolyShooterPack
         public abstract void Reload();
 
         /// <summary>
-        /// Fills the character's equipped weapon's ammunition by a certain amount, or fully if set to -1.
+        /// Fills the character's _equipped weapon's ammunition by a certain amount, or fully if set to -1.
         /// </summary>
         public abstract void FillAmmunition(int amount);
         /// <summary>

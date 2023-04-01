@@ -44,7 +44,7 @@ namespace InfimaGames.LowPolyShooterPack
         private readonly Spring loweredSpringRotation = new Spring();
 
         /// <summary>
-        /// LowerData for the current equipped weapon. If there's none, then there's no lowering, I guess.
+        /// LowerData for the current _equipped weapon. If there's none, then there's no lowering, I guess.
         /// </summary>
         private LowerData lowerData;
         

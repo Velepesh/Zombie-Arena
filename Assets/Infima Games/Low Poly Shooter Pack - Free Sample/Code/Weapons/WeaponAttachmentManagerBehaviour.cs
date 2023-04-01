@@ -36,29 +36,29 @@ namespace InfimaGames.LowPolyShooterPack
         #region GETTERS
 
         /// <summary>
-        /// Returns the equipped scope.
+        /// Returns the _equipped scope.
         /// </summary>
         public abstract ScopeBehaviour GetEquippedScope();
         /// <summary>
-        /// Returns the equipped scope default.
+        /// Returns the _equipped scope default.
         /// </summary>
         public abstract ScopeBehaviour GetEquippedScopeDefault();
         
         /// <summary>
-        /// Returns the equipped magazine.
+        /// Returns the _equipped magazine.
         /// </summary>
         public abstract MagazineBehaviour GetEquippedMagazine();
         /// <summary>
-        /// Returns the equipped muzzle.
+        /// Returns the _equipped muzzle.
         /// </summary>
         public abstract MuzzleBehaviour GetEquippedMuzzle();
         
         /// <summary>
-        /// Returns the equipped laser.
+        /// Returns the _equipped laser.
         /// </summary>
         public abstract LaserBehaviour GetEquippedLaser();
         /// <summary>
-        /// Returns the equipped grip.
+        /// Returns the _equipped grip.
         /// </summary>
         public abstract GripBehaviour GetEquippedGrip();
         

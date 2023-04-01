@@ -1,32 +1,28 @@
+using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 
 public class PlayerCompositeRoot : Builder
 {
     [SerializeField] private Player _player;
-    [SerializeField] private PlayerEnabler _enabler;
     [SerializeField] private PlayerViewSetup _setup;
+    [SerializeField] private Equipment _equipment;
+    [SerializeField] private Inventory _inventory;
 
     public Player Player => _player;
 
-    private void Start()
+    private void Awake()
     {
-        Deactivate();
+        _setup.enabled = false;
     }
 
     public override void Compose()
     {
         _setup.enabled = true;
-        _enabler.Activate();
+        _inventory.Init(_equipment.GetEquipedWeapons());
     }
 
     public override void AddHealth(int value)
     {
         _player.Health.AddHealth(value);
-    }
-
-    private void Deactivate()
-    {
-        _setup.enabled = false;
-        _enabler.Deactivate();
     }
 }

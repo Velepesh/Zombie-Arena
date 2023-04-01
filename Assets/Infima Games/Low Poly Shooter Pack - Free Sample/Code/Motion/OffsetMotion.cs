@@ -80,12 +80,12 @@ namespace InfimaGames.LowPolyShooterPack
             if (feel == null)
                 return;
 
-            //Try to get the equipped weapon. With the current asset setup, this should always return the correct thing.
+            //Try to get the _equipped weapon. With the current asset setup, this should always return the correct thing.
             WeaponBehaviour weaponBehaviour = inventoryBehaviour.GetEquipped();
             if (weaponBehaviour == null)
                 return;
             
-            //Get the equipped item's (in this case weapon) data component. It holds a lot of data needed for this.
+            //Get the _equipped item's (in this case weapon) data component. It holds a lot of data needed for this.
             var itemAnimationDataBehaviour = weaponBehaviour.GetComponent<ItemAnimationDataBehaviour>();
             if (itemAnimationDataBehaviour == null)
                 return;
@@ -95,7 +95,7 @@ namespace InfimaGames.LowPolyShooterPack
             if (weaponAttachmentManagerBehaviour == null)
                 return;
 
-            //Get the equipped scope.
+            //Get the _equipped scope.
             ScopeBehaviour scopeBehaviour = weaponAttachmentManagerBehaviour.GetEquippedScope();
             if (scopeBehaviour == null)
                 return;
