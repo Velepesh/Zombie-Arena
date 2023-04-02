@@ -60,17 +60,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f25e9b80110d8e4b9e81060e379449d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ImageColor: {r: 1, g: 1, b: 1, a: 1}
+  ImageWeaponBody: {fileID: 3388294879701017830}
+  ImageWeaponGrip: {fileID: 3388294880685147304}
+  ImageWeaponLaser: {fileID: 3388294880546677907}
+  ImageWeaponMuzzle: {fileID: 3388294880717396578}
+  ImageWeaponMagazine: {fileID: 3388294880349669670}
+  ImageWeaponScope: {fileID: 3388294878935605316}
+  ImageWeaponScopeDefault: {fileID: 3388294880557297799}
+  Label: {fileID: 1345067500178786581}
   _weapon: {fileID: 0}
   _button: {fileID: 5879471200427899474}
-  _imageColor: {r: 1, g: 1, b: 1, a: 0.7058824}
-  _imageWeaponBody: {fileID: 3388294879701017830}
-  _imageWeaponGrip: {fileID: 3388294880685147304}
-  _imageWeaponLaser: {fileID: 3388294880546677907}
-  _imageWeaponMuzzle: {fileID: 3388294880717396578}
-  _imageWeaponMagazine: {fileID: 3388294880349669670}
-  _imageWeaponScope: {fileID: 3388294878935605316}
-  _imageWeaponScopeDefault: {fileID: 3388294880557297799}
-  _label: {fileID: 1345067500178786581}
 --- !u!222 &7984639912894790298
 CanvasRenderer:
   m_ObjectHideFlags: 0

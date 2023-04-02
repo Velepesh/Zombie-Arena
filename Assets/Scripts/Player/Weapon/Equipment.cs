@@ -38,7 +38,31 @@ public class Equipment : MonoBehaviour
 
     public List<Weapon> GetEquipedWeapons()
     {
+        _equipmentWeapons = OrderEquipedWeaponsList();
+
         return _equipmentWeapons;
+    }
+
+    private List<Weapon> OrderEquipedWeaponsList()
+    {
+        List<Weapon> weapons = new List<Weapon>();
+
+        if (_automaticRifle != null)
+            weapons.Add(_automaticRifle);
+
+        if (_pistol != null)
+            weapons.Add(_pistol);
+
+        if (_submachineGun != null)
+            weapons.Add(_submachineGun);
+
+        if (_shotgun != null)
+            weapons.Add(_shotgun);
+
+        if (_sniperRifle != null)
+            weapons.Add(_sniperRifle);
+
+        return weapons;
     }
 
     private void InitWeapons(List<Weapon> weapons)

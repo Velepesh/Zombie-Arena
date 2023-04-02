@@ -40,9 +40,9 @@ public class MarkerLine : MonoBehaviour
 
     public void ResetLine(CanvasGroup canvasGroup)
     {
-        //Color _imageColor = _image.color;
+        //Color ImageColor = _image.color;
         canvasGroup.alpha = 0;
-       // _image.color = _imageColor;
+       // _image.color = ImageColor;
 
         //Color otlineColor = _image.color;
         //otlineColor.a = 0;

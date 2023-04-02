@@ -1,10 +1,8 @@
-﻿//Copyright 2022, Infima Games. All Rights Reserved.
-
-public enum WeaponType
+﻿public enum WeaponType
 {
     AutomaticRifle,
-    SubmachineGun,
     Pistol,
+    SubmachineGun,
     Shotgun,
     SniperRifle,
 }

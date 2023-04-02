@@ -32,9 +32,10 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns the currently _equipped index. Meaning the index in the weapon array of the _equipped weapon.
         /// </summary>
         public abstract int GetEquippedIndex();
-        
+
+        public abstract int GetWeaponIndexByType(WeaponType type);
         #endregion
-        
+
         #region METHODS
 
         /// <summary>

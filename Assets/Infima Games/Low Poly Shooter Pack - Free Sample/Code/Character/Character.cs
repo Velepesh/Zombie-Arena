@@ -404,9 +404,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public override Camera GetCameraWorld() => cameraWorld;
 
-        //public override Vector3 GetAimCameraPosition() => _aimCameraPosition;
-        //public override float GetAimCameraFieldOfView() => _aimCameraFieldOfView;
-        //public override float GetScopingCameraSpeed() => _scopingSpeed;
         /// <summary>
         /// GetCameraDepth.
         /// </summary>
@@ -1270,11 +1267,49 @@ namespace InfimaGames.LowPolyShooterPack
 					break;
 			}
 		}
-		
-		/// <summary>
-		/// Movement.
-		/// </summary>
-		public void OnMove(InputAction.CallbackContext context)
+
+        public void OnTrySetAutomaticRifle(InputAction.CallbackContext context)
+        {
+            TrySetWeapon(WeaponType.AutomaticRifle);
+        }
+
+        public void OnTrySetPistol(InputAction.CallbackContext context)
+        {
+            TrySetWeapon(WeaponType.Pistol);
+        }
+
+        public void OnTrySetSubmachineGun(InputAction.CallbackContext context)
+        {
+            TrySetWeapon(WeaponType.SubmachineGun);
+        }
+
+        public void OnTrySetShotgun(InputAction.CallbackContext context)
+        {
+            TrySetWeapon(WeaponType.Shotgun);
+        }
+
+        public void OnTrySetSniperRifle(InputAction.CallbackContext context)
+        {
+            TrySetWeapon(WeaponType.SniperRifle);
+        }
+
+		private void TrySetWeapon(WeaponType type)
+		{
+            int indexNext = inventory.GetWeaponIndexByType(type);
+
+			if (indexNext < 0)
+				return;
+
+            int indexCurrent = inventory.GetEquippedIndex();
+
+            if (CanChangeWeapon() && indexCurrent != indexNext)
+                StartCoroutine(nameof(Equip), indexNext);
+        }
+
+        /// <summary>
+        /// Movement.
+        /// </summary>
+        public void OnMove(InputAction.CallbackContext context)
 		{
 			//Read.
 			axisMovement = context.ReadValue<Vector2>();

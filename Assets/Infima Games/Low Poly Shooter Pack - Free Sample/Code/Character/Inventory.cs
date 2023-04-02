@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -28,24 +30,24 @@ namespace InfimaGames.LowPolyShooterPack
 
         #region METHODS
 
+        public event UnityAction<List<Weapon>> Setted;
+
         public override void Init(List<Weapon> weapons)
         {
             _equipedWeapons = weapons;
 
             _allWeapons = GetComponentsInChildren<Weapon>(true).ToList();
 
-            for (int i = 1; i < _allWeapons.Count; i++)
-            {
-                _allWeapons[i].gameObject.SetActive(false);//Сделать порядок в инветнаре
-            }
+            for (int i = 0; i < _allWeapons.Count; i++)
+                _allWeapons[i].gameObject.SetActive(false);
 
             Equip(0);
+            Setted?.Invoke(_equipedWeapons);
         }
         
 
         public override WeaponBehaviour Equip(int index)
         {
-
             //If we have no weaponsBehaviour, we can't really equip anything.
             if (_equipedWeapons == null)
                 return _equipped;
@@ -99,8 +101,52 @@ namespace InfimaGames.LowPolyShooterPack
             return newIndex;
         }
 
+        //public void OnTrySetAutomaticRifle(InputAction.CallbackContext context)
+        //{
+        //    TrySetWeapon(WeaponType.AutomaticRifle);
+        //}
+
+        //public void OnTrySetPistolRifle(InputAction.CallbackContext context)
+        //{
+        //    TrySetWeapon(WeaponType.Pistol);
+        //}
+
+        //public void OnTrySetSubmachineGunRifle(InputAction.CallbackContext context)
+        //{
+        //    TrySetWeapon(WeaponType.SubmachineGun);
+        //}
+
+        //public void OnTrySetShotgunRifle(InputAction.CallbackContext context)
+        //{
+        //    TrySetWeapon(WeaponType.Shotgun);
+        //}
+
+        //public void OnTrySetSniperRifle(InputAction.CallbackContext context)
+        //{
+        //    TrySetWeapon(WeaponType.SniperRifle);
+        //}
+
         public override WeaponBehaviour GetEquipped() => _equipped;
         public override int GetEquippedIndex() => _equippedIndex;
+
+        //private void TrySetWeapon(WeaponType type)
+        //{
+        //    int index = GetWeaponIndexByType(type);
+
+        //    if (index >= 0)
+        //        Equip(index);
+        //}
+
+        public override int GetWeaponIndexByType(WeaponType type)
+        {
+            for (int i = 0; i < _equipedWeapons.Count; i++)
+            {
+                if (_equipedWeapons[i].Type == type)
+                    return i;
+            }
+
+            return -1;
+        }
 
         #endregion
     }

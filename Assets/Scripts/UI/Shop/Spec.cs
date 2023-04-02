@@ -8,6 +8,7 @@ public class Spec : MonoBehaviour
 {
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private TMP_Text _label;
+    [SerializeField] private TMP_Text _inventoryText;
     [SerializeField] private —haracteristic _damageCharacteristic;
     [SerializeField] private —haracteristic _rpmCharacteristic;
     [SerializeField] private —haracteristic _magazineCharacteristic;
@@ -35,13 +36,23 @@ public class Spec : MonoBehaviour
     public void UpdateSpec(Weapon weapon)
     {
         _currentWeapon = weapon;
+        SetInventoryText(weapon);
         SetLabel(weapon.Lable);
         Update—haracteristics(weapon);
+    }
+
+    private void SetInventoryText(Weapon weapon)
+    {
+        if (weapon.IsEquip)
+            _inventoryText.text = _equipmentText;
+        else
+            _inventoryText.text = _adsText;
     }
 
     private void OnBuyButtonClick()
     {
         BuyButtonClicked?.Invoke(_currentWeapon);
+        SetInventoryText(_currentWeapon);
     }
 
     private void SetLabel(string label)
