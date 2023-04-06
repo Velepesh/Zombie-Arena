@@ -62,6 +62,7 @@ public class Game : MonoBehaviour
     public void Restart()
     {
         DOTween.Clear(true);
+        StartTime();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

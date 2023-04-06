@@ -8,6 +8,7 @@ public class Equipment : MonoBehaviour
 {
     [SerializeField] private List<Weapon> _weapons = new List<Weapon>();
 
+    private int _countOfInitedWeapons = 0;
     private List<Weapon> _equipmentWeapons = new List<Weapon>();
     private Weapon _automaticRifle;
     private Weapon _pistol;
@@ -26,9 +27,24 @@ public class Equipment : MonoBehaviour
     public event UnityAction Inited;
     public event UnityAction<Weapon> Equipped;
 
-    private void Start()
+    private void OnEnable()
     {
-        InitWeapons(_weapons);
+        for (int i = 0; i < _weapons.Count; i++)
+            _weapons[i].Inited += OnInited;
+    }
+
+    private void OnDisable()
+    {
+        for (int i = 0; i < _weapons.Count; i++)
+            _weapons[i].Inited -= OnInited;
+    }
+
+    private void OnInited()
+    {
+        _countOfInitedWeapons++;
+
+        if(_countOfInitedWeapons == _weapons.Count)
+            InitWeapons(_weapons);
     }
 
     public void UpdateEquipment(Weapon weapon)

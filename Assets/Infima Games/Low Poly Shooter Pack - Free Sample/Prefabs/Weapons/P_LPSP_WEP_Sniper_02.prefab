@@ -471,6 +471,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7170d51de97d79e4fb11d3321667acb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 0
+  _isUnlock: 0
+  _isEquip: 0
+  _bulletPool: {fileID: 0}
+  _casingPool: {fileID: 0}
   _mixerGroup: {fileID: 24300002, guid: 3fcdb23bde063e94fa0b60ccf87604d6, type: 2}
   weaponName: Sniper 02
   multiplierMovementSpeed: 0.8
@@ -486,10 +491,6 @@ MonoBehaviour:
   automaticReloadOnEmptyDelay: 0.25
   socketEjection: {fileID: 649466456359934892}
   canReloadAimed: 1
-  prefabCasing: {fileID: 1492315059354262, guid: c638dfae3f3edf843b2614dae230a771,
-    type: 3}
-  prefabProjectile: {fileID: 1086664671600574, guid: 5953171a59c27394e9ad5cbb564affa8,
-    type: 3}
   controller: {fileID: 22100000, guid: 10f0359b8acaa884f84935b3e29a4327, type: 2}
   spriteBody: {fileID: 21300000, guid: ccee2405335b2a849ad2b5d03c55d663, type: 3}
   audioClipHolster: {fileID: 8300000, guid: 8c4ede782a70c6e4b9e515d40d6e6e69, type: 3}
@@ -502,6 +503,7 @@ MonoBehaviour:
   audioClipReloadClose: {fileID: 0}
   audioClipFireEmpty: {fileID: 8300000, guid: 0c187ee2790c74c4e9985aa1ee1a12d5, type: 3}
   audioClipBoltAction: {fileID: 0}
+  attachmentManager: {fileID: 9116845346348752071}
 --- !u!114 &9116845346348752071
 MonoBehaviour:
   m_ObjectHideFlags: 0

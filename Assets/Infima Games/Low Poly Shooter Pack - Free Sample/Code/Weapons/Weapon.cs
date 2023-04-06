@@ -149,7 +149,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Attachment Manager.
         /// </summary>
-        private WeaponAttachmentManagerBehaviour attachmentManager;
+        [SerializeField] private WeaponAttachmentManagerBehaviour attachmentManager;
 
         /// <summary>
         /// Amount of ammunition left.
@@ -224,13 +224,21 @@ namespace InfimaGames.LowPolyShooterPack
             _isEquip = false;
         }
 
-        protected override void Awake()
+        private void OnEnable()
+        {
+            attachmentManager.Inited += OnInited;
+        }
+
+        private void OnDisable()
+        {
+            attachmentManager.Inited -= OnInited;
+        }
+
+        private void OnInited()
         {
             //Get Animator.
             animator = GetComponent<Animator>();
-            //Get Attachment Manager.
-            attachmentManager = GetComponent<WeaponAttachmentManagerBehaviour>();
-
+           
             //Cache the game mode service. We only need this right here, but we'll cache it in case we ever need it again.
             gameModeService = ServiceLocator.Current.Get<IGameModeService>();
             //Cache the player character.
@@ -249,22 +257,21 @@ namespace InfimaGames.LowPolyShooterPack
             gripBehaviour = attachmentManager.GetEquippedGrip();
 
             #endregion
-
             //Max Out Ammo.
             ammunitionCurrent = magazineBehaviour.GetAmmunitionTotal();
 
-            Inited?.Invoke();
             //Cache the world camera. We use this in line traces.
 
             SetCameraSettings();
+            
+            Inited?.Invoke();
         }
-
 
         private void SetCameraSettings()
         {
             //Cache the world camera. We use this in line traces.
 
-            playerCameraTransform = characterBehaviour.GetCameraWorld().transform; ;
+            playerCameraTransform = characterBehaviour.GetCameraWorld().transform;
         }
 
         #region GETTERS

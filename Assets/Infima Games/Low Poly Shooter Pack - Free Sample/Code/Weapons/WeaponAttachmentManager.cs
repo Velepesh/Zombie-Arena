@@ -1,6 +1,7 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -125,7 +126,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Awake.
         /// </summary>
-        protected override void Awake()
+        protected override void Start()
         {
             //Randomize. This allows us to spice things up a little!
             if (scopeIndexRandom)
@@ -164,6 +165,8 @@ namespace InfimaGames.LowPolyShooterPack
                 magazineIndex = Random.Range(0, magazineArray.Length);
             //Select Magazine!
             magazineBehaviour = magazineArray.SelectAndSetActive(magazineIndex);
+
+            OnInited();
         }        
 
         #endregion

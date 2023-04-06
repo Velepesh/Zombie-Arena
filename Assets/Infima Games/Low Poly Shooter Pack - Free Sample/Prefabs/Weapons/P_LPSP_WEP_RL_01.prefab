@@ -171,6 +171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7170d51de97d79e4fb11d3321667acb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 0
+  _isUnlock: 0
+  _isEquip: 0
+  _bulletPool: {fileID: 0}
+  _casingPool: {fileID: 0}
   _mixerGroup: {fileID: 24300002, guid: 3fcdb23bde063e94fa0b60ccf87604d6, type: 2}
   weaponName: Rocket Launcher 01
   multiplierMovementSpeed: 1
@@ -186,9 +191,6 @@ MonoBehaviour:
   automaticReloadOnEmptyDelay: 0.25
   socketEjection: {fileID: 0}
   canReloadAimed: 0
-  prefabCasing: {fileID: 0}
-  prefabProjectile: {fileID: 1086664671600574, guid: 5953171a59c27394e9ad5cbb564affa8,
-    type: 3}
   controller: {fileID: 22100000, guid: 1e7a1bd7304ade54f9fbbec8df086aff, type: 2}
   spriteBody: {fileID: 21300000, guid: a64d5ac6f08b42c40ab639b957890bce, type: 3}
   audioClipHolster: {fileID: 8300000, guid: 8c4ede782a70c6e4b9e515d40d6e6e69, type: 3}
@@ -201,6 +203,7 @@ MonoBehaviour:
   audioClipReloadClose: {fileID: 0}
   audioClipFireEmpty: {fileID: 8300000, guid: 0c187ee2790c74c4e9985aa1ee1a12d5, type: 3}
   audioClipBoltAction: {fileID: 0}
+  attachmentManager: {fileID: 8840308336870320174}
 --- !u!114 &8840308336870320174
 MonoBehaviour:
   m_ObjectHideFlags: 0

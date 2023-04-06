@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour, IDamageable, ITarget
 {
     [SerializeField] private Health _health;
+    [SerializeField] private Wallet _wallet;
 
     public bool IsDied => _health.Value <= 0;
 

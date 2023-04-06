@@ -1,6 +1,8 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -61,7 +63,13 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns the _equipped grip.
         /// </summary>
         public abstract GripBehaviour GetEquippedGrip();
-        
+
+        public event UnityAction Inited;
+
+        protected void OnInited()
+        {
+            Inited?.Invoke();
+        }
         #endregion
     }
 }

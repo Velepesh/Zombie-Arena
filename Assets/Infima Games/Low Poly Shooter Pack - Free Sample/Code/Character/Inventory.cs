@@ -8,7 +8,6 @@ namespace InfimaGames.LowPolyShooterPack
 {
     public class Inventory : InventoryBehaviour
     {
-        //[SerializeField] private Equipment _equipment;
         #region FIELDS
 
         /// <summary>
@@ -81,61 +80,25 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override int GetLastIndex()
         {
-            //Get last index with wrap around.
             int newIndex = _equippedIndex - 1;
             if (newIndex < 0)
                 newIndex = _equipedWeapons.Count - 1;
 
-            //Return.
             return newIndex;
         }
 
         public override int GetNextIndex()
         {
-            //Get next index with wrap around.
             int newIndex = _equippedIndex + 1;
             if (newIndex > _equipedWeapons.Count - 1)
                 newIndex = 0;
 
-            //Return.
             return newIndex;
         }
 
-        //public void OnTrySetAutomaticRifle(InputAction.CallbackContext context)
-        //{
-        //    TrySetWeapon(WeaponType.AutomaticRifle);
-        //}
-
-        //public void OnTrySetPistolRifle(InputAction.CallbackContext context)
-        //{
-        //    TrySetWeapon(WeaponType.Pistol);
-        //}
-
-        //public void OnTrySetSubmachineGunRifle(InputAction.CallbackContext context)
-        //{
-        //    TrySetWeapon(WeaponType.SubmachineGun);
-        //}
-
-        //public void OnTrySetShotgunRifle(InputAction.CallbackContext context)
-        //{
-        //    TrySetWeapon(WeaponType.Shotgun);
-        //}
-
-        //public void OnTrySetSniperRifle(InputAction.CallbackContext context)
-        //{
-        //    TrySetWeapon(WeaponType.SniperRifle);
-        //}
 
         public override WeaponBehaviour GetEquipped() => _equipped;
         public override int GetEquippedIndex() => _equippedIndex;
-
-        //private void TrySetWeapon(WeaponType type)
-        //{
-        //    int index = GetWeaponIndexByType(type);
-
-        //    if (index >= 0)
-        //        Equip(index);
-        //}
 
         public override int GetWeaponIndexByType(WeaponType type)
         {
