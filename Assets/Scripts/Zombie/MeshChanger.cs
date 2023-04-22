@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.Serialization;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Zombie))]
 public class MeshChanger : MonoBehaviour
 {
-    [SerializeField] private SkinnedMeshRenderer _standartMesh;
-    [SerializeField] private SkinnedMeshRenderer _withoutHeadMesh;
+    [SerializeField] private List<SkinnedMeshRenderer> _standartMesh;
+    [SerializeField] private List<SkinnedMeshRenderer> _withoutHeadMesh;
 
     private Zombie _zombie;
 
@@ -30,6 +30,7 @@ public class MeshChanger : MonoBehaviour
         DisableMesh(_withoutHeadMesh);
         EnableMesh(_standartMesh);
     }
+
     private void OnHeadKilled() => WearWithoutHeadMesh();
 
     private void WearWithoutHeadMesh()
@@ -38,13 +39,15 @@ public class MeshChanger : MonoBehaviour
         EnableMesh(_withoutHeadMesh);
     }
 
-    private void EnableMesh(SkinnedMeshRenderer meshRenderer)
+    private void EnableMesh(List<SkinnedMeshRenderer> meshRenderer)
     {
-        meshRenderer.gameObject.SetActive(true);
+        for (int i = 0; i < meshRenderer.Count; i++)
+            meshRenderer[i].gameObject.SetActive(true);
     }
 
-    private void DisableMesh(SkinnedMeshRenderer meshRenderer)
+    private void DisableMesh(List<SkinnedMeshRenderer> meshRenderer)
     {
-        meshRenderer.gameObject.SetActive(false);
+        for (int i = 0; i < meshRenderer.Count; i++)
+            meshRenderer[i].gameObject.SetActive(false);
     }
 }
