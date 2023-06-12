@@ -1,9 +1,9 @@
 public class TwinViewPresenter
 {
     private DamageableHealthView _view;
-    private Twin _model;
+    private Twins _model;
 
-    public TwinViewPresenter(DamageableHealthView view, Twin model)
+    public TwinViewPresenter(DamageableHealthView view, Twins model)
     {
         _view = view;
         _model = model;

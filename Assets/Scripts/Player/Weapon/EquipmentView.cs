@@ -10,8 +10,6 @@ public class EquipmentView : ItemView
 
     public WeaponType Type => _weaponType;
 
-    public event UnityAction<Weapon, WeaponView> Clicked;
-
     private void Awake()
     {
         ShowEmptySlot();

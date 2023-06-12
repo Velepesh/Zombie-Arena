@@ -10,7 +10,6 @@ public abstract class HealthView : MonoBehaviour
     [SerializeField] private float _delayBeforMoveDamaged;
     [SerializeField] private float _damagedDsuration;
 
-    private Sequence _damageSequence;
     private int _currentHealth;
 
     protected int StartHealth { get; private set; }
@@ -25,14 +24,15 @@ public abstract class HealthView : MonoBehaviour
 
     protected void Init(IDamageable damageable)
     {
-       // _damageSequence = DOTween.Sequence();
         AssignStartValues(damageable);
     }
 
     protected void DisableSlider()
     {
         _slider.gameObject.SetActive(false);
-        _damagedSlider.gameObject.SetActive(false);
+
+        if(_damagedSlider != null)
+            _damagedSlider.gameObject.SetActive(false);
     }
 
     protected void ChangeSliderValue()
@@ -59,6 +59,7 @@ public abstract class HealthView : MonoBehaviour
         _currentHealth = StartHealth;
         _slider.maxValue = StartHealth;
         _slider.value = StartHealth;
+
         if (_damagedSlider != null)
         {
             _damagedSlider.value = StartHealth;

@@ -38,7 +38,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         /// <summary>
         /// If true, it means that this menu is enabled and showing properly.
         /// </summary>
-        private bool menuIsEnabled;
+        //private bool menuIsEnabled;
 
         /// <summary>
         /// Main Post Processing Volume.
@@ -101,7 +101,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         private void Show()
         {
             //Enabled.
-            menuIsEnabled = true;
+            //menuIsEnabled = true;
 
             //Play Clip.
             animationComponent.clip = animationShow;
@@ -117,7 +117,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         private void Hide()
         {
             //Disabled.
-            menuIsEnabled = false;
+           // menuIsEnabled = false;
 
             //Play Clip.
             animationComponent.clip = animationHide;

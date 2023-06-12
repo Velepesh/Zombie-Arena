@@ -1,17 +1,11 @@
 using UnityEngine;
-using System;
-using UnityEngine.Events;
 
 public class TwinsCompositeRoot : Builder
 {
-    [SerializeField] private Twin _rightTwin;
-    [SerializeField] private Twin _leftTwin;
+    [SerializeField] private Twins _twins;
     [SerializeField] private TwinsViewSetup _setup;
 
-    public Twin RightTwin => _rightTwin;
-    public Twin LeftTwin => _leftTwin;
-
-    public event UnityAction<Twin> TwinDied;
+    public Twins Twins => _twins;
 
     private void Awake()
     {
@@ -20,14 +14,12 @@ public class TwinsCompositeRoot : Builder
 
     private void OnEnable()
     {
-        _rightTwin.Died += OnTwinDied;
-        _leftTwin.Died += OnTwinDied;
+        _twins.Died += OnTwinDied;
     }
 
     private void OnDisable()
     {
-        _rightTwin.Died -= OnTwinDied;
-        _leftTwin.Died -= OnTwinDied;
+        _twins.Died -= OnTwinDied;
     }
 
     public override void Compose()
@@ -37,28 +29,11 @@ public class TwinsCompositeRoot : Builder
 
     public override void AddHealth(int value)
     {
-        _rightTwin.Health.AddHealth(value);
-        _leftTwin.Health.AddHealth(value);
-    }
-
-    public Twin GetAliveTwin(Twin currentTwin)
-    {
-        if (currentTwin.IsDied)
-        {
-            if (currentTwin == _leftTwin && _rightTwin.IsDied == false)
-                return _rightTwin;
-            else if(_rightTwin.IsDied == false)
-                return _leftTwin;
-        }
-
-        throw new ArgumentNullException(nameof(currentTwin) + " must be died");
+        _twins.Health.AddHealth(value);
     }
 
     private void OnTwinDied(IDamageable damageable)
     {
-        if (_rightTwin.IsDied && _leftTwin.IsDied)
-            OnDied();
-        else
-            TwinDied?.Invoke(damageable as Twin);
+        OnDied();
     }
 }

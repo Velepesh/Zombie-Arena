@@ -1,16 +1,12 @@
 using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class InventoryView : ItemView
 {
     [SerializeField] private WeaponType _weaponType;
     [SerializeField] private CanvasGroup _inventoryViewCanvasGroup;
 
-
     public WeaponType Type => _weaponType;
-
-    public event UnityAction<Weapon, WeaponView> Clicked;
 
     private void Awake()
     {

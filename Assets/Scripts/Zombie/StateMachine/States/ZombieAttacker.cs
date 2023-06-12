@@ -58,7 +58,7 @@ public class ZombieAttacker : State
         _attackCollider.Init(_zombie);
         Attacked?.Invoke();
 
-        if (_zombie.CurrentTarget is Twin)
+        if (_zombie.CurrentTarget is Twins)
             _zombie.SetAttackedTwins();
     }
 }

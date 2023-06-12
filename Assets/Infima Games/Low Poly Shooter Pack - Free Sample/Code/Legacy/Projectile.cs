@@ -74,7 +74,13 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
                 DisableProjectile();
             }
 
-			if (collision.transform.tag == "Concrete")
+            if (collision.gameObject.TryGetComponent(out Twins twins))
+            {
+                PlayImpact(ImpactPoolType.Metal, collision.contacts[0].normal);
+                DisableProjectile();
+            }
+
+            if (collision.transform.tag == "Concrete")
 			{
 				PlayImpact(ImpactPoolType.Concrete, collision.contacts[0].normal);
                 DisableProjectile();

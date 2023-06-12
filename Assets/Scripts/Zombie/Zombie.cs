@@ -45,17 +45,14 @@ public class Zombie : MonoCache, IDamageable
     private void OnDisable()
     {
         RemoveUpdate();
+
         for (int i = 0; i < _damageHandlers.Length; i++)
             _damageHandlers[i].HitTaken -= OnHitTaken;
-
-        if(_zombieTargets != null)
-            _zombieTargets.TwinDied -= OnTwinDied;
     }
 
     public void Init(ZombieTargetsCompositeRoot zombieTargets)
     {
         _zombieTargets = zombieTargets;
-        _zombieTargets.TwinDied += OnTwinDied;
 
         _currentTarget = _zombieTargets.GetRandomTarget();
         _mainTarget = _currentTarget;
@@ -112,7 +109,7 @@ public class Zombie : MonoCache, IDamageable
 
         if (Options.ChangeTargetDistance >= distanceToPlayerTarget)
         {
-            if (_currentTarget is Twin)
+            if (_currentTarget is Twins)
                 _currentTarget = _zombieTargets.Player;
         }
         else if (_currentTarget != _mainTarget)
@@ -129,16 +126,6 @@ public class Zombie : MonoCache, IDamageable
         {
             _damageHandlers[i].Init(this);
             _damageHandlers[i].HitTaken += OnHitTaken;
-        }
-    }
-
-    private void OnTwinDied(Twin diedTwin, Twin aliveTwin)
-    {
-        if (_mainTarget.Equals(diedTwin))
-        {
-            _mainTarget = aliveTwin;
-            _isAttackedTwins = false;
-            _currentTarget = _mainTarget;
         }
     }
 

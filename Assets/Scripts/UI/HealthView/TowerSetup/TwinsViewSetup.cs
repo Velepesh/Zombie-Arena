@@ -3,27 +3,22 @@ using UnityEngine;
 public class TwinsViewSetup : Setup
 {
     [SerializeField] private TwinsCompositeRoot _twinsCompositeRoot;
-    [SerializeField] private DamageableHealthView _rightView;
-    [SerializeField] private DamageableHealthView _leftView;
+    [SerializeField] private DamageableHealthView _view;
 
-    private TwinViewPresenter _rightPresenter;
-    private TwinViewPresenter _leftPresenter;
+    private TwinViewPresenter _presenter;
 
     protected override void Awake()
     {
-        _rightPresenter = new TwinViewPresenter(_rightView, _twinsCompositeRoot.RightTwin);
-        _leftPresenter = new TwinViewPresenter(_leftView, _twinsCompositeRoot.LeftTwin);
+        _presenter = new TwinViewPresenter(_view, _twinsCompositeRoot.Twins);
     }
 
     protected override void OnEnable()
     {
-        _rightPresenter.Enable();
-        _leftPresenter.Enable();
+        _presenter.Enable();
     }
 
     protected override void OnDisable()
     {
-        _rightPresenter.Disable();
-        _leftPresenter.Disable();
+        _presenter.Disable();
     }
 }

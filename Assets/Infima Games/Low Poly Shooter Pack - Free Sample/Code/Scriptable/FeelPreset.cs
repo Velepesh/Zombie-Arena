@@ -40,6 +40,7 @@ namespace InfimaGames.LowPolyShooterPack
                 MotionType.Camera => cameraFeel,
                 //MotionType.Item.
                 MotionType.Item => itemFeel,
+                _ => throw new System.NotImplementedException(),
             };
         }
         
