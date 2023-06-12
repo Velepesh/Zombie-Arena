@@ -7,7 +7,6 @@ public class ZombieEffects : MonoBehaviour
     [SerializeField] private ParticleSystem _bloodShowerEffect;
     [SerializeField] private ParticleSystem _spawnSpinZoneEffect;
     [SerializeField] private ParticleSystem _dieSpinZonEffect;
-    [SerializeField] private ParticleSystem _diePoolEffect;
     [SerializeField] private Vector3 _spawnSpanZoneOffset;
     [SerializeField] private float _delayBeforeDieEffect;
 
@@ -40,7 +39,7 @@ public class ZombieEffects : MonoBehaviour
 
     private void OnDied(IDamageable damageable)
     {
-        if (_zombie.IsHeadKill)
+        //if (_zombie.IsHeadKill)
             PlayBloodShowerEffect();
 
         StartCoroutine(ShowDieEffects());
@@ -55,8 +54,6 @@ public class ZombieEffects : MonoBehaviour
     {
         yield return new WaitForSeconds(_delayBeforeDieEffect);
 
-        //_diePoolEffect.PlayOneShot();
-        Instantiate(_diePoolEffect.gameObject, transform.position + _spawnSpanZoneOffset, _diePoolEffect.transform.rotation);
         Instantiate(_dieSpinZonEffect.gameObject, transform.position + _spawnSpanZoneOffset, Quaternion.identity);
     }
 

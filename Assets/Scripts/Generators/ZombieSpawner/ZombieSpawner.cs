@@ -14,7 +14,8 @@ public class ZombieSpawner : ObjectPool
     private Wave _currentWave;
     private float _timeAfterLastSpawn;
     private List<Zombie> _zombies = new List<Zombie>();
-    private bool _isAllEnemiesDied => _zombies.Count == 0;
+    private int _currentAliveZombieInWave;
+    private bool _isAllEnemiesDied => _currentAliveZombieInWave == 0;
 
     public int CurrentWaveNumber { get; private set; }
     public int ZombiesNumberInWave => _currentWave.Count;
@@ -107,7 +108,7 @@ public class ZombieSpawner : ObjectPool
 
     private SpawnPoint GetSpawnPoint()
     {
-        return _spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Count)];
+        return _spawnPoints[Random.Range(0, _spawnPoints.Count)];
     }
 
     private bool IsSpawnPointEmpty()
@@ -124,6 +125,7 @@ public class ZombieSpawner : ObjectPool
     private void SetWave(int index)
     {
         _currentWave = _waves[index];
+        _currentAliveZombieInWave = _currentWave.Count;
         StartGenerate();
 
         WaveSetted?.Invoke(CurrentWaveNumber + 1);
@@ -151,6 +153,7 @@ public class ZombieSpawner : ObjectPool
             ZombieDied?.Invoke(zombie);
             zombie.Died -= OnDied;
             zombie.HitTaken -= OnHitTaken;
+            _currentAliveZombieInWave--;
             _zombies.Remove(zombie);
 
             TrySpawnNextWave();

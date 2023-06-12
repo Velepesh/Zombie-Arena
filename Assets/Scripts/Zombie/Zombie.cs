@@ -13,7 +13,7 @@ public class Zombie : MonoCache, IDamageable
     private ITarget _mainTarget;
     private Vector3 _contactPosition;
     private DamageHandler[] _damageHandlers = new DamageHandler[] { };
-    private bool _isAttackedTower;
+    private bool _isAttackedTwins;
     private DamageHandlerType _lastDamageHandlerType;
 
     public ZombieOptions Options => _options;
@@ -33,7 +33,6 @@ public class Zombie : MonoCache, IDamageable
     public event UnityAction<Zombie> Disabled;
     public event UnityAction<DamageHandlerType> HitTaken;
 
-    private void OnEnable() => AddUpdate();
 
     private void Start()
     {
@@ -41,16 +40,22 @@ public class Zombie : MonoCache, IDamageable
         _health.SetStartHealth();
     }
 
+    private void OnEnable() => AddUpdate();
+
     private void OnDisable()
     {
         RemoveUpdate();
         for (int i = 0; i < _damageHandlers.Length; i++)
             _damageHandlers[i].HitTaken -= OnHitTaken;
+
+        if(_zombieTargets != null)
+            _zombieTargets.TwinDied -= OnTwinDied;
     }
 
     public void Init(ZombieTargetsCompositeRoot zombieTargets)
     {
         _zombieTargets = zombieTargets;
+        _zombieTargets.TwinDied += OnTwinDied;
 
         _currentTarget = _zombieTargets.GetRandomTarget();
         _mainTarget = _currentTarget;
@@ -72,26 +77,15 @@ public class Zombie : MonoCache, IDamageable
 
     public override void OnTick()
     {
-        if (_mainTarget is Player || _isAttackedTower)
+        if (_mainTarget.Equals(_zombieTargets.Player) || _isAttackedTwins)
             return;
 
-        float distanceToPlayerTarget = Vector3.Distance(transform.position, _zombieTargets.Player.Position);
-        
-        if(Options.ChangeTargetDistance >= distanceToPlayerTarget)
-        {
-            if (_currentTarget.Equals(_zombieTargets.Tower))
-                _currentTarget = _zombieTargets.GetOtherTarget(_currentTarget, transform.position);
-        }
-        else
-        {
-            if (_currentTarget != _mainTarget)
-                _currentTarget = _mainTarget;
-        }
+        ChangeCurrentTarget();
     }
 
-    public void AttackedTower()
+    public void SetAttackedTwins()
     {
-        _isAttackedTower = true;
+        _isAttackedTwins = true;
     }
 
     public void Die()
@@ -112,6 +106,21 @@ public class Zombie : MonoCache, IDamageable
         Disabled?.Invoke(this);
     }
 
+    private void ChangeCurrentTarget()
+    {
+        float distanceToPlayerTarget = Vector3.Distance(transform.position, _zombieTargets.Player.Position);
+
+        if (Options.ChangeTargetDistance >= distanceToPlayerTarget)
+        {
+            if (_currentTarget is Twin)
+                _currentTarget = _zombieTargets.Player;
+        }
+        else if (_currentTarget != _mainTarget)
+        {
+            _currentTarget = _mainTarget;
+        }
+    }
+
     private void InitDamageHandler()
     {
         _damageHandlers = GetComponentsInChildren<DamageHandler>();
@@ -120,6 +129,16 @@ public class Zombie : MonoCache, IDamageable
         {
             _damageHandlers[i].Init(this);
             _damageHandlers[i].HitTaken += OnHitTaken;
+        }
+    }
+
+    private void OnTwinDied(Twin diedTwin, Twin aliveTwin)
+    {
+        if (_mainTarget.Equals(diedTwin))
+        {
+            _mainTarget = aliveTwin;
+            _isAttackedTwins = false;
+            _currentTarget = _mainTarget;
         }
     }
 

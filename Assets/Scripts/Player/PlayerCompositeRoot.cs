@@ -9,10 +9,20 @@ public class PlayerCompositeRoot : Builder
     [SerializeField] private Inventory _inventory;
 
     public Player Player => _player;
-
+   
     private void Awake()
     {
         _setup.enabled = false;
+    }
+
+    private void OnEnable()
+    {
+        _player.Died += OnPlayerDied;
+    }
+
+    private void OnDisable()
+    {
+        _player.Died -= OnPlayerDied;
     }
 
     public override void Compose()
@@ -24,5 +34,10 @@ public class PlayerCompositeRoot : Builder
     public override void AddHealth(int value)
     {
         _player.Health.AddHealth(value);
+    }
+
+    private void OnPlayerDied(IDamageable damageable)
+    {
+        OnDied();
     }
 }

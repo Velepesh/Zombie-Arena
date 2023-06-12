@@ -763,7 +763,7 @@ Transform:
   m_Children:
   - {fileID: 6888662535828575497}
   m_Father: {fileID: 4018950707821778704}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &3579714920879253994
 CapsuleCollider:
@@ -1104,6 +1104,7 @@ Transform:
   m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1461285059444755665}
   - {fileID: 2789553759501895663}
   - {fileID: 6073583787036095247}
   - {fileID: 8736636126043652570}
@@ -1201,7 +1202,7 @@ Transform:
   m_Children:
   - {fileID: 839357206401542572}
   m_Father: {fileID: 4018950707821778704}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &2599956246457781120
 CapsuleCollider:
@@ -2345,7 +2346,7 @@ Transform:
   m_Children:
   - {fileID: 8151413951333709010}
   m_Father: {fileID: 4018950707821778704}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &7706986147555484093
 CapsuleCollider:
@@ -3194,7 +3195,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8052899965288212731}
-  - {fileID: 3573833787385448078}
   m_Father: {fileID: 7042080828224224449}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4200,11 +4200,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b0116fdd03a3744b95f168b7377e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bloodShowerEffect: {fileID: 3573833787367125806}
+  _bloodShowerEffect: {fileID: 1461285059429546353}
   _spawnSpinZoneEffect: {fileID: 19887274, guid: 9b95de169c5cf5b46b404f6f2bed4afb,
     type: 3}
   _dieSpinZonEffect: {fileID: 19868312, guid: 266d43fb792a34d429dbe3e95f97ec49, type: 3}
-  _diePoolEffect: {fileID: 19893824, guid: 6431e87b8d5632a438c253172c572299, type: 3}
+  _dieExplosionEffect: {fileID: 0}
   _spawnSpanZoneOffset: {x: 0, y: 0.05, z: 0}
   _delayBeforeDieEffect: 1.1
 --- !u!114 &630641299942890315
@@ -4439,17 +4439,17 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 518122072735838468}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2071159119799619157
+--- !u!1001 &4134715533748323338
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4706493925797283345}
+    m_TransformParent: {fileID: 4018950707821778704}
     m_Modifications:
     - target: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
@@ -4459,7 +4459,7 @@ PrefabInstance:
     - target: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.2
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
@@ -4474,7 +4474,7 @@ PrefabInstance:
     - target: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
@@ -4484,7 +4484,7 @@ PrefabInstance:
     - target: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
@@ -4494,44 +4494,44 @@ PrefabInstance:
     - target: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.70710677
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.70710677
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3253554807521445365, guid: 8e4c23c8014209044988bf45388f4a91,
         type: 3}
       propertyPath: m_Name
-      value: BloodShowerLoop
+      value: DieEffect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e4c23c8014209044988bf45388f4a91, type: 3}
---- !u!198 &3573833787367125806 stripped
+--- !u!198 &1461285059429546353 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 3253554807507123579, guid: 8e4c23c8014209044988bf45388f4a91,
     type: 3}
-  m_PrefabInstance: {fileID: 2071159119799619157}
+  m_PrefabInstance: {fileID: 4134715533748323338}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &3573833787385448078 stripped
+--- !u!4 &1461285059444755665 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3253554807521249499, guid: 8e4c23c8014209044988bf45388f4a91,
     type: 3}
-  m_PrefabInstance: {fileID: 2071159119799619157}
+  m_PrefabInstance: {fileID: 4134715533748323338}
   m_PrefabAsset: {fileID: 0}

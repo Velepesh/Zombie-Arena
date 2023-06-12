@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Tower : MonoBehaviour, IDamageable, ITarget
+public class Twin : MonoBehaviour, IDamageable, ITarget
 {
     [SerializeField] private Health _health;
 

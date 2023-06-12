@@ -5,32 +5,44 @@ using UnityEngine.UI;
 public abstract class HealthView : MonoBehaviour
 { 
     [SerializeField] private Slider _slider;
+    [SerializeField] private Slider _damagedSlider;
     [SerializeField] private float _duration;
+    [SerializeField] private float _delayBeforMoveDamaged;
+    [SerializeField] private float _damagedDsuration;
 
+    private Sequence _damageSequence;
     private int _currentHealth;
 
     protected int StartHealth { get; private set; }
-    protected Slider Slider => _slider;
 
     private void OnValidate()
     {
         _duration = Mathf.Clamp(_duration, 0f, float.MaxValue);
+        _delayBeforMoveDamaged = Mathf.Clamp(_delayBeforMoveDamaged, 0f, float.MaxValue);
+        _damagedDsuration = Mathf.Clamp(_damagedDsuration, 0f, float.MaxValue);
     }
 
 
     protected void Init(IDamageable damageable)
     {
+       // _damageSequence = DOTween.Sequence();
         AssignStartValues(damageable);
     }
 
     protected void DisableSlider()
     {
         _slider.gameObject.SetActive(false);
+        _damagedSlider.gameObject.SetActive(false);
     }
 
     protected void ChangeSliderValue()
     {
         _slider.DOValue(_currentHealth, _duration);
+
+        if (_damagedSlider != null)
+        {
+            _damagedSlider.DOValue(_currentHealth, _damagedDsuration).SetDelay(_delayBeforMoveDamaged);
+        }
     }
 
     protected void SetHealth(int health)
@@ -47,5 +59,10 @@ public abstract class HealthView : MonoBehaviour
         _currentHealth = StartHealth;
         _slider.maxValue = StartHealth;
         _slider.value = StartHealth;
+        if (_damagedSlider != null)
+        {
+            _damagedSlider.value = StartHealth;
+            _damagedSlider.value = StartHealth;
+        }
     }
 }

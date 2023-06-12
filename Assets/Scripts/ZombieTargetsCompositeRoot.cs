@@ -1,40 +1,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEngine.GraphicsBuffer;
 
 public class ZombieTargetsCompositeRoot : CompositeRoot
 {
-    [SerializeField] private Player _player;
-    [SerializeField] private Tower _tower;
+    [SerializeField] private PlayerCompositeRoot _playerCompositeRoot;
+    [SerializeField] private TwinsCompositeRoot _twinsCompositeRoot;
 
     private List<ITarget> _targets = new List<ITarget>();
-    private List<IDamageable> _damageables = new List<IDamageable>();
 
-    public event UnityAction<IDamageable> TargetDied;
+    public event UnityAction TargetDied;
+    public event UnityAction<Twin, Twin> TwinDied;
 
-    public Player Player => _player;
-    public Tower Tower => _tower;
+    public Player Player => _playerCompositeRoot.Player;
+    public Twin RightTwin => _twinsCompositeRoot.RightTwin;
+    public Twin LeftTwin => _twinsCompositeRoot.LeftTwin;
+
+    private void OnEnable()
+    {
+        _playerCompositeRoot.Died += OnDied;
+        _twinsCompositeRoot.Died += OnDied;
+        _twinsCompositeRoot.TwinDied += OnTwinDied;
+    }
 
     private void OnDisable()
     {
-        if(_player != null)
-            _player.Died -= OnDied;
-
-        if (_tower != null)
-            _tower.Died -= OnDied;
+        _playerCompositeRoot.Died -= OnDied;
+        _twinsCompositeRoot.Died -= OnDied;
+        _twinsCompositeRoot.TwinDied -= OnTwinDied;
     }
 
     public override void Compose()
     {
-       SetTargets(_player, _tower);
-
-        for (int i = 0; i < _targets.Count; i++)
-        {
-            if (_targets[i] is IDamageable damageable)
-                _damageables.Add(damageable);
-            else
-                throw new System.Exception($"{_targets[i]} must be IDamageable");
-        }
+       InitTargets();
     }
 
     public ITarget GetRandomTarget()
@@ -63,20 +62,23 @@ public class ZombieTargetsCompositeRoot : CompositeRoot
         return _targets[index];
     }
 
-    private void SetTargets(Player player, Tower tower)
+    private void InitTargets()
     {
-        _player = player;
-        _tower = tower;
-
-        _targets.Add(_player);
-        _targets.Add(_tower);
-
-        _player.Died += OnDied;
-        _tower.Died += OnDied;
+        _targets.Add(Player);
+        _targets.Add(RightTwin);
+        _targets.Add(LeftTwin);
     }
 
-    private void OnDied(IDamageable damageable)
+    private void OnTwinDied(Twin twin)
     {
-        TargetDied?.Invoke(damageable);
+        Twin aliveTwin = _twinsCompositeRoot.GetAliveTwin(twin);
+        _targets.Remove(twin);
+
+        TwinDied?.Invoke(twin, aliveTwin);
+    }
+
+    private void OnDied()
+    {
+        TargetDied?.Invoke();
     }
 }

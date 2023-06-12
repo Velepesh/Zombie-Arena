@@ -93,7 +93,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
                 if (_impactPools[i].Type == type)
                 {
                     GameObject impact = _impactPools[i].GetImpact();
-                    _impactPools[i].SetBulletTransform(impact, transform.position, Quaternion.LookRotation(contactNormal));
+                    _impactPools[i].SetImpactTransform(impact, transform.position, Quaternion.LookRotation(contactNormal));
                     break;
                 }
             }

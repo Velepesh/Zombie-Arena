@@ -85,7 +85,7 @@ public class Game : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    private void OnDied(IDamageable damageable)
+    private void OnDied()
     {
         EndGame();
     }
