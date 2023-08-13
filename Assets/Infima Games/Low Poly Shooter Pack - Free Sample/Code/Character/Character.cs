@@ -342,9 +342,10 @@ namespace InfimaGames.LowPolyShooterPack
 				//Check.
 				if (CanPlayAnimationFire() && equippedWeapon.HasAmmunition() && equippedWeapon.IsAutomatic())
 				{
-					//Has fire rate passed.
-					if (Time.time - lastShotTime > 60.0f / equippedWeapon.GetRateOfFire())
-						Fire();
+                    float timeAfterLastShot = Time.time - lastShotTime;
+                    //Has fire rate passed.
+                    if (timeAfterLastShot > 60.0f / equippedWeapon.GetRateOfFire())
+						Fire(timeAfterLastShot);
 				}
 				else
 				{
@@ -578,7 +579,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// <summary>
 		/// Fires the character's weapon.
 		/// </summary>
-		private void Fire()
+		private void Fire(float timeAfterLastShot)
 		{
 			//Increase shots fired. We use this value to increase the spread, and also to apply recoil, so
 			//it is very important that we keep it up to date.
@@ -587,7 +588,7 @@ namespace InfimaGames.LowPolyShooterPack
 			//Save the shot time, so we can calculate the fire rate correctly.
 			lastShotTime = Time.time;
 			//Fire the weapon! Make sure that we also pass the scope's spread multiplier if we're aiming.
-			equippedWeapon.Fire(aiming ? equippedWeaponScope.GetMultiplierSpread() : 1.0f);
+			equippedWeapon.Fire(timeAfterLastShot, aiming ? equippedWeaponScope.GetMultiplierSpread() : 1.0f);
 
 			//Play firing animation.
 			const string stateName = "Fire";
@@ -1042,10 +1043,11 @@ namespace InfimaGames.LowPolyShooterPack
 							//Break.
 							break;
 						}
-							
-						//Has fire rate passed.
-						if (Time.time - lastShotTime > 60.0f / equippedWeapon.GetRateOfFire())
-							Fire();
+
+						float timeAfterLastShot = Time.time - lastShotTime;
+                        //Has fire rate passed.
+                        if (timeAfterLastShot > 60.0f / equippedWeapon.GetRateOfFire())
+                            Fire(timeAfterLastShot);
 					}
 					//Fire Empty.
 					else

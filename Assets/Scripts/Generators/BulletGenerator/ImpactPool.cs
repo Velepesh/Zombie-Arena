@@ -55,8 +55,6 @@ public class ImpactPool : ObjectPool
                 throw new NullReferenceException(nameof(impact));
             }
 
-            bulletObject.SetActive(true);
-
             return bulletObject;
         }
 
@@ -78,4 +76,6 @@ public enum ImpactPoolType
     Concrete,
     Target,
     ExplosiveBarrel,
+    ForceField,
+    Grass,
 }

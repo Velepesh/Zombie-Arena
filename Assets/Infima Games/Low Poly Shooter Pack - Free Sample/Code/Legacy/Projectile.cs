@@ -23,12 +23,6 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		[Tooltip("Maximum time after impact that the bullet is destroyed")]
 		public float maxDestroyTime;
-
-		[Header("Impact Effect Prefabs")]
-		public Transform[] bloodImpactPrefabs;
-		public Transform[] metalImpactPrefabs;
-		public Transform[] dirtImpactPrefabs;
-		public Transform[] concreteImpactPrefabs;
 		
 		private List<ImpactPool> _impactPools = new List<ImpactPool>();
 
@@ -54,38 +48,33 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			if (collision.gameObject.GetComponent<Projectile>() != null)
 				return;
 
-            //If destroy on impact is false, start 
-            //coroutine with random destroy timer
+            //If destroy on impact is false, start coroutine with random destroy timer
             if (!destroyOnImpact)
-			{
 				StartCoroutine(DestroyTimer());
-			}
-			//Otherwise, destroy bullet on impact
-			else
-			{
+            else//Otherwise, destroy bullet on impact
                 DisableProjectile();
-            }
+
+            Vector3 normal = collision.contacts[0].normal;
 
             if (collision.gameObject.TryGetComponent(out DamageHandler damageHandler))
             {
-                damageHandler.TakeDamage(_damage, collision.contacts[0].normal);
-                PlayImpact(ImpactPoolType.Blood, collision.contacts[0].normal);
-
-                DisableProjectile();
+                damageHandler.TakeDamage(_damage, normal);
+                PlayImpact(ImpactPoolType.Blood, normal);
             }
 
-            if (collision.gameObject.TryGetComponent(out Twins twins))
-            {
-                PlayImpact(ImpactPoolType.Metal, collision.contacts[0].normal);
-                DisableProjectile();
-            }
+            if (collision.gameObject.TryGetComponent(out TwinCollider twinCollider))
+                PlayImpact(ImpactPoolType.Metal, normal);
 
+            if (collision.transform.tag == "Grass")
+                PlayImpact(ImpactPoolType.Grass, normal);
+           
             if (collision.transform.tag == "Concrete")
-			{
-				PlayImpact(ImpactPoolType.Concrete, collision.contacts[0].normal);
-                DisableProjectile();
-            }
-		}
+				PlayImpact(ImpactPoolType.Concrete, normal);
+
+
+            if (collision.transform.tag == "ForceField")
+                PlayImpact(ImpactPoolType.ForceField, normal);
+        }
 
         private void DisableProjectile()
         {
@@ -99,10 +88,13 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
                 if (_impactPools[i].Type == type)
                 {
                     GameObject impact = _impactPools[i].GetImpact();
+                    impact.SetActive(true);
                     _impactPools[i].SetImpactTransform(impact, transform.position, Quaternion.LookRotation(contactNormal));
                     break;
                 }
             }
+
+            DisableProjectile();
         }
 
         private IEnumerator DestroyTimer()

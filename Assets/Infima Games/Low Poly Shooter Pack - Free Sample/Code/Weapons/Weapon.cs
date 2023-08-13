@@ -3,6 +3,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -73,6 +74,10 @@ namespace InfimaGames.LowPolyShooterPack
         [Tooltip("Time after the last shot at which a reload will automatically start.")]
         [SerializeField]
         private float automaticReloadOnEmptyDelay = 0.25f;
+
+        [SerializeField] private float maximumAimingDistance;
+        [SerializeField] private float cooldownTime;
+        [SerializeField] private LayerMask mask;
 
         [Title(label: "Animation")]
 
@@ -450,7 +455,8 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Fire.
         /// </summary>
-        public override void Fire(float spreadMultiplier = 1.0f)
+
+        public override void Fire(float timeAfterLastShot, float spreadMultiplier = 1.0f)
         {
             //We need a muzzle in order to fire this weapon!
             if (muzzleBehaviour == null)
@@ -476,18 +482,29 @@ namespace InfimaGames.LowPolyShooterPack
             //Spawn as many projectiles as we need.
             for (var i = 0; i < shotCount; i++)
             {
+                Vector3 spreadValue = Vector3.zero;
+
                 //Determine a random spread value using all of our multipliers.
-                Vector3 spreadValue = Random.insideUnitSphere * (spread * spreadMultiplier);
-                //Remove the forward spread component, since locally this would go inside the object we're shooting!
-                spreadValue.z = 0;
+                if (timeAfterLastShot < cooldownTime || shotCount > 1)
+                {
+                    spreadValue = Random.insideUnitSphere * (spread * spreadMultiplier);
+                    //Remove the forward spread component, since locally this would go inside the object we're shooting!
+                    spreadValue.z = 0;
+                }
+
                 //Convert to world space.
                 spreadValue = playerCameraTransform.TransformDirection(spreadValue);
 
                 //Spawn projectile from the projectile spawn point.
                 GameObject projectile = _bulletPool.GetBullet();
 
-                _bulletPool.SetBulletTransform(projectile, muzzleSocket.position, 
-                    Quaternion.Euler(playerCameraTransform.eulerAngles + spreadValue));
+                Quaternion rotation = Quaternion.LookRotation(playerCameraTransform.forward * maximumAimingDistance + spreadValue - muzzleSocket.position);
+
+                //If there's something blocking, then we can aim directly at that thing, which will result in more accurate shooting.
+                if (Physics.Raycast(new Ray(playerCameraTransform.position, playerCameraTransform.forward), out RaycastHit hit, maximumAimingDistance, mask))
+                    rotation = Quaternion.LookRotation(hit.point + spreadValue - muzzleSocket.position);
+
+                _bulletPool.SetBulletTransform(projectile, muzzleSocket.position, rotation);
 
                 //Add velocity to the projectile.
                 projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;

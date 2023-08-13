@@ -27,13 +27,13 @@ namespace InfimaGames.LowPolyShooterPack
         private float interpolationSpeed = 12.0f;
 
         #endregion
-        
+
         #region FIELDS
-        
+
         /// <summary>
         /// Current height of the camera.
         /// </summary>
-        private float height = 1.8f;
+        [SerializeField] private float height = 1.8f;
         
         #endregion
         

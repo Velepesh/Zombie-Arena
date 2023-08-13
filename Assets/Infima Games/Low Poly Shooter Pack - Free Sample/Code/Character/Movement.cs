@@ -2,6 +2,7 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking.Types;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -83,6 +84,11 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private float stickToGroundForce = 0.03f;
 
+        [Title(label: "Sliding")]
+
+        [SerializeField] private float _slidingSpeed;
+        [SerializeField] private float _checkSlidingDistance;
+
         [Title(label: "Crouching")]
 
         [Tooltip("Setting this to false will always block the character from crouching.")]
@@ -112,7 +118,6 @@ namespace InfimaGames.LowPolyShooterPack
                  "velocity, so it is never applied by itself, that's important to note.")]
         [SerializeField]
         private float rigidbodyPushForce = 1.0f;
-
         #endregion
 
         #region FIELDS
@@ -145,6 +150,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// Is the character on the ground.
         /// </summary>
         private bool isGrounded;
+        private bool isSliding;
         /// <summary>
         /// Was the character standing on the ground last frame.
         /// </summary>
@@ -194,6 +200,8 @@ namespace InfimaGames.LowPolyShooterPack
 
             //Get this frame's grounded value.
             isGrounded = IsGrounded();
+            UpdateSlopesSliding();
+
             //Check if it has changed from last frame.
             if (isGrounded && !wasGrounded)
             {
@@ -228,10 +236,40 @@ namespace InfimaGames.LowPolyShooterPack
             Vector3 force = (hit.moveDirection + Vector3.up * 0.35f) * velocity.magnitude * rigidbodyPushForce;
             hitRigidbody.AddForceAtPosition(force, hit.point);
         }
-        
+
         #endregion
 
         #region METHODS
+        private void UpdateSlopesSliding()
+        {
+            if (isGrounded)
+            {
+                float sphereCastVerticalOffset = controller.height / 2 - controller.center.y - controller.radius;
+                Vector3 castOrigin = transform.position - new Vector3(0, sphereCastVerticalOffset, 0);
+               
+                if (Physics.SphereCast(castOrigin, controller.radius - 0.01f, Vector3.down,
+                    out var hit, _checkSlidingDistance, ~LayerMask.GetMask("Player"), QueryTriggerInteraction.Ignore))
+                {
+                    float angel = Vector3.Angle(Vector3.up, hit.normal);
+
+                    Debug.DrawLine(hit.point, hit.point + hit.normal, Color.black, 3f);
+
+                    if (angel > controller.slopeLimit)
+                    {
+                        var normal = hit.normal;
+                        var yInverse = 1f - normal.y;
+
+                        velocity.x += yInverse * normal.x * _slidingSpeed;
+                        velocity.z += yInverse * normal.z * _slidingSpeed;
+
+                        isSliding = true;
+                        return;
+                    }
+                }
+            }
+
+            isSliding = false;
+        }
 
         /// <summary>
         /// Moves the character.
@@ -242,32 +280,35 @@ namespace InfimaGames.LowPolyShooterPack
             Vector2 frameInput = Vector3.ClampMagnitude(playerCharacter.GetInputMovement(), 1.0f);
             //Calculate local-space direction by using the player's input.
             var desiredDirection = new Vector3(frameInput.x, 0.0f, frameInput.y);
-            
-            //Running speed calculation.
-            if(playerCharacter.IsRunning())
-                desiredDirection *= speedRunning;
-            else
+
+            if (isSliding == false)
             {
-                //Crouching Speed.
-                if (crouching)
-                    desiredDirection *= speedCrouching;
+                //Running speed calculation.
+                if (playerCharacter.IsRunning())
+                    desiredDirection *= speedRunning;
                 else
                 {
-                    //Aiming speed calculation.
-                    if (playerCharacter.IsAiming())
-                        desiredDirection *= speedAiming;
+                    //Crouching Speed.
+                    if (crouching)
+                        desiredDirection *= speedCrouching;
                     else
                     {
-                        //Multiply by the normal walking speed.
-                        desiredDirection *= speedWalking;
-                        //Multiply by the sideways multiplier, to get better feeling sideways movement.
-                        desiredDirection.x *= walkingMultiplierSideways;
-                        //Multiply by the forwards and backwards multiplier.
-                        desiredDirection.z *=
-                            (frameInput.y > 0 ? walkingMultiplierForward : walkingMultiplierBackwards);
+                        //Aiming speed calculation.
+                        if (playerCharacter.IsAiming())
+                            desiredDirection *= speedAiming;
+                        else
+                        {
+                            //Multiply by the normal walking speed.
+                            desiredDirection *= speedWalking;
+                            //Multiply by the sideways multiplier, to get better feeling sideways movement.
+                            desiredDirection.x *= walkingMultiplierSideways;
+                            //Multiply by the forwards and backwards multiplier.
+                            desiredDirection.z *=
+                                (frameInput.y > 0 ? walkingMultiplierForward : walkingMultiplierBackwards);
+                        }
                     }
                 }
-            } 
+            }
 
             //World space velocity calculation.
             desiredDirection = transform.TransformDirection(desiredDirection);
@@ -288,7 +329,7 @@ namespace InfimaGames.LowPolyShooterPack
                 velocity.y -= (velocity.y >= 0 ? jumpGravity : gravity) * Time.deltaTime;
             }
             //Normal Movement On Ground.
-            else if(!jumping)
+            else if(!jumping && !isSliding)
             {
                 //Update velocity with movement on the ground values.
                 velocity = Vector3.Lerp(velocity, new Vector3(desiredDirection.x, velocity.y, desiredDirection.z), Time.deltaTime * (desiredDirection.sqrMagnitude > 0.0f ? acceleration : deceleration));

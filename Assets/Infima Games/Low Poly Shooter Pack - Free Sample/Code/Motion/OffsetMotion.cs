@@ -132,7 +132,7 @@ namespace InfimaGames.LowPolyShooterPack
                     //Add Scope Offsets.
                     location += scopeBehaviour.GetOffsetAimingLocation();
                     rotation += scopeBehaviour.GetOffsetAimingRotation();
-
+                   
                     //Set feelState.
                     feelState = feel.Aiming;
                 }
