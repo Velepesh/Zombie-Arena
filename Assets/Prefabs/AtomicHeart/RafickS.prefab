@@ -3191,7 +3191,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8866795304913383650}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.35, y: 0, z: 27.56}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3314,7 +3314,7 @@ Animator:
   m_GameObject: {fileID: 8866795304913383650}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: bacca9ea1e796104cb30d5b9dde2acf8, type: 3}
-  m_Controller: {fileID: 9100000, guid: c7d9eeee52859b54ea67c5f528380e6b, type: 2}
+  m_Controller: {fileID: 9100000, guid: a67249936c86628458558862a883cbed, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3513,7 +3513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zombiePositionY: 0.007
-  _headKillimpactLength: 1
+  _headKillimpactLength: 0.5
   _bodyKillimpactLength: 0.2
   _impactDuration: 1
 --- !u!114 &2556381644074169134
@@ -3529,7 +3529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health:
-    _health: 200
+    _health: 100
   _options:
     _maxAward: 200
     _moveSpeed: 1.9

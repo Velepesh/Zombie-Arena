@@ -1,6 +1,9 @@
 using UnityEngine;
 using System;
 using UnityEngine.Events;
+using System.Collections.Generic;
+using InfimaGames.LowPolyShooterPack;
+using UnityEngine.Networking.Types;
 
 [RequireComponent(typeof(Collider))]
 public class DamageHandler : MonoBehaviour
@@ -9,28 +12,46 @@ public class DamageHandler : MonoBehaviour
 
     readonly private int _headDamageMultiplier = 2;
 
-    private IDamageable _damageable;
+    private Zombie _zombie;
     private bool _isIgnoringPlayer;
     private Collider _collider;
+    private List<ParticleSystem> _holeEffects = new List<ParticleSystem>();
+
+    public DamageHandlerType Type => _type;
 
     public event UnityAction<DamageHandlerType> HitTaken;
+    public event UnityAction HeadKilled;
 
     private void Start()
     {
         _collider = GetComponent<Collider>();
     }
 
+    private void OnDisable()
+    {
+        if (_zombie != null)
+        {
+            _zombie.Died -= OnDied;
+            _zombie.HeadKilled -= OnHeadKilled;
+        }
+    }
+
     public void Init(IDamageable damageable)
     {
-        _damageable = damageable;
+        if (damageable is Zombie zombie)
+        {
+            _zombie = zombie;
+            _zombie.Died += OnDied;
+            _zombie.HeadKilled += OnHeadKilled;
+        }
     }
 
     public void TakeDamage(int damage, Vector3 contactPoint)
     {
-        if (_damageable == null)
+        if (_zombie == null)
             Debug.LogError("Don't Init" + nameof(IDamageable));
 
-        if (_damageable.Health.Value > 0)
+        if (_zombie.Health.Value > 0)
         {
             if (damage <= 0)
                 throw new ArgumentException(nameof(damage));
@@ -39,23 +60,54 @@ public class DamageHandler : MonoBehaviour
                 damage *= _headDamageMultiplier;
 
             HitTaken?.Invoke(_type);
-            _damageable.TakeDamage(damage, contactPoint);
+            _zombie.TakeDamage(damage, contactPoint);
         }
     }
 
-    public void IgnorePLayerCollider()
+    public void IgnorePlayerCollider()
     {
         _isIgnoringPlayer = true;
     }
 
-    void OnCollisionEnter(Collision collision)
+    public void AddHoleEffect(ParticleSystem holeEffect)
+    {
+        _holeEffects.Add(holeEffect);
+    }
+
+    private void DestroyHoleEffects()
+    {
+        for (int i = 0; i < _holeEffects.Count; i++)
+            _holeEffects[i].gameObject.SetActive(false);
+    }
+
+    private void OnHeadKilled()
+    {
+        if (_type == DamageHandlerType.Head)
+        {
+            _collider.enabled = false;
+            DestroyHoleEffects();
+        }
+    }
+
+    private void OnDied(IDamageable damageable)
+    {
+        SwitchLayerToIgnorePLayer();
+    }
+
+    private void OnCollisionEnter(Collision collision)
     {
         if (_isIgnoringPlayer && collision.gameObject.TryGetComponent(out PlayerCollider player))
+        {
+            //Physics.IgnoreLayerCollision(10, 17);
             Physics.IgnoreCollision(player.Collider, _collider);
+        }
+    }
 
+    private void SwitchLayerToIgnorePLayer()
+    {
+        gameObject.layer = LayerMask.NameToLayer("IgnorePlayer");
     }
 }
-
 public enum DamageHandlerType
 {
     Body,

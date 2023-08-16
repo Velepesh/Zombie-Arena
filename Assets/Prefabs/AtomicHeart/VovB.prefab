@@ -2771,7 +2771,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.07
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2058383361997893233
 MonoBehaviour:
@@ -2785,7 +2785,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff353cbfdfe680e4cb25eaa953029e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 30
+  _damage: 20
+  _handCollider: {fileID: 5867381447381885775}
 --- !u!1 &6788402828223809666
 GameObject:
   m_ObjectHideFlags: 0
@@ -3904,8 +3905,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9073100435591161146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.006, y: 0.09, z: 28.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4903059296768223100}
@@ -4022,7 +4023,7 @@ Animator:
   m_GameObject: {fileID: 9073100435591161146}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 6b97aedce2f4ad34299dcfa7b5b8d368, type: 3}
-  m_Controller: {fileID: 9100000, guid: a67249936c86628458558862a883cbed, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7d86b99488f3316479857724315ac2a2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4235,7 +4236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health:
-    _health: 150
+    _health: 50
   _options:
     _maxAward: 100
     _moveSpeed: 2.25

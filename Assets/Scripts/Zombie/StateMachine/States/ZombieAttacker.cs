@@ -27,8 +27,8 @@ public class ZombieAttacker : State
 
     private void OnDisable()
     {
-        RemoveUpdate();
         _attackCollider.DisableCollider();
+        RemoveUpdate();
     }
 
     public override void OnTick()

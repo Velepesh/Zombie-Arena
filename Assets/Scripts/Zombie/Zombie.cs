@@ -33,7 +33,6 @@ public class Zombie : MonoCache, IDamageable
     public event UnityAction<Zombie> Disabled;
     public event UnityAction<DamageHandlerType> HitTaken;
 
-
     private void Start()
     {
         InitDamageHandler();
@@ -87,13 +86,13 @@ public class Zombie : MonoCache, IDamageable
 
     public void Die()
     {
+        DisableAllColliders();
+
         if (_lastDamageHandlerType == DamageHandlerType.Head)
         {
             IsHeadKill = true;
             HeadKilled?.Invoke();
         }
-
-        DisableAllColliders();
 
         Died?.Invoke(this);
     }
@@ -141,6 +140,6 @@ public class Zombie : MonoCache, IDamageable
     private void DisableAllColliders()
     {
         for (int i = 0; i < _damageHandlers.Length; i++)
-            _damageHandlers[i].IgnorePLayerCollider();
+            _damageHandlers[i].IgnorePlayerCollider();
     }
 }

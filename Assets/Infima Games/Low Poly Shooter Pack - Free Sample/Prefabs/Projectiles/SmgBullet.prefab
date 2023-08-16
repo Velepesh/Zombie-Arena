@@ -192,14 +192,9 @@ MonoBehaviour:
   destroyOnImpact: 1
   minDestroyTime: 0.01
   maxDestroyTime: 0.05
-  bloodImpactPrefabs:
-  - {fileID: 4587651611338842, guid: 96d8ec506f2e7eb4a829ed423e904acc, type: 3}
-  metalImpactPrefabs:
-  - {fileID: 4587651611338842, guid: 5e02303289b3c494e8e185be0fbbd405, type: 3}
-  dirtImpactPrefabs:
-  - {fileID: 4587651611338842, guid: 5e02303289b3c494e8e185be0fbbd405, type: 3}
-  concreteImpactPrefabs:
-  - {fileID: 4587651611338842, guid: 5e02303289b3c494e8e185be0fbbd405, type: 3}
+  _impactOffsetOnDamageHandler: 0.25
+  _bulletHoleEffect: {fileID: 3136626672282096014, guid: 20b74af43776be244a50643631336dba,
+    type: 3}
 --- !u!1 &1231345400216816
 GameObject:
   m_ObjectHideFlags: 0

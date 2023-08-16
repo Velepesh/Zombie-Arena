@@ -248,7 +248,7 @@ namespace InfimaGames.LowPolyShooterPack
                 Vector3 castOrigin = transform.position - new Vector3(0, sphereCastVerticalOffset, 0);
                
                 if (Physics.SphereCast(castOrigin, controller.radius - 0.01f, Vector3.down,
-                    out var hit, _checkSlidingDistance, ~LayerMask.GetMask("Player"), QueryTriggerInteraction.Ignore))
+                    out var hit, _checkSlidingDistance, ~LayerMask.GetMask("Character"), QueryTriggerInteraction.Ignore))
                 {
                     float angel = Vector3.Angle(Vector3.up, hit.normal);
 

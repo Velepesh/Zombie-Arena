@@ -35,10 +35,10 @@ public class ImpactPool : ObjectPool
             SpawnPrefab(_impactPrefab.gameObject);
     }
 
-    public void SetImpactTransform(GameObject projectile, Vector3 position, Quaternion rotation)
+    public void SetImpactTransform(Transform impact, Vector3 position, Quaternion rotation)
     {
-        projectile.transform.position = position;
-        projectile.transform.rotation = rotation;
+        impact.position = position;
+        impact.rotation = rotation;
     }
 
     public GameObject GetImpact()

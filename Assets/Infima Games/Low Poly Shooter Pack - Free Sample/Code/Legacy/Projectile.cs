@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;
 using UnityEngine.Events;
+using System.Drawing;
 
 namespace InfimaGames.LowPolyShooterPack.Legacy
 {
@@ -23,6 +24,9 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		[Tooltip("Maximum time after impact that the bullet is destroyed")]
 		public float maxDestroyTime;
+
+        [SerializeField] private float _impactOffsetOnDamageHandler;
+        [SerializeField] private ParticleSystem _bulletHoleEffect;
 		
 		private List<ImpactPool> _impactPools = new List<ImpactPool>();
 
@@ -54,26 +58,30 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
             else//Otherwise, destroy bullet on impact
                 DisableProjectile();
 
-            Vector3 normal = collision.contacts[0].normal;
+            var contact = collision.contacts[0];
+
+            Vector3 normal = contact.normal;
+            Vector3 point = contact.point;
 
             if (collision.gameObject.TryGetComponent(out DamageHandler damageHandler))
             {
+                InstantiateBulletHole(damageHandler, collision.gameObject.transform, point);
+                PlayImpact(ImpactPoolType.Blood, point - transform.TransformDirection(new Vector3(0, 0, _impactOffsetOnDamageHandler)), normal);
                 damageHandler.TakeDamage(_damage, normal);
-                PlayImpact(ImpactPoolType.Blood, normal);
             }
 
             if (collision.gameObject.TryGetComponent(out TwinCollider twinCollider))
-                PlayImpact(ImpactPoolType.Metal, normal);
+                PlayImpact(ImpactPoolType.Metal, point, normal);
 
             if (collision.transform.tag == "Grass")
-                PlayImpact(ImpactPoolType.Grass, normal);
+                PlayImpact(ImpactPoolType.Grass, point, normal);
            
             if (collision.transform.tag == "Concrete")
-				PlayImpact(ImpactPoolType.Concrete, normal);
+				PlayImpact(ImpactPoolType.Concrete, point, normal);
 
 
             if (collision.transform.tag == "ForceField")
-                PlayImpact(ImpactPoolType.ForceField, normal);
+                PlayImpact(ImpactPoolType.ForceField, point, normal);
         }
 
         private void DisableProjectile()
@@ -81,7 +89,16 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
             Impacted?.Invoke(this);
         }
 
-        private void PlayImpact(ImpactPoolType type, Vector3 contactNormal)
+        private void InstantiateBulletHole(DamageHandler damageHandler, Transform collisionTranform, Vector3 point)
+        {
+            GameObject hole = Instantiate(_bulletHoleEffect.gameObject, collisionTranform);
+            hole.transform.position = point;
+
+            if(damageHandler.Type == DamageHandlerType.Head)
+                damageHandler.AddHoleEffect(hole.GetComponent<ParticleSystem>());
+        }
+
+        private void PlayImpact(ImpactPoolType type, Vector3 point, Vector3 contactNormal)
         {
             for (int i = 0; i < _impactPools.Count; i++)
             {
@@ -89,7 +106,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
                 {
                     GameObject impact = _impactPools[i].GetImpact();
                     impact.SetActive(true);
-                    _impactPools[i].SetImpactTransform(impact, transform.position, Quaternion.LookRotation(contactNormal));
+                    _impactPools[i].SetImpactTransform(impact.transform, point, Quaternion.LookRotation(contactNormal));
                     break;
                 }
             }

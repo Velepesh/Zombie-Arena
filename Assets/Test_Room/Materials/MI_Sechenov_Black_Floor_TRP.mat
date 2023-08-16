@@ -12,7 +12,7 @@ Material:
   m_ValidKeywords:
   - DR_RIM_ON
   - DR_SPECULAR_ON
-  - _CELPRIMARYMODE_CURVE
+  - _CELPRIMARYMODE_SINGLE
   - _TEXTUREBLENDINGMODE_MULTIPLY
   - _UNITYSHADOWMODE_MULTIPLY
   m_InvalidKeywords:
@@ -80,7 +80,7 @@ Material:
     - _CameraDistanceFadeFar: 24.84
     - _CelExtraEnabled: 0
     - _CelNumSteps: 3
-    - _CelPrimaryMode: 3
+    - _CelPrimaryMode: 1
     - _Cull: 2
     - _Cutoff: 0.5
     - _Depth: 100
@@ -141,7 +141,7 @@ Material:
     - _ColorDimSteps: {r: 0, g: 0, b: 0, a: 0}
     - _ColorGradient: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FlatRimColor: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
+    - _FlatRimColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
     - _FlatSpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _LightmapDirection: {r: 0, g: 1, b: 0, a: 0}
     - _UnityShadowColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}

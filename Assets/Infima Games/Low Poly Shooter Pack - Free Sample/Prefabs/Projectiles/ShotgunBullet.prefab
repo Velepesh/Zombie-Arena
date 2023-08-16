@@ -187,19 +187,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ff3ea705a4a7244a59eef82e75c660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 20
+  _damage: 40
   destroyAfter: 5
   destroyOnImpact: 1
-  minDestroyTime: 0.01
+  minDestroyTime: 0.02
   maxDestroyTime: 0.05
-  bloodImpactPrefabs:
-  - {fileID: 4587651611338842, guid: 96d8ec506f2e7eb4a829ed423e904acc, type: 3}
-  metalImpactPrefabs:
-  - {fileID: 4587651611338842, guid: 5e02303289b3c494e8e185be0fbbd405, type: 3}
-  dirtImpactPrefabs:
-  - {fileID: 4587651611338842, guid: 5e02303289b3c494e8e185be0fbbd405, type: 3}
-  concreteImpactPrefabs:
-  - {fileID: 4587651611338842, guid: 5e02303289b3c494e8e185be0fbbd405, type: 3}
+  _impactOffsetOnDamageHandler: 0.25
+  _bulletHoleEffect: {fileID: 3136626672282096014, guid: 20b74af43776be244a50643631336dba,
+    type: 3}
 --- !u!1 &1231345400216816
 GameObject:
   m_ObjectHideFlags: 0
