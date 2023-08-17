@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 3494548544298710786}
   - component: {fileID: 5253687498867440419}
   - component: {fileID: 4428693271593893911}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: bip_hip_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -778,7 +778,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5733045128556855689}
-  - component: {fileID: 3356423103483055095}
+  - component: {fileID: 8629115149410047373}
   - component: {fileID: 8887235430577534878}
   m_Layer: 17
   m_Name: bip_head
@@ -813,8 +813,8 @@ Transform:
   m_Father: {fileID: 2249070514309428410}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &3356423103483055095
-SphereCollider:
+--- !u!136 &8629115149410047373
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -823,9 +823,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.065
-  m_Center: {x: 0.015, y: -0.04, z: 0}
+  m_Radius: 0.054
+  m_Height: 0.13
+  m_Direction: 1
+  m_Center: {x: 0.013, y: -0.035, z: 0}
 --- !u!114 &8887235430577534878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1841,7 +1842,7 @@ GameObject:
   - component: {fileID: 5034742108111556339}
   - component: {fileID: 2380347751045535649}
   - component: {fileID: 7034018870378295523}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: bip_upperArm_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2743,7 +2744,7 @@ Transform:
   m_GameObject: {fileID: 2881338353592902493}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7519972323397058636}
@@ -3082,10 +3083,10 @@ MonoBehaviour:
     _maxAward: 100
     _moveSpeed: 2.25
     _rotationSpeed: 5
-    _attackDistance: 1.9
+    _attackDistance: 1.4
     _changeTargetDistance: 10
   _score: 100
-  _type: 1
+  _type: 0
 --- !u!195 &9219611106889143030
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3094,7 +3095,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881338353592902493}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1372625422
   m_Radius: 0.3
   m_Speed: 2.25
   m_Acceleration: 8
@@ -3603,7 +3604,7 @@ GameObject:
   - component: {fileID: 2775779404242578678}
   - component: {fileID: 1472003118304376750}
   - component: {fileID: 5813756831576406953}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: bip_upperArm_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4019,7 +4020,7 @@ GameObject:
   - component: {fileID: 3329305401624430408}
   - component: {fileID: 8076522496831155094}
   - component: {fileID: 4620263393061190032}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: bip_hand_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4352,7 +4353,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.03
+  m_Radius: 0.04
   m_Height: 0.07
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -4447,7 +4448,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.055
+  m_Radius: 0.058
   m_Height: 0.14
   m_Direction: 2
   m_Center: {x: -0.01, y: 0.05, z: 0}
@@ -4999,7 +5000,7 @@ GameObject:
   - component: {fileID: 896308981466910239}
   - component: {fileID: 3038203527670369631}
   - component: {fileID: 631859748493365983}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: bip_hand_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5863,7 +5864,7 @@ GameObject:
   - component: {fileID: 3973333417351351098}
   - component: {fileID: 3496109120319330921}
   - component: {fileID: 6504694833809373020}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: bip_toe_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6117,7 +6118,7 @@ GameObject:
   - component: {fileID: 4897034333551428989}
   - component: {fileID: 7288580751492959688}
   - component: {fileID: 7368320021668263537}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: bip_knee_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6242,7 +6243,7 @@ GameObject:
   - component: {fileID: 6194133499952159097}
   - component: {fileID: 8406978748906259082}
   - component: {fileID: 5014041058718211710}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: bip_lowerArm_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6304,7 +6305,7 @@ GameObject:
   - component: {fileID: 2266284231112624465}
   - component: {fileID: 2229580997764357249}
   - component: {fileID: 2584824373323141862}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: bip_toe_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6478,7 +6479,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 20
-  _handCollider: {fileID: 8076522496831155094}
 --- !u!1 &7026850644413498606
 GameObject:
   m_ObjectHideFlags: 0
@@ -7638,7 +7638,7 @@ GameObject:
   - component: {fileID: 1414141663219151560}
   - component: {fileID: 6688366481068749843}
   - component: {fileID: 7195062496260608281}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: bip_lowerArm_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7700,7 +7700,7 @@ GameObject:
   - component: {fileID: 3341869963934194874}
   - component: {fileID: 8715071353144609309}
   - component: {fileID: 6115995337640644812}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: bip_hip_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7990,7 +7990,7 @@ GameObject:
   - component: {fileID: 3280542378067220479}
   - component: {fileID: 8549275365628601138}
   - component: {fileID: 3865631827120820721}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: bip_knee_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8121,7 +8121,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.05
+  m_Radius: 0.052
   m_Height: 0.17
   m_Direction: 2
   m_Center: {x: 0, y: 0.045, z: 0}

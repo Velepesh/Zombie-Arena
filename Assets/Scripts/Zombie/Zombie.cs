@@ -14,11 +14,13 @@ public class Zombie : MonoCache, IDamageable
     private Vector3 _contactPosition;
     private DamageHandler[] _damageHandlers = new DamageHandler[] { };
     private bool _isAttackedTwins;
+    private bool _isAttacking;
     private DamageHandlerType _lastDamageHandlerType;
 
     public ZombieOptions Options => _options;
     public ZombieType Type => _type;
     public bool IsDied => _health.Value <= 0;
+    public bool IsAttacking => _isAttacking;
     public bool WasHeadHit { get; private set; }
     public bool IsHeadKill { get; private set; }
 
@@ -55,6 +57,11 @@ public class Zombie : MonoCache, IDamageable
 
         _currentTarget = _zombieTargets.GetRandomTarget();
         _mainTarget = _currentTarget;
+    }
+
+    public void SetAttackingState(bool isAttacking)
+    {
+        _isAttacking = isAttacking;
     }
 
     public void EndSpawn()

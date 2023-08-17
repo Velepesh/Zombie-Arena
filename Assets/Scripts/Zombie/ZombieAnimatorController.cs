@@ -8,6 +8,6 @@ public class ZombieAnimatorController : MonoBehaviour
         public const string BodyDie = nameof(BodyDie);
         public const string Run = nameof(Run);
         public const string IsAttack = nameof(IsAttack);
-        public const string IsMirror= nameof(IsMirror);
+        public const string IsMirror = nameof(IsMirror);
     }
 }

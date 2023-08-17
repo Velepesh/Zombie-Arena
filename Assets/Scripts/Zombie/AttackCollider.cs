@@ -6,7 +6,6 @@ using UnityEngine;
 public class AttackCollider : MonoBehaviour
 {
     [SerializeField] private int _damage;
-    [SerializeField] private Collider _handCollider;
 
     private Collider _collider;
     private Zombie _zombie;
@@ -30,13 +29,11 @@ public class AttackCollider : MonoBehaviour
     public void DisableCollider()
     {
         _collider.enabled = false;
-        _handCollider.enabled = true;
     }
 
     public void EnableCollider()
     {
         _collider.enabled = true;
-        _handCollider.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)

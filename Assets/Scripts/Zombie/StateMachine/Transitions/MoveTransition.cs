@@ -38,7 +38,7 @@ public class MoveTransition : Transition
 
         float distance = Vector3.Distance(targetPosition, transform.position);
 
-        if (distance > _zombie.Options.AttackDistance)
+        if (distance > _zombie.Options.AttackDistance && _zombie.IsAttacking == false)
             Transit();
     }
 

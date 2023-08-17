@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 803280465694981369}
   - component: {fileID: 7483096152468891457}
   - component: {fileID: 5179762219828918733}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: ValveBiped.Bip01_R_Toe0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 1971218225717300076}
   - component: {fileID: 5373440323403147997}
   - component: {fileID: 3244644387529034673}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: ValveBiped.Bip01_L_UpperArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +457,7 @@ GameObject:
   - component: {fileID: 7562092229526153784}
   - component: {fileID: 4139954643303882222}
   - component: {fileID: 5605268936831345834}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: ValveBiped.Bip01_R_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -912,7 +912,7 @@ GameObject:
   - component: {fileID: 5335295061779075401}
   - component: {fileID: 3628306445525087576}
   - component: {fileID: 301280583075468605}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: ValveBiped.Bip01_R_UpperArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1721,7 +1721,7 @@ GameObject:
   - component: {fileID: 280425734495530530}
   - component: {fileID: 4575434923923145905}
   - component: {fileID: 1670553622431896251}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: ValveBiped.Bip01_L_Thigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1846,7 +1846,7 @@ GameObject:
   - component: {fileID: 8234609652551900459}
   - component: {fileID: 9042916069180187080}
   - component: {fileID: 465599622834632661}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: ValveBiped.Bip01_L_Toe0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1907,7 +1907,7 @@ GameObject:
   - component: {fileID: 1612934828299061740}
   - component: {fileID: 8481548961786064190}
   - component: {fileID: 7174340959404200279}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: ValveBiped.Bip01_L_Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2387,7 +2387,7 @@ GameObject:
   - component: {fileID: 7087757792544998355}
   - component: {fileID: 6074111949984618882}
   - component: {fileID: 5164413558586280571}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: ValveBiped.Bip01_R_Thigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2709,7 +2709,7 @@ GameObject:
   - component: {fileID: 9122823625183197919}
   - component: {fileID: 8322330504855159298}
   - component: {fileID: 6015222707616185345}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: ValveBiped.Bip01_R_Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2866,7 +2866,7 @@ GameObject:
   - component: {fileID: 2737359743572334072}
   - component: {fileID: 1128445696108181815}
   - component: {fileID: 2351126270683813256}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: ValveBiped.Bip01_L_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3438,7 +3438,7 @@ MonoBehaviour:
   _transitions:
   - {fileID: 6422139219225309023}
   - {fileID: 8485432788207051865}
-  _attackCollider: {fileID: 7466002917882303029}
+  _attackCollider: {fileID: 7082655616947342774}
 --- !u!114 &2524959020266436248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3531,13 +3531,13 @@ MonoBehaviour:
   _health:
     _health: 100
   _options:
-    _maxAward: 200
-    _moveSpeed: 1.9
+    _maxAward: 150
+    _moveSpeed: 2.2
     _rotationSpeed: 5
-    _attackDistance: 1.8
+    _attackDistance: 2.2
     _changeTargetDistance: 10
-  _score: 50
-  _type: 2
+  _score: 150
+  _type: 1
 --- !u!195 &2880133912356940575
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3546,7 +3546,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8866795304913383650}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -334000983
   m_Radius: 0.4
   m_Speed: 2
   m_Acceleration: 8
@@ -3569,6 +3569,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7668020283744251991}
+  - component: {fileID: 83509253865545294}
+  - component: {fileID: 7082655616947342774}
   m_Layer: 17
   m_Name: ValveBiped.Bip01_L_Finger1
   m_TagString: Untagged
@@ -3592,6 +3594,32 @@ Transform:
   m_Father: {fileID: 2737359743572334072}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &83509253865545294
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039744987305817790}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.07
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7082655616947342774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039744987305817790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff353cbfdfe680e4cb25eaa953029e3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 30
 --- !u!1 &9108286998710257111
 GameObject:
   m_ObjectHideFlags: 0
@@ -3601,8 +3629,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5434128067297416130}
-  - component: {fileID: 8297417921786076676}
-  - component: {fileID: 7466002917882303029}
   m_Layer: 17
   m_Name: ValveBiped.Bip01_R_Finger1
   m_TagString: Untagged
@@ -3626,32 +3652,6 @@ Transform:
   m_Father: {fileID: 7562092229526153784}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8297417921786076676
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9108286998710257111}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.08
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7466002917882303029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9108286998710257111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff353cbfdfe680e4cb25eaa953029e3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 40
 --- !u!1 &9121990326716932659
 GameObject:
   m_ObjectHideFlags: 0
@@ -3663,7 +3663,7 @@ GameObject:
   - component: {fileID: 3586428927554732796}
   - component: {fileID: 8672101414960540938}
   - component: {fileID: 6676013176083043233}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: ValveBiped.Bip01_R_Calf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3724,7 +3724,7 @@ GameObject:
   - component: {fileID: 5890208350625888687}
   - component: {fileID: 7916452546580782115}
   - component: {fileID: 44037824251818184}
-  m_Layer: 17
+  m_Layer: 18
   m_Name: ValveBiped.Bip01_L_Calf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
