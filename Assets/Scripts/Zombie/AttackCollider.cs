@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 public class AttackCollider : MonoBehaviour
@@ -9,6 +8,9 @@ public class AttackCollider : MonoBehaviour
 
     private Collider _collider;
     private Zombie _zombie;
+
+    public event UnityAction Hit;
+    public event UnityAction Attacked;
 
     private void OnValidate()
     {
@@ -34,6 +36,8 @@ public class AttackCollider : MonoBehaviour
     public void EnableCollider()
     {
         _collider.enabled = true;
+
+        Attacked?.Invoke();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -42,12 +46,13 @@ public class AttackCollider : MonoBehaviour
         {
             if (other.TryGetComponent(out IDamageable damageable))
             {
-                damageable.TakeDamage(_damage, Vector3.zero);
-
                 if (damageable is Player player)
                 {
+                    Hit?.Invoke();
                     player.SetAttackingZombie(_zombie);
                 }
+
+                damageable.TakeDamage(_damage, Vector3.zero);
             }
         }
     }

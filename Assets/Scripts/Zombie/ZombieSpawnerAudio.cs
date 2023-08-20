@@ -7,9 +7,8 @@ public class ZombieSpawnerAudio : Audio
 
     private ZombieSpawner _zombieSpawner;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         _zombieSpawner = GetComponent<ZombieSpawner>();
     }
 

@@ -7,9 +7,8 @@ public class UIButtonsAudio : Audio
 
     private Button[] _buttons;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         _buttons = GetComponentsInChildren<Button>();
         AudioSource.ignoreListenerPause = true;
     }

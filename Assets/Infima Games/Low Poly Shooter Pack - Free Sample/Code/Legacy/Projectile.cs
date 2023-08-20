@@ -4,7 +4,6 @@ using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;
 using UnityEngine.Events;
-using System.Drawing;
 
 namespace InfimaGames.LowPolyShooterPack.Legacy
 {
@@ -27,6 +26,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
         [SerializeField] private float _impactOffsetOnDamageHandler;
         [SerializeField] private ParticleSystem _bulletHoleEffect;
+        [SerializeField] private ParticleSystem _metalHoleEffect;
 		
 		private List<ImpactPool> _impactPools = new List<ImpactPool>();
 
@@ -71,7 +71,10 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
             }
 
             if (collision.gameObject.TryGetComponent(out TwinCollider twinCollider))
+            {
+                InstantiateHole(_metalHoleEffect, collision.gameObject.transform, point);
                 PlayImpact(ImpactPoolType.Metal, point, normal);
+            }
 
             if (collision.transform.tag == "Grass")
                 PlayImpact(ImpactPoolType.Grass, point, normal);
@@ -91,11 +94,18 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
         private void InstantiateBulletHole(DamageHandler damageHandler, Transform collisionTranform, Vector3 point)
         {
-            GameObject hole = Instantiate(_bulletHoleEffect.gameObject, collisionTranform);
-            hole.transform.position = point;
+            GameObject hole = InstantiateHole(_bulletHoleEffect, collisionTranform, point);
 
             if(damageHandler.Type == DamageHandlerType.Head)
                 damageHandler.AddHoleEffect(hole.GetComponent<ParticleSystem>());
+        }  
+
+        private GameObject InstantiateHole(ParticleSystem holeEffect, Transform collisionTranform, Vector3 point)
+        {
+            GameObject hole = Instantiate(holeEffect.gameObject, collisionTranform);
+            hole.transform.position = point;
+
+            return hole;
         }
 
         private void PlayImpact(ImpactPoolType type, Vector3 point, Vector3 contactNormal)
