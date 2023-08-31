@@ -26,11 +26,6 @@ public class Game : MonoBehaviour
         _targets.TargetDied -= OnDied;
     }
 
-    private void Awake()
-    {
-        Application.targetFrameRate = 60;
-    }
-
     public void StartLevel()
     {
         StartTime();
