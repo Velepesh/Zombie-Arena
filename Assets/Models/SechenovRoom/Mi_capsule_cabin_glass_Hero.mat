@@ -19,7 +19,7 @@ Material:
   - _UNITYSHADOWMODE_NONE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -83,7 +83,7 @@ Material:
     - _CelPrimaryMode: 1
     - _Cull: 2
     - _Cutoff: 0.5
-    - _Depth: 100
+    - _Depth: 500
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
     - _FlatRimEdgeSmoothness: 0.5
@@ -126,7 +126,7 @@ Material:
     - _UnityShadowMode: 0
     - _UnityShadowPower: 0.2
     - _UnityShadowSharpness: 1
-    - _UvFadeX: 0.1
+    - _UvFadeX: 10
     - _UvFadeY: 4.41
     - _VertexColorsEnabled: 0
     - _ZWrite: 0
