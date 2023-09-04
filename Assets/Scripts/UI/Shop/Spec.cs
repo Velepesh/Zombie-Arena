@@ -18,19 +18,23 @@ public class Spec : MonoBehaviour
     [SerializeField] private string _equipmentText;
     [SerializeField] private string _adsText;
     [SerializeField] private Button _buyButton;
+    [SerializeField] private Button _unlockByAdsButton;
 
     private Weapon _currentWeapon;
 
     public event UnityAction<Weapon> BuyButtonClicked;
+    public event UnityAction<Weapon> AdsButtonClicked;
 
     private void OnEnable()
     {
         _buyButton.onClick.AddListener(OnBuyButtonClick);
+        _unlockByAdsButton.onClick.AddListener(OnAdsButtonClick);
     }
 
     private void OnDisable()
     {
         _buyButton.onClick.RemoveListener(OnBuyButtonClick);
+        _unlockByAdsButton.onClick.RemoveListener(OnAdsButtonClick);
     }
 
     public void UpdateSpec(Weapon weapon)
@@ -54,6 +58,13 @@ public class Spec : MonoBehaviour
         BuyButtonClicked?.Invoke(_currentWeapon);
         SetInventoryText(_currentWeapon);
     }
+
+    private void OnAdsButtonClick()
+    {
+        //AdsButtonClicked?.Invoke(_currentWeapon);
+        //SetInventoryText(_currentWeapon);
+    }
+
 
     private void SetLabel(string label)
     {

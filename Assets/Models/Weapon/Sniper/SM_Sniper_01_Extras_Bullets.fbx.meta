@@ -3,7 +3,12 @@ guid: 806ac5d596d95594b8dd03a822190bcb
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SniperMat
+    second: {fileID: 2100000, guid: af04b9cd63de4de47a940dcb4433e5d6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

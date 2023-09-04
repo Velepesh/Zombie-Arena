@@ -10,6 +10,7 @@ public class ZombieSpawner : ObjectPool
     [SerializeField] private List<Wave> _waves;
     [SerializeField] private List<SpawnPoint> _spawnPoints;
     [SerializeField] private int _numberOfCircleWave;
+    [SerializeField] private int _maxActiveZombie;
 
     private Wave _currentWave;
     private float _timeAfterLastSpawn;
@@ -51,7 +52,7 @@ public class ZombieSpawner : ObjectPool
 
         _timeAfterLastSpawn += Time.deltaTime;
 
-        if (_timeAfterLastSpawn >= _currentWave.Delay)
+        if (_timeAfterLastSpawn >= _currentWave.Delay && _zombies.Count < _maxActiveZombie)
         {
             if (IsSpawnPointEmpty() == false)
                 return;
@@ -78,11 +79,6 @@ public class ZombieSpawner : ObjectPool
         SetWave(CurrentWaveNumber);
 
         _timeAfterLastSpawn = _currentWave.Delay - 1;
-    }
-
-    private void StopSpawn()
-    {
-        _currentWave = null;
     }
 
     private void Spawn(GameObject zombieObject)
@@ -172,12 +168,6 @@ public class ZombieSpawner : ObjectPool
             HeadshotReceived?.Invoke();
         else
             BodyshotReceived?.Invoke();
-    }
-
-    private void OnPlayerDied(IDamageable damageable)
-    {
-        StopSpawn();
-        damageable.Died -= OnPlayerDied;  
     }
 
     private void TrySpawnNextWave()
