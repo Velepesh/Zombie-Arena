@@ -1,25 +1,18 @@
 using System;
-using UnityEngine;
 
-[Serializable]
 public class Wallet
 {
-    readonly private string BALANCE = "Balance";
-
-    private int _money => PlayerPrefs.GetInt(BALANCE, 0);
-
     public int Money { get; private set; }
-    public bool HaveMoney => Money > 0;
 
     public delegate void MoneyChangedHandler(int value);
     public event MoneyChangedHandler MoneyChanged;
 
-    public Wallet()
+    public Wallet(int money)
     {
-        if (_money < 0)
-            throw new ArgumentOutOfRangeException(nameof(_money));
-
-        Money = _money;
+        if (money < 0)
+            throw new ArgumentOutOfRangeException(nameof(money));
+        
+        Money = money;
     }
 
     public void AddMoney(int value)
@@ -27,7 +20,6 @@ public class Wallet
         Money += value;
 
         MoneyChanged?.Invoke(Money);
-        SaveBalance();
     }
 
     public void RemoveMoney(int value)
@@ -41,11 +33,5 @@ public class Wallet
         Money -= value;
 
         MoneyChanged?.Invoke(Money);
-        SaveBalance();
-    }
-
-    private void SaveBalance()
-    {
-        PlayerPrefs.SetInt(BALANCE, Money);
     }
 }

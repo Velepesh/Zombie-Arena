@@ -25,7 +25,20 @@ public class Equipment : MonoBehaviour
     public IEnumerable<Weapon> EquipmentWeapons => _equipmentWeapons;
 
     public event UnityAction Inited;
-    public event UnityAction<Weapon> Equipped;
+    public event UnityAction<Weapon> Equiped;
+
+    public void UpdateEquipment(Weapon weapon)
+    {
+        weapon.Equip();
+        SetWeapon(weapon);
+    }
+
+    public List<Weapon> GetEquipedWeapons()
+    {
+        _equipmentWeapons = OrderEquipedWeaponsList();
+
+        return _equipmentWeapons;
+    }
 
     private void OnEnable()
     {
@@ -45,18 +58,6 @@ public class Equipment : MonoBehaviour
 
         if(_countOfInitedWeapons == _weapons.Count)
             InitWeapons(_weapons);
-    }
-
-    public void UpdateEquipment(Weapon weapon)
-    {
-        SetWeapon(weapon);
-    }
-
-    public List<Weapon> GetEquipedWeapons()
-    {
-        _equipmentWeapons = OrderEquipedWeaponsList();
-
-        return _equipmentWeapons;
     }
 
     private List<Weapon> OrderEquipedWeaponsList()
@@ -91,6 +92,8 @@ public class Equipment : MonoBehaviour
             SetWeapon(weapons[i]);
         }
 
+        EquipByBoughtWeapon();
+
         Inited?.Invoke();
     }
 
@@ -118,18 +121,17 @@ public class Equipment : MonoBehaviour
         }
     }
 
-    private void ChangeEquipedWeapon(ref Weapon currentWeapon, Weapon weapon)
+    private void ChangeEquipedWeapon(ref Weapon currentWeapon, Weapon newWeapon)
     {
         if (currentWeapon != null)
             currentWeapon.UnEquip();
 
-        currentWeapon = weapon;
-        currentWeapon.Equip();
-        AddToEquipmenrList(currentWeapon);
-        Equipped?.Invoke(currentWeapon);
+        currentWeapon = newWeapon;
+        AddToEquipmentList(currentWeapon);
+        Equiped?.Invoke(currentWeapon);
     }
 
-    private void AddToEquipmenrList(Weapon weapon)
+    private void AddToEquipmentList(Weapon weapon)
     {
         for (int i = 0; i < _equipmentWeapons.Count; i++)
         {
@@ -142,4 +144,61 @@ public class Equipment : MonoBehaviour
 
         _equipmentWeapons.Add(weapon);
     }
+
+    private void EquipByBoughtWeapon()
+    {
+        if(IsWeaponTypeInList(_equipmentWeapons, WeaponType.AutomaticRifle) == false)
+            EquipFistBoughtByTypeWeapon(WeaponType.AutomaticRifle);
+
+        if (IsWeaponTypeInList(_equipmentWeapons, WeaponType.Pistol) == false)
+            EquipFistBoughtByTypeWeapon(WeaponType.Pistol);
+
+        if (IsWeaponTypeInList(_equipmentWeapons, WeaponType.SubmachineGun) == false)
+            EquipFistBoughtByTypeWeapon(WeaponType.SubmachineGun);
+    }
+
+    private bool IsWeaponTypeInList(List<Weapon> weapons, WeaponType type)
+    {
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            if (weapons[i].Type == type)
+                return true;
+        }
+
+        return false;
+    }
+
+    private void EquipFistBoughtByTypeWeapon(WeaponType type)
+    {
+        for (int i = 0; i < _weapons.Count; i++)
+        {
+            Weapon weapon = _weapons[i];
+
+            if (weapon.Type == type && weapon.IsBought)
+            {
+                _equipmentWeapons.Add(weapon);
+                weapon.Equip();
+                Equiped?.Invoke(weapon);
+                break;
+            }
+        }
+
+        if (_automaticRifle == null)
+            SetFirstAutomaticRifle();
+    }
+
+    private void SetFirstAutomaticRifle()
+    {
+        for (int i = 0; i < _equipmentWeapons.Count; i++)
+        {
+            if (_equipmentWeapons[i].Type == WeaponType.AutomaticRifle)
+            {
+                _automaticRifle = _equipmentWeapons[i];
+                return;
+            }
+        }
+
+        throw new ArgumentNullException(nameof(_automaticRifle));
+    }
+
 }

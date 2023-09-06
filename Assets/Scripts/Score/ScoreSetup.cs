@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class ScoreSetup : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class ScoreSetup : MonoBehaviour
 
     private ScorePresenter _presenter;
     private Score _model;
+
+    public Score Score => _model;
 
     private void Awake()
     {

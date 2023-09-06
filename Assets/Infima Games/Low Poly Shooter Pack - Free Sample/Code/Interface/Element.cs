@@ -26,7 +26,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         protected InventoryBehaviour inventoryBehaviour;
 
         /// <summary>
-        /// Equipped Weapon.
+        /// Equiped Weapon.
         /// </summary>
         protected WeaponBehaviour equippedWeaponBehaviour;
         
@@ -57,7 +57,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             if (Equals(inventoryBehaviour, null))
                 return;
 
-            //Get Equipped Weapon.
+            //Get Equiped Weapon.
             equippedWeaponBehaviour = inventoryBehaviour.GetEquipped();
             
             //Tick.

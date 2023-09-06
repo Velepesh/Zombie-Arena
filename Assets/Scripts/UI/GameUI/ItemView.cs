@@ -92,7 +92,7 @@ public abstract class ItemView : MonoBehaviour
 
     protected void SetLabel(Weapon weapon)
     {
-        Label.text = weapon.Lable.ToString();
+        Label.text = weapon.Label.ToString();
     }
 
     private void AssignSprite(Image image, Sprite sprite, bool forceHide = false)

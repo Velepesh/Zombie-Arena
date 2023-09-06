@@ -13,15 +13,17 @@ namespace InfimaGames.LowPolyShooterPack
     public class Weapon : WeaponBehaviour
     {
         [SerializeField] private WeaponType _type;
+        [SerializeField] private bool _isBought;
         [SerializeField] private bool _isUnlock;
         [SerializeField] private bool _isEquip;
+        [SerializeField] private int _price;
         #region FIELDS SERIALIZED
 
         [Title(label: "Settings")]
 
         [SerializeField] private ProjectilePool _bulletPool;
         [SerializeField] private CasingPool _casingPool;
-        [SerializeField] private AudioMixerGroup _mixerGroup;      
+        [SerializeField] private AudioMixerGroup _mixerGroup;
 
         [Tooltip("Weapon Name. Currently not used for anything, but in the future, we will use this for pickups!")]
         [SerializeField] 
@@ -164,27 +166,18 @@ namespace InfimaGames.LowPolyShooterPack
         #region Attachment Behaviours
         
         /// <summary>
-        /// Equipped scope Reference.
+        /// Equiped scope Reference.
         /// </summary>
         private ScopeBehaviour scopeBehaviour;
         
         /// <summary>
-        /// Equipped Magazine Reference.
+        /// Equiped Magazine Reference.
         /// </summary>
         private MagazineBehaviour magazineBehaviour;
         /// <summary>
-        /// Equipped Muzzle Reference.
+        /// Equiped Muzzle Reference.
         /// </summary>
         private MuzzleBehaviour muzzleBehaviour;
-
-        /// <summary>
-        /// Equipped Laser Reference.
-        /// </summary>
-        private LaserBehaviour laserBehaviour;
-        /// <summary>
-        /// Equipped Grip Reference.
-        /// </summary>
-        private GripBehaviour gripBehaviour;
 
         #endregion
 
@@ -203,30 +196,61 @@ namespace InfimaGames.LowPolyShooterPack
 
         private Transform playerCameraTransform;
 
-        public string Lable => weaponName;
+        public string Label => weaponName;
         public int RoundsPerMinutes => roundsPerMinutes;
         public int Damage => _bulletPool.Damage * shotCount;
         public int HipSpread => (int)(100 - (spread * 100));
         public int AimSpread => (int)(100 - (scopeBehaviour.GetMultiplierSpread() * 100));
         public int Mobility => (int)(multiplierMovementSpeed * 100) - 20;
-        public bool IsUnlock => _isUnlock;
-        public bool IsEquip => _isEquip;
         public WeaponType Type => _type;
+        public int Price => _price;
+
+       
+        public bool IsBought => _isBought;
+        public bool IsEquip => _isEquip;
+        public bool IsUnlock => _isUnlock;
 
         public event UnityAction Inited;
-
-
+        public event UnityAction<Weapon> Bought;
+        public event UnityAction<Weapon> Equiped;
         #endregion
 
         #region UNITY
+
+        private void OnValidate()
+        {
+            _price = Mathf.Clamp(_price, 0, int.MaxValue);    
+        }
+
+        public void LoadStates(WeaponData data)
+        {
+            _isBought = data.IsBought;
+            _isUnlock = data.IsUnlock;
+            _isEquip = data.IsEquip;
+        }
+
+        public void Buy()
+        {
+            _isBought = true;
+            _isUnlock = true;
+            Bought?.Invoke(this);
+        }
+
         public void Equip()
         {
             _isEquip = true;
+            Equiped?.Invoke(this);
+        }
+
+        public void Unlock()
+        {
+            _isUnlock = true;
         }
 
         public void UnEquip()
         {
             _isEquip = false;
+            Equiped?.Invoke(this);
         }
 
         private void OnEnable()
@@ -255,11 +279,6 @@ namespace InfimaGames.LowPolyShooterPack
             magazineBehaviour = attachmentManager.GetEquippedMagazine();
             //Get Muzzle.
             muzzleBehaviour = attachmentManager.GetEquippedMuzzle();
-
-            //Get Laser.
-            laserBehaviour = attachmentManager.GetEquippedLaser();
-            //Get Grip.
-            gripBehaviour = attachmentManager.GetEquippedGrip();
 
             #endregion
             //Max Out Ammo.

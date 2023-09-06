@@ -2,8 +2,6 @@ using UnityEngine;
 using System;
 using UnityEngine.Events;
 using System.Collections.Generic;
-using InfimaGames.LowPolyShooterPack;
-using UnityEngine.Networking.Types;
 
 [RequireComponent(typeof(Collider))]
 public class DamageHandler : MonoBehaviour
@@ -20,7 +18,6 @@ public class DamageHandler : MonoBehaviour
     public DamageHandlerType Type => _type;
 
     public event UnityAction<DamageHandlerType> HitTaken;
-    public event UnityAction HeadKilled;
 
     private void Start()
     {
@@ -97,10 +94,7 @@ public class DamageHandler : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (_isIgnoringPlayer && collision.gameObject.TryGetComponent(out PlayerCollider player))
-        {
-            //Physics.IgnoreLayerCollision(10, 17);
             Physics.IgnoreCollision(player.Collider, _collider);
-        }
     }
 
     private void SwitchLayerToIgnorePLayer()

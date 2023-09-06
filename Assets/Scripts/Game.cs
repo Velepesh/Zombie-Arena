@@ -8,13 +8,16 @@ public class Game : MonoBehaviour
 {
     [SerializeField] private CompositionOrder _compositionOrder;
     [SerializeField] private ZombieTargetsCompositeRoot _targets;
+    [SerializeField] private WalletSetup _walletSetup;
+    [SerializeField] private ScoreSetup _scoreSetup;
+
+    private bool _isGameOver;
 
     public event UnityAction GameStarted;
     public event UnityAction GameOver;
     public event UnityAction Continued;
     public event UnityAction Paused;
 
-    private bool _isGameOver;
 
     private void OnEnable()
     {
@@ -64,6 +67,7 @@ public class Game : MonoBehaviour
     private void EndGame()
     {
         _isGameOver = true;
+        _walletSetup.Wallet.AddMoney(_scoreSetup.Score.TotalScore);
         GameOver?.Invoke();
         StopTime();
     }

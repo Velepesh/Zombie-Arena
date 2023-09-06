@@ -99,23 +99,23 @@ namespace InfimaGames.LowPolyShooterPack
         #region FIELDS
 
         /// <summary>
-        /// Equipped Scope.
+        /// Equiped Scope.
         /// </summary>
         private ScopeBehaviour scopeBehaviour;
         /// <summary>
-        /// Equipped Muzzle.
+        /// Equiped Muzzle.
         /// </summary>
         private MuzzleBehaviour muzzleBehaviour;
         /// <summary>
-        /// Equipped Laser.
+        /// Equiped Laser.
         /// </summary>
         private LaserBehaviour laserBehaviour; 
         /// <summary>
-        /// Equipped Grip.
+        /// Equiped Grip.
         /// </summary>
         private GripBehaviour gripBehaviour;
         /// <summary>
-        /// Equipped Magazine.
+        /// Equiped Magazine.
         /// </summary>
         private MagazineBehaviour magazineBehaviour;
 

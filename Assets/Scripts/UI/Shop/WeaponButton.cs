@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class WeaponButton : MonoBehaviour
 {
     [SerializeField] private Color _defaultColor;
+    [SerializeField] private Color _boughtColor;
     [SerializeField] private Color _selectedColor;
     [SerializeField] private Color _choosedColor;
 
@@ -29,6 +30,11 @@ public class WeaponButton : MonoBehaviour
     private void OnDisable()
     {
         _button.onClick.RemoveListener(OnButtonClick);
+    }
+
+    public void SetBoughtColor()
+    {
+        SetImage(_boughtColor);
     }
 
     public void SetDefaultColor()

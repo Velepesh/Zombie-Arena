@@ -37,6 +37,8 @@ public class WeaponView : ItemView
     {
         if (_weapon.IsEquip)
             _button.SetChoosedColor();
+        else if (_weapon.IsBought)
+            _button.SetBoughtColor();
         else
             _button.SetDefaultColor();
     }

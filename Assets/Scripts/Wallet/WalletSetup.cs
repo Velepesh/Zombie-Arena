@@ -7,14 +7,12 @@ public class WalletSetup : MonoBehaviour
     private WalletPresenter _presenter;
     private Wallet _model;
 
-    private void Awake()
-    {
-        _model = new Wallet();
-        _presenter = new WalletPresenter(_view, _model);
-    }
+    public Wallet Wallet => _model;
 
-    private void OnEnable()
+    public void Init(int money)
     {
+        _model = new Wallet(money);
+        _presenter = new WalletPresenter(_view, _model);
         _presenter.Enable();
     }
 

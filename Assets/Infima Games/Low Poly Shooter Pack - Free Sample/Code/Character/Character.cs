@@ -392,7 +392,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public override bool IsLowered()
 		{
-			//Weapons are never lowered if we don't even have a LowerWeapon component.
+			//WeaponsData are never lowered if we don't even have a LowerWeapon component.
 			if (lowerWeapon == null)
 				return false;
 

@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+    [SerializeField] private WalletSetup _walletSetup;
     [SerializeField] private Spec _spec;
     [SerializeField] private Equipment _equipment;
-    
+
     private WeaponView[] _weaponViews;
     private EquipmentView[] _equipmentViews;
 
@@ -20,9 +21,11 @@ public class Shop : MonoBehaviour
         for (int i = 0; i < _weaponViews.Length; i++)
             _weaponViews[i].Clicked += OnWeaponViewClicked;
 
-        _equipment.Inited += OnInited;
-        _equipment.Equipped += OnEquipped;
+        _equipment.Inited += OnEquipmenInited;
+        _equipment.Equiped += OnEquiped;
+        _spec.EquipButtonClicked += OnEquipButtonClicked;
         _spec.BuyButtonClicked += OnBuyButtonClicked;
+        _spec.AdsButtonClicked += OnAdsButtonClicked;
     }
 
     private void OnDisable()
@@ -30,12 +33,14 @@ public class Shop : MonoBehaviour
         for (int i = 0; i < _weaponViews.Length; i++)
             _weaponViews[i].Clicked -= OnWeaponViewClicked;
 
-        _equipment.Inited -= OnInited;
-        _equipment.Equipped -= OnEquipped;
+        _equipment.Inited -= OnEquipmenInited;
+        _equipment.Equiped -= OnEquiped;
+        _spec.EquipButtonClicked -= OnEquipButtonClicked;
         _spec.BuyButtonClicked -= OnBuyButtonClicked;
+        _spec.AdsButtonClicked -= OnAdsButtonClicked;
     }
 
-    private void OnInited()
+    private void OnEquipmenInited()
     {
         Weapon weapon = _equipment.AutomaticRifle;
 
@@ -44,7 +49,7 @@ public class Shop : MonoBehaviour
         InitCurrentWeaponView(weapon);
     }
 
-    private void OnEquipped(Weapon weapon)
+    private void OnEquiped(Weapon weapon)
     {
         UpdateEquipmentView(weapon);
     }
@@ -55,7 +60,38 @@ public class Shop : MonoBehaviour
         UpdateExceptSelectWeaponViews(view);
     }
 
+    private void OnEquipButtonClicked(Weapon weapon)
+    {
+        Equip(weapon);
+    }
+
     private void OnBuyButtonClicked(Weapon weapon)
+    {
+        TryBuyWeapon(weapon);
+    }
+
+    private void OnAdsButtonClicked(Weapon weapon)
+    {
+        UnlockWeaponForOnTry(weapon);
+    }
+
+    private void UnlockWeaponForOnTry(Weapon weapon)
+    {
+        weapon.Unlock();
+        Equip(weapon);
+    }
+
+    private void TryBuyWeapon(Weapon weapon)
+    {
+        if (_walletSetup.Wallet.Money >= weapon.Price)
+        {
+            weapon.Buy();
+            _walletSetup.Wallet.RemoveMoney(weapon.Price);
+            Equip(weapon);
+        }
+    }
+
+    private void Equip(Weapon weapon)
     {
         _equipment.UpdateEquipment(weapon);
         UpdateWeaponViewByType(weapon);
