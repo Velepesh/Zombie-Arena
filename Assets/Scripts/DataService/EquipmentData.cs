@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 
 [Serializable]
-public class SaveData
+public class EquipmentData
 {
-    public int Level = 1;
-    public int Money = 0;
     public Dictionary<string, WeaponData> Weapons = new Dictionary<string, WeaponData>()
     {
         { "AK-47", new WeaponData(){IsBought = true, IsEquip = true, IsUnlock = true}},
@@ -23,8 +21,15 @@ public class SaveData
 }
 
 [Serializable]
+public class WalletData
+{
+    public int Money = 0;
+}
+
+[Serializable]
 public class WeaponData
 {
+
     public bool IsBought;
     public bool IsEquip;
     public bool IsUnlock;

@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using InfimaGames.LowPolyShooterPack;
 using System;
 
-public class GameStats : MonoBehaviour 
+public class EquipmentSaver : MonoBehaviour , ISaver
 {
-    [SerializeField] private Game _game;
-    [SerializeField] private WalletSetup _walletSetup;
     [SerializeField] private List<Weapon> _weapons;
 
+    readonly string _path = "/eqipment.json";
+
     private IDataService _dataService;
-    private SaveData _saveData;
+    private EquipmentData _data;
 
     public void Awake()
     {
         _dataService = new JsonDataService();
-        _saveData = Load();
-
-        _walletSetup.Init(_saveData.Money);
+        LoadData();
 
         for (int i = 0; i < _weapons.Count; i++)
         {
-            WeaponData weaponData = _saveData.Weapons[_weapons[i].Label];
+            WeaponData weaponData = _data.Weapons[_weapons[i].Label];
 
             if (weaponData == null)
                 throw new ArgumentNullException(nameof(weaponData));
@@ -32,8 +30,6 @@ public class GameStats : MonoBehaviour
 
     private void OnEnable()
     {
-        _game.GameOver += OnGameOver;
-
         for (int i = 0; i < _weapons.Count; i++)
         {
             Weapon weapon = _weapons[i];
@@ -45,8 +41,6 @@ public class GameStats : MonoBehaviour
 
     private void OnDisable()
     {
-        _game.GameOver -= OnGameOver;
-
         for (int i = 0; i < _weapons.Count; i++)
         {
             Weapon weapon = _weapons[i];
@@ -56,25 +50,13 @@ public class GameStats : MonoBehaviour
         }
     }
 
-    private void OnGameOver()
-    {
-        SetMoney();
-        SaveData(_saveData);
-    }
-
-    private void SetMoney()
-    {
-        _saveData.Money = _walletSetup.Wallet.Money;
-    }
-
     private void OnBought(Weapon weapon)
     {
         WeaponData weaponData = CheckSavedWeaponData(weapon);
 
         weaponData.IsBought = weapon.IsBought;
         weaponData.IsUnlock = weapon.IsUnlock;
-        SetMoney();
-        SaveData(_saveData);
+        SaveData(_path, _data);
     }
 
     private void OnEquiped(Weapon weapon)
@@ -86,12 +68,12 @@ public class GameStats : MonoBehaviour
 
         weaponData.IsEquip = weapon.IsEquip;
 
-        SaveData(_saveData);
+        SaveData(_path, _data);
     }
 
     private WeaponData CheckSavedWeaponData(Weapon weapon)
     {
-        WeaponData weaponData = _saveData.Weapons[weapon.Label];
+        WeaponData weaponData = _data.Weapons[weapon.Label];
 
         if (weaponData == null)
             throw new ArgumentNullException(nameof(weaponData));
@@ -99,13 +81,16 @@ public class GameStats : MonoBehaviour
         return weaponData;
     }
 
-    public void SaveData(SaveData data)
+    public void SaveData<EquipmentData>(string path ,EquipmentData data)
     {
-        _dataService.SaveData(data);
+        _dataService.SaveData(path, data);
     }
 
-    public SaveData Load()
+    public void LoadData()
     {
-        return _dataService.LoadData();
+        _data = _dataService.LoadData<EquipmentData>(_path);
+
+        if (_data == null)
+            _data = new EquipmentData();
     }
 }

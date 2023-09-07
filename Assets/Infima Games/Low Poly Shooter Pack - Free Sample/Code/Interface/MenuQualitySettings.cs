@@ -7,7 +7,7 @@ using UnityEngine.Rendering.PostProcessing;
 namespace InfimaGames.LowPolyShooterPack.Interface
 {
     /// <summary>
-    /// Quality Settings Menu.
+    /// Quality VolumeSettings Menu.
     /// </summary>
     public class MenuQualitySettings : Element
     {
@@ -50,7 +50,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         private PostProcessVolume postProcessingVolumeScope;
 
         /// <summary>
-        /// Depth Of Field Settings.
+        /// Depth Of Field VolumeSettings.
         /// </summary>
         private DepthOfField depthOfField;
 
@@ -209,7 +209,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             string sceneToLoad = SceneManager.GetActiveScene().path;
             
             #if UNITY_EDITOR
-            //Load the scene.
+            //SetValues the scene.
             UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(sceneToLoad, new LoadSceneParameters(LoadSceneMode.Single));
             #else
             //Load the scene.

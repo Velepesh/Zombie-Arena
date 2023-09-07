@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
-    /// Audio Settings used to interact with the AudioManagerService.
+    /// Audio VolumeSettings used to interact with the AudioManagerService.
     /// </summary>
     [System.Serializable]
     public struct AudioSettings

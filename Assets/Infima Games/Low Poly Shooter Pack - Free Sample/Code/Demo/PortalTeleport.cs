@@ -66,7 +66,7 @@ namespace InfimaGames.LowPolyShooterPack
         #region METHODS
 
         /// <summary>
-        /// Load the level!
+        /// SetValues the level!
         /// </summary>
         private IEnumerator LoadScene()
         {
@@ -83,7 +83,7 @@ namespace InfimaGames.LowPolyShooterPack
             AsyncOperation operation = default;
 
             #if UNITY_EDITOR
-            //Load the scene.
+            //SetValues the scene.
             operation = EditorSceneManager.LoadSceneAsyncInPlayMode(sceneToLoad, new LoadSceneParameters(LoadSceneMode.Single));
             #else
             //Load the scene.

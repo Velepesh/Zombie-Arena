@@ -1,5 +1,5 @@
 public interface IDataService 
 {
-    void SaveData(SaveData data);
-    SaveData LoadData();
+    void SaveData<T>(string path, T data);
+    T LoadData<T>(string path);
 }

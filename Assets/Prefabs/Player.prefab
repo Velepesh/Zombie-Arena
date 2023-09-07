@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &219496968
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 219496969}
+  m_Layer: 9
+  m_Name: Socket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &219496969
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219496968}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2554367612577570878}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &921209291
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,6 +95,37 @@ Transform:
   m_Father: {fileID: 2554367612871214438}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1976878918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1976878919}
+  m_Layer: 9
+  m_Name: Socket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1976878919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976878918}
+  m_LocalRotation: {x: -3.9443036e-31, y: -0, z: -4.01211e-40, w: 1}
+  m_LocalPosition: {x: 0, y: -0.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2554367612845614018}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3359195164498716
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +137,6 @@ GameObject:
   - component: {fileID: 6885624834967482587}
   - component: {fileID: 899249164947098046}
   - component: {fileID: 5777076007179800444}
-  - component: {fileID: 8214342665779485973}
   - component: {fileID: 4102230958353945555}
   - component: {fileID: 6885624834967482586}
   m_Layer: 11
@@ -111,7 +172,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 1
@@ -152,30 +213,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3359195164498716}
   m_Enabled: 1
---- !u!167 &8214342665779485973
-AudioReverbZone:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3359195164498716}
-  m_Enabled: 0
-  m_MinDistance: 10
-  m_MaxDistance: 15
-  m_ReverbPreset: 20
-  m_Room: -1000
-  m_RoomHF: -2000
-  m_DecayTime: 1.49
-  m_DecayHFRatio: 0.5
-  m_Reflections: -2466
-  m_ReflectionsDelay: 0.179
-  m_Reverb: -1926
-  m_ReverbDelay: 0.1
-  m_HFReference: 5000
-  m_Diffusion: 21
-  m_Density: 100
-  m_LFReference: 250
-  m_RoomLF: 0
 --- !u!114 &4102230958353945555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,8 +1014,8 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.35
-  m_SlopeLimit: 15
-  m_StepOffset: 0.3
+  m_SlopeLimit: 30
+  m_StepOffset: 0.5
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
@@ -991,7 +1028,7 @@ AudioSource:
   m_GameObject: {fileID: 2801796583251544331}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+  OutputAudioMixerGroup: {fileID: -1045377869370019973, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
@@ -4244,10 +4281,16 @@ PrefabInstance:
       propertyPath: _casingPool
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4000221559376198728, guid: abbe9d61fbf66fa4fb048831a9487ff4,
+        type: 3}
+      propertyPath: _mixerGroup
+      value: 
+      objectReference: {fileID: -1045377869370019973, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+        type: 2}
     - target: {fileID: 4270201354354937926, guid: abbe9d61fbf66fa4fb048831a9487ff4,
         type: 3}
       propertyPath: m_Name
-      value: AR_03
+      value: SCAR
       objectReference: {fileID: 0}
     - target: {fileID: 7415513210221645958, guid: abbe9d61fbf66fa4fb048831a9487ff4,
         type: 3}
@@ -4285,6 +4328,12 @@ PrefabInstance:
       propertyPath: _casingPool
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 632795184795671678, guid: 0c3acf3ee868bc8468b9eb219dde6b0a,
+        type: 3}
+      propertyPath: _mixerGroup
+      value: 
+      objectReference: {fileID: -1045377869370019973, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+        type: 2}
     - target: {fileID: 632795184795671678, guid: 0c3acf3ee868bc8468b9eb219dde6b0a,
         type: 3}
       propertyPath: socketEjection
@@ -4363,7 +4412,7 @@ PrefabInstance:
     - target: {fileID: 342775644239754457, guid: 8ab45c53f3cad9e4a980e09367d1569b,
         type: 3}
       propertyPath: m_Name
-      value: SMG_03
+      value: UZI
       objectReference: {fileID: 0}
     - target: {fileID: 576638254789282178, guid: 8ab45c53f3cad9e4a980e09367d1569b,
         type: 3}
@@ -4375,6 +4424,12 @@ PrefabInstance:
       propertyPath: _casingPool
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 576638254789282178, guid: 8ab45c53f3cad9e4a980e09367d1569b,
+        type: 3}
+      propertyPath: _mixerGroup
+      value: 
+      objectReference: {fileID: -1045377869370019973, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+        type: 2}
     - target: {fileID: 576638254789282179, guid: 8ab45c53f3cad9e4a980e09367d1569b,
         type: 3}
       propertyPath: magazineIndexRandom
@@ -4468,6 +4523,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1165573982405535024, guid: 6bea6ac9fff6d874c93cf2b9098a2d00,
         type: 3}
+      propertyPath: _mixerGroup
+      value: 
+      objectReference: {fileID: -1045377869370019973, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+        type: 2}
+    - target: {fileID: 1165573982405535024, guid: 6bea6ac9fff6d874c93cf2b9098a2d00,
+        type: 3}
+      propertyPath: canReloadAimed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1165573982405535024, guid: 6bea6ac9fff6d874c93cf2b9098a2d00,
+        type: 3}
       propertyPath: socketEjection
       value: 
       objectReference: {fileID: 0}
@@ -4529,7 +4595,7 @@ PrefabInstance:
     - target: {fileID: 2084492134680172647, guid: 6bea6ac9fff6d874c93cf2b9098a2d00,
         type: 3}
       propertyPath: m_Name
-      value: SMG_04
+      value: P90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bea6ac9fff6d874c93cf2b9098a2d00, type: 3}
@@ -4554,6 +4620,16 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 6977240678335480601, guid: b1890b8ada8d2df41844bd9b780a966e,
         type: 3}
+      propertyPath: _price
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977240678335480601, guid: b1890b8ada8d2df41844bd9b780a966e,
+        type: 3}
+      propertyPath: _isBought
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977240678335480601, guid: b1890b8ada8d2df41844bd9b780a966e,
+        type: 3}
       propertyPath: _bulletPool
       value: 
       objectReference: {fileID: 0}
@@ -4562,6 +4638,12 @@ PrefabInstance:
       propertyPath: _casingPool
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6977240678335480601, guid: b1890b8ada8d2df41844bd9b780a966e,
+        type: 3}
+      propertyPath: _mixerGroup
+      value: 
+      objectReference: {fileID: -1045377869370019973, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+        type: 2}
     - target: {fileID: 6977240678335480601, guid: b1890b8ada8d2df41844bd9b780a966e,
         type: 3}
       propertyPath: socketEjection
@@ -4625,7 +4707,7 @@ PrefabInstance:
     - target: {fileID: 7788213318910131790, guid: b1890b8ada8d2df41844bd9b780a966e,
         type: 3}
       propertyPath: m_Name
-      value: Handgun_03
+      value: Colt M1911
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1890b8ada8d2df41844bd9b780a966e, type: 3}
@@ -4718,10 +4800,21 @@ PrefabInstance:
       propertyPath: _casingPool
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8513411812892545505, guid: 6495af57fe9482d49bfad70e6004c0c1,
+        type: 3}
+      propertyPath: _mixerGroup
+      value: 
+      objectReference: {fileID: -1045377869370019973, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+        type: 2}
+    - target: {fileID: 8513411812892545505, guid: 6495af57fe9482d49bfad70e6004c0c1,
+        type: 3}
+      propertyPath: socketEjection
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8855448104206216374, guid: 6495af57fe9482d49bfad70e6004c0c1,
         type: 3}
       propertyPath: m_Name
-      value: SMG_05
+      value: UMP 45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6495af57fe9482d49bfad70e6004c0c1, type: 3}
@@ -4747,7 +4840,7 @@ PrefabInstance:
     - target: {fileID: 8150106233696627273, guid: 1e90f1a8b3db49b408312ca2a153e460,
         type: 3}
       propertyPath: m_Name
-      value: Handgun_01
+      value: Beretta 92
       objectReference: {fileID: 0}
     - target: {fileID: 8813877470980698355, guid: 1e90f1a8b3db49b408312ca2a153e460,
         type: 3}
@@ -4806,6 +4899,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9069008996029042914, guid: 1e90f1a8b3db49b408312ca2a153e460,
         type: 3}
+      propertyPath: _price
+      value: 8000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9069008996029042914, guid: 1e90f1a8b3db49b408312ca2a153e460,
+        type: 3}
       propertyPath: _bulletPool
       value: 
       objectReference: {fileID: 0}
@@ -4814,16 +4912,28 @@ PrefabInstance:
       propertyPath: _casingPool
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 9069008996029042914, guid: 1e90f1a8b3db49b408312ca2a153e460,
+        type: 3}
+      propertyPath: _mixerGroup
+      value: 
+      objectReference: {fileID: -1045377869370019973, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+        type: 2}
     - target: {fileID: 9069008996375031846, guid: 1e90f1a8b3db49b408312ca2a153e460,
         type: 3}
       propertyPath: socket
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 219496969}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e90f1a8b3db49b408312ca2a153e460, type: 3}
 --- !u!4 &2554367611704544051 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8813877470980698355, guid: 1e90f1a8b3db49b408312ca2a153e460,
+    type: 3}
+  m_PrefabInstance: {fileID: 6423189783307549632}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2554367612577570878 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8813877471717104638, guid: 1e90f1a8b3db49b408312ca2a153e460,
     type: 3}
   m_PrefabInstance: {fileID: 6423189783307549632}
   m_PrefabAsset: {fileID: 0}
@@ -4844,7 +4954,7 @@ PrefabInstance:
         type: 3}
       propertyPath: socket
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1976878919}
     - target: {fileID: 4628495010031809854, guid: 81f1ed186fbcb8a43b9804f9b825c3fc,
         type: 3}
       propertyPath: _bulletPool
@@ -4855,6 +4965,12 @@ PrefabInstance:
       propertyPath: _casingPool
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4628495010031809854, guid: 81f1ed186fbcb8a43b9804f9b825c3fc,
+        type: 3}
+      propertyPath: _mixerGroup
+      value: 
+      objectReference: {fileID: -1045377869370019973, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+        type: 2}
     - target: {fileID: 5165926521925292767, guid: 81f1ed186fbcb8a43b9804f9b825c3fc,
         type: 3}
       propertyPath: m_RootOrder
@@ -4913,13 +5029,19 @@ PrefabInstance:
     - target: {fileID: 5546990402232387685, guid: 81f1ed186fbcb8a43b9804f9b825c3fc,
         type: 3}
       propertyPath: m_Name
-      value: Handgun_02
+      value: HK USP
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81f1ed186fbcb8a43b9804f9b825c3fc, type: 3}
 --- !u!4 &2554367611917363451 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5165926521925292767, guid: 81f1ed186fbcb8a43b9804f9b825c3fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 7260894423447812644}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2554367612845614018 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5165926523086330342, guid: 81f1ed186fbcb8a43b9804f9b825c3fc,
     type: 3}
   m_PrefabInstance: {fileID: 7260894423447812644}
   m_PrefabAsset: {fileID: 0}
@@ -4938,6 +5060,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 4704639830401832757, guid: fa94b4f437e8e1b46b8e389c11637e4d,
         type: 3}
+      propertyPath: _isBought
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704639830401832757, guid: fa94b4f437e8e1b46b8e389c11637e4d,
+        type: 3}
       propertyPath: _bulletPool
       value: 
       objectReference: {fileID: 0}
@@ -4946,6 +5073,12 @@ PrefabInstance:
       propertyPath: _casingPool
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4704639830401832757, guid: fa94b4f437e8e1b46b8e389c11637e4d,
+        type: 3}
+      propertyPath: _mixerGroup
+      value: 
+      objectReference: {fileID: -1045377869370019973, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+        type: 2}
     - target: {fileID: 5098221574293303512, guid: fa94b4f437e8e1b46b8e389c11637e4d,
         type: 3}
       propertyPath: m_RootOrder
@@ -5004,7 +5137,7 @@ PrefabInstance:
     - target: {fileID: 5587653419734952546, guid: fa94b4f437e8e1b46b8e389c11637e4d,
         type: 3}
       propertyPath: m_Name
-      value: AR_01
+      value: AK-47
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa94b4f437e8e1b46b8e389c11637e4d, type: 3}
@@ -5116,6 +5249,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: 9f77adae69df149489713349d0178101,
         type: 2}
+    - target: {fileID: 5315561105729065321, guid: 19dd7415061dfeb46bef9246bcc228b8,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5963987298969849188, guid: 19dd7415061dfeb46bef9246bcc228b8,
         type: 3}
       propertyPath: m_IsActive
@@ -5129,7 +5267,7 @@ PrefabInstance:
     - target: {fileID: 5963987300740798984, guid: 19dd7415061dfeb46bef9246bcc228b8,
         type: 3}
       propertyPath: m_Name
-      value: Sniper
+      value: Sniper Rifle
       objectReference: {fileID: 0}
     - target: {fileID: 6453524629778120882, guid: 19dd7415061dfeb46bef9246bcc228b8,
         type: 3}
@@ -5188,6 +5326,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6774890518537414483, guid: 19dd7415061dfeb46bef9246bcc228b8,
         type: 3}
+      propertyPath: weaponName
+      value: Sniper Rifle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6774890518537414483, guid: 19dd7415061dfeb46bef9246bcc228b8,
+        type: 3}
       propertyPath: _bulletPool
       value: 
       objectReference: {fileID: 0}
@@ -5196,6 +5339,12 @@ PrefabInstance:
       propertyPath: _casingPool
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6774890518537414483, guid: 19dd7415061dfeb46bef9246bcc228b8,
+        type: 3}
+      propertyPath: _mixerGroup
+      value: 
+      objectReference: {fileID: -1045377869370019973, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+        type: 2}
     - target: {fileID: 6774890519563996408, guid: 19dd7415061dfeb46bef9246bcc228b8,
         type: 3}
       propertyPath: socket
@@ -5237,7 +5386,7 @@ PrefabInstance:
     - target: {fileID: 6081190339819270136, guid: aca5da6d50e159741ac17043dcd5b05d,
         type: 3}
       propertyPath: m_Name
-      value: AR_02
+      value: M4A1
       objectReference: {fileID: 0}
     - target: {fileID: 6387744420375810723, guid: aca5da6d50e159741ac17043dcd5b05d,
         type: 3}
@@ -5249,6 +5398,12 @@ PrefabInstance:
       propertyPath: _casingPool
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6387744420375810723, guid: aca5da6d50e159741ac17043dcd5b05d,
+        type: 3}
+      propertyPath: _mixerGroup
+      value: 
+      objectReference: {fileID: -1045377869370019973, guid: 3fcdb23bde063e94fa0b60ccf87604d6,
+        type: 2}
     - target: {fileID: 6858818171626239298, guid: aca5da6d50e159741ac17043dcd5b05d,
         type: 3}
       propertyPath: m_RootOrder

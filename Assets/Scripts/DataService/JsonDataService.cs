@@ -5,25 +5,25 @@ using Newtonsoft.Json;
 
 public class JsonDataService : IDataService
 {
-    string _relativePath = Application.persistentDataPath + "/save.json";
-
-    public void SaveData(SaveData Data)
+    public void SaveData<T>(string path, T data)
     {
+        string relativePath = Application.persistentDataPath + path;
+
         try
         {
-            if (File.Exists(_relativePath))
+            if (File.Exists(relativePath))
             {
                 Debug.Log("Data exist. Deleting old file and writing a new one!");
-                File.Delete(_relativePath);
+                File.Delete(relativePath);
             }
             else
             {
                 Debug.Log("Writing file for the first time!");
             }
          
-            using FileStream stream = File.Create(_relativePath);
+            using FileStream stream = File.Create(relativePath);
             stream.Close();
-            File.WriteAllText(_relativePath, JsonConvert.SerializeObject(Data, Formatting.Indented));
+            File.WriteAllText(relativePath, JsonConvert.SerializeObject(data, Formatting.Indented));
         }
         catch (Exception e)
         {
@@ -31,17 +31,19 @@ public class JsonDataService : IDataService
         }
     }
 
-    public SaveData LoadData()
+    public T LoadData<T>(string path)
     {
-        if (File.Exists(_relativePath) == false)
+        string relativePath = Application.persistentDataPath + path;
+
+        if (File.Exists(relativePath) == false)
         {
-            Debug.Log($"Cannot load file at {_relativePath}. File does not exist!");
-            return new SaveData();
+            Debug.Log($"Cannot load file at {relativePath}. File does not exist!");
+            return default(T);
         }
 
         try
         {
-            SaveData data = JsonConvert.DeserializeObject<SaveData>(File.ReadAllText(_relativePath));
+            T data = JsonConvert.DeserializeObject<T>(File.ReadAllText(relativePath));
             return data;
         }
         catch(Exception e)

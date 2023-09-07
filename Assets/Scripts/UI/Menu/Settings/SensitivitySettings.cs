@@ -6,10 +6,6 @@ public class SensitivitySettings : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
 
-    private const string SENSITIVITY = "Sensitivity";
-
-    private float _sensitivity => PlayerPrefs.GetFloat(SENSITIVITY, 0);
-
     public event UnityAction<float> SensitivityUpdated;
 
     private void OnEnable()
@@ -28,23 +24,14 @@ public class SensitivitySettings : MonoBehaviour
         });
     }
 
-    private void Start() => Load();
+    public void Init(float value)
+    {
+        _slider.value = value;
+        UpdateSensitivityValue(value);
+    }
 
-    public void UpdateSensitivityValue(float value)
+    private void UpdateSensitivityValue(float value)
     {
         SensitivityUpdated?.Invoke(value);
-
-        SaveValue(value);
-    }
-
-    private void Load()
-    {
-        _slider.value = _sensitivity;
-        UpdateSensitivityValue(_sensitivity);
-    }
-
-    private void SaveValue(float value)
-    {
-        PlayerPrefs.SetFloat(SENSITIVITY, value);
     }
 }

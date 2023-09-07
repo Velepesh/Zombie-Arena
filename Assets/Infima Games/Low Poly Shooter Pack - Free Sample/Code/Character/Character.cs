@@ -284,7 +284,7 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			//Cache the movement behaviour.
 			movementBehaviour = GetComponent<MovementBehaviour>();
-		}
+        }
 		/// <summary>
 		/// Start.
 		/// </summary>
@@ -1139,7 +1139,7 @@ namespace InfimaGames.LowPolyShooterPack
 			//Go back if we cannot even play the holster animation.
 			if (!CanPlayAnimationHolster())
 				return;
-			
+
 			//Switch.
 			switch (context.phase)
 			{
@@ -1163,6 +1163,7 @@ namespace InfimaGames.LowPolyShooterPack
 					break;
 			}
 		}
+
 		/// <summary>
 		/// Throw Grenade. 
 		/// </summary>

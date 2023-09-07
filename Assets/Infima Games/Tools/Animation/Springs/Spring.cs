@@ -12,7 +12,7 @@ namespace InfimaGames
     public class Spring
     {
         /// <summary>
-        /// Settings.
+        /// VolumeSettings.
         /// </summary>
         private SpringSettings settings;
 
@@ -66,7 +66,7 @@ namespace InfimaGames
         }
 
         /// <summary>
-        /// Adjust Settings.
+        /// Adjust VolumeSettings.
         /// </summary>
         public void Adjust(SpringSettings newSettings) => settings = newSettings;
 
@@ -147,7 +147,7 @@ namespace InfimaGames
 
         public Vector3 Evaluate(SpringSettings newSettings)
         {
-            //Adjust Settings.
+            //Adjust VolumeSettings.
             Adjust(newSettings);
 
             //Evaluate.

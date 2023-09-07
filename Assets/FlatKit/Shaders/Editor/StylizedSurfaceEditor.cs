@@ -254,7 +254,7 @@ public class StylizedSurfaceEditor : UnityEditor.ShaderGUI {
             {
                 BlendMode blendMode = (BlendMode) material.GetFloat("_Blend");
 
-                // Specific Transparent Mode Settings
+                // Specific Transparent Mode VolumeSettings
                 switch (blendMode)
                 {
                     case BlendMode.Alpha:
@@ -280,7 +280,7 @@ public class StylizedSurfaceEditor : UnityEditor.ShaderGUI {
                         break;
                 }
 
-                // General Transparent Material Settings
+                // General Transparent Material VolumeSettings
                 material.SetOverrideTag("RenderType", "Transparent");
                 material.SetInt("_ZWrite", 0);
                 material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
