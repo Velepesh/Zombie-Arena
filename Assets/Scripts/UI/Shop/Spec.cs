@@ -90,13 +90,18 @@ public class Spec : MonoBehaviour
                 _inventoryText.text = _equipmentText;
             else
                 _inventoryText.text = _unlockedText;
+
+            return;
         }
+
+        _inventoryText.text = "";
     }
 
     private void OnEquipButtonClick()
     {
         EquipButtonClicked?.Invoke(_currentWeapon);
         SetInventoryText(_currentWeapon);
+        UpdateButtonsVisibility(_currentWeapon);
     }
 
     private void OnBuyButtonClick()

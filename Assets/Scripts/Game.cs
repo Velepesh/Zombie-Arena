@@ -6,13 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
-    [SerializeField] private CompositionOrder _compositionOrder;
     [SerializeField] private ZombieTargetsCompositeRoot _targets;
     [SerializeField] private WalletSetup _walletSetup;
     [SerializeField] private ScoreSetup _scoreSetup;
 
     private bool _isGameOver;
 
+    public Score Score => _scoreSetup.Score;
+
+    public event UnityAction Won;
     public event UnityAction GameStarted;
     public event UnityAction GameOver;
     public event UnityAction Continued;
@@ -32,7 +34,6 @@ public class Game : MonoBehaviour
     public void StartLevel()
     {
         StartTime();
-        _compositionOrder.Compose();
         GameStarted?.Invoke();
     }
 

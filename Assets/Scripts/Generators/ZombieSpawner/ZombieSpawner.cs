@@ -183,9 +183,4 @@ public class Wave
     public List<Zombie> Templates;
     public float Delay;
     public int Count => Templates.Count;
-
-    public void RemoveTemplate(Zombie template)
-    {
-        Templates.Remove(template);
-    }
 }

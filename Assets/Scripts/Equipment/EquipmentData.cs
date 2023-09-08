@@ -21,12 +21,6 @@ public class EquipmentData
 }
 
 [Serializable]
-public class WalletData
-{
-    public int Money = 0;
-}
-
-[Serializable]
 public class WeaponData
 {
 

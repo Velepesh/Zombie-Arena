@@ -34,7 +34,7 @@ public class JsonDataService : IDataService
     public T LoadData<T>(string path)
     {
         string relativePath = Application.persistentDataPath + path;
-
+        Debug.Log(relativePath);
         if (File.Exists(relativePath) == false)
         {
             Debug.Log($"Cannot load file at {relativePath}. File does not exist!");

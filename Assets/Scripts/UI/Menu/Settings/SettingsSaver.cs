@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Device;
 
 public class SettingsSaver : MonoBehaviour, ISaver
 {
@@ -42,6 +43,12 @@ public class SettingsSaver : MonoBehaviour, ISaver
         }
     }
 
+    private void Start()
+    {
+        for (int i = 0; i < _settingsScreens.Count; i++)
+            SetSettingsData(_settingsScreens[i]);
+    }
+
     public void LoadData()
     {
         _sensitivityData = LoadSettings(_sensitivityPath);
@@ -55,6 +62,11 @@ public class SettingsSaver : MonoBehaviour, ISaver
     }
 
     private void OnShowed(SettingsScreen screen)
+    {
+        SetSettingsData(screen);
+    }
+
+    private void SetSettingsData(SettingsScreen screen)
     {
         screen.SensitivitySettings.Init(_sensitivityData.Value);
         screen.VolumeSettings.Init(_sfxData.Value, _musicData.Value);
