@@ -1,26 +1,33 @@
 ﻿using InfimaGames.LowPolyShooterPack;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerEnabler : MonoBehaviour
+public class PlayerSetuper : MonoBehaviour
 {
     [SerializeField] private Game _game;
-    [SerializeField] private Camera _mainCamera;
-    [SerializeField] private Camera _cameraDepth;
     [SerializeField] private Character _character;
     [SerializeField] private LowerWeapon _lowerWeapon;
     [SerializeField] private PlayerInput _input;
     [SerializeField] private Animator _animator;
+    [SerializeField] private float _delayBeforeDeactivate;
+
+    private int _millisecindDelay => (int)_delayBeforeDeactivate * 1000;
+
+    private void OnValidate()
+    {
+        _delayBeforeDeactivate = Mathf.Clamp(_delayBeforeDeactivate, 0, float.MaxValue);
+    }
 
     private void Awake()
     {
-        DisableCamera(_cameraDepth);
         Deactivate();
     }
 
     private void OnEnable()
     {
         _game.GameStarted += OnGameStarted;
+        _game.Won += OnWon;
         _game.GameOver += OnGameOver;
         _game.Paused += OnPaused;
         _game.Continued += OnContinued;
@@ -29,10 +36,12 @@ public class PlayerEnabler : MonoBehaviour
     private void OnDisable()
     {
         _game.GameStarted -= OnGameStarted;
+        _game.Won -= OnWon;
         _game.GameOver -= OnGameOver;
         _game.Paused -= OnPaused;
         _game.Continued -= OnContinued;
     }
+
 
     public void OnTryDeactivate(InputAction.CallbackContext context)
     {
@@ -41,14 +50,18 @@ public class PlayerEnabler : MonoBehaviour
 
     private void OnGameStarted()
     {
-        EnableCamera(_cameraDepth);
         Activate();
     }
 
-    private void OnGameOver()
+    private async void OnWon()
     {
-        DisableCamera(_mainCamera);
-        DisableCamera(_cameraDepth);
+        await Task.Delay(_millisecindDelay);
+        Deactivate();
+    }
+
+    private async void OnGameOver()
+    {
+        await Task.Delay(_millisecindDelay);
         Deactivate();
     }
 
@@ -76,15 +89,5 @@ public class PlayerEnabler : MonoBehaviour
         _lowerWeapon.enabled = false;
         _input.enabled = false;
         _animator.enabled = false;
-    }
-
-    private void EnableCamera(Camera camera)
-    {
-        camera.enabled = true;
-    }
-
-    private void DisableCamera(Camera camera)
-    {
-        camera.enabled = false;
     }
 }

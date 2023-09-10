@@ -9,6 +9,8 @@ public class CanvasFade : MonoBehaviour
 
     private Tween _fadeAction;
 
+    public float Duration => _duration;
+
     public event UnityAction Showed;
 
     public void Show()

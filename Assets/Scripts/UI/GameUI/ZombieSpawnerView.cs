@@ -26,10 +26,11 @@ public class ZombieSpawnerView : MonoBehaviour
 
     private void OnWaveSetted(int index)
     {
-        _waveNumberText.text = index.ToString();
+        int waveNumber = index + 1;
+        _waveNumberText.text = waveNumber.ToString();
         _currentZombiesNumber = _zombieSpawner.ZombiesNumberInWave;
 
-        WaveSetted?.Invoke(index);
+        WaveSetted?.Invoke(waveNumber);
 
         UpdateZombiesNumberView(_currentZombiesNumber);
     }

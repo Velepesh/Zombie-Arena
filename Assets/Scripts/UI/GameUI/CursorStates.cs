@@ -40,7 +40,6 @@ public class CursorStates : MonoBehaviour
     {
         UnlockCursor();
     }
-
     private void LockCursor()
     {
         IsCursorLocked = true;

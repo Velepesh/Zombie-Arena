@@ -878,7 +878,7 @@
             ]
         },
         {
-            "name": "Menu",
+            "name": "GameOver",
             "id": "be8390f8-51c1-4a70-9cb9-5418f57d4b57",
             "actions": [
                 {
@@ -911,6 +911,45 @@
                     "processors": "",
                     "groups": "",
                     "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Win",
+            "id": "a8d5cf45-a0b9-4720-81fc-128929963e35",
+            "actions": [
+                {
+                    "name": "NextLevel",
+                    "type": "Button",
+                    "id": "10076858-894c-481a-b37f-04612f0f948e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fe281f54-c28c-4eef-82e8-31f308591ce9",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextLevel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bc84322d-53fe-4d85-9190-356526983aff",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextLevel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

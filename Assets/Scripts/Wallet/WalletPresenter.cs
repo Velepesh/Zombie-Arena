@@ -1,3 +1,4 @@
+
 public class WalletPresenter
 {
     private WalletView _view;
@@ -13,7 +14,8 @@ public class WalletPresenter
 
     public void Enable()
     {
-        _game.GameOver += OnGameOver;//«¿Ã≈Õ»“‹ Õ¿ WON
+        _game.Won += OnMoneyAdded;
+        _game.GameOver += OnMoneyAdded;
         _model.MoneyChanged += OnMoneyChanged;
 
         _view.SetWalletValue(_model.Money);
@@ -21,11 +23,12 @@ public class WalletPresenter
 
     public void Disable()
     {
-        _game.GameOver -= OnGameOver;
+        _game.Won -= OnMoneyAdded;
+        _game.GameOver -= OnMoneyAdded;
         _model.MoneyChanged -= OnMoneyChanged;
     }
      
-    private void OnGameOver()
+    private void OnMoneyAdded()
     {
         _model.AddMoney(_game.Score.TotalScore);
     }

@@ -7,10 +7,11 @@ using UnityEngine.SceneManagement;
 public class Game : MonoBehaviour
 {
     [SerializeField] private ZombieTargetsCompositeRoot _targets;
-    [SerializeField] private WalletSetup _walletSetup;
+    [SerializeField] private ZombieSpawner _zombieSpawner;
     [SerializeField] private ScoreSetup _scoreSetup;
 
     private bool _isGameOver;
+    private bool _isWin;
 
     public Score Score => _scoreSetup.Score;
 
@@ -20,27 +21,26 @@ public class Game : MonoBehaviour
     public event UnityAction Continued;
     public event UnityAction Paused;
 
-
     private void OnEnable()
     {
+        _zombieSpawner.Ended += OnZombieEnded;
         _targets.TargetDied += OnDied;
     }
 
     private void OnDisable()
     {
+        _zombieSpawner.Ended -= OnZombieEnded;
         _targets.TargetDied -= OnDied;
     }
 
     public void StartLevel()
     {
-        StartTime();
         GameStarted?.Invoke();
     }
 
     public void Continue()
     {
         Continued?.Invoke();
-        StartTime();
     }
 
     public void OnTryPause(InputAction.CallbackContext context)
@@ -49,7 +49,6 @@ public class Game : MonoBehaviour
             return;
 
         Paused?.Invoke();
-        StopTime();
     }
 
     public void OnRestart(InputAction.CallbackContext context)
@@ -58,35 +57,37 @@ public class Game : MonoBehaviour
             Restart();
     }
 
+    public void OnNextLevel(InputAction.CallbackContext context)
+    {
+        if (_isWin)
+            Restart();
+    }
+
     public void Restart()
     {
         DOTween.Clear(true);
-        StartTime();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void EndGame()
+    private void OnZombieEnded()
     {
-        _isGameOver = true;
-        _walletSetup.Wallet.AddMoney(_scoreSetup.Score.TotalScore);
-        GameOver?.Invoke();
-        StopTime();
+        Win();
     }
 
-    private void StartTime()
+    private void Win()
     {
-        AudioListener.pause = false;
-        Time.timeScale = 1;
-    }
-
-    private void StopTime()
-    {
-        AudioListener.pause = true;
-        Time.timeScale = 0;
+        _isWin = true;
+        Won?.Invoke();
     }
 
     private void OnDied()
     {
-        EndGame();
+        Lose();
+    }
+
+    private void Lose()
+    {
+        _isGameOver = true;
+        GameOver?.Invoke();
     }
 }

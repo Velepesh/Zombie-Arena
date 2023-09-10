@@ -8,13 +8,14 @@ public class LevelCounter : MonoBehaviour
     [SerializeField] private Game _game;
 
     private readonly string _levelName = "Уровень";
-    private int _level;
+    
+    public int Level { get; private set; }
 
     public event UnityAction<int> LevelIncreased;
 
     public void Init(int level)
     {
-        _level = level;
+        Level = level;
         SetValue(level);
     }
 
@@ -30,8 +31,9 @@ public class LevelCounter : MonoBehaviour
 
     private void OnWon()
     {
-        _level++;
-        LevelIncreased?.Invoke(_level);
+        Level++;
+        LevelIncreased?.Invoke(Level);
+        SetValue(Level);
     }
 
     private void SetValue(int value)
