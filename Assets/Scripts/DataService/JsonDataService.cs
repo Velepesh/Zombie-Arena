@@ -12,14 +12,9 @@ public class JsonDataService : IDataService
         try
         {
             if (File.Exists(relativePath))
-            {
-                Debug.Log("Data exist. Deleting old file and writing a new one!");
                 File.Delete(relativePath);
-            }
             else
-            {
                 Debug.Log("Writing file for the first time!");
-            }
          
             using FileStream stream = File.Create(relativePath);
             stream.Close();
@@ -34,7 +29,6 @@ public class JsonDataService : IDataService
     public T LoadData<T>(string path)
     {
         string relativePath = Application.persistentDataPath + path;
-        Debug.Log(relativePath);
         if (File.Exists(relativePath) == false)
         {
             Debug.Log($"Cannot load file at {relativePath}. File does not exist!");

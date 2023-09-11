@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class DamageableHealthView : HealthView
 {
     [SerializeField] private TextScaleAnimation _textScaleAnimation;
-    [SerializeField] private TMP_Text _healthText;
+    //[SerializeField] private TMP_Text _healthText;
 
     public event UnityAction<int, int> HealthChanged;
 
@@ -18,13 +18,13 @@ public class DamageableHealthView : HealthView
     public void UpdateView(int health)
     {
         SetHealth(health);
-        ChangeHealthText(health);
-    }
-
-    private void ChangeHealthText(int health)
-    {
-        _healthText.text = health.ToString();
-        _textScaleAnimation.PlayScaleAnimation(_healthText);
         HealthChanged?.Invoke(StartHealth, health);
     }
+
+    //private void ChangeHealthText(int health)
+    //{
+    //    _healthText.text = health.ToString();
+    //    _textScaleAnimation.PlayScaleAnimation(_healthText);
+    //    HealthChanged?.Invoke(StartHealth, health);
+    //}
 }

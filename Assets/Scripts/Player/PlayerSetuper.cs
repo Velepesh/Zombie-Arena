@@ -1,6 +1,7 @@
 ﻿using InfimaGames.LowPolyShooterPack;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerSetuper : MonoBehaviour
@@ -27,6 +28,7 @@ public class PlayerSetuper : MonoBehaviour
     private void OnEnable()
     {
         _game.GameStarted += OnGameStarted;
+        _game.Restarted += OnRestarted;
         _game.Won += OnWon;
         _game.GameOver += OnGameOver;
         _game.Paused += OnPaused;
@@ -36,6 +38,7 @@ public class PlayerSetuper : MonoBehaviour
     private void OnDisable()
     {
         _game.GameStarted -= OnGameStarted;
+        _game.Restarted -= OnRestarted;
         _game.Won -= OnWon;
         _game.GameOver -= OnGameOver;
         _game.Paused -= OnPaused;
@@ -53,15 +56,24 @@ public class PlayerSetuper : MonoBehaviour
         Activate();
     }
 
-    private async void OnWon()
+    private void OnWon()
+    {
+        EndLevel();
+    }
+
+    private void OnGameOver()
+    {
+        EndLevel();
+    }
+
+    private async void EndLevel()
     {
         await Task.Delay(_millisecindDelay);
         Deactivate();
     }
 
-    private async void OnGameOver()
+    private void OnRestarted()
     {
-        await Task.Delay(_millisecindDelay);
         Deactivate();
     }
 

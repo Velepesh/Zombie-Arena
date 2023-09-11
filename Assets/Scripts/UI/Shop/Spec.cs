@@ -9,15 +9,14 @@ public class Spec : MonoBehaviour
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private TMP_Text _label;
     [SerializeField] private TMP_Text _price;
-    [SerializeField] private TMP_Text _inventoryText;
+    [SerializeField] private TMP_Text _inEquipmentText;
+    [SerializeField] private TMP_Text _openText;
     [SerializeField] private Ñharacteristic _damageCharacteristic;
     [SerializeField] private Ñharacteristic _rpmCharacteristic;
     [SerializeField] private Ñharacteristic _magazineCharacteristic;
     [SerializeField] private Ñharacteristic _hipAccuracyCharacteristic;
     [SerializeField] private Ñharacteristic _aimAccuracyCharacteristic;
     [SerializeField] private Ñharacteristic _mobilityCharacteristic;
-    [SerializeField] private string _equipmentText;
-    [SerializeField] private string _unlockedText;
     [SerializeField] private Button _buyButton;
     [SerializeField] private Button _unlockByAdsButton;
     [SerializeField] private Button _equipButton;
@@ -84,17 +83,26 @@ public class Spec : MonoBehaviour
 
     private void SetInventoryText(Weapon weapon)
     {
+        DisableText(_inEquipmentText);
+        DisableText(_openText);
+
         if (weapon.IsBought || weapon.IsUnlock)
         {
             if (weapon.IsEquip)
-                _inventoryText.text = _equipmentText;
+                EnableText(_inEquipmentText);
             else
-                _inventoryText.text = _unlockedText;
-
-            return;
+                EnableText(_openText);
         }
+    }
 
-        _inventoryText.text = "";
+    private void EnableText(TMP_Text text)
+    {
+        text.enabled = true;
+    }
+
+    private void DisableText(TMP_Text text)
+    {
+        text.enabled = false;
     }
 
     private void OnEquipButtonClick()

@@ -21,8 +21,9 @@ public class ZombieSpawner : ObjectPool
     private List<Zombie> _zombies = new List<Zombie>();
     private int _currentAliveZombieInWave;
     private bool _isAllEnemiesDied => _currentAliveZombieInWave == 0;
+    private int _currentWaveNumber = 0;
 
-    public int CurrentWaveNumber { get; private set; } = 0;
+    public int CurrentWave => _currentWaveNumber + 1;
     public int ZombiesNumberInWave => _currentWave.Count;
 
     public event UnityAction Ended;
@@ -82,7 +83,7 @@ public class ZombieSpawner : ObjectPool
             throw new ArgumentNullException(nameof(_targets));
 
         LoadLevel();
-        SetWave(CurrentWaveNumber);
+        SetWave(_currentWaveNumber);
 
         _timeAfterLastSpawn = _currentWave.Delay - 1;
     }
@@ -95,7 +96,7 @@ public class ZombieSpawner : ObjectPool
             levelIndex = _numberOfCircleLevel;
         
         _currentLevel = _levels[levelIndex];
-        CurrentWaveNumber = _startWaveIndex;
+        _currentWaveNumber = _startWaveIndex;
 
         if (_currentLevel == null)
             throw new ArgumentNullException(nameof(_currentLevel));
@@ -144,7 +145,7 @@ public class ZombieSpawner : ObjectPool
         _currentAliveZombieInWave = _currentWave.Count;
         StartGenerate();
 
-        WaveSetted?.Invoke(CurrentWaveNumber);
+        WaveSetted?.Invoke(_currentWaveNumber);
     }
 
     private void NextWave()
@@ -152,7 +153,7 @@ public class ZombieSpawner : ObjectPool
         _zombies = new List<Zombie>();
 
         int nextWaveIndex = 0;
-        ++CurrentWaveNumber;
+        ++_currentWaveNumber;
 
         SetWave(nextWaveIndex);
     }
@@ -189,7 +190,7 @@ public class ZombieSpawner : ObjectPool
     {
         if (_isAllEnemiesDied)
         {
-            if (CurrentWaveNumber + 1 >= _currentLevel.WavesCount)
+            if (_currentWaveNumber + 1 >= _currentLevel.WavesCount)
                 Ended?.Invoke();
             else
                 NextWave();

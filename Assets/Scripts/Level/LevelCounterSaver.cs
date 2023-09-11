@@ -9,6 +9,9 @@ public class LevelCounterSaver : MonoBehaviour, ISaver
     private IDataService _dataService;
     private LevelData _data;
 
+    public string LevelText => _data.Level.ToString();
+
+
     private void Awake()
     {
         _dataService = new JsonDataService();

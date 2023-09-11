@@ -2,7 +2,6 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -20,6 +19,7 @@ public class Game : MonoBehaviour
     public event UnityAction GameOver;
     public event UnityAction Continued;
     public event UnityAction Paused;
+    public event UnityAction Restarted;
 
     private void OnEnable()
     {
@@ -66,7 +66,7 @@ public class Game : MonoBehaviour
     public void Restart()
     {
         DOTween.Clear(true);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Restarted?.Invoke();
     }
 
     private void OnZombieEnded()

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Device;
 
 public class SettingsSaver : MonoBehaviour, ISaver
 {
