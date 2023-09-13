@@ -3,9 +3,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using YG.Example;
+using YG;
+using Unity.VisualScripting;
 
 public class Spec : MonoBehaviour
 {
+    [SerializeField] private int _adID;
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private TMP_Text _label;
     [SerializeField] private TMP_Text _price;
@@ -29,16 +33,16 @@ public class Spec : MonoBehaviour
 
     private void OnEnable()
     {
+        YandexGame.RewardVideoEvent += Rewarded;
         _equipButton.onClick.AddListener(OnEquipButtonClick);
         _buyButton.onClick.AddListener(OnBuyButtonClick);
-        _unlockByAdsButton.onClick.AddListener(OnAdsButtonClick);
     }
 
     private void OnDisable()
     {
+        YandexGame.RewardVideoEvent -= Rewarded;
         _equipButton.onClick.RemoveListener(OnEquipButtonClick);
         _buyButton.onClick.RemoveListener(OnBuyButtonClick);
-        _unlockByAdsButton.onClick.RemoveListener(OnAdsButtonClick);
     }
 
     public void UpdateSpec(Weapon weapon)
@@ -119,11 +123,14 @@ public class Spec : MonoBehaviour
         UpdateButtonsVisibility(_currentWeapon);
     }
 
-    private void OnAdsButtonClick()
+    private void Rewarded(int id)
     {
-        AdsButtonClicked?.Invoke(_currentWeapon);
-        SetInventoryText(_currentWeapon);
-        UpdateButtonsVisibility(_currentWeapon);
+        if (id == _adID)
+        {
+            AdsButtonClicked?.Invoke(_currentWeapon);
+            SetInventoryText(_currentWeapon);
+            UpdateButtonsVisibility(_currentWeapon);
+        }
     }
 
     private void SetLabel(string label)

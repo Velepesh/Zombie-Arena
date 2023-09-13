@@ -1,13 +1,11 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using YG;
 
 public class LevelCounter : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _levelText;
     [SerializeField] private Game _game;
-
-    private readonly string _levelName = "Уровень";
+    [SerializeField] private LangYGAdditionalText _levelText;
 
     public int Level { get; private set; }
 
@@ -16,7 +14,7 @@ public class LevelCounter : MonoBehaviour
     public void Init(int level)
     {
         Level = level;
-       // SetValue(level);
+        SetValue(level);
     }
 
     private void OnEnable()
@@ -32,12 +30,12 @@ public class LevelCounter : MonoBehaviour
     private void OnWon()
     {
         Level++;
+        SetValue(Level);
         LevelIncreased?.Invoke(Level);
-       // SetValue(Level);
     }
 
     private void SetValue(int value)
     {
-        _levelText.text = $"{_levelName} {value.ToString()}";
+        _levelText.additionalText = value.ToString();
     }
 }

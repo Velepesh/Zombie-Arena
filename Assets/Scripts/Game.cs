@@ -9,9 +9,6 @@ public class Game : MonoBehaviour
     [SerializeField] private ZombieSpawner _zombieSpawner;
     [SerializeField] private ScoreSetup _scoreSetup;
 
-    private bool _isGameOver;
-    private bool _isWin;
-
     public Score Score => _scoreSetup.Score;
 
     public event UnityAction Won;
@@ -45,22 +42,7 @@ public class Game : MonoBehaviour
 
     public void OnTryPause(InputAction.CallbackContext context)
     {
-        if (_isGameOver)
-            return;
-
         Paused?.Invoke();
-    }
-
-    public void OnRestart(InputAction.CallbackContext context)
-    {
-        if(_isGameOver)
-            Restart();
-    }
-
-    public void OnNextLevel(InputAction.CallbackContext context)
-    {
-        if (_isWin)
-            Restart();
     }
 
     public void Restart()
@@ -76,7 +58,6 @@ public class Game : MonoBehaviour
 
     private void Win()
     {
-        _isWin = true;
         Won?.Invoke();
     }
 
@@ -87,7 +68,6 @@ public class Game : MonoBehaviour
 
     private void Lose()
     {
-        _isGameOver = true;
         GameOver?.Invoke();
     }
 }

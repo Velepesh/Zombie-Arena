@@ -5,7 +5,6 @@ using UnityEngine.Events;
 public class ZombieSpawnerView : MonoBehaviour
 {
     [SerializeField] private ZombieSpawner _zombieSpawner;
-    [SerializeField] private TMP_Text _waveNumberText;
     [SerializeField] private TMP_Text _zombiesNumberText;
 
     private int _currentZombiesNumber;
@@ -29,7 +28,7 @@ public class ZombieSpawnerView : MonoBehaviour
     private void OnWaveSetted(int index)
     {
         WaveNumber = index + 1;
-        //_waveNumberText.text = waveNumber.ToString();
+
         _currentZombiesNumber = _zombieSpawner.ZombiesNumberInWave;
 
         WaveSetted?.Invoke(WaveNumber);

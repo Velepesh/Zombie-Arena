@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using YG;
 
 [RequireComponent(typeof(ZombieSpawnerView))]
 public class ReadyForWaveWithAnimation : MonoBehaviour
@@ -32,7 +33,7 @@ public class ReadyForWaveWithAnimation : MonoBehaviour
     public void OnWaveSetted(int currentWave)
     {
         _waveNumberText.text = $"{currentWave}";
-
+        
         ShowNextWaveInformation();
     }
 

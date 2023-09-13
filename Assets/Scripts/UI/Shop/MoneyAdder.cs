@@ -1,12 +1,13 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class MoneyAdder : MonoBehaviour
 {
+    [SerializeField] private int _adID;
     [SerializeField] private int _money;
     [SerializeField] private WalletSetup _walletSetup;
-    [SerializeField] private Button _button;
     [SerializeField] private TMP_Text _moneyText;
 
     readonly private string _plus = "+";
@@ -19,12 +20,12 @@ public class MoneyAdder : MonoBehaviour
 
     private void OnEnable()
     {
-        _button.onClick.AddListener(OnButtonClick);
+        YandexGame.RewardVideoEvent += Rewarded;
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveListener(OnButtonClick);
+        YandexGame.RewardVideoEvent -= Rewarded;
     }
 
     private void Start()
@@ -32,13 +33,20 @@ public class MoneyAdder : MonoBehaviour
         SetText(_money);
     }
 
+    private void Rewarded(int id)
+    {
+        if (id == _adID)
+            AddMoney();
+    }
+
+    private void AddMoney()
+    {
+        _walletSetup.Wallet.AddMoney(_money);
+        SetText(_money);
+    }
+
     private void SetText(int value)
     {
         _moneyText.text = $"{_plus}{value.ToString()}{_dollar}";
-    }
-
-    private void OnButtonClick()
-    {
-        _walletSetup.Wallet.AddMoney(_money);
     }
 }

@@ -338,6 +338,11 @@ PlayerSettings:
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
   m_TemplateCustomTags:
+    BANNER_DYNAMIC_1: 
+    BANNER_DYNAMIC_2: 
+    BANNER_STATIC_1: 
+    BANNER_STATIC_2: 
+    HIDE_FULL_SCREEN_BUTTON: 
     RENDER_SCALE: 
   mobileMTRendering:
     Android: 1
@@ -586,7 +591,7 @@ PlayerSettings:
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
-  webGLTemplate: PROJECT:FullscreenWindow
+  webGLTemplate: PROJECT:PluginYG
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
   webGLCompressionFormat: 1
@@ -620,7 +625,7 @@ PlayerSettings:
     PS5: UNITY_POST_PROCESSING_STACK_V2
     Stadia: UNITY_POST_PROCESSING_STACK_V2
     Standalone: UNITY_POST_PROCESSING_STACK_V2
-    WebGL: UNITY_POST_PROCESSING_STACK_V2
+    WebGL: UNITY_POST_PROCESSING_STACK_V2;YG_PLUGIN_YANDEX_GAME;YG_TEXT_MESH_PRO;YG_NEWTONSOFT_FOR_SAVES;YG_NEWTONSOFT_FOR_AUTOLOCALIZATION
     Windows Store Apps: UNITY_POST_PROCESSING_STACK_V2
     XboxOne: UNITY_POST_PROCESSING_STACK_V2
     tvOS: UNITY_POST_PROCESSING_STACK_V2
