@@ -64,12 +64,14 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public abstract GripBehaviour GetEquippedGrip();
 
-        public event UnityAction Inited;
+        public event UnityAction AttachmentInited;
 
-        protected void OnInited()
-        {
-            Inited?.Invoke();
-        }
+        public abstract void InitWeaponAttachments();
+
+        //protected void OnInited()
+        //{
+        //    AttachmentInited?.Invoke();
+        //}
         #endregion
     }
 }

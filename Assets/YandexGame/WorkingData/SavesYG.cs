@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace YG
 {
     [System.Serializable]
@@ -17,7 +19,27 @@ namespace YG
         public bool[] openLevels = new bool[3];
 
         // Ваши сохранения
+        public int Level = 1;
+        public int Money = 0;
+        public float Sensetivity = 0;
+        public float SFX = 0;
+        public float Music = 0;
+        public bool IsExistBackgroundMusic = false;
 
+        public Dictionary<string, WeaponData> Weapons = new Dictionary<string, WeaponData>()
+        {
+            { "AK-47", new WeaponData(){IsBought = true, IsEquip = true, IsUnlock = true}},
+            { "M4A1", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "SCAR", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "M1911", new WeaponData(){IsBought = true, IsEquip = true, IsUnlock = true}},
+            { "Beretta 92", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "HK USP", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "Sniper Rifle", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "Shotgun", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "UZI", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "P90", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "UMP 45", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+        };
         // ...
 
         // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны

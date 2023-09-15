@@ -11,11 +11,6 @@ public class WeaponView : ItemView
 
     public event UnityAction<Weapon, WeaponView> Clicked;
 
-    private void Start()
-    {
-        UpdateView();
-    }
-
     private void OnEnable()
     {
         _weapon.Inited += OnInited;
@@ -52,5 +47,6 @@ public class WeaponView : ItemView
     {
         SetImages(_weapon);
         SetLabel(_weapon);
+        UpdateView();
     }
 }

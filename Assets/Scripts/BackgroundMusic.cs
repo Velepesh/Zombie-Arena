@@ -1,34 +1,65 @@
 using UnityEngine;
-using UnityEngine.Events;
+using YG;
 
-[RequireComponent(typeof(AudioSource))]
 public class BackgroundMusic : MonoBehaviour
 {
-    private AudioSource _audioSource;
+    [SerializeField] private AudioSource _audioSource;
 
-    public event UnityAction Inited;
-    public event UnityAction Disabled;
+    private bool _isExist;
 
-
-    public void Init(bool isExist)
+    private void Awake()
     {
-        if (isExist)
-            Destroy(gameObject);
-        
-        DontDestroyOnLoad(gameObject);
+        if (YandexGame.SDKEnabled)
+            Load();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        _audioSource = GetComponent<AudioSource>();
-        _audioSource.ignoreListenerPause = true;
-        _audioSource.Play();
-
-        Inited?.Invoke();
+        YandexGame.GetDataEvent += Load;
     }
 
     private void OnDisable()
     {
-        Disabled?.Invoke();
+        YandexGame.GetDataEvent -= Load;
+
+        DisableMusic();
+    }
+
+    private void Load()
+    {
+        _isExist = YandexGame.savesData.IsExistBackgroundMusic;
+
+        if (_isExist)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
+
+        EnableMusic();
+    }
+
+    private void Save()
+    {
+        if (_isExist == YandexGame.savesData.IsExistBackgroundMusic)
+            return;
+
+        YandexGame.savesData.IsExistBackgroundMusic = _isExist;
+        YandexGame.SaveProgress();
+    }
+
+    private void EnableMusic()
+    {
+        _audioSource.ignoreListenerPause = true;
+        _audioSource.Play();
+        _isExist = true;
+        Save();
+    }
+
+    private void DisableMusic()
+    {
+        _isExist = false;
+        Save();
     }
 }

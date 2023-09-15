@@ -2,34 +2,22 @@ using UnityEngine;
 using System.Collections.Generic;
 using InfimaGames.LowPolyShooterPack;
 using System;
+using YG;
 
-public class EquipmentSaver : MonoBehaviour , ISaver
+public class EquipmentSaver : MonoBehaviour
 {
     [SerializeField] private List<Weapon> _weapons;
 
-    readonly string _path = "/eqipment.json";
-
-    private IDataService _dataService;
-    private EquipmentData _data;
-
     public void Awake()
     {
-        _dataService = new JsonDataService();
-        LoadData();
-
-        for (int i = 0; i < _weapons.Count; i++)
-        {
-            WeaponData weaponData = _data.Weapons[_weapons[i].Label];
-
-            if (weaponData == null)
-                throw new ArgumentNullException(nameof(weaponData));
-
-            _weapons[i].LoadStates(weaponData);
-        }
+        if (YandexGame.SDKEnabled)
+            Load();
     }
 
     private void OnEnable()
     {
+        YandexGame.GetDataEvent += Load;
+
         for (int i = 0; i < _weapons.Count; i++)
         {
             Weapon weapon = _weapons[i];
@@ -41,6 +29,8 @@ public class EquipmentSaver : MonoBehaviour , ISaver
 
     private void OnDisable()
     {
+        YandexGame.GetDataEvent -= Load;
+
         for (int i = 0; i < _weapons.Count; i++)
         {
             Weapon weapon = _weapons[i];
@@ -50,13 +40,33 @@ public class EquipmentSaver : MonoBehaviour , ISaver
         }
     }
 
+    private void Load()
+    {
+        for (int i = 0; i < _weapons.Count; i++)
+        {
+            WeaponData weaponData = YandexGame.savesData.Weapons[_weapons[i].Label];
+
+            if (weaponData == null)
+                throw new ArgumentNullException(nameof(weaponData));
+
+            _weapons[i].LoadStates(weaponData);
+        }
+    }
+
+    private void Save()
+    {
+       // YandexGame.savesData.Weapons = _isExist;
+        YandexGame.SaveProgress();
+    }
+
+
     private void OnBought(Weapon weapon)
     {
         WeaponData weaponData = CheckSavedWeaponData(weapon);
 
         weaponData.IsBought = weapon.IsBought;
         weaponData.IsUnlock = weapon.IsUnlock;
-        SaveData(_path, _data);
+        Save();
     }
 
     private void OnEquiped(Weapon weapon)
@@ -68,29 +78,16 @@ public class EquipmentSaver : MonoBehaviour , ISaver
 
         weaponData.IsEquip = weapon.IsEquip;
 
-        SaveData(_path, _data);
+        Save();
     }
 
     private WeaponData CheckSavedWeaponData(Weapon weapon)
     {
-        WeaponData weaponData = _data.Weapons[weapon.Label];
+        WeaponData weaponData = YandexGame.savesData.Weapons[weapon.Label];
 
         if (weaponData == null)
             throw new ArgumentNullException(nameof(weaponData));
 
         return weaponData;
-    }
-
-    public void SaveData<EquipmentData>(string path ,EquipmentData data)
-    {
-        _dataService.SaveData(path, data);
-    }
-
-    public void LoadData()
-    {
-        _data = _dataService.LoadData<EquipmentData>(_path);
-
-        if (_data == null)
-            _data = new EquipmentData();
     }
 }

@@ -10,12 +10,12 @@ public class BulletCompositeRoot : CompositeRoot
     public override void Compose()
     {
         for (int i = 0; i < _bulletPools.Count; i++)
-            _bulletPools[i].StartGenerate();
+            _bulletPools[i].GeneratePrefabs();
 
         for (int i = 0; i < _casingPools.Count; i++)
-            _casingPools[i].StartGenerate();
+            _casingPools[i].GeneratePrefabs();
 
         for (int i = 0; i < _impactPools.Count; i++)
-            _impactPools[i].StartGenerate();
+            _impactPools[i].GeneratePrefabs();
     }
 }

@@ -15,7 +15,7 @@ public class EquipmentView : ItemView
         ShowEmptySlot();
     }
 
-    public void UpdateView(Weapon weapon)
+    public void SetWeaponView(Weapon weapon)
     {
         if (_weaponViewCanvasGroup.alpha != 1f)
             ShowWeaponView();

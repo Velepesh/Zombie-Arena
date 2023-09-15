@@ -17,10 +17,6 @@ public class Equipment : MonoBehaviour
     private Weapon _sniperRifle;
 
     public Weapon AutomaticRifle => _automaticRifle;
-    public Weapon Pistol => _pistol;
-    public Weapon SubmachineGun => _submachineGun;
-    public Weapon Shotgun => _shotgun;
-    public Weapon SniperRifle => _sniperRifle;
 
     public IEnumerable<Weapon> EquipmentWeapons => _equipmentWeapons;
 

@@ -24,7 +24,7 @@ public class ProjectilePool : ObjectPool
             _projectiles[i].Impacted -= OnImpacted;
     }
 
-    public override void StartGenerate()
+    public override void GeneratePrefabs()
     {
         for (int i = 0; i < _numberOfBullets; i++)
         {

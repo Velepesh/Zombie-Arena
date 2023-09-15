@@ -46,7 +46,7 @@ public class Shop : MonoBehaviour
 
         _spec.UpdateSpec(weapon);
         UpdateWeaponViewByType(weapon);
-        InitCurrentWeaponView(weapon);
+        SetCurrentWeaponView(weapon);
     }
 
     private void OnEquiped(Weapon weapon)
@@ -97,7 +97,7 @@ public class Shop : MonoBehaviour
         UpdateWeaponViewByType(weapon);
     }
 
-    private void InitCurrentWeaponView(Weapon weapon)
+    private void SetCurrentWeaponView(Weapon weapon)
     {
         for (int i = 0; i < _weaponViews.Length; i++)
         {
@@ -133,7 +133,7 @@ public class Shop : MonoBehaviour
         {
             if (_equipmentViews[i].Type == weapon.Type)
             {
-                _equipmentViews[i].UpdateView(weapon);
+                _equipmentViews[i].SetWeaponView(weapon);
                 break;
             }
         }

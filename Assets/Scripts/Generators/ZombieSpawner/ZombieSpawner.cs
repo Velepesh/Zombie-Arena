@@ -71,7 +71,7 @@ public class ZombieSpawner : ObjectPool
         }
     }
 
-    public override void StartGenerate()
+    public override void GeneratePrefabs()
     {
         for (int i = 0; i < _currentWave.Count; i++)
             SpawnPrefab(_currentWave.GetTemplate(i).gameObject);
@@ -143,8 +143,7 @@ public class ZombieSpawner : ObjectPool
     {
         _currentWave = _currentLevel.GetWave(index);
         _currentAliveZombieInWave = _currentWave.Count;
-        StartGenerate();
-
+        GeneratePrefabs();
         WaveSetted?.Invoke(_currentWaveNumber);
     }
 
@@ -152,10 +151,9 @@ public class ZombieSpawner : ObjectPool
     {
         _zombies = new List<Zombie>();
 
-        int nextWaveIndex = 0;
         ++_currentWaveNumber;
 
-        SetWave(nextWaveIndex);
+        SetWave(_currentWaveNumber);
     }
 
     private void OnDied(IDamageable damageable)

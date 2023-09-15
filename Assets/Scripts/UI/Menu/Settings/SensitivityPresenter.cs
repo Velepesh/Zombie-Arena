@@ -1,9 +1,11 @@
-﻿public class SensitivityPresenter
+﻿using System.Collections.Generic;
+
+public class SensitivityPresenter
 {
-    private SensitivitySettings _settings;
+    private List<SensitivitySettings> _settings = new List<SensitivitySettings>();
     private Sensitivity _model;
 
-    public SensitivityPresenter(SensitivitySettings settings, Sensitivity model)
+    public SensitivityPresenter(List<SensitivitySettings> settings, Sensitivity model)
     {
         _settings = settings;
         _model = model;
@@ -11,12 +13,14 @@
 
     public void Enable()
     {
-        _settings.SensitivityUpdated += OnSensitivityUpdated;
+        for (int i = 0; i < _settings.Count; i++)
+            _settings[i].SensitivityUpdated += OnSensitivityUpdated;
     }
 
     public void Disable()
     {
-        _settings.SensitivityUpdated -= OnSensitivityUpdated;
+        for (int i = 0; i < _settings.Count; i++)
+            _settings[i].SensitivityUpdated -= OnSensitivityUpdated;
     }
 
     private void OnSensitivityUpdated(float value)

@@ -26,10 +26,10 @@ public class ImpactPool : ObjectPool
 
     private void Start()
     {
-        StartGenerate();
+        GeneratePrefabs();
     }
 
-    public override void StartGenerate()
+    public override void GeneratePrefabs()
     {
         for (int i = 0; i < _count; i++)
             SpawnPrefab(_impactPrefab.gameObject);

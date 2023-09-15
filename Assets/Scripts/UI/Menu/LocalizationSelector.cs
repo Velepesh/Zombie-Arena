@@ -11,20 +11,20 @@ public class LocalizationSelector : MonoBehaviour
 
     public void ChangeLocal(int localID)
     {
-        if (_active == true)
-            return;
+        //if (_active == true)
+        //    return;
 
-        StartCoroutine(SetLocal(localID));
+        //StartCoroutine(SetLocal(localID));
     }
 
     private IEnumerator SetLocal(int localID)
     {
-        _active = true;
+        //_active = true;
 
         yield return LocalizationSettings.InitializationOperation;
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localID];
+        //LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localID];
 
-        LocalizationChanged?.Invoke(localID);
-        _active = false;
+        //LocalizationChanged?.Invoke(localID);
+        //_active = false;
     }
 }

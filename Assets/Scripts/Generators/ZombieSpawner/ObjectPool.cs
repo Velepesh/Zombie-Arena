@@ -8,7 +8,7 @@ public abstract class ObjectPool : MonoCache
 
     private List<GameObject> _pool = new List<GameObject>();
     
-    public abstract void StartGenerate();
+    public abstract void GeneratePrefabs();
 
     protected GameObject SpawnPrefab(GameObject prefab)
     {

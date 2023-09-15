@@ -1,51 +1,52 @@
 using UnityEngine;
+using YG;
 
-public class LevelCounterSaver : MonoBehaviour, ISaver
+public class LevelCounterSaver : MonoBehaviour
 {
     [SerializeField] private LevelCounter _levelCounter;
 
-    readonly string _savePath = "/level.json";
-
-    private IDataService _dataService;
-    private LevelData _data;
-
-    public string LevelText => _data.Level.ToString();
-
+    private int _level;
 
     private void Awake()
     {
-        _dataService = new JsonDataService();
-        LoadData();
-
-        _levelCounter.Init(_data.Level);
+        if (YandexGame.SDKEnabled)
+            Load();
     }
 
     private void OnEnable()
     {
+        YandexGame.GetDataEvent += Load;
         _levelCounter.LevelIncreased += OnLevelIncreased;
     }
 
     private void OnDisable()
     {
+        YandexGame.GetDataEvent -= Load;
         _levelCounter.LevelIncreased -= OnLevelIncreased;
+    }
+
+    private void Load()
+    {
+        _level = YandexGame.savesData.Level;
+
+        _levelCounter.Init(_level);
+    }
+
+    private void Save()
+    {
+        if (_level == YandexGame.savesData.Level)
+            return;
+
+        YandexGame.savesData.Level = _level;
+         YandexGame.SaveProgress();
     }
 
     private void OnLevelIncreased(int level)
     {
-        _data.Level = level;
-        SaveData(_savePath, _data);
-    }
+        if (_level == level)
+            return;
 
-    public void SaveData<LevelData>(string path, LevelData data)
-    {
-        _dataService.SaveData(path, data);
-    }
-
-    public void LoadData()
-    {
-        _data = _dataService.LoadData<LevelData>(_savePath);
-
-        if (_data == null)
-            _data = new LevelData();
+        _level = level;
+        Save();
     }
 }

@@ -10,10 +10,14 @@ public class WalletSetup : MonoBehaviour
 
     public Wallet Wallet => _model;
 
-    public void Init(int money)
+    private void Awake()
     {
-        _model = new Wallet(money);
+        _model = new Wallet();
         _presenter = new WalletPresenter(_view, _model, _game);
+    }
+
+    private void OnEnable()
+    {
         _presenter.Enable();
     }
 

@@ -227,6 +227,10 @@ namespace InfimaGames.LowPolyShooterPack
             _isBought = data.IsBought;
             _isUnlock = data.IsUnlock;
             _isEquip = data.IsEquip;
+
+            attachmentManager.InitWeaponAttachments();
+            InitWeapon();
+            Inited?.Invoke();
         }
 
         public void Buy()
@@ -253,17 +257,7 @@ namespace InfimaGames.LowPolyShooterPack
             Equiped?.Invoke(this);
         }
 
-        private void OnEnable()
-        {
-            attachmentManager.Inited += OnInited;
-        }
-
-        private void OnDisable()
-        {
-            attachmentManager.Inited -= OnInited;
-        }
-
-        private void OnInited()
+        private void InitWeapon()
         {
             //Get Animator.
             animator = GetComponent<Animator>();
@@ -287,8 +281,6 @@ namespace InfimaGames.LowPolyShooterPack
             //Cache the world camera. We use this in line traces.
 
             SetCameraSettings();
-            
-            Inited?.Invoke();
         }
 
         private void SetCameraSettings()

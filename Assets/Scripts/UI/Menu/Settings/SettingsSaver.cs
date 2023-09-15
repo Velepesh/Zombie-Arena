@@ -1,27 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
-public class SettingsSaver : MonoBehaviour, ISaver
+public class SettingsSaver : MonoBehaviour
 {
     [SerializeField] private List<SettingsScreen> _settingsScreens;
 
-    readonly string _sensitivityPath = "/sensitivity.json";
-    readonly string _sfxPath = "/sfx.json";
-    readonly string _musicPath = "/music.json";
-
-    private IDataService _dataService;
-    private SettingsData _sensitivityData;
-    private SettingsData _sfxData;
-    private SettingsData _musicData;
+    private float _sensetivity = 0;
+    private float _sfx = 0;
+    private float _music = 0;
 
     private void Awake()
     {
-        _dataService = new JsonDataService();
-        LoadData();
+        if (YandexGame.SDKEnabled)
+            Load();
     }
 
     private void OnEnable()
     {
+        YandexGame.GetDataEvent += Load;
+
         for (int i = 0; i < _settingsScreens.Count; i++)
         {
             _settingsScreens[i].Showed += OnShowed;
@@ -33,6 +31,8 @@ public class SettingsSaver : MonoBehaviour, ISaver
 
     private void OnDisable()
     {
+        YandexGame.GetDataEvent -= Load;
+
         for (int i = 0; i < _settingsScreens.Count; i++)
         {
             _settingsScreens[i].Showed -= OnShowed;
@@ -42,22 +42,20 @@ public class SettingsSaver : MonoBehaviour, ISaver
         }
     }
 
-    private void Start()
+
+    private void Load()
     {
+        _sensetivity = YandexGame.savesData.Sensetivity;
+        _sfx = YandexGame.savesData.SFX;
+        _music = YandexGame.savesData.Music;
+
         for (int i = 0; i < _settingsScreens.Count; i++)
             SetSettingsData(_settingsScreens[i]);
     }
 
-    public void LoadData()
+    private void Save()
     {
-        _sensitivityData = LoadSettings(_sensitivityPath);
-        _sfxData = LoadSettings(_sfxPath);
-        _musicData = LoadSettings(_musicPath);
-    }
-
-    public void SaveData<SettingsData>(string path, SettingsData data)
-    {
-        _dataService.SaveData(path, data);
+        YandexGame.SaveProgress();
     }
 
     private void OnShowed(SettingsScreen screen)
@@ -67,35 +65,37 @@ public class SettingsSaver : MonoBehaviour, ISaver
 
     private void SetSettingsData(SettingsScreen screen)
     {
-        screen.SensitivitySettings.Init(_sensitivityData.Value);
-        screen.VolumeSettings.Init(_sfxData.Value, _musicData.Value);
+        screen.SensitivitySettings.Init(_sensetivity);
+        screen.VolumeSettings.Init(_sfx, _music);
     }
 
     private void OnSensitivityUpdated(float value)
     {
-        _sensitivityData.Value = value;
-        SaveData(_sensitivityPath, _sensitivityData);
+        if (_sensetivity == value)
+            return;
+
+        _sensetivity = value;
+        YandexGame.savesData.Sensetivity = _sensetivity;
+        Save();
     }
 
     private void OnSFXUpdated(float value)
     {
-        _sfxData.Value = value;
-        SaveData(_sfxPath, _sfxData);
+        if (_sfx == value)
+            return;
+
+        _sfx = value;
+        YandexGame.savesData.SFX = _sfx;
+        Save();
     }
 
     private void OnMusicUpdated(float value)
     {
-        _musicData.Value = value;
-        SaveData(_musicPath, _musicData);
-    }
+        if (_music == value)
+            return;
 
-    private SettingsData LoadSettings(string path)
-    {
-        SettingsData data = _dataService.LoadData<SettingsData>(path);
-
-        if (data == null)
-            data = new SettingsData();
-
-        return data;
+        _music = value;
+        YandexGame.savesData.Music = _music;
+        Save();
     }
 }
