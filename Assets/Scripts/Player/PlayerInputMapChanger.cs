@@ -7,13 +7,13 @@ public class PlayerInputMapChanger : MonoBehaviour
 
     public void EnableUIActionMap()
     {
-        _input.currentActionMap.Disable();
+        _input.actions.Disable();
         _input.actions.FindActionMap("UI").Enable();
     }
 
     public void EnablePlayerActionMap()
     {
-        _input.currentActionMap.Disable();
+        _input.actions.Disable();
         _input.actions.FindActionMap("Player").Enable();
     }
 
