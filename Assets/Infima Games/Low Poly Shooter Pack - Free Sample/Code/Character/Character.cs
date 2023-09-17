@@ -789,8 +789,11 @@ namespace InfimaGames.LowPolyShooterPack
 			if (reloading)
 				return false;
 
-			//No meleeing!
-			if (meleeing)
+            if (holstering)
+                return false;
+
+            //No meleeing!
+            if (meleeing)
 				return false;
 
 			//Not actioning a bolt.
