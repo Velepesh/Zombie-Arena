@@ -58,17 +58,14 @@ public class PlayerInteraction : MonoBehaviour
         Activate();
     }
 
-    private void OnWon()
+    private async void OnWon()
     {
-        EndLevel();
+        await Task.Delay(_millisecindDelay);
+        _actionMapChanger.DisablePlayerInput();
+        Deactivate();
     }
 
-    private void OnGameOver()
-    {
-        EndLevel();
-    }
-
-    private async void EndLevel()
+    private async void OnGameOver()
     {
         await Task.Delay(_millisecindDelay);
         _actionMapChanger.EnableUIActionMap();

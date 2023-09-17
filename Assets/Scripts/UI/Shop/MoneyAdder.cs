@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using YG;
 
 public class MoneyAdder : MonoBehaviour

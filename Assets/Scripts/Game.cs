@@ -9,7 +9,10 @@ public class Game : MonoBehaviour
     [SerializeField] private ZombieSpawner _zombieSpawner;
     [SerializeField] private ScoreSetup _scoreSetup;
 
-    public Score Score => _scoreSetup.Score;
+    private int _defaultEarnings => TotalScore;
+
+    public int TotalScore => _scoreSetup.Score.TotalScore;
+    public int DoubleEarnings => TotalScore * 2;
 
     public event UnityAction Won;
     public event UnityAction GameStarted;
@@ -17,6 +20,7 @@ public class Game : MonoBehaviour
     public event UnityAction Continued;
     public event UnityAction Paused;
     public event UnityAction Restarted;
+    public event UnityAction<int> Earned;
 
     private void OnEnable()
     {
@@ -40,6 +44,16 @@ public class Game : MonoBehaviour
         Continued?.Invoke();
     }
 
+    public void NextLevel()
+    {
+        EndLevel(_defaultEarnings);
+    }
+
+    public void NextLevelDoubleEarnings()
+    {
+        EndLevel(DoubleEarnings);
+    }
+
     public void OnTryPause(InputAction.CallbackContext context)
     {
         Paused?.Invoke();
@@ -54,6 +68,12 @@ public class Game : MonoBehaviour
     private void OnZombieEnded()
     {
         Win();
+    }
+
+    private void EndLevel(int money)
+    {
+        Earned?.Invoke(money);
+        Restart();
     }
 
     private void Win()

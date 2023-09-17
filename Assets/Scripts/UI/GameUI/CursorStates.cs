@@ -12,6 +12,7 @@ public class CursorStates : MonoBehaviour
         _game.GameStarted += OnGameStarted;
         _game.Continued += OnContinued;
         _game.Paused += OnPaused;
+        _game.Won += OnWon;
     }
 
     private void OnDisable()
@@ -19,6 +20,7 @@ public class CursorStates : MonoBehaviour
         _game.GameStarted -= OnGameStarted;
         _game.Continued -= OnContinued;
         _game.Paused -= OnPaused;
+        _game.Won -= OnWon;
     }
 
     private void Awake()
@@ -37,6 +39,11 @@ public class CursorStates : MonoBehaviour
     }
 
     private void OnPaused()
+    {
+        UnlockCursor();
+    }
+
+    private void OnWon()
     {
         UnlockCursor();
     }
