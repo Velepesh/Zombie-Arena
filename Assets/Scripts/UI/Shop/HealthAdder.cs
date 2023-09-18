@@ -1,30 +1,57 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using YG;
+using UnityEngine.Events;
 
 public class HealthAdder : MonoBehaviour
 {
+    [SerializeField] private int _adID;
     [SerializeField] private Builder _builderCompositeRoot;
     [SerializeField] private int _health;
-    [SerializeField] private Button _button;
+    [SerializeField] private int _price;
+    [SerializeField] private Button _buyButton;
+    [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private CanvasFade _canvasFade;
+
+    public event UnityAction<HealthAdder, int> BuyHealthButtonClicked;
 
     private void OnValidate()
     {
         _health = Mathf.Clamp(_health, 0, int.MaxValue);
+        _price = Mathf.Clamp(_price, 0, int.MaxValue);
     }
 
     private void OnEnable()
     {
-        _button.onClick.AddListener(OnButtonClick);
+        YandexGame.RewardVideoEvent += Rewarded;
+        _buyButton.onClick.AddListener(OnBuyHealthButtonClick);
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveListener(OnButtonClick);
+        YandexGame.RewardVideoEvent -= Rewarded;
+        _buyButton.onClick.RemoveListener(OnBuyHealthButtonClick);
     }
 
-    private void OnButtonClick()
+    public void AddHealth()
     {
         _builderCompositeRoot.AddHealth(_health);
-        _button.interactable = false;
+    }
+
+    public void HideHealthAdderPanel()
+    {
+        if(_canvasGroup.alpha != 0)
+            _canvasFade.Hide();
+    }
+
+    private void Rewarded(int id)
+    {
+        if (id == _adID)
+            AddHealth();
+    }
+
+    private void OnBuyHealthButtonClick()
+    {
+        BuyHealthButtonClicked?.Invoke(this, _price);
     }
 }

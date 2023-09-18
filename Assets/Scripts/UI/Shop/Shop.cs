@@ -1,10 +1,12 @@
 using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Shop : MonoBehaviour
 {
     [SerializeField] private WalletSetup _walletSetup;
     [SerializeField] private Spec _spec;
+    [SerializeField] private List<HealthAdder> _healthAdders;
     [SerializeField] private Equipment _equipment;
 
     private WeaponView[] _weaponViews;
@@ -21,6 +23,9 @@ public class Shop : MonoBehaviour
         for (int i = 0; i < _weaponViews.Length; i++)
             _weaponViews[i].Clicked += OnWeaponViewClicked;
 
+        for (int i = 0; i < _healthAdders.Count; i++)
+            _healthAdders[i].BuyHealthButtonClicked += OnBuyHealthButtonClicked;
+
         _equipment.Inited += OnEquipmenInited;
         _equipment.Equiped += OnEquiped;
         _spec.EquipButtonClicked += OnEquipButtonClicked;
@@ -33,6 +38,9 @@ public class Shop : MonoBehaviour
         for (int i = 0; i < _weaponViews.Length; i++)
             _weaponViews[i].Clicked -= OnWeaponViewClicked;
 
+        for (int i = 0; i < _healthAdders.Count; i++)
+            _healthAdders[i].BuyHealthButtonClicked -= OnBuyHealthButtonClicked;
+
         _equipment.Inited -= OnEquipmenInited;
         _equipment.Equiped -= OnEquiped;
         _spec.EquipButtonClicked -= OnEquipButtonClicked;
@@ -44,6 +52,7 @@ public class Shop : MonoBehaviour
     {
         Weapon weapon = _equipment.AutomaticRifle;
 
+        ShowSpecPanel();
         _spec.UpdateSpec(weapon);
         UpdateWeaponViewByType(weapon);
         SetCurrentWeaponView(weapon);
@@ -56,13 +65,31 @@ public class Shop : MonoBehaviour
 
     private void OnWeaponViewClicked(Weapon weapon, WeaponView view)
     {
+        ShowSpecPanel();
         _spec.UpdateSpec(weapon);
         UpdateExceptSelectWeaponViews(view);
+    }
+
+    private void ShowSpecPanel()
+    {
+        _spec.ShowSpecPanel();
+
+        for (int i = 0; i < _healthAdders.Count; i++)
+            _healthAdders[i].HideHealthAdderPanel();
     }
 
     private void OnEquipButtonClicked(Weapon weapon)
     {
         Equip(weapon);
+    }
+
+    private void OnBuyHealthButtonClicked(HealthAdder healthAdder, int price)
+    {
+        if (_walletSetup.Wallet.Money >= price)
+        {
+            healthAdder.AddHealth();
+            _walletSetup.Wallet.RemoveMoney(price);
+        }
     }
 
     private void OnBuyButtonClicked(Weapon weapon)

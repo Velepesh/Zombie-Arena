@@ -3,13 +3,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using YG.Example;
 using YG;
-using Unity.VisualScripting;
 
 public class Spec : MonoBehaviour
 {
     [SerializeField] private int _adID;
+    [SerializeField] private CanvasFade _canvasFade;
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private TMP_Text _label;
     [SerializeField] private TMP_Text _price;
@@ -53,6 +52,12 @@ public class Spec : MonoBehaviour
         SetPrice(weapon.Price);
         Update—haracteristics(weapon);
         UpdateButtonsVisibility(weapon);
+    }
+
+    public void ShowSpecPanel()
+    {
+        if(_canvasGroup.alpha != 1)
+            _canvasFade.Show();
     }
 
     private void UpdateButtonsVisibility(Weapon weapon)
