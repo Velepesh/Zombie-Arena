@@ -21,6 +21,8 @@ namespace YG
         // Ваши сохранения
         public int Level = 1;
         public int Money = 0;
+        public int PlayerHealth = 100;
+        public int TwinsHealth = 100;
         public float Sensetivity = 0;
         public float SFX = 0;
         public float Music = 0;

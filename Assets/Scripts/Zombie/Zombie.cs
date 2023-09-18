@@ -38,7 +38,6 @@ public class Zombie : MonoCache, IDamageable
     private void Start()
     {
         InitDamageHandler();
-        _health.SetStartHealth();
     }
 
     private void OnEnable() => AddUpdate();

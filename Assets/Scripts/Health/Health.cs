@@ -7,30 +7,30 @@ public class Health
 {
     [SerializeField] private int _health;
 
-    private int _startValue;
-
     public int Value => _health;
-    public int StartValue => _startValue;
-
     public event UnityAction<int> HealthChanged;
 
-    public void SetStartHealth()
+    public void SetStartHealth(int health)
     {
-        _startValue = _health;
-    }
+        if (health <= 0)
+            throw new ArgumentException(nameof(health));
 
-    public void RestoreHealth()
-    {
-        _health = _startValue;
+        _health = health;
     }
 
     public void AddHealth(int value)
     {
+        if (value < 0)
+            throw new ArgumentException(nameof(value));
+
         _health += value;
     }
 
     public void TakeDamage(int damage)
     {
+        if (damage < 0)
+            throw new ArgumentException(nameof(damage));
+
         _health -= damage;
 
         if (_health <= 0)
