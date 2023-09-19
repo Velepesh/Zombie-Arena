@@ -39,7 +39,7 @@ public class ProjectilePool : ObjectPool
         projectile.transform.rotation = rotation;
     }
 
-    public GameObject GetBullet()
+    public Projectile GetProjectile()
     {
         if(TryGetObject(out GameObject bulletObject))
         {
@@ -55,7 +55,7 @@ public class ProjectilePool : ObjectPool
             
             bulletObject.SetActive(true);
 
-            return bulletObject;
+            return projectile;
         }
 
         throw new Exception("No active projectile here");

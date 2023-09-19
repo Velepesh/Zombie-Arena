@@ -9,7 +9,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 {
 	public class Projectile : MonoBehaviour
 	{
-        [SerializeField] private int _damage;
+        //[SerializeField] private int _damage;
+        private int _damage;
 
         [Range(5, 100)]
 		[Tooltip("After how long time should the bullet prefab be destroyed?")]
@@ -29,13 +30,19 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
         [SerializeField] private ParticleSystem _metalHoleEffect;
 		
 		private List<ImpactPool> _impactPools = new List<ImpactPool>();
+        private int _damageOnTwins => Mathf.CeilToInt((float)(_damage * 0.1f));
 
-		public int Damage => _damage;
+        public int Damage => _damage;
 		public event UnityAction<Projectile> Impacted;
 
         private void OnEnable()
         {
             StartCoroutine(DestroyAfter());
+        }
+
+        public void SetDamage(int damage)
+        {
+            _damage = damage;
         }
 
 		public void SetImpactPools(List<ImpactPool> impactPools)
@@ -74,6 +81,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
             {
                 InstantiateHole(_metalHoleEffect, collision.gameObject.transform, point);
                 PlayImpact(ImpactPoolType.Metal, point, normal);
+                twinCollider.TakeDamage(_damageOnTwins, normal);
+                Debug.Log(_damageOnTwins + " _damageOnTwins");
             }
 
             if (collision.transform.tag == "Grass")

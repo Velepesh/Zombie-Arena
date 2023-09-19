@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using InfimaGames.LowPolyShooterPack.Legacy;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
@@ -198,7 +199,8 @@ namespace InfimaGames.LowPolyShooterPack
 
         public string Label => weaponName;
         public int RoundsPerMinutes => roundsPerMinutes;
-        public int Damage => _bulletPool.Damage * shotCount;
+        //public int Damage => _bulletPool.Damage * shotCount;
+        public int Damage => _damage * shotCount;
         public int HipSpread => (int)(100 - (spread * 100));
         public int AimSpread => (int)(100 - (scopeBehaviour.GetMultiplierSpread() * 100));
         public int Mobility => (int)(multiplierMovementSpeed * 100) - 20;
@@ -466,7 +468,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Fire.
         /// </summary>
-
+        [SerializeField] private int _damage;
         public override void Fire(float timeAfterLastShot, float spreadMultiplier = 1.0f)
         {
             //We need a muzzle in order to fire this weapon!
@@ -507,7 +509,8 @@ namespace InfimaGames.LowPolyShooterPack
                 spreadValue = playerCameraTransform.TransformDirection(spreadValue);
 
                 //Spawn projectile from the projectile spawn point.
-                GameObject projectile = _bulletPool.GetBullet();
+                Projectile projectile = _bulletPool.GetProjectile();
+                projectile.SetDamage(_damage);
 
                 Quaternion rotation = Quaternion.LookRotation(playerCameraTransform.forward * maximumAimingDistance + spreadValue - muzzleSocket.position);
 
@@ -515,7 +518,7 @@ namespace InfimaGames.LowPolyShooterPack
                 if (Physics.Raycast(new Ray(playerCameraTransform.position, playerCameraTransform.forward), out RaycastHit hit, maximumAimingDistance, mask))
                     rotation = Quaternion.LookRotation(hit.point + spreadValue - muzzleSocket.position);
 
-                _bulletPool.SetBulletTransform(projectile, muzzleSocket.position, rotation);
+                _bulletPool.SetBulletTransform(projectile.gameObject, muzzleSocket.position, rotation);
 
                 //Add velocity to the projectile.
                 projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * projectileImpulse;
