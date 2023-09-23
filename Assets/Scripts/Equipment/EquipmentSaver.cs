@@ -8,7 +8,7 @@ public class EquipmentSaver : MonoBehaviour
 {
     [SerializeField] private List<Weapon> _weapons;
 
-    public void Awake()
+    public void Start()
     {
         if (YandexGame.SDKEnabled)
             Load();
@@ -55,7 +55,6 @@ public class EquipmentSaver : MonoBehaviour
 
     private void Save()
     {
-       // YandexGame.savesData.Weapons = _isExist;
         YandexGame.SaveProgress();
     }
 

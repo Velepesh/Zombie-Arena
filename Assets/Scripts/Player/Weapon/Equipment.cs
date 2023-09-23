@@ -144,13 +144,13 @@ public class Equipment : MonoBehaviour
     private void EquipByBoughtWeapon()
     {
         if(IsWeaponTypeInList(_equipmentWeapons, WeaponType.AutomaticRifle) == false)
-            EquipFistBoughtByTypeWeapon(WeaponType.AutomaticRifle);
+            EquipLastBoughtByTypeWeapon(WeaponType.AutomaticRifle);
 
         if (IsWeaponTypeInList(_equipmentWeapons, WeaponType.Pistol) == false)
-            EquipFistBoughtByTypeWeapon(WeaponType.Pistol);
+            EquipLastBoughtByTypeWeapon(WeaponType.Pistol);
 
         if (IsWeaponTypeInList(_equipmentWeapons, WeaponType.SubmachineGun) == false)
-            EquipFistBoughtByTypeWeapon(WeaponType.SubmachineGun);
+            EquipLastBoughtByTypeWeapon(WeaponType.SubmachineGun);
     }
 
     private bool IsWeaponTypeInList(List<Weapon> weapons, WeaponType type)
@@ -164,9 +164,9 @@ public class Equipment : MonoBehaviour
         return false;
     }
 
-    private void EquipFistBoughtByTypeWeapon(WeaponType type)
+    private void EquipLastBoughtByTypeWeapon(WeaponType type)
     {
-        for (int i = 0; i < _weapons.Count; i++)
+        for (int i = _weapons.Count - 1; i >= 0; i--)
         {
             Weapon weapon = _weapons[i];
 

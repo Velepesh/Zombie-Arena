@@ -82,7 +82,6 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
                 InstantiateHole(_metalHoleEffect, collision.gameObject.transform, point);
                 PlayImpact(ImpactPoolType.Metal, point, normal);
                 twinCollider.TakeDamage(_damageOnTwins, normal);
-                Debug.Log(_damageOnTwins + " _damageOnTwins");
             }
 
             if (collision.transform.tag == "Grass")

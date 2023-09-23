@@ -54,13 +54,13 @@ public class Shop : MonoBehaviour
 
         ShowSpecPanel();
         _spec.UpdateSpec(weapon);
-        UpdateWeaponViewByType(weapon);
         SetCurrentWeaponView(weapon);
     }
 
     private void OnEquiped(Weapon weapon)
     {
         UpdateEquipmentView(weapon);
+        UpdateWeaponViewByType(weapon);
     }
 
     private void OnWeaponViewClicked(Weapon weapon, WeaponView view)

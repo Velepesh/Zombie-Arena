@@ -199,7 +199,6 @@ namespace InfimaGames.LowPolyShooterPack
 
         public string Label => weaponName;
         public int RoundsPerMinutes => roundsPerMinutes;
-        //public int Damage => _bulletPool.Damage * shotCount;
         public int Damage => _damage * shotCount;
         public int HipSpread => (int)(100 - (spread * 100));
         public int AimSpread => (int)(100 - (scopeBehaviour.GetMultiplierSpread() * 100));
@@ -230,9 +229,7 @@ namespace InfimaGames.LowPolyShooterPack
             _isUnlock = data.IsUnlock;
             _isEquip = data.IsEquip;
 
-            attachmentManager.InitWeaponAttachments();
             InitWeapon();
-            Inited?.Invoke();
         }
 
         public void Buy()
@@ -261,6 +258,8 @@ namespace InfimaGames.LowPolyShooterPack
 
         private void InitWeapon()
         {
+            attachmentManager.InitWeaponAttachments();
+
             //Get Animator.
             animator = GetComponent<Animator>();
            
@@ -283,6 +282,8 @@ namespace InfimaGames.LowPolyShooterPack
             //Cache the world camera. We use this in line traces.
 
             SetCameraSettings();
+
+            Inited?.Invoke();
         }
 
         private void SetCameraSettings()
