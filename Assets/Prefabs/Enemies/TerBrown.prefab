@@ -3255,7 +3255,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2580496546543710081}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3331,10 +3331,10 @@ NavMeshAgent:
   m_AgentTypeID: -1372625422
   m_Radius: 0.5
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1.4
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -3363,7 +3363,6 @@ MonoBehaviour:
     _attackDistance: 1.4
     _changeTargetDistance: 8
   _score: 100
-  _type: 0
 --- !u!114 &8042020780017270875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3462,7 +3461,8 @@ MonoBehaviour:
   _transitions:
   - {fileID: 7923977838676354465}
   - {fileID: 1108441004581627736}
-  _attackCollider: {fileID: 4497149604103166633}
+  _attackColliders:
+  - {fileID: 4497149604103166633}
 --- !u!114 &6648838492753280863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3510,9 +3510,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _zombiePositionY: 0.007
-  _headKillimpactLength: 1.5
+  _headKillimpactLength: 1.7
   _bodyKillimpactLength: 0.2
   _impactDuration: 1
+  _isMultipleAttackStates: 0
 --- !u!114 &9094736406349889439
 MonoBehaviour:
   m_ObjectHideFlags: 0

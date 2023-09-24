@@ -60,13 +60,14 @@ public class PlayerInteraction : MonoBehaviour
 
     private async void OnWon()
     {
-        await Task.Delay(_millisecindDelay);
         _actionMapChanger.DisablePlayerInput();
+        await Task.Delay(_millisecindDelay);
         Deactivate();
     }
 
     private async void OnGameOver()
     {
+        _actionMapChanger.DisablePlayerInput();
         await Task.Delay(_millisecindDelay);
         _actionMapChanger.EnableUIActionMap();
         Deactivate();

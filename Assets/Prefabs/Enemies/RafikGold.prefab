@@ -2007,10 +2007,10 @@ NavMeshAgent:
   m_AgentTypeID: -334000983
   m_Radius: 0.5
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 2.2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -2039,7 +2039,6 @@ MonoBehaviour:
     _attackDistance: 2.2
     _changeTargetDistance: 9
   _score: 150
-  _type: 1
 --- !u!114 &579571638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2138,7 +2137,8 @@ MonoBehaviour:
   _transitions:
   - {fileID: 579571636}
   - {fileID: 579571634}
-  _attackCollider: {fileID: 1089094583}
+  _attackColliders:
+  - {fileID: 1089094583}
 --- !u!114 &579571631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2221,6 +2221,7 @@ MonoBehaviour:
   _headKillimpactLength: 0.5
   _bodyKillimpactLength: 0.2
   _impactDuration: 1
+  _isMultipleAttackStates: 0
 --- !u!114 &579571626
 MonoBehaviour:
   m_ObjectHideFlags: 0

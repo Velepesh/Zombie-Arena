@@ -11,6 +11,7 @@ public class ZombieAnimations : MonoBehaviour
     [SerializeField] private float _headKillimpactLength;
     [SerializeField] private float _bodyKillimpactLength;
     [SerializeField] private float _impactDuration;
+    [SerializeField] private bool _isMultipleAttackStates;
 
     private Zombie _zombie;
     private ZombieAttacker _attacker;
@@ -31,6 +32,7 @@ public class ZombieAnimations : MonoBehaviour
         _zombie.Spawned += OnSpawned;
         _mover.Moved += OnMoved;
         _attacker.Attacked += OnAttacked;
+        _attacker.AttackEventEnded += OnAttackEventEnded;
     }
 
     private void OnDisable()
@@ -39,6 +41,13 @@ public class ZombieAnimations : MonoBehaviour
         _zombie.Spawned -= OnSpawned;
         _mover.Moved -= OnMoved;
         _attacker.Attacked -= OnAttacked;
+        _attacker.AttackEventEnded -= OnAttackEventEnded;
+    }
+
+    private void OnAttackEventEnded()
+    {
+        if(_isMultipleAttackStates)
+            ChangeAttackState();
     }
 
     private void OnDied(IDamageable damageable)
@@ -66,7 +75,7 @@ public class ZombieAnimations : MonoBehaviour
 
     private void Attack()
     {
-        _animator.SetBool(ZombieAnimatorController.States.IsAttack, true);
+        ChooseAttack();
     }
 
     private void Run()
@@ -76,8 +85,36 @@ public class ZombieAnimations : MonoBehaviour
 
     private void StopAttack()
     {
-        if(_animator.GetBool(ZombieAnimatorController.States.IsAttack))
+        Run();
+        if (_animator.GetBool(ZombieAnimatorController.States.IsAttack))
             _animator.SetBool(ZombieAnimatorController.States.IsAttack, false);
+
+        if(_isMultipleAttackStates)
+            if (_animator.GetBool(ZombieAnimatorController.States.IsSecondAttack))
+                _animator.SetBool(ZombieAnimatorController.States.IsSecondAttack, false);
+    }
+
+    private void ChangeAttackState()
+    {
+        if (_animator.GetBool(ZombieAnimatorController.States.IsAttack))
+            _animator.SetBool(ZombieAnimatorController.States.IsAttack, false);
+        else if (_animator.GetBool(ZombieAnimatorController.States.IsSecondAttack))
+            _animator.SetBool(ZombieAnimatorController.States.IsSecondAttack, false);
+
+        ChooseAttack();
+    }
+
+    private void ChooseAttack()
+    {
+        int number = 0;
+
+        if (_isMultipleAttackStates)
+            number = Random.Range(0, 2);
+
+        if (number == 0)
+            _animator.SetBool(ZombieAnimatorController.States.IsAttack, true);
+        else
+            _animator.SetBool(ZombieAnimatorController.States.IsSecondAttack, true);
     }
 
     private void Impact(Vector3 direction, float length)

@@ -144,13 +144,13 @@ public class Equipment : MonoBehaviour
     private void EquipByBoughtWeapon()
     {
         if(IsWeaponTypeInList(_equipmentWeapons, WeaponType.AutomaticRifle) == false)
-            EquipLastBoughtByTypeWeapon(WeaponType.AutomaticRifle);
+            EquipLastBoughtByTypeWeapon(WeaponType.AutomaticRifle, ref _automaticRifle);
 
         if (IsWeaponTypeInList(_equipmentWeapons, WeaponType.Pistol) == false)
-            EquipLastBoughtByTypeWeapon(WeaponType.Pistol);
+            EquipLastBoughtByTypeWeapon(WeaponType.Pistol, ref _pistol);
 
         if (IsWeaponTypeInList(_equipmentWeapons, WeaponType.SubmachineGun) == false)
-            EquipLastBoughtByTypeWeapon(WeaponType.SubmachineGun);
+            EquipLastBoughtByTypeWeapon(WeaponType.SubmachineGun, ref _submachineGun);
     }
 
     private bool IsWeaponTypeInList(List<Weapon> weapons, WeaponType type)
@@ -164,7 +164,7 @@ public class Equipment : MonoBehaviour
         return false;
     }
 
-    private void EquipLastBoughtByTypeWeapon(WeaponType type)
+    private void EquipLastBoughtByTypeWeapon(WeaponType type, ref Weapon currentWeapon)
     {
         for (int i = _weapons.Count - 1; i >= 0; i--)
         {
@@ -175,26 +175,9 @@ public class Equipment : MonoBehaviour
                 _equipmentWeapons.Add(weapon);
                 weapon.Equip();
                 Equiped?.Invoke(weapon);
+                currentWeapon = weapon;
                 break;
             }
         }
-
-        if (_automaticRifle == null)
-            SetFirstAutomaticRifle();
     }
-
-    private void SetFirstAutomaticRifle()
-    {
-        for (int i = 0; i < _equipmentWeapons.Count; i++)
-        {
-            if (_equipmentWeapons[i].Type == WeaponType.AutomaticRifle)
-            {
-                _automaticRifle = _equipmentWeapons[i];
-                return;
-            }
-        }
-
-        throw new ArgumentNullException(nameof(_automaticRifle));
-    }
-
 }

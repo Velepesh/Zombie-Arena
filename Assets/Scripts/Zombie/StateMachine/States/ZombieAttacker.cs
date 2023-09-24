@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -5,21 +7,29 @@ using UnityEngine.Events;
 [RequireComponent(typeof(NavAgentEnabler))]
 public class ZombieAttacker : State
 {
-    [SerializeField] private AttackCollider _attackCollider;
+    [SerializeField] private List<AttackCollider> _attackColliders;
 
     private Zombie _zombie;
     private NavAgentEnabler _agent;
 
     public event UnityAction Attacked;
+    public event UnityAction AttackEventEnded;
 
     private void Awake()
     {
+        int countOfColliders = _attackColliders.Count;
+
+        if (countOfColliders == 0 || countOfColliders > 2)
+            throw new ArgumentOutOfRangeException(nameof(countOfColliders));
+
         _zombie = GetComponent<Zombie>();
         _agent = GetComponent<NavAgentEnabler>();
     }
 
     private void OnEnable()
     {
+        DisableAttackColliders();
+
         AddUpdate();
         _agent.StopAgent();
         Attack();
@@ -27,7 +37,9 @@ public class ZombieAttacker : State
 
     private void OnDisable()
     {
-        _attackCollider.DisableCollider();
+        for (int i = 0; i < _attackColliders.Count; i++)
+            _attackColliders[i].DisableCollider();
+
         RemoveUpdate();
     }
 
@@ -38,13 +50,32 @@ public class ZombieAttacker : State
 
     private void OnStartAttackEvent()
     {
-        _attackCollider.EnableCollider();
+        _attackColliders[0].EnableCollider();
+    }
+
+    private void OnStartSecondAttackEvent()
+    {
+        if (_attackColliders[1] == null)
+            throw new ArgumentNullException("Attack Collider is null");
+
+        _attackColliders[1].EnableCollider();
     }
 
     private void OnEndAttackEvent()
     {
-        _attackCollider.DisableCollider();
+        DisableAttackColliders();
         _zombie.SetAttackingState(false);
+    }
+
+    private void DisableAttackColliders()
+    {
+        for (int i = 0; i < _attackColliders.Count; i++)
+            _attackColliders[i].DisableCollider();
+    }
+
+    private void OnEndAttackAnimationEvent()
+    {
+        AttackEventEnded?.Invoke();
     }
 
     private void Rotate()
@@ -57,7 +88,10 @@ public class ZombieAttacker : State
     private void Attack()
     {
         _zombie.SetAttackingState(true);
-        _attackCollider.Init(_zombie);
+
+        for (int i = 0; i < _attackColliders.Count; i++)
+            _attackColliders[i].Init(_zombie);
+
         Attacked?.Invoke();
 
         if (_zombie.CurrentTarget is Twins)

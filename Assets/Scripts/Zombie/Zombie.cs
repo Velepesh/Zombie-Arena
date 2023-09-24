@@ -6,7 +6,6 @@ public class Zombie : MonoCache, IDamageable
     [SerializeField] private Health _health;
     [SerializeField] private ZombieOptions _options;
     [SerializeField] private int _score;
-    [SerializeField] private ZombieType _type;
 
     private ZombieTargetsCompositeRoot _zombieTargets;
     private ITarget _currentTarget;
@@ -18,7 +17,6 @@ public class Zombie : MonoCache, IDamageable
     private DamageHandlerType _lastDamageHandlerType;
 
     public ZombieOptions Options => _options;
-    public ZombieType Type => _type;
     public bool IsDied => _health.Value <= 0;
     public bool IsAttacking => _isAttacking;
     public bool WasHeadHit { get; private set; }
