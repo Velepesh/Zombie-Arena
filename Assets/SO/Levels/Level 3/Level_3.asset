@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f2593de14908304cb0ab511dc696513, type: 3}
-  m_Name: Wave_1 1
+  m_Script: {fileID: 11500000, guid: 2ce25ea089f95d04b9dfeb77edb21c0f, type: 3}
+  m_Name: Level_3
   m_EditorClassIdentifier: 
-  _templates:
-  - {fileID: 7287801069368380645, guid: 0eac9cac408d7a24cbe489531114be98, type: 3}
-  _delay: 2
+  _waves:
+  - {fileID: 11400000, guid: bac4450a2d14291468a3ff253f15af89, type: 2}
+  - {fileID: 11400000, guid: 02d068abd1d48f64992be1ac64fd0971, type: 2}
