@@ -85,22 +85,23 @@ public class ZombieAnimations : MonoBehaviour
 
     private void StopAttack()
     {
+        StopAttackAnimations();
         Run();
-        //if (_animator.GetBool(ZombieAnimatorController.States.IsAttack))
-        //    _animator.SetBool(ZombieAnimatorController.States.IsAttack, false);
+    }
 
-        //if(_isMultipleAttackStates)
-        //    if (_animator.GetBool(ZombieAnimatorController.States.IsSecondAttack))
-        //        _animator.SetBool(ZombieAnimatorController.States.IsSecondAttack, false);
+    private void StopAttackAnimations()
+    {
+        if (_animator.GetBool(ZombieAnimatorController.States.IsHandAttack))
+            _animator.SetBool(ZombieAnimatorController.States.IsHandAttack, false);
+
+        if (_isMultipleAttackStates)
+            if (_animator.GetBool(ZombieAnimatorController.States.IsLegAttack))
+                _animator.SetBool(ZombieAnimatorController.States.IsLegAttack, false);
     }
 
     private void ChangeAttackState()
     {
-        //if (_animator.GetBool(ZombieAnimatorController.States.IsAttack))
-        //    _animator.SetBool(ZombieAnimatorController.States.IsAttack, false);
-        //else if (_animator.GetBool(ZombieAnimatorController.States.IsSecondAttack))
-        //    _animator.SetBool(ZombieAnimatorController.States.IsSecondAttack, false);
-
+        StopAttackAnimations();
         ChooseAttack();
     }
 
@@ -112,9 +113,9 @@ public class ZombieAnimations : MonoBehaviour
             number = Random.Range(0, 2);
 
         if (number == 0)
-            _animator.SetTrigger(ZombieAnimatorController.States.HandAttack);
+            _animator.SetBool(ZombieAnimatorController.States.IsHandAttack, true);
         else
-            _animator.SetTrigger(ZombieAnimatorController.States.LegAttack);
+            _animator.SetBool(ZombieAnimatorController.States.IsLegAttack, true);
     }
 
     private void Impact(Vector3 direction, float length)
