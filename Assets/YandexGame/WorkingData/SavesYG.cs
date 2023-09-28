@@ -25,7 +25,7 @@ namespace YG
         public int TwinsHealth = 100;
         public float Sensetivity = 0;
         public float SFX = 0;
-        public float Music = 0;
+        public float Music = -15;
         public bool IsExistBackgroundMusic = false;
 
         public Dictionary<string, WeaponData> Weapons = new Dictionary<string, WeaponData>()

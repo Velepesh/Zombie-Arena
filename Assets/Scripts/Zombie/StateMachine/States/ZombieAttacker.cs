@@ -64,7 +64,6 @@ public class ZombieAttacker : State
     private void OnEndAttackEvent()
     {
         DisableAttackColliders();
-        _zombie.SetAttackingState(false);
     }
 
     private void DisableAttackColliders()
@@ -75,6 +74,7 @@ public class ZombieAttacker : State
 
     private void OnEndAttackAnimationEvent()
     {
+        _zombie.SetAttackingState(false);
         AttackEventEnded?.Invoke();
     }
 

@@ -86,20 +86,20 @@ public class ZombieAnimations : MonoBehaviour
     private void StopAttack()
     {
         Run();
-        if (_animator.GetBool(ZombieAnimatorController.States.IsAttack))
-            _animator.SetBool(ZombieAnimatorController.States.IsAttack, false);
+        //if (_animator.GetBool(ZombieAnimatorController.States.IsAttack))
+        //    _animator.SetBool(ZombieAnimatorController.States.IsAttack, false);
 
-        if(_isMultipleAttackStates)
-            if (_animator.GetBool(ZombieAnimatorController.States.IsSecondAttack))
-                _animator.SetBool(ZombieAnimatorController.States.IsSecondAttack, false);
+        //if(_isMultipleAttackStates)
+        //    if (_animator.GetBool(ZombieAnimatorController.States.IsSecondAttack))
+        //        _animator.SetBool(ZombieAnimatorController.States.IsSecondAttack, false);
     }
 
     private void ChangeAttackState()
     {
-        if (_animator.GetBool(ZombieAnimatorController.States.IsAttack))
-            _animator.SetBool(ZombieAnimatorController.States.IsAttack, false);
-        else if (_animator.GetBool(ZombieAnimatorController.States.IsSecondAttack))
-            _animator.SetBool(ZombieAnimatorController.States.IsSecondAttack, false);
+        //if (_animator.GetBool(ZombieAnimatorController.States.IsAttack))
+        //    _animator.SetBool(ZombieAnimatorController.States.IsAttack, false);
+        //else if (_animator.GetBool(ZombieAnimatorController.States.IsSecondAttack))
+        //    _animator.SetBool(ZombieAnimatorController.States.IsSecondAttack, false);
 
         ChooseAttack();
     }
@@ -112,9 +112,9 @@ public class ZombieAnimations : MonoBehaviour
             number = Random.Range(0, 2);
 
         if (number == 0)
-            _animator.SetBool(ZombieAnimatorController.States.IsAttack, true);
+            _animator.SetTrigger(ZombieAnimatorController.States.HandAttack);
         else
-            _animator.SetBool(ZombieAnimatorController.States.IsSecondAttack, true);
+            _animator.SetTrigger(ZombieAnimatorController.States.LegAttack);
     }
 
     private void Impact(Vector3 direction, float length)
