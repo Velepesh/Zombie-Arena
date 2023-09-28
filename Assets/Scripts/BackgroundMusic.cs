@@ -34,6 +34,7 @@ public class BackgroundMusic : MonoBehaviour
         {
             _isDestroying = true;
             Destroy(gameObject);
+            return;
         }
 
         DontDestroyOnLoad(gameObject);
@@ -55,7 +56,6 @@ public class BackgroundMusic : MonoBehaviour
         _audioSource.ignoreListenerPause = true;
         _audioSource.Play();
         _isExist = true;
-        Debug.Log(_isExist + " _isExist");
         Save();
     }
 

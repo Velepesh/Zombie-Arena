@@ -514,7 +514,8 @@ Transform:
   m_LocalPosition: {x: 0.02866964, y: 0.8164482, z: -0.16178484}
   m_LocalScale: {x: 100.00004, y: 99.99999, z: 100}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7287801068844072578}
   m_Father: {fileID: 7287801069368380650}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1165,12 +1166,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7287801068844072577}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00019000199, y: 0.00067999586, z: 0.00097000174}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7287801068913683461}
+  m_Father: {fileID: 7287801068474937477}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &7287801068844072638
@@ -1183,10 +1184,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.0015
-  m_Height: 0.004
-  m_Direction: 2
-  m_Center: {x: 0, y: -0.001, z: -0.0006}
+  m_Radius: 0.0012
+  m_Height: 0.007
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.005, z: 0}
 --- !u!114 &7287801068844072637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1341,8 +1342,7 @@ Transform:
   m_LocalPosition: {x: -0.011941161, y: 0.22266215, z: -0.28621078}
   m_LocalScale: {x: 99.99999, y: 99.99997, z: 100}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7287801068844072578}
+  m_Children: []
   m_Father: {fileID: 7287801069368380650}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1598,8 +1598,7 @@ Transform:
   m_LocalPosition: {x: 0.046361446, y: 1.6198626, z: -0.15727799}
   m_LocalScale: {x: 99.999985, y: 100.00002, z: 100}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7287801069662448073}
+  m_Children: []
   m_Father: {fileID: 7287801069368380650}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1805,7 +1804,7 @@ GameObject:
   - component: {fileID: 7287801069368380647}
   - component: {fileID: 7287801069368380646}
   m_Layer: 17
-  m_Name: EnemyTwin
+  m_Name: EnemyTwinRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1875,7 +1874,7 @@ Animator:
   m_GameObject: {fileID: 7287801069368380649}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a49f3852523450649af010179fb9b2b9, type: 3}
-  m_Controller: {fileID: 9100000, guid: 1d8243ffbd8402b439e06fda8cb61a82, type: 2}
+  m_Controller: {fileID: 9100000, guid: 08c83e88b47e2a14694b9aec1aa0e5c0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1899,7 +1898,7 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.35
+  - screenRelativeHeight: 0.3
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 7287801068241846050}
@@ -1929,7 +1928,7 @@ NavMeshAgent:
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1.85
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1955,7 +1954,7 @@ MonoBehaviour:
     _maxAward: 300
     _moveSpeed: 5
     _rotationSpeed: 10
-    _attackDistance: 1.85
+    _attackDistance: 1.75
     _changeTargetDistance: 9
   _score: 150
 --- !u!114 &7287801069368380437
@@ -2552,12 +2551,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7287801069662448072}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00023000184, y: 0.0007799998, z: 0.00003999939}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7287801069252583337}
+  m_Father: {fileID: 7287801070087642330}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &7287801069662448069
@@ -2573,7 +2572,7 @@ CapsuleCollider:
   m_Radius: 0.0017
   m_Height: 0.003
   m_Direction: 1
-  m_Center: {x: 0, y: 0.0006, z: 0}
+  m_Center: {x: 0, y: 0.0007, z: 0}
 --- !u!114 &7287801069662448068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3248,7 +3247,8 @@ Transform:
   m_LocalPosition: {x: -0.060934536, y: 1.5538187, z: -0.19348574}
   m_LocalScale: {x: 99.99995, y: 99.99997, z: 100}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7287801069662448073}
   m_Father: {fileID: 7287801069368380650}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
