@@ -15,9 +15,11 @@ public class Score
 
     private int GetScore(Zombie zombie)
     {
-        if (zombie.WasHeadHit)
-            return zombie.Options.MaxAward;
+        int award = zombie.Options.Award;
 
-        return zombie.Options.MaxAward / 2;
+        if (zombie.IsHeadKill)
+            return award * 2;
+
+        return award;
     }
 }

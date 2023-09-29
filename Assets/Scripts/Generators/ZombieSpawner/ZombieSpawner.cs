@@ -23,6 +23,7 @@ public class ZombieSpawner : ObjectPool
     private bool _isAllEnemiesDied => _currentAliveZombieInWave == 0;
     private int _currentWaveNumber = 0;
 
+    public int WavesCount => _currentLevel.WavesCount;
     public int CurrentWave => _currentWaveNumber + 1;
     public int ZombiesNumberInWave => _currentWave.Count;
 
@@ -31,6 +32,7 @@ public class ZombieSpawner : ObjectPool
     public event UnityAction BodyshotReceived;
     public event UnityAction<Zombie> ZombieDied;
     public event UnityAction<int> WaveSetted;
+    public event UnityAction Loaded;
 
     private void OnEnable()
     {
@@ -90,7 +92,7 @@ public class ZombieSpawner : ObjectPool
 
     private void LoadLevel()
     {
-        int levelIndex = _levelCounter.Level;
+        int levelIndex = _levelCounter.Level - 1;
 
         if (levelIndex > _numberOfCircleLevel)
             levelIndex = _numberOfCircleLevel;
@@ -100,6 +102,8 @@ public class ZombieSpawner : ObjectPool
 
         if (_currentLevel == null)
             throw new ArgumentNullException(nameof(_currentLevel));
+
+        Loaded?.Invoke();
     }
 
     private void Spawn(GameObject zombieObject)

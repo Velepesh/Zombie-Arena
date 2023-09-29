@@ -7131,12 +7131,11 @@ MonoBehaviour:
   _health:
     _health: 200
   _options:
-    _maxAward: 200
-    _moveSpeed: 1.2
+    _award: 150
+    _moveSpeed: 1.5
     _rotationSpeed: 4
     _attackDistance: 2.1
     _changeTargetDistance: 8
-  _score: 200
 --- !u!114 &5348111580650926595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7763,7 +7762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff353cbfdfe680e4cb25eaa953029e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 40
+  _damage: 60
 --- !u!114 &5348111581098679925
 MonoBehaviour:
   m_ObjectHideFlags: 0

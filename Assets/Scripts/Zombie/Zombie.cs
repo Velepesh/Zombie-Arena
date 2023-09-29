@@ -5,7 +5,6 @@ public class Zombie : MonoCache, IDamageable
 {
     [SerializeField] private Health _health;
     [SerializeField] private ZombieOptions _options;
-    [SerializeField] private int _score;
 
     private ZombieTargetsCompositeRoot _zombieTargets;
     private ITarget _currentTarget;

@@ -1200,7 +1200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff353cbfdfe680e4cb25eaa953029e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 60
+  _damage: 50
 --- !u!114 &7287801068844072636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1951,12 +1951,11 @@ MonoBehaviour:
   _health:
     _health: 300
   _options:
-    _maxAward: 300
-    _moveSpeed: 5
+    _award: 200
+    _moveSpeed: 4.8
     _rotationSpeed: 10
     _attackDistance: 1.75
-    _changeTargetDistance: 9
-  _score: 150
+    _changeTargetDistance: 7.5
 --- !u!114 &7287801069368380437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2585,7 +2584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff353cbfdfe680e4cb25eaa953029e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 45
+  _damage: 35
 --- !u!114 &7287801069662448075
 MonoBehaviour:
   m_ObjectHideFlags: 0
