@@ -1,5 +1,6 @@
 using UnityEngine;
 using YG;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class TwinsCompositeRoot : Builder
 {
@@ -31,6 +32,11 @@ public class TwinsCompositeRoot : Builder
     public override void Compose()
     {
         _setup.enabled = true;
+    }
+
+    public override Health GetHealth()
+    {
+        return _twins.Health;
     }
 
     public override void AddHealth(int value)

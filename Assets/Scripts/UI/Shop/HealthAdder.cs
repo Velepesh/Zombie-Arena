@@ -13,6 +13,10 @@ public class HealthAdder : MonoBehaviour
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private CanvasFade _canvasFade;
 
+    public int Price => _price;
+    public Health Health => _builderCompositeRoot.GetHealth();
+
+    public event UnityAction HealthLoaded;
     public event UnityAction<HealthAdder, int> BuyHealthButtonClicked;
 
     private void OnValidate()

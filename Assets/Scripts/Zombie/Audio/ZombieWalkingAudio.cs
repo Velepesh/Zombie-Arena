@@ -55,7 +55,7 @@ public class ZombieWalkingAudio : Audio
     private void StopWalkingAudio()
     {
         if (AudioSource.isPlaying)
-            StartCoroutine(StopAudioSource());
+            AudioSource.Stop();
     }
 
     private IEnumerator StopAudioSource()

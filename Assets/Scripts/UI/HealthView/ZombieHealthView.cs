@@ -33,6 +33,6 @@ public class ZombieHealthView : HealthView
 
     private void OnDied(IDamageable damageable)
     {
-        DisableSlider();
+        DisableSliders();
     }
 }

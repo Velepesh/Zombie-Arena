@@ -21,13 +21,12 @@ public abstract class HealthView : MonoBehaviour
         _damagedDsuration = Mathf.Clamp(_damagedDsuration, 0f, float.MaxValue);
     }
 
-
     protected void Init(IDamageable damageable)
     {
         AssignStartValues(damageable);
     }
 
-    protected void DisableSlider()
+    protected void DisableSliders()
     {
         _slider.gameObject.SetActive(false);
 
@@ -40,9 +39,7 @@ public abstract class HealthView : MonoBehaviour
         _slider.DOValue(_currentHealth, _duration);
 
         if (_damagedSlider != null)
-        {
             _damagedSlider.DOValue(_currentHealth, _damagedDsuration).SetDelay(_delayBeforMoveDamaged);
-        }
     }
 
     protected void SetHealth(int health)
@@ -57,13 +54,15 @@ public abstract class HealthView : MonoBehaviour
         StartHealth = damageable.Health.Value;
 
         _currentHealth = StartHealth;
-        _slider.maxValue = StartHealth;
-        _slider.value = StartHealth;
+        SetSliderStartValue(_slider, StartHealth);
 
         if (_damagedSlider != null)
-        {
-            _damagedSlider.value = StartHealth;
-            _damagedSlider.value = StartHealth;
-        }
+            SetSliderStartValue(_damagedSlider, StartHealth);
+    }
+
+    private void SetSliderStartValue(Slider slider, int value)
+    {
+        slider.maxValue = value;
+        slider.value = value;
     }
 }

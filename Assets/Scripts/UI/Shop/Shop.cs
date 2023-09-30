@@ -128,7 +128,7 @@ public class Shop : MonoBehaviour
     {
         for (int i = 0; i < _weaponViews.Length; i++)
         {
-            if (_weaponViews[i].Weapon.Type == weapon.Type)
+            if (_weaponViews[i].Weapon == weapon)
             {
                 _weaponViews[i].SelectView();
                 break;

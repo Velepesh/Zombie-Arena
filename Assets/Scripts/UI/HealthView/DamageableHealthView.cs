@@ -1,12 +1,7 @@
-using TMPro;
-using UnityEngine;
 using UnityEngine.Events;
 
 public class DamageableHealthView : HealthView
 {
-    [SerializeField] private TextScaleAnimation _textScaleAnimation;
-    //[SerializeField] private TMP_Text _healthText;
-
     public event UnityAction<int, int> HealthChanged;
 
     public void SetIDamageable(IDamageable damageable)
@@ -20,11 +15,4 @@ public class DamageableHealthView : HealthView
         SetHealth(health);
         HealthChanged?.Invoke(StartHealth, health);
     }
-
-    //private void ChangeHealthText(int health)
-    //{
-    //    _healthText.text = health.ToString();
-    //    _textScaleAnimation.PlayScaleAnimation(_healthText);
-    //    HealthChanged?.Invoke(StartHealth, health);
-    //}
 }

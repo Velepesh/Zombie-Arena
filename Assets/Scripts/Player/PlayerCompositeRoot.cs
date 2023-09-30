@@ -10,7 +10,7 @@ public class PlayerCompositeRoot : Builder
     [SerializeField] private Inventory _inventory;
 
     public Player Player => _player;
-   
+
     private void Awake()
     {
         _setup.enabled = false;
@@ -35,6 +35,11 @@ public class PlayerCompositeRoot : Builder
     {
         _setup.enabled = true;
         _inventory.Init(_equipment.GetEquipedWeapons());
+    }
+
+    public override Health GetHealth()
+    {
+        return _player.Health;
     }
 
     public override void AddHealth(int value)

@@ -10,7 +10,7 @@ public class Game : MonoBehaviour
     [SerializeField] private ScoreSetup _scoreSetup;
 
     private int _defaultEarnings => TotalScore;
-
+    private bool _isPaused;
     public int TotalScore => _scoreSetup.Score.TotalScore;
     public int DoubleEarnings => TotalScore * 2;
 
@@ -41,6 +41,7 @@ public class Game : MonoBehaviour
 
     public void Continue()
     {
+        _isPaused = false;
         Continued?.Invoke();
     }
 
@@ -56,7 +57,11 @@ public class Game : MonoBehaviour
 
     public void OnTryPause(InputAction.CallbackContext context)
     {
-        Paused?.Invoke();
+        if (_isPaused == false)
+        {
+            Paused?.Invoke();
+            _isPaused = true;
+        }
     }
 
     public void Restart()
