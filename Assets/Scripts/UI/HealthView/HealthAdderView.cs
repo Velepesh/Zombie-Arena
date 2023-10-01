@@ -9,12 +9,12 @@ public class HealthAdderView : MonoBehaviour
 
     private void OnEnable()
     {
-        _healthAdder.Health.HealthChanged += OnHealthChanged;
+        _healthAdder.HealthChanged += OnHealthChanged;
     }
 
     private void OnDisable()
     {
-        _healthAdder.Health.HealthChanged -= OnHealthChanged;
+        _healthAdder.HealthChanged -= OnHealthChanged;
     }
 
     private void Start()
@@ -22,14 +22,9 @@ public class HealthAdderView : MonoBehaviour
         UpdateText(_priceText, _healthAdder.Price);
     }
 
-    private void OnHealthLoaded()
-    {
-        UpdateText(_currentHealthText, _healthAdder.Health.Value);
-    }
-
     private void OnHealthChanged(int health)
     {
-        UpdateText(_currentHealthText, _healthAdder.Health.Value);
+        UpdateText(_currentHealthText, health);
     }
 
     private void UpdateText(TMP_Text text, int value)

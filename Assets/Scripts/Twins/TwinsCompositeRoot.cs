@@ -1,6 +1,5 @@
 using UnityEngine;
 using YG;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class TwinsCompositeRoot : Builder
 {
@@ -9,7 +8,7 @@ public class TwinsCompositeRoot : Builder
 
     public Twins Twins => _twins;
 
-    private void Awake()
+    private void Start()
     {
         _setup.enabled = false;
 
@@ -56,6 +55,7 @@ public class TwinsCompositeRoot : Builder
         int health = YandexGame.savesData.TwinsHealth;
 
         _twins.Health.SetStartHealth(health);
+        OnHealthLoaded(_twins.Health);
     }
 
     private void Save()

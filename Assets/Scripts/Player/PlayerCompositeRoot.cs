@@ -11,7 +11,7 @@ public class PlayerCompositeRoot : Builder
 
     public Player Player => _player;
 
-    private void Awake()
+    private void Start()
     {
         _setup.enabled = false;
 
@@ -59,6 +59,7 @@ public class PlayerCompositeRoot : Builder
         int health = YandexGame.savesData.PlayerHealth;
 
         _player.Health.SetStartHealth(health);
+        OnHealthLoaded(_player.Health);
     }
 
     private void Save()

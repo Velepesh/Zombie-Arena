@@ -16,7 +16,6 @@ public class Health
             throw new ArgumentException(nameof(health));
 
         _health = health;
-        HealthChanged?.Invoke(_health);
     }
 
     public void AddHealth(int value)
@@ -25,6 +24,7 @@ public class Health
             throw new ArgumentException(nameof(value));
 
         _health += value;
+        HealthChanged?.Invoke(_health);
     }
 
     public void TakeDamage(int damage)

@@ -7,27 +7,29 @@ public class HealthAdder : MonoBehaviour
 {
     [SerializeField] private int _adID;
     [SerializeField] private Builder _builderCompositeRoot;
-    [SerializeField] private int _health;
+    [SerializeField] private int _addedHealth = 25;
     [SerializeField] private int _price;
     [SerializeField] private Button _buyButton;
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private CanvasFade _canvasFade;
 
-    public int Price => _price;
-    public Health Health => _builderCompositeRoot.GetHealth();
+    private Health _health;
 
-    public event UnityAction HealthLoaded;
+    public int Price => _price;
+
+    public event UnityAction<int> HealthChanged;
     public event UnityAction<HealthAdder, int> BuyHealthButtonClicked;
 
     private void OnValidate()
     {
-        _health = Mathf.Clamp(_health, 0, int.MaxValue);
+        _addedHealth = Mathf.Clamp(_addedHealth, 0, int.MaxValue);
         _price = Mathf.Clamp(_price, 0, int.MaxValue);
     }
 
     private void OnEnable()
     {
         YandexGame.RewardVideoEvent += Rewarded;
+        _builderCompositeRoot.HealthLoaded += OnHealthLoaded;
         _buyButton.onClick.AddListener(OnBuyHealthButtonClick);
     }
 
@@ -35,17 +37,32 @@ public class HealthAdder : MonoBehaviour
     {
         YandexGame.RewardVideoEvent -= Rewarded;
         _buyButton.onClick.RemoveListener(OnBuyHealthButtonClick);
+
+        if(_health != null)
+            _health.HealthChanged -= OnHealthChanged;
     }
 
     public void AddHealth()
     {
-        _builderCompositeRoot.AddHealth(_health);
+        _builderCompositeRoot.AddHealth(_addedHealth);
     }
 
     public void HideHealthAdderPanel()
     {
         if(_canvasGroup.alpha != 0)
             _canvasFade.Hide();
+    }
+
+    private void OnHealthLoaded(Health health)
+    {
+        _health = health;
+        _health.HealthChanged += OnHealthChanged;
+        OnHealthChanged(_health.Value);
+    }
+
+    private void OnHealthChanged(int value)
+    {
+        HealthChanged?.Invoke(value);
     }
 
     private void Rewarded(int id)
