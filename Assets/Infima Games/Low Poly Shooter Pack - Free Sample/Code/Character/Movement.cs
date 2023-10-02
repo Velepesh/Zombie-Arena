@@ -1,4 +1,5 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
+//Copyright 2022, Infima Games. All Rights Reserved.
 
 using System.Collections;
 using UnityEngine;
@@ -88,6 +89,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         [SerializeField] private float _slidingSpeed;
         [SerializeField] private float _checkSlidingDistance;
+        [SerializeField] private LayerMask _ignoreLayers;
 
         [Title(label: "Crouching")]
 
@@ -238,7 +240,6 @@ namespace InfimaGames.LowPolyShooterPack
         }
 
         #endregion
-
         #region METHODS
         private void UpdateSlopesSliding()
         {
@@ -248,11 +249,9 @@ namespace InfimaGames.LowPolyShooterPack
                 Vector3 castOrigin = transform.position - new Vector3(0, sphereCastVerticalOffset, 0);
                
                 if (Physics.SphereCast(castOrigin, controller.radius - 0.01f, Vector3.down,
-                    out var hit, _checkSlidingDistance, ~LayerMask.GetMask("Character"), QueryTriggerInteraction.Ignore))
+                    out var hit, _checkSlidingDistance, ~_ignoreLayers, QueryTriggerInteraction.Ignore))
                 {
                     float angel = Vector3.Angle(Vector3.up, hit.normal);
-
-                    Debug.DrawLine(hit.point, hit.point + hit.normal, Color.black, 3f);
 
                     if (angel > controller.slopeLimit)
                     {

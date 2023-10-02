@@ -32,7 +32,7 @@ public class WeaponButton : MonoBehaviour
         _button.onClick.RemoveListener(OnButtonClick);
     }
 
-    public void SetBoughtColor()
+    public void SetUnlockedColor()
     {
         SetImage(_boughtColor);
     }

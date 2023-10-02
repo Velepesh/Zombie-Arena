@@ -89,7 +89,7 @@ public class Zombie : MonoCache, IDamageable
 
     public void Die()
     {
-        DisableAllColliders();
+        IgnorePlayerCollider();
 
         if (_lastDamageHandlerType == DamageHandlerType.Head)
         {
@@ -140,7 +140,7 @@ public class Zombie : MonoCache, IDamageable
         HitTaken?.Invoke(type);
     }
 
-    private void DisableAllColliders()
+    private void IgnorePlayerCollider()
     {
         for (int i = 0; i < _damageHandlers.Length; i++)
             _damageHandlers[i].IgnorePlayerCollider();
