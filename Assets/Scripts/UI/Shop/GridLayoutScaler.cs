@@ -22,7 +22,7 @@ public class GridLayoutScaler : MonoCache
         RemoveUpdate();
     }
 
-    private void Start()
+    private void Awake()
     {
         _layoutGroup = GetComponent<GridLayoutGroup>();
         _baseCellSize = _layoutGroup.cellSize;
