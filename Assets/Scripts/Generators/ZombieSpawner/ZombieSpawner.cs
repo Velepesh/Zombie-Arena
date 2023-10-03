@@ -10,7 +10,8 @@ public class ZombieSpawner : ObjectPool
     [SerializeField] private LevelCounter _levelCounter;
     [SerializeField] private ZombieTargetsCompositeRoot _targets;
     [SerializeField] private List<SpawnPoint> _spawnPoints;
-    [SerializeField] private int _numberOfCircleLevel;
+    [SerializeField] private int _maxLevel;
+    [SerializeField] private int _minCircleLevel;
     [SerializeField] private int _maxActiveZombie;
 
     readonly private int _startWaveIndex = 0;
@@ -94,8 +95,8 @@ public class ZombieSpawner : ObjectPool
     {
         int levelIndex = _levelCounter.Level - 1;
 
-        if (levelIndex > _numberOfCircleLevel)
-            levelIndex = _numberOfCircleLevel;
+        if (levelIndex > _maxLevel)
+            levelIndex = _minCircleLevel;
         
         _currentLevel = _levels[levelIndex];
         _currentWaveNumber = _startWaveIndex;

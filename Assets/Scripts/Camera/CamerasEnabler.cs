@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -50,19 +51,19 @@ public class CamerasEnabler : MonoBehaviour
 
     private void OnWon()
     {
-        EnableGlowUICamera();
+        StartCoroutine(EnableGlowUICamera());
     }
 
     private void OnGameOver()
     {
-        EnableGlowUICamera();
+        StartCoroutine(EnableGlowUICamera());
     }
 
-    private async void EnableGlowUICamera()
+    private IEnumerator EnableGlowUICamera()
     {
         Enable(_glowUICamera);
-        await Task.Delay(_millisecindDelay);
-     
+        //await Task.Delay(_millisecindDelay);
+        yield return new WaitForSeconds(_delayBeforeEnableGlowCamera);
         Disable(_mainCamera);
         Disable(_depthCamera);
     }

@@ -1,4 +1,3 @@
-using Unity.XR.OpenVR;
 using UnityEngine;
 using UnityEngine.UI;
 
