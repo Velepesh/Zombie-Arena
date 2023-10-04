@@ -62,7 +62,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		//Time before the target pops back up
 		private IEnumerator DelayTimer()
 		{
-			//Wait for random amount of time
+			//WaitBeforeLockCursor for random amount of time
 			yield return new WaitForSeconds(randomTime);
 			//Animate the target "up" 
 			gameObject.GetComponent<Animation>().clip = targetUp;

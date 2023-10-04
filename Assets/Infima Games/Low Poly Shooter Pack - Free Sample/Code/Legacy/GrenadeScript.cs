@@ -70,7 +70,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		private IEnumerator ExplosionTimer()
 		{
-			//Wait set amount of time
+			//WaitBeforeLockCursor set amount of time
 			yield return new WaitForSeconds(grenadeTimer);
 
 			//Raycast downwards to check ground

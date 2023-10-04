@@ -8,16 +8,18 @@ public class EnvironmentTime : MonoBehaviour
     {
         _game.GameStarted += OnTimeStarted;
         _game.Continued += OnTimeStarted;
-        _game.Paused += OnTimeStoped;
+        _game.Reborned += OnTimeStarted;
         _game.GameOver += OnTimeStoped;
+        _game.Paused += OnTimeStoped;
     }
 
     private void OnDisable()
     {
         _game.GameStarted -= OnTimeStarted;
         _game.Continued -= OnTimeStarted;
-        _game.Paused -= OnTimeStoped;
+        _game.Reborned -= OnTimeStarted;
         _game.GameOver -= OnTimeStoped;
+        _game.Paused -= OnTimeStoped;
     }
 
     private void OnTimeStarted()

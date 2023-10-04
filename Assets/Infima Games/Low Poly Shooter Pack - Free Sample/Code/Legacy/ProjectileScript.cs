@@ -96,7 +96,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		//it should blow up after some time
 		private IEnumerator ExplodeSelf()
 		{
-			//Wait set amount of time
+			//WaitBeforeLockCursor set amount of time
 			yield return new WaitForSeconds(explodeAfter);
 			//Spawn explosion particle prefab
 			if (!hasCollided)
@@ -117,7 +117,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 				smokeParticles.GetComponent<ParticleSystem>().Stop();
 			}
 
-			//Wait more to let particle systems disappear
+			//WaitBeforeLockCursor more to let particle systems disappear
 			yield return new WaitForSeconds(destroyDelay);
 			//Destroy projectile
 			Destroy(gameObject);
@@ -133,7 +133,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		private IEnumerator DestroyTimerAfterCollision()
 		{
-			//Wait set amount of time after collision to destroy projectile
+			//WaitBeforeLockCursor set amount of time after collision to destroy projectile
 			yield return new WaitForSeconds(destroyDelay);
 			//Destroy gameobject
 			Destroy(gameObject);

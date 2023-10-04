@@ -34,14 +34,14 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
     
     	private IEnumerator StartFOVTimer () 
     	{
-    		//Wait for set amount of time before increaseing FOV
+    		//WaitBeforeLockCursor for set amount of time before increaseing FOV
     		yield return new WaitForSeconds (startAfter);
     		increaseEnabled = true;
     	}
     
     	private IEnumerator FlashlightTimer () 
     	{
-    		//Wait for set amount of time before enabling flashlight
+    		//WaitBeforeLockCursor for set amount of time before enabling flashlight
     		yield return new WaitForSeconds (flashlightStartAfter);
     		flashLight.enabled = true;
     	}

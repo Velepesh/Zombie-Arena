@@ -27,14 +27,14 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
         private IEnumerator WaitBeforePlaying()
         {
-            //Wait for set amount of time
+            //WaitBeforeLockCursor for set amount of time
             yield return new WaitForSeconds(initialDelay);
             StartCoroutine(PlayEffect());
         }
 
         private IEnumerator PlayEffect()
         {
-            //Wait for set amount of time
+            //WaitBeforeLockCursor for set amount of time
             yield return new WaitForSeconds(waitBetweenPlaying);
             //Play effects here
             particles.Play();

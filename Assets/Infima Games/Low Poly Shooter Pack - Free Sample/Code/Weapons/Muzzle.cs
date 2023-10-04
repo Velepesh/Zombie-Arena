@@ -140,7 +140,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         private IEnumerator DisableLight()
         {
-            //Wait.
+            //WaitBeforeLockCursor.
             yield return new WaitForSeconds(flashLightDuration);
             //Disable.
             flashLight.enabled = false;

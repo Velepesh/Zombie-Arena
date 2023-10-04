@@ -47,7 +47,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private IEnumerator DestroySourceWhenFinished(AudioSource source)
         {
-            //Wait for the audio source to complete playing the clip.
+            //WaitBeforeLockCursor for the audio source to complete playing the clip.
             yield return new WaitWhile(() => IsPlaying(source));
 
             //Destroy the audio game object, since we're not using it anymore.
@@ -67,7 +67,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         private IEnumerator PlayOneShotAfterDelay(OneShotCoroutine value)
         {
-            //Wait for the delay.
+            //WaitBeforeLockCursor for the delay.
             yield return new WaitForSeconds(value.Delay);
             //PlayOneShot.
             PlayOneShot_Internal(value.Clip, value.Settings);

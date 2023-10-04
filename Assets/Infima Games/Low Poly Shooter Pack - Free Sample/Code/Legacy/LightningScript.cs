@@ -108,7 +108,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			lightObject.enabled = true;
 			//Set a random intensity value
 			lightObject.intensity = (Random.Range(minIntensity, maxIntensity));
-			//Wait for set amount of time
+			//WaitBeforeLockCursor for set amount of time
 
 			//Set the background color of the gun camera
 			gunCamera.backgroundColor = lightningBackgroundColor;
@@ -149,7 +149,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		//Delay between LightFlashOne one and LightFlashTwo
 		private IEnumerator FlashDelay()
 		{
-			//Wait for set amount of time
+			//WaitBeforeLockCursor for set amount of time
 			yield return new WaitForSeconds(flashDelay);
 			//Start light flash two
 			StartCoroutine(LightFlashTwo());
@@ -188,7 +188,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			//Play sound
 			lightningSound.Play();
 
-			//Wait for set amount of time
+			//WaitBeforeLockCursor for set amount of time
 			yield return new WaitForSeconds(lightDuration);
 			//Disable the light
 			lightObject.enabled = false;
@@ -206,7 +206,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		//Time between lightnings
 		private IEnumerator Timer()
 		{
-			//Wait for set amount of time
+			//WaitBeforeLockCursor for set amount of time
 			yield return new WaitForSeconds(delay);
 			//Is not waiting
 			isWaiting = false;

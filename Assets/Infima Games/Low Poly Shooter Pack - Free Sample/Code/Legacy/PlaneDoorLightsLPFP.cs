@@ -33,7 +33,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		private IEnumerator DoorLightsTimer()
 		{
-			//Wait for set amount of time
+			//WaitBeforeLockCursor for set amount of time
 			yield return new WaitForSeconds(openDoorTimer);
 			//Set light to green material
 			planeDoorLights.GetComponent<MeshRenderer>().material = greenEmission;

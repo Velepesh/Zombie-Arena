@@ -20,6 +20,7 @@ public class Game : MonoBehaviour
     public event UnityAction Continued;
     public event UnityAction Paused;
     public event UnityAction Restarted;
+    public event UnityAction Reborned;
     public event UnityAction<int> Earned;
 
     private void OnEnable()
@@ -68,6 +69,11 @@ public class Game : MonoBehaviour
     {
         DOTween.Clear(true);
         Restarted?.Invoke();
+    }
+
+    public void Reborn()
+    {
+        Reborned?.Invoke();
     }
 
     private void OnZombieEnded()

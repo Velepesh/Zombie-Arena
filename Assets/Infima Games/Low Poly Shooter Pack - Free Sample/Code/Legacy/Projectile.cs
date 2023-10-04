@@ -134,7 +134,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
         private IEnumerator DestroyTimer()
 		{
-			//Wait random time based on min and max values
+			//WaitBeforeLockCursor random time based on min and max values
 			yield return new WaitForSeconds
 				(Random.Range(minDestroyTime, maxDestroyTime));
             
@@ -143,7 +143,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		private IEnumerator DestroyAfter()
 		{
-			//Wait for set amount of time
+			//WaitBeforeLockCursor for set amount of time
 			yield return new WaitForSeconds(destroyAfter);
 
             DisableProjectile();

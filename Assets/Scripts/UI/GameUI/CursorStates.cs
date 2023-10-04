@@ -1,11 +1,13 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class CursorStates : MonoBehaviour
 {
     [SerializeField] private Game _game;
 
-    public bool IsCursorLocked { get; private set; }
+    private readonly int _delayBeforLock = 100;
 
+    public bool IsCursorLocked { get; private set; }
 
     private void OnEnable()
     {
@@ -13,6 +15,8 @@ public class CursorStates : MonoBehaviour
         _game.Continued += OnContinued;
         _game.Paused += OnPaused;
         _game.Won += OnWon;
+        _game.GameOver += OnGameOver;
+        _game.Reborned += OnReborned;
     }
 
     private void OnDisable()
@@ -21,6 +25,8 @@ public class CursorStates : MonoBehaviour
         _game.Continued -= OnContinued;
         _game.Paused -= OnPaused;
         _game.Won -= OnWon;
+        _game.GameOver -= OnGameOver;
+        _game.Reborned -= OnReborned;
     }
 
     private void Awake()
@@ -46,6 +52,22 @@ public class CursorStates : MonoBehaviour
     private void OnWon()
     {
         UnlockCursor();
+    }
+
+    private void OnGameOver()
+    {
+        UnlockCursor();
+    }
+
+    private void OnReborned()
+    {
+        WaitBeforeLockCursor();
+    }
+
+    private async void WaitBeforeLockCursor()
+    {
+        await Task.Delay(_delayBeforLock);
+        LockCursor();
     }
 
     private void LockCursor()

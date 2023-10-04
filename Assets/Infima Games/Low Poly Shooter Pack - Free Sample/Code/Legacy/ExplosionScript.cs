@@ -34,7 +34,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
     	private IEnumerator LightFlash () {
     		//Show the light
     		lightFlash.GetComponent<Light>().enabled = true;
-    		//Wait for set amount of time
+    		//WaitBeforeLockCursor for set amount of time
     		yield return new WaitForSeconds (lightDuration);
     		//Hide the light
     		lightFlash.GetComponent<Light>().enabled = false;

@@ -100,7 +100,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		private IEnumerator PlaySound()
 		{
-			//Wait for random time before playing sound clip
+			//WaitBeforeLockCursor for random time before playing sound clip
 			yield return new WaitForSeconds(Random.Range(0.25f, 0.85f));
 			//Get a random casing sound from the array 
 			audioSource.clip = casingSounds

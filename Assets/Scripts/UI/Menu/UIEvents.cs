@@ -9,6 +9,7 @@ public class UIEvents : MonoBehaviour
     [SerializeField] private UnityEvent _onGameOver;
     [SerializeField] private UnityEvent _onContinued;
     [SerializeField] private UnityEvent _onPaused;
+    [SerializeField] private UnityEvent _onReborned;
 
     private void OnEnable()
     {
@@ -17,6 +18,7 @@ public class UIEvents : MonoBehaviour
         _game.GameOver += () => _onGameOver?.Invoke();
         _game.Continued += () => _onContinued?.Invoke();
         _game.Paused += () => _onPaused?.Invoke();
+        _game.Reborned += () => _onReborned?.Invoke();
     }
 
     private void OnDisable()
@@ -26,5 +28,6 @@ public class UIEvents : MonoBehaviour
         _game.GameOver -= () => _onGameOver?.Invoke();
         _game.Continued -= () => _onContinued?.Invoke();
         _game.Paused -= () => _onPaused?.Invoke();
+        _game.Reborned -= () => _onReborned?.Invoke();
     }
 }

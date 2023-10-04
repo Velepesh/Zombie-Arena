@@ -131,7 +131,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		private IEnumerator Explode()
 		{
-			//Wait for set amount of time
+			//WaitBeforeLockCursor for set amount of time
 			yield return new WaitForSeconds(explosionTimer);
 
 			//Spawn the destroyed gas tank prefab

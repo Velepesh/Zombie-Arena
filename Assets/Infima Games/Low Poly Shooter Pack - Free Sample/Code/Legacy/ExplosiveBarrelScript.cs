@@ -49,7 +49,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
     	}
     	
     	private IEnumerator Explode () {
-    		//Wait for set amount of time
+    		//WaitBeforeLockCursor for set amount of time
     		yield return new WaitForSeconds(randomTime);
     
     		//Spawn the destroyed barrel prefab

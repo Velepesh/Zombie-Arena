@@ -7,15 +7,24 @@ public class Health
 {
     [SerializeField] private int _health;
 
+    private int _startHealth;
+
     public int Value => _health;
     public event UnityAction<int> HealthChanged;
 
-    public void SetStartHealth(int health)
+    public void SetHealth(int value)
     {
-        if (health <= 0)
-            throw new ArgumentException(nameof(health));
+        if (value <= 0)
+            throw new ArgumentException(nameof(value));
 
-        _health = health;
+        _health = value;
+        SetStartHealth(value);
+    }
+
+    public void Reborn()
+    {
+        _health = _startHealth;
+        HealthChanged?.Invoke(_health);
     }
 
     public void AddHealth(int value)
@@ -24,6 +33,7 @@ public class Health
             throw new ArgumentException(nameof(value));
 
         _health += value;
+        SetStartHealth(value);
         HealthChanged?.Invoke(_health);
     }
 
@@ -38,5 +48,10 @@ public class Health
             _health = 0;
 
         HealthChanged?.Invoke(_health);
+    }
+
+    private void SetStartHealth(int value)
+    {
+        _startHealth = value;
     }
 }

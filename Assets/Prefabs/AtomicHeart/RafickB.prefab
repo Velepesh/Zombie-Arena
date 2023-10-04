@@ -3218,7 +3218,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8866795304913383650}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: bacca9ea1e796104cb30d5b9dde2acf8, type: 3}
+  m_Avatar: {fileID: 9000000, guid: c85e15ac3ee9bfc4698aa068892e54fe, type: 3}
   m_Controller: {fileID: 9100000, guid: a67249936c86628458558862a883cbed, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -3329,7 +3329,7 @@ MonoBehaviour:
   _transitions:
   - {fileID: 6422139219225309023}
   - {fileID: 8485432788207051865}
-  _attackCollider: {fileID: 7082655616947342774}
+  _attackColliders: []
 --- !u!114 &2524959020266436248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3407,6 +3407,7 @@ MonoBehaviour:
   _headKillimpactLength: 0.5
   _bodyKillimpactLength: 0.2
   _impactDuration: 1
+  _isMultipleAttackStates: 0
 --- !u!114 &2556381644074169134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3422,13 +3423,11 @@ MonoBehaviour:
   _health:
     _health: 100
   _options:
-    _maxAward: 150
+    _award: 0
     _moveSpeed: 2.2
     _rotationSpeed: 5
-    _attackDistance: 2.2
+    _attackDistance: 2.8
     _changeTargetDistance: 10
-  _score: 150
-  _type: 1
 --- !u!195 &2880133912356940575
 NavMeshAgent:
   m_ObjectHideFlags: 0

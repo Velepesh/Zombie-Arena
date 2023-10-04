@@ -28,7 +28,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		private IEnumerator BlinkTimer()
 		{
-			//Wait for set amount of time
+			//WaitBeforeLockCursor for set amount of time
 			yield return new WaitForSeconds(blinkDuration);
 			//Start blinking
 			StartCoroutine(BlinkOnce());
@@ -38,7 +38,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		{
 			//Enable light
 			blinkingLight.enabled = true;
-			//Wait for set amount of time
+			//WaitBeforeLockCursor for set amount of time
 			yield return new WaitForSeconds(blinkTimer);
 			//Disable light
 			blinkingLight.enabled = false;

@@ -1,5 +1,4 @@
 ﻿using InfimaGames.LowPolyShooterPack;
-using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -34,6 +33,7 @@ public class PlayerInteraction : MonoBehaviour
         _game.GameOver += OnGameOver;
         _game.Paused += OnPaused;
         _game.Continued += OnContinued;
+        _game.Reborned += OnReborned;
     }
 
     private void OnDisable()
@@ -44,8 +44,8 @@ public class PlayerInteraction : MonoBehaviour
         _game.GameOver -= OnGameOver;
         _game.Paused -= OnPaused;
         _game.Continued -= OnContinued;
+        _game.Reborned -= OnReborned;
     }
-
 
     public void OnRestart(InputAction.CallbackContext context)
     {
@@ -68,18 +68,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnGameOver()
     {
-        StartCoroutine(GameOver());
-        //_actionMapChanger.DisablePlayerInput();
-        //_actionMapChanger.EnableUIActionMap();
-        //await Task.Delay(_millisecindDelay);
-        //Deactivate();
-    }
-
-    private IEnumerator GameOver()
-    {
         _actionMapChanger.DisablePlayerInput();
         _actionMapChanger.EnableUIActionMap();
-        yield return new WaitForSeconds(_delayBeforeDeactivate);
         Deactivate();
     }
 
@@ -94,6 +84,11 @@ public class PlayerInteraction : MonoBehaviour
     }
 
     private void OnContinued()
+    {
+        Activate();
+    }
+
+    private void OnReborned()
     {
         Activate();
     }

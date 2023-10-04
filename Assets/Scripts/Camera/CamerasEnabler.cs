@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
-
 
 public class CamerasEnabler : MonoBehaviour
 {
@@ -10,8 +8,6 @@ public class CamerasEnabler : MonoBehaviour
     [SerializeField] private Camera _depthCamera;
     [SerializeField] private Camera _glowUICamera;
     [SerializeField] private float _delayBeforeEnableGlowCamera;
-
-    private int _millisecindDelay => (int)_delayBeforeEnableGlowCamera * 1000;
 
     private void OnValidate()
     {
@@ -23,6 +19,7 @@ public class CamerasEnabler : MonoBehaviour
         _game.GameStarted += OnGameStarted;
         _game.Won += OnWon;
         _game.GameOver += OnGameOver;
+        _game.Reborned += OnReborned;
     }
 
     private void OnDisable()
@@ -30,6 +27,7 @@ public class CamerasEnabler : MonoBehaviour
         _game.GameStarted -= OnGameStarted;
         _game.Won -= OnWon;
         _game.GameOver -= OnGameOver;
+        _game.Reborned -= OnReborned;
     }
 
     private void Start()
@@ -51,21 +49,32 @@ public class CamerasEnabler : MonoBehaviour
 
     private void OnWon()
     {
-        StartCoroutine(EnableGlowUICamera());
+        StartCoroutine(SwitchToGlowCamera());
     }
 
     private void OnGameOver()
     {
-        StartCoroutine(EnableGlowUICamera());
+        EnableGlowUICamera();
     }
 
-    private IEnumerator EnableGlowUICamera()
+    private void OnReborned()
+    {
+        EnableMainCamera();
+        OnGameStarted();
+    }
+
+    private IEnumerator SwitchToGlowCamera()
     {
         Enable(_glowUICamera);
-        //await Task.Delay(_millisecindDelay);
         yield return new WaitForSeconds(_delayBeforeEnableGlowCamera);
+
         Disable(_mainCamera);
         Disable(_depthCamera);
+    }
+
+    private void EnableGlowUICamera()
+    {
+        Enable(_glowUICamera);
     }
 
     private void Enable(Camera camera)

@@ -49,6 +49,12 @@ public class PlayerCompositeRoot : Builder
         Save();
     }
 
+    public override void Reborn()
+    {
+        _player.Health.Reborn();
+    }
+
+
     private void OnPlayerDied(IDamageable damageable)
     {
         OnDied();
@@ -58,7 +64,7 @@ public class PlayerCompositeRoot : Builder
     {
         int health = YandexGame.savesData.PlayerHealth;
 
-        _player.Health.SetStartHealth(health);
+        _player.Health.SetHealth(health);
         OnHealthLoaded(_player.Health);
     }
 

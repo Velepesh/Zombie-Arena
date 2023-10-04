@@ -647,7 +647,7 @@ namespace InfimaGames.LowPolyShooterPack
 			{
 				//Holster.
 				SetHolstered(holstering = true);
-				//Wait.
+				//WaitBeforeLockCursor.
 				yield return new WaitUntil(() => holstering == false);
 			}
 			//Unholster. We do this just in case we were holstered.

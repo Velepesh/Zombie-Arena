@@ -45,6 +45,11 @@ public class TwinsCompositeRoot : Builder
         Save();
     }
 
+    public override void Reborn()
+    {
+        _twins.Health.Reborn();
+    }
+
     private void OnTwinDied(IDamageable damageable)
     {
         OnDied();
@@ -54,7 +59,7 @@ public class TwinsCompositeRoot : Builder
     {
         int health = YandexGame.savesData.TwinsHealth;
 
-        _twins.Health.SetStartHealth(health);
+        _twins.Health.SetHealth(health);
         OnHealthLoaded(_twins.Health);
     }
 

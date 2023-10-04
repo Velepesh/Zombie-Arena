@@ -34,7 +34,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		private IEnumerator DespawnTimer()
 		{
-			//Wait for set amount of time
+			//WaitBeforeLockCursor for set amount of time
 			yield return new WaitForSeconds(despawnTimer);
             //Destroy the impact gameobject
             Impacted?.Invoke(this);
