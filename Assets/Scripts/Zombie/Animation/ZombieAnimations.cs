@@ -108,6 +108,7 @@ public class ZombieAnimations : MonoBehaviour
     private void ChooseAttack()
     {
         int number = 0;
+
         if (_isMultipleAttackStates)
             number = Random.Range(0, 2);
 

@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityToolbag;
+using static YG.ViewingAdsYG;
 
 namespace YG
 {
@@ -110,8 +111,10 @@ namespace YG
                 {
                     if (pauseMethod == PauseMethod.CustomState)
                     {
-                        if (pause) AudioListener.pause = true;
-                        else AudioListener.pause = closingADValues.audioPause;
+                        if (pause)
+                            AudioListener.pause = true;
+                        else 
+                            AudioListener.pause = closingADValues.audioPause;
                     }
                     else
                     {
@@ -128,8 +131,13 @@ namespace YG
                 {
                     if (pauseMethod == PauseMethod.CustomState)
                     {
-                        if (pause) Time.timeScale = openingADValues.timeScale;
-                        else Time.timeScale = closingADValues.timeScale;
+                        if (pause)
+                        {
+                            closingADValues.timeScale = Time.timeScale;
+                            Time.timeScale = openingADValues.timeScale;
+                        }
+                        else
+                            Time.timeScale = closingADValues.timeScale;
                     }
                     else
                     {
@@ -158,7 +166,8 @@ namespace YG
                         {
                             if (closingADValues.cursorVisible == CursorVisible.Hide)
                                 Cursor.visible = false;
-                            else Cursor.visible = true;
+                            else 
+                                Cursor.visible = true;
 
                             Cursor.lockState = closingADValues.cursorLockMode;
                         }

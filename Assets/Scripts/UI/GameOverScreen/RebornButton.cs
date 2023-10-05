@@ -3,13 +3,15 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using YG;
+using UnityEngine.Events;
 
 public class RebornButton : MonoBehaviour
 {
     [SerializeField] private int _adID;
-    [SerializeField] private Game _game;
     [SerializeField] private Button _rebornButton;
     [SerializeField] private List<Builder> _builders;
+
+    public event UnityAction RebornButtonClicked;
 
     private void OnEnable()
     {
@@ -35,7 +37,7 @@ public class RebornButton : MonoBehaviour
         for (int i = 0; i < _builders.Count; i++)
             _builders[i].Reborn();
 
-        _game.Reborn();
+        RebornButtonClicked?.Invoke();
         DisableRebornButton();
     }
 

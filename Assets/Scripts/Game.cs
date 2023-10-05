@@ -26,13 +26,13 @@ public class Game : MonoBehaviour
     private void OnEnable()
     {
         _zombieSpawner.Ended += OnZombieEnded;
-        _targets.TargetDied += OnDied;
+        _targets.TargetDied += OnTargetDied;
     }
 
     private void OnDisable()
     {
         _zombieSpawner.Ended -= OnZombieEnded;
-        _targets.TargetDied -= OnDied;
+        _targets.TargetDied -= OnTargetDied;
     }
 
     public void StartLevel()
@@ -92,7 +92,7 @@ public class Game : MonoBehaviour
         Won?.Invoke();
     }
 
-    private void OnDied()
+    private void OnTargetDied()
     {
         Lose();
     }
