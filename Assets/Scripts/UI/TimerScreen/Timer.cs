@@ -8,6 +8,7 @@ public class Timer : MonoCache
     [SerializeField] private float _timeRemaining = 3;
     [SerializeField] private TMP_Text _timeText;
 
+    private bool _isRebornButtonClicked = false;
     private bool _timerIsRunning = false;
 
     private void OnValidate()
@@ -45,9 +46,15 @@ public class Timer : MonoCache
         }
     }
 
+    public void RunTimer()
+    {
+        if (_isRebornButtonClicked)
+            _timerIsRunning = true;
+    }
+
     private void OnRebornButtonClicked()
     {
-        _timerIsRunning = true;
+        _isRebornButtonClicked = true;
     }
 
     private void DisplayTime(float timeToDisplay)

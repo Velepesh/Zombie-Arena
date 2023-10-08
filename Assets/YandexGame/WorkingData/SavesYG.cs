@@ -23,9 +23,9 @@ namespace YG
         public int Money = 0;
         public int PlayerHealth = 100;
         public int TwinsHealth = 100;
-        public float Sensetivity = 0;
+        public float Sensetivity = 1;
         public float SFX = 0;
-        public float Music = -15;
+        public float Music = -20;
         public bool IsExistBackgroundMusic = false;
 
         public Dictionary<string, WeaponData> Weapons = new Dictionary<string, WeaponData>()

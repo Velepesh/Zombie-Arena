@@ -604,6 +604,7 @@ GameObject:
   - component: {fileID: 5579656675396483300}
   - component: {fileID: 1387203192874309979}
   - component: {fileID: 5579656675396483301}
+  - component: {fileID: 3979536591800446887}
   m_Layer: 5
   m_Name: EquipmentView
   m_TagString: Untagged
@@ -696,6 +697,19 @@ MonoBehaviour:
   _weaponType: 0
   _weaponViewCanvasGroup: {fileID: 2567561537512563717}
   _emptySlotCanvasGroup: {fileID: 2567561536646591425}
+--- !u!114 &3979536591800446887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910971363273028476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a37fc58f2e989041808c045738ebd96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _atlas: {fileID: 4343727234628468602, guid: 64d3407269278b44b8df85d326e96e63, type: 2}
 --- !u!1 &910971363332826778
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,10 +927,10 @@ RectTransform:
   m_Father: {fileID: 2567561536646591424}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.04745171, y: 0}
+  m_AnchorMax: {x: 0.9548078, y: 1}
+  m_AnchoredPosition: {x: -0.27969363, y: 0}
+  m_SizeDelta: {x: 1.6931462, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2567561537828318134
 CanvasRenderer:
@@ -977,9 +991,9 @@ MonoBehaviour:
   m_fontSize: 55
   m_fontSizeBase: 55
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 55
   m_fontStyle: 17
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1035,7 +1049,7 @@ MonoBehaviour:
   text: 
   ru: "\u041F\u0443\u0441\u0442\u043E"
   en: Empty
-  tr: 
+  tr: "Bo\u015F"
   az: 
   be: 
   he: 
@@ -1065,9 +1079,9 @@ MonoBehaviour:
   uniqueFont: {fileID: 0}
   additionalText: {fileID: 0}
   textHeight: 55
-  processTranslateLabel: 2/2 completed
+  processTranslateLabel: 1/3 completed
   componentTextField: 1
-  countLang: 2
+  countLang: 1
 --- !u!1 &6611572683366865787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,7 +1141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9372549, g: 0.3019608, b: 0.47058824, a: 0.6666667}
+  m_Color: {r: 0.8679245, g: 0.17522249, b: 0.35994285, a: 0.6666667}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

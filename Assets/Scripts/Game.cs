@@ -2,6 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using YG;
 
 public class Game : MonoBehaviour
 {
@@ -23,8 +24,13 @@ public class Game : MonoBehaviour
     public event UnityAction Reborned;
     public event UnityAction<int> Earned;
 
-    private void OnEnable()
+    private void Awake()
     {
+        Application.targetFrameRate = 60;
+    }
+
+    private void OnEnable()
+    { 
         _zombieSpawner.Ended += OnZombieEnded;
         _targets.TargetDied += OnTargetDied;
     }

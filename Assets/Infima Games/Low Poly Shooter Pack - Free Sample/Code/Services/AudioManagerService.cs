@@ -49,10 +49,9 @@ namespace InfimaGames.LowPolyShooterPack
         {
             //WaitBeforeLockCursor for the audio source to complete playing the clip.
             yield return new WaitWhile(() => IsPlaying(source));
-
             //Destroy the audio game object, since we're not using it anymore.
             //This isn't really too great for performance, but it works, for now.
-            if (source.IsDestroyed() == false)
+            if (source != null)
                 DestroyImmediate(source.gameObject);
         }
         private bool IsPlaying(AudioSource source)

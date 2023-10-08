@@ -26,6 +26,7 @@ public class SettingsSaver : MonoBehaviour
             _settingsScreens[i].SensitivityUpdated += OnSensitivityUpdated;
             _settingsScreens[i].SFXUpdated += OnSFXUpdated;
             _settingsScreens[i].MusicUpdated += OnMusicUpdated;
+            _settingsScreens[i].BackButtonClicked += OnBackButtonClicked;
         }
     }
 
@@ -39,6 +40,7 @@ public class SettingsSaver : MonoBehaviour
             _settingsScreens[i].SensitivityUpdated -= OnSensitivityUpdated;
             _settingsScreens[i].SFXUpdated -= OnSFXUpdated;
             _settingsScreens[i].MusicUpdated -= OnMusicUpdated;
+            _settingsScreens[i].BackButtonClicked -= OnBackButtonClicked;
         }
     }
 
@@ -58,6 +60,11 @@ public class SettingsSaver : MonoBehaviour
         YandexGame.SaveProgress();
     }
 
+    private void OnBackButtonClicked()
+    {
+        Save();
+    }
+
     private void OnShowed(SettingsScreen screen)
     {
         SetSettingsData(screen);
@@ -71,31 +78,25 @@ public class SettingsSaver : MonoBehaviour
 
     private void OnSensitivityUpdated(float value)
     {
-        if (_sensetivity == value)
-            return;
-
-        _sensetivity = value;
-        YandexGame.savesData.Sensetivity = _sensetivity;
-        Save();
+        SetValue(ref _sensetivity, value, ref YandexGame.savesData.Sensetivity);
     }
 
     private void OnSFXUpdated(float value)
     {
-        if (_sfx == value)
-            return;
-
-        _sfx = value;
-        YandexGame.savesData.SFX = _sfx;
-        Save();
+        SetValue(ref _sfx, value, ref YandexGame.savesData.SFX);
     }
 
     private void OnMusicUpdated(float value)
     {
-        if (_music == value)
+        SetValue(ref _music, value, ref YandexGame.savesData.Music);
+    }
+
+    private void SetValue(ref float currentValue, float newValue, ref float saverValue)
+    {
+        if (newValue == currentValue)
             return;
 
-        _music = value;
-        YandexGame.savesData.Music = _music;
-        Save();
+        currentValue = newValue;
+        saverValue = currentValue;
     }
 }

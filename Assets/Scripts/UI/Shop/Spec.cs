@@ -20,7 +20,8 @@ public class Spec : MonoBehaviour
     [SerializeField] private Ñharacteristic _hipAccuracyCharacteristic;
     [SerializeField] private Ñharacteristic _aimAccuracyCharacteristic;
     [SerializeField] private Ñharacteristic _mobilityCharacteristic;
-    [SerializeField] private Button _buyButton;
+    [SerializeField] private Button _buyForMoneyButton;
+    [SerializeField] private Button _buyForYanButton;
     [SerializeField] private Button _unlockByAdsButton;
     [SerializeField] private Button _equipButton;
 
@@ -34,14 +35,14 @@ public class Spec : MonoBehaviour
     {
         YandexGame.RewardVideoEvent += Rewarded;
         _equipButton.onClick.AddListener(OnEquipButtonClick);
-        _buyButton.onClick.AddListener(OnBuyButtonClick);
+        _buyForMoneyButton.onClick.AddListener(OnBuyButtonClick);
     }
 
     private void OnDisable()
     {
         YandexGame.RewardVideoEvent -= Rewarded;
         _equipButton.onClick.RemoveListener(OnEquipButtonClick);
-        _buyButton.onClick.RemoveListener(OnBuyButtonClick);
+        _buyForMoneyButton.onClick.RemoveListener(OnBuyButtonClick);
     }
 
     public void UpdateSpec(Weapon weapon)
@@ -64,7 +65,8 @@ public class Spec : MonoBehaviour
     {
         if (weapon.IsBought || weapon.IsUnlock)
         {
-            DisableButtonView(_buyButton);
+            DisableButtonView(_buyForMoneyButton);
+            DisableButtonView(_buyForYanButton);
             DisableButtonView(_unlockByAdsButton);
 
             if (weapon.IsEquip)
@@ -74,7 +76,8 @@ public class Spec : MonoBehaviour
         }
         else
         {
-            EnableButtonView(_buyButton);
+            EnableButtonView(_buyForMoneyButton);
+            EnableButtonView(_buyForYanButton);
             EnableButtonView(_unlockByAdsButton);
             DisableButtonView(_equipButton);
         }

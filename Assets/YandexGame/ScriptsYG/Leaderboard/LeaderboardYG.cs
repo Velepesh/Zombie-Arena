@@ -60,7 +60,7 @@ namespace YG
         [SerializeField]
         private UnityEvent onUpdateData;
 
-        private string photoSize;
+        private string photoSize = "small";
         private LBPlayerDataYG[] players = new LBPlayerDataYG[0];
 
         void Awake()

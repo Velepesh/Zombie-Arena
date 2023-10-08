@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasFade))]
 public class SettingsScreen : MonoBehaviour
 {
     [SerializeField] private SensitivitySettings _sensitivitySettings;
     [SerializeField] private VolumeSettings _volumeSettings;
+    [SerializeField] private Button _backButton;
 
     private CanvasFade _canvasFade;
 
@@ -16,6 +18,7 @@ public class SettingsScreen : MonoBehaviour
     public event UnityAction<float> SensitivityUpdated;
     public event UnityAction<float> SFXUpdated;
     public event UnityAction<float> MusicUpdated;
+    public event UnityAction BackButtonClicked;
 
     private void Awake()
     {
@@ -24,6 +27,7 @@ public class SettingsScreen : MonoBehaviour
 
     private void OnEnable()
     {
+        _backButton.onClick.AddListener(OnBackButtonClick);
         _canvasFade.Showed += OnShowed;
         _sensitivitySettings.SensitivityUpdated += OnSensitivityUpdated;
         _volumeSettings.SfxValueChanged += OnSfxValueChanged;
@@ -32,10 +36,16 @@ public class SettingsScreen : MonoBehaviour
 
     private void OnDisable()
     {
+        _backButton.onClick.RemoveListener(OnBackButtonClick);
         _canvasFade.Showed -= OnShowed;
         _sensitivitySettings.SensitivityUpdated -= OnSensitivityUpdated;
         _volumeSettings.SfxValueChanged -= OnSfxValueChanged;
         _volumeSettings.MusicValueChanged -= OnMusicValueChanged;
+    }
+
+    private void OnBackButtonClick()
+    {
+        BackButtonClicked?.Invoke();
     }
 
     private void OnShowed()

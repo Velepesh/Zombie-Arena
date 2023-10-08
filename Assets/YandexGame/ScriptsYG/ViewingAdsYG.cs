@@ -131,13 +131,8 @@ namespace YG
                 {
                     if (pauseMethod == PauseMethod.CustomState)
                     {
-                        if (pause)
-                        {
-                            closingADValues.timeScale = Time.timeScale;
-                            Time.timeScale = openingADValues.timeScale;
-                        }
-                        else
-                            Time.timeScale = closingADValues.timeScale;
+                        if (pause) Time.timeScale = openingADValues.timeScale;
+                        else Time.timeScale = closingADValues.timeScale;
                     }
                     else
                     {
