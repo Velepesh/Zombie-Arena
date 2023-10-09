@@ -68,9 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: +50 hp player
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d11546231ec698c479240a13da0e9f46, type: 2}
-  m_sharedMaterial: {fileID: 5692623660770858352, guid: d11546231ec698c479240a13da0e9f46,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -224,6 +223,7 @@ GameObject:
   - component: {fileID: 7143499790502251503}
   - component: {fileID: 4399021698307697232}
   - component: {fileID: 7143499790502251500}
+  - component: {fileID: 3240237946585787477}
   m_Layer: 5
   m_Name: HealthAdder
   m_TagString: Untagged
@@ -304,9 +304,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55967a53f7c9d06409887f5ccfbf7a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _adID: 0
   _builderCompositeRoot: {fileID: 0}
-  _health: 50
-  _button: {fileID: 5663098038523268289}
+  _addedHealth: 25
+  _price: 0
+  _buyButton: {fileID: 0}
+  _canvasGroup: {fileID: 0}
+  _canvasFade: {fileID: 0}
+--- !u!114 &3240237946585787477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2515340355254288503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a37fc58f2e989041808c045738ebd96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _atlas: {fileID: 4343727234628468602, guid: 64d3407269278b44b8df85d326e96e63, type: 2}
 --- !u!1 &8788801604201706188
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,5 +459,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultColor: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 0.5882353}
+  _boughtColor: {r: 0, g: 0, b: 0, a: 0}
   _selectedColor: {r: 1, g: 0.7176471, b: 0.32156864, a: 0.7058824}
   _choosedColor: {r: 1, g: 0.7176471, b: 0.32156864, a: 0.7058824}

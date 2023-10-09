@@ -110,16 +110,6 @@ namespace InfimaGames.LowPolyShooterPack
 		[SerializeField]
 		private float fieldOfViewWeapon = 55.0f;
 
-		[Title(label: "Audio Clips")]
-		
-		[Tooltip("Melee Audio Clips.")]
-		[SerializeField]
-		private AudioClip[] audioClipsMelee;
-
-		[Tooltip("Grenade Throw Audio Clips.")]
-		[SerializeField]
-		private AudioClip[] audioClipsGrenadeThrow;
-
 		[Title(label: "Input Options")]
 
 		[Tooltip("If true, the running input has to be held to be active.")]
@@ -476,15 +466,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// GetInputLook.
 		/// </summary>
 		public override Vector2 GetInputLook() => axisLook;
-
-		/// <summary>
-		/// GetAudioClipsGrenadeThrow.
-		/// </summary>
-		public override AudioClip[] GetAudioClipsGrenadeThrow() => audioClipsGrenadeThrow;
-		/// <summary>
-		/// GetAudioClipsMelee.
-		/// </summary>
-		public override AudioClip[] GetAudioClipsMelee() => audioClipsMelee;
 		
 		/// <summary>
 		/// IsInspecting.

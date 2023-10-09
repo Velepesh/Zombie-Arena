@@ -1,5 +1,5 @@
 using UnityEngine;
-using YG;
+//using YG;
 
 public class BackgroundMusic : MonoBehaviour
 {
@@ -10,45 +10,52 @@ public class BackgroundMusic : MonoBehaviour
 
     private void Awake()
     {
-        if (YandexGame.SDKEnabled)
+        //if (YandexGame.SDKEnabled)
             Load();
     }
 
     private void OnEnable()
     {
-        YandexGame.GetDataEvent += Load;
+        //YandexGame.GetDataEvent += Load;
     }
 
     private void OnDisable()
     {
-        YandexGame.GetDataEvent -= Load;
+        //YandexGame.GetDataEvent -= Load;
 
-        DisableMusic();
+        //DisableMusic();
     }
 
     private void Load()
     {
-        _isExist = YandexGame.savesData.IsExistBackgroundMusic;
+        //_isExist = YandexGame.savesData.IsExistBackgroundMusic;
 
-        if (_isExist)
+        //if (_isExist)
+        //{
+        //    _isDestroying = true;
+        //    Destroy(gameObject);
+        //    return;
+        //}
+
+        if (FindObjectsOfType(GetType()).Length > 1)
         {
-            _isDestroying = true;
             Destroy(gameObject);
-            return;
         }
-
-        DontDestroyOnLoad(gameObject);
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
 
         EnableMusic();
     }
 
     private void Save()
     {
-        if (_isExist == YandexGame.savesData.IsExistBackgroundMusic)
-            return;
+        //if (_isExist == YandexGame.savesData.IsExistBackgroundMusic)
+        //    return;
 
-        YandexGame.savesData.IsExistBackgroundMusic = _isExist;
-        YandexGame.SaveProgress();
+        //YandexGame.savesData.IsExistBackgroundMusic = _isExist;
+        //YandexGame.SaveProgress();
     }
 
     private void EnableMusic()
@@ -61,8 +68,8 @@ public class BackgroundMusic : MonoBehaviour
 
     private void DisableMusic()
     {
-        if (_isDestroying)
-            return;
+        //if (_isDestroying)
+        //    return;
 
         _isExist = false;
         Save();

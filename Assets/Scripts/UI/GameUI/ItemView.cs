@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.U2D;
 
 public abstract class ItemView : MonoBehaviour
 {
@@ -32,6 +33,9 @@ public abstract class ItemView : MonoBehaviour
     [SerializeField] protected Image ImageWeaponScopeDefault;
 
     [SerializeField] protected TMP_Text Label;
+
+    [Tooltip("Sprite Atlas for weapom images")]
+    [SerializeField] private SpriteAtlas _atlas;
 
     private WeaponAttachmentManagerBehaviour _attachmentManagerBehaviour;
 
@@ -97,7 +101,19 @@ public abstract class ItemView : MonoBehaviour
 
     private void AssignSprite(Image image, Sprite sprite, bool forceHide = false)
     {
-        image.sprite = sprite;
+        if (sprite != null)
+        {
+            Sprite spriteFromAtlas = _atlas.GetSprite(sprite.name);
+
+            if (spriteFromAtlas == null)
+            {
+                image.gameObject.SetActive(false);
+                return;
+            }
+
+            image.sprite = spriteFromAtlas;
+        }
+
         image.enabled = sprite != null && !forceHide;
     }
 }

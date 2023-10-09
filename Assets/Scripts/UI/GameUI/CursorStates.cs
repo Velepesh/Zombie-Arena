@@ -61,14 +61,14 @@ public class CursorStates : MonoBehaviour
 
     private void OnReborned()
     {
-        WaitBeforeLockCursor();
-    }
-
-    private async void WaitBeforeLockCursor()
-    {
-        await Task.Delay(_delayBeforLock);
         LockCursor();
     }
+
+    //private async void WaitBeforeLockCursor()
+    //{
+    //    await Task.Delay(_delayBeforLock);
+    //    LockCursor();
+    //}
 
     private void LockCursor()
     {

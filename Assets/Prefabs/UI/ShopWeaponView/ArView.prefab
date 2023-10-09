@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3388294878825427228}
   - component: {fileID: 7984639912894790298}
   - component: {fileID: 3522266159817988901}
-  - component: {fileID: 2115767504724894131}
+  - component: {fileID: 7345486497001973056}
   m_Layer: 5
   m_Name: ArView
   m_TagString: Untagged
@@ -70,6 +70,7 @@ MonoBehaviour:
   ImageWeaponScope: {fileID: 3388294878935605316}
   ImageWeaponScopeDefault: {fileID: 3388294880557297799}
   Label: {fileID: 5479742138510209331}
+  _atlas: {fileID: 4343727234628468602, guid: 64d3407269278b44b8df85d326e96e63, type: 2}
   _weapon: {fileID: 0}
   _button: {fileID: 56779965464314260}
 --- !u!222 &7984639912894790298
@@ -110,7 +111,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2115767504724894131
+--- !u!114 &7345486497001973056
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,7 +135,6 @@ GameObject:
   - component: {fileID: 3388294878935605317}
   - component: {fileID: 3388294878935605319}
   - component: {fileID: 3388294878935605316}
-  - component: {fileID: 1203454501301616491}
   m_Layer: 5
   m_Name: Image Weapon Attachment Scope
   m_TagString: Untagged
@@ -200,19 +200,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1203454501301616491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3388294878935605322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a37fc58f2e989041808c045738ebd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _atlas: {fileID: 4343727234628468602, guid: 64d3407269278b44b8df85d326e96e63, type: 2}
 --- !u!1 &3388294879701017828
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +211,6 @@ GameObject:
   - component: {fileID: 3388294879701017831}
   - component: {fileID: 3388294879701017825}
   - component: {fileID: 3388294879701017830}
-  - component: {fileID: 8657444336830820473}
   m_Layer: 5
   m_Name: Image Weapon Body
   m_TagString: Untagged
@@ -290,19 +276,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8657444336830820473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3388294879701017828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a37fc58f2e989041808c045738ebd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _atlas: {fileID: 4343727234628468602, guid: 64d3407269278b44b8df85d326e96e63, type: 2}
 --- !u!1 &3388294880349669668
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +287,6 @@ GameObject:
   - component: {fileID: 3388294880349669671}
   - component: {fileID: 3388294880349669665}
   - component: {fileID: 3388294880349669670}
-  - component: {fileID: 285965399115407027}
   m_Layer: 5
   m_Name: Image Weapon Attachment Magazine
   m_TagString: Untagged
@@ -380,19 +352,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &285965399115407027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3388294880349669668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a37fc58f2e989041808c045738ebd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _atlas: {fileID: 4343727234628468602, guid: 64d3407269278b44b8df85d326e96e63, type: 2}
 --- !u!1 &3388294880546677905
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +363,6 @@ GameObject:
   - component: {fileID: 3388294880546677904}
   - component: {fileID: 3388294880546677906}
   - component: {fileID: 3388294880546677907}
-  - component: {fileID: 7208528951553865059}
   m_Layer: 5
   m_Name: Image Weapon Attachment Laser
   m_TagString: Untagged
@@ -470,19 +428,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7208528951553865059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3388294880546677905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a37fc58f2e989041808c045738ebd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _atlas: {fileID: 4343727234628468602, guid: 64d3407269278b44b8df85d326e96e63, type: 2}
 --- !u!1 &3388294880557297797
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +439,6 @@ GameObject:
   - component: {fileID: 3388294880557297796}
   - component: {fileID: 3388294880557297798}
   - component: {fileID: 3388294880557297799}
-  - component: {fileID: 1803339985110983612}
   m_Layer: 5
   m_Name: Image Weapon Attachment Scope Default
   m_TagString: Untagged
@@ -560,19 +504,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1803339985110983612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3388294880557297797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a37fc58f2e989041808c045738ebd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _atlas: {fileID: 4343727234628468602, guid: 64d3407269278b44b8df85d326e96e63, type: 2}
 --- !u!1 &3388294880685147310
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +515,6 @@ GameObject:
   - component: {fileID: 3388294880685147305}
   - component: {fileID: 3388294880685147307}
   - component: {fileID: 3388294880685147304}
-  - component: {fileID: 2874462079880906933}
   m_Layer: 5
   m_Name: Image Weapon Attachment Grip
   m_TagString: Untagged
@@ -650,19 +580,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2874462079880906933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3388294880685147310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a37fc58f2e989041808c045738ebd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _atlas: {fileID: 4343727234628468602, guid: 64d3407269278b44b8df85d326e96e63, type: 2}
 --- !u!1 &3388294880717396576
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,7 +591,6 @@ GameObject:
   - component: {fileID: 3388294880717396579}
   - component: {fileID: 3388294880717396605}
   - component: {fileID: 3388294880717396578}
-  - component: {fileID: 1170381475080798482}
   m_Layer: 5
   m_Name: Image Weapon Attachment Muzzle
   m_TagString: Untagged
@@ -740,19 +656,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1170381475080798482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3388294880717396576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a37fc58f2e989041808c045738ebd96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _atlas: {fileID: 4343727234628468602, guid: 64d3407269278b44b8df85d326e96e63, type: 2}
 --- !u!1 &6418016260607871303
 GameObject:
   m_ObjectHideFlags: 0

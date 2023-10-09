@@ -130,15 +130,6 @@ namespace InfimaGames.LowPolyShooterPack
         public abstract Vector2 GetInputLook();
 
         /// <summary>
-        /// Returns the audio clip played when the character throws a grenade.
-        /// </summary>
-        public abstract AudioClip[] GetAudioClipsGrenadeThrow();
-        /// <summary>
-        /// Returns the audio clip played when the character melees.
-        /// </summary>
-        public abstract AudioClip[] GetAudioClipsMelee();
-        
-        /// <summary>
         /// Returns true if the character is inspecting.
         /// </summary>
         public abstract bool IsInspecting();

@@ -53,8 +53,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: e61a550a7ddc3304fbfe0a01919efe9c, type: 3}
+        m_Scale: {x: 40, y: 20}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -75,13 +75,13 @@ Material:
     - _Blend: 0
     - _BumpScale: 1
     - _CameraDistanceFadeClose: 0
-    - _CameraDistanceFadeFar: 11.83
+    - _CameraDistanceFadeFar: 0
     - _CelExtraEnabled: 0
     - _CelNumSteps: 3
     - _CelPrimaryMode: 1
     - _Cull: 2
     - _Cutoff: 0.5
-    - _Depth: 100
+    - _Depth: 5
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
     - _FlatRimEdgeSmoothness: 0.5
@@ -123,12 +123,12 @@ Material:
     - _UnityShadowMode: 0
     - _UnityShadowPower: 0.2
     - _UnityShadowSharpness: 1
-    - _UvFadeX: 0.1
-    - _UvFadeY: 0.1
+    - _UvFadeX: 0.83
+    - _UvFadeY: 2.08
     - _VertexColorsEnabled: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorDim: {r: 1, g: 1, b: 1, a: 1}
     - _ColorDimCurve: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
     - _ColorDimExtra: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
