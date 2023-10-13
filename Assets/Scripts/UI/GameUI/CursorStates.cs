@@ -64,12 +64,6 @@ public class CursorStates : MonoBehaviour
         LockCursor();
     }
 
-    //private async void WaitBeforeLockCursor()
-    //{
-    //    await Task.Delay(_delayBeforLock);
-    //    LockCursor();
-    //}
-
     private void LockCursor()
     {
         IsCursorLocked = true;

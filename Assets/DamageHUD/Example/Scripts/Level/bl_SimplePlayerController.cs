@@ -8,6 +8,7 @@ public class bl_SimplePlayerController : MonoBehaviour
     public Transform Head = null;
     private Vector3 moveDirection = Vector3.zero;
     private Vector3 LastImpactDirection = Vector3.forward;
+    private Camera _camera;
     Vector3 lookat;
 
     void OnEnable()
@@ -18,6 +19,11 @@ public class bl_SimplePlayerController : MonoBehaviour
     void OnDisable()
     {
         bl_DamageDelegate.OnIndicator -= OnImpact;
+    }
+
+    private void Start()
+    {
+        _camera = Camera.main;
     }
 
     void OnImpact(bl_IndicatorInfo info)
@@ -42,7 +48,7 @@ public class bl_SimplePlayerController : MonoBehaviour
 
             // Get camera rotation.    
 
-            Vector3 CameraDirection = Camera.main.transform.forward;
+            Vector3 CameraDirection = _camera.transform.forward;
             CameraDirection.y = 0.0f; // kill Y
             Quaternion referentialShift = Quaternion.FromToRotation(Vector3.forward, CameraDirection);
 

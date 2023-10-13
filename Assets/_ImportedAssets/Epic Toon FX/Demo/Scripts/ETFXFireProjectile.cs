@@ -14,12 +14,14 @@ namespace EpicToonFX
         public int currentProjectile = 0;
         public float speed = 500;
 
+        private Camera _camera;
         //    MyGUI _GUI;
         ETFXButtonScript selectedProjectileButton;
 
         void Start()
         {
             selectedProjectileButton = GameObject.Find("Button").GetComponent<ETFXButtonScript>();
+            _camera = Camera.main;
         }
 
         RaycastHit hit;
@@ -49,7 +51,7 @@ namespace EpicToonFX
             {
                 if (!EventSystem.current.IsPointerOverGameObject()) //Checks if the mouse is not over a UI part
                 {
-                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100f)) //Finds the point where you click with the mouse
+                    if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out hit, 100f)) //Finds the point where you click with the mouse
                     {
                         GameObject projectile = Instantiate(projectiles[currentProjectile], spawnPosition.position, Quaternion.identity) as GameObject; //Spawns the selected projectile
                         projectile.transform.LookAt(hit.point); //Sets the projectiles rotation to look at the point clicked
@@ -57,7 +59,6 @@ namespace EpicToonFX
                     }
                 }
             }
-            Debug.DrawRay(Camera.main.ScreenPointToRay(Input.mousePosition).origin, Camera.main.ScreenPointToRay(Input.mousePosition).direction * 100, Color.yellow);
         }
 
         public void nextEffect() //Changes the selected projectile to the next. Used by UI
