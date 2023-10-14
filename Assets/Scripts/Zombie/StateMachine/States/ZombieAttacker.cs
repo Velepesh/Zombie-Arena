@@ -29,8 +29,6 @@ public class ZombieAttacker : State
     private void OnEnable()
     {
         DisableAttackColliders();
-
-        AddUpdate();
         _agent.StopAgent();
         Attack();
     }
@@ -39,13 +37,6 @@ public class ZombieAttacker : State
     {
         for (int i = 0; i < _attackColliders.Count; i++)
             _attackColliders[i].DisableCollider();
-
-        RemoveUpdate();
-    }
-
-    public override void OnTick()
-    {
-        Rotate();
     }
 
     private void OnStartAttackEvent()
@@ -76,13 +67,6 @@ public class ZombieAttacker : State
     {
         _zombie.SetAttackingState(false);
         AttackEventEnded?.Invoke();
-    }
-
-    private void Rotate()
-    {
-        Vector3 direction = _zombie.CurrentTargetPosition - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, _zombie.Options.RotationSpeed * Time.deltaTime);
     }
 
     private void Attack()
