@@ -8321,7 +8321,6 @@ MonoBehaviour:
   _options:
     _award: 50
     _moveSpeed: 3.1
-    _rotationSpeed: 60
     _attackDistance: 1.6
     _changeTargetDistance: 6.5
 --- !u!114 &4033863145085902347
@@ -8523,8 +8522,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioSource: {fileID: 4033863145085902584}
-  _deadAudioClip: {fileID: 8300000, guid: 49935d2469955e347b4f657da6f18e85, type: 3}
-  _spawnAudioClip: {fileID: 8300000, guid: 15976bdd7c44e794ead5477ad715aaae, type: 3}
+  _deadAudioClip: {fileID: 8300000, guid: d5e9126c0bddb914ea23c9cb8ff4b23f, type: 3}
+  _spawnAudioClip: {fileID: 8300000, guid: 7dd44c78096889e4da657579a60a0638, type: 3}
 --- !u!114 &4033863145085902585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13947,8 +13946,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioSource: {fileID: 577685163590859996}
-  _takeDamageSound: {fileID: 8300000, guid: ba37b84308f5c3b44b13a209a34bf501, type: 3}
-  _attackAudioClip: {fileID: 8300000, guid: 4d4ef7516a431934681038a3dc391e55, type: 3}
+  _takeDamageSound: {fileID: 8300000, guid: c4ce4e7249c466f4aa81ff51d89210d4, type: 3}
+  _attackAudioClip: {fileID: 8300000, guid: 702509a4cb4d77e47ab6c13c8edcd85c, type: 3}
 --- !u!82 &577685163590859996
 AudioSource:
   m_ObjectHideFlags: 0
