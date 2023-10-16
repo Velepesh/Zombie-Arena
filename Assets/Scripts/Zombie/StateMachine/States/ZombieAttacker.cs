@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Services.Analytics.Internal;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -29,7 +30,8 @@ public class ZombieAttacker : State
     private void OnEnable()
     {
         DisableAttackColliders();
-        _agent.StopAgent();
+        AddUpdate();
+        // _agent.StopAgent();
         Attack();
     }
 
@@ -37,6 +39,16 @@ public class ZombieAttacker : State
     {
         for (int i = 0; i < _attackColliders.Count; i++)
             _attackColliders[i].DisableCollider();
+
+        RemoveUpdate();
+    }
+
+    public override void OnTick()
+    {
+        Vector3 direction = _zombie.CurrentTargetPosition - transform.position;
+        direction.y = 0;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, _zombie.Options.RotationSpeed * Time.deltaTime);
     }
 
     private void OnStartAttackEvent()

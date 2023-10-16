@@ -7208,9 +7208,9 @@ NavMeshAgent:
   m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0.05
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 3
   m_BaseOffset: 0
@@ -7233,7 +7233,8 @@ MonoBehaviour:
   _options:
     _award: 150
     _moveSpeed: 1.5
-    _attackDistance: 2.1
+    _rotationSpeed: 7
+    _attackDistance: 2
     _changeTargetDistance: 7.8
 --- !u!114 &4103635773530148982
 MonoBehaviour:
