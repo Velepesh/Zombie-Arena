@@ -658,7 +658,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9837bdb8-e264-4c32-93bf-8013338f5c63"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -915,6 +915,34 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""None"",
+            ""id"": ""e7dc7140-c6c4-4d6d-b708-e88b379e88f2"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""80f7a22a-9cc4-4445-953f-82f5072a4c69"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""2b2d0722-0f81-4349-b422-af135e69bbc2"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -952,6 +980,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Restart = m_UI.FindAction("Restart", throwIfNotFound: true);
+        // None
+        m_None = asset.FindActionMap("None", throwIfNotFound: true);
+        m_None_Newaction = m_None.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1289,6 +1320,39 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // None
+    private readonly InputActionMap m_None;
+    private INoneActions m_NoneActionsCallbackInterface;
+    private readonly InputAction m_None_Newaction;
+    public struct NoneActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public NoneActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_None_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_None; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(NoneActions set) { return set.Get(); }
+        public void SetCallbacks(INoneActions instance)
+        {
+            if (m_Wrapper.m_NoneActionsCallbackInterface != null)
+            {
+                @Newaction.started -= m_Wrapper.m_NoneActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_NoneActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_NoneActionsCallbackInterface.OnNewaction;
+            }
+            m_Wrapper.m_NoneActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+            }
+        }
+    }
+    public NoneActions @None => new NoneActions(this);
     public interface IPlayerActions
     {
         void OnLook(InputAction.CallbackContext context);
@@ -1323,5 +1387,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnRestart(InputAction.CallbackContext context);
+    }
+    public interface INoneActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }

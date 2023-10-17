@@ -7,14 +7,20 @@ public class PlayerInputMapChanger : MonoBehaviour
 
     public void EnableUIActionMap()
     {
-        _input.actions.Disable();
-        _input.actions.FindActionMap("UI").Enable();
+        DisableActionMap();
+        SetActionMap("UI");
     }
 
     public void EnablePlayerActionMap()
     {
-        _input.actions.Disable();
-        _input.actions.FindActionMap("Player").Enable();
+        DisableActionMap();
+        SetActionMap("Player");
+    }
+
+    public void SetNoneActionMap()
+    {
+        DisableActionMap();
+        SetActionMap("None");
     }
 
     public void EnablePlayerInput()
@@ -25,5 +31,15 @@ public class PlayerInputMapChanger : MonoBehaviour
     public void DisablePlayerInput()
     {
         _input.enabled = false;
+    }
+
+    private void SetActionMap(string actionMapName)
+    {
+        _input.actions.FindActionMap(actionMapName).Enable();
+    }
+
+    private void DisableActionMap()
+    {
+        _input.actions.Disable();
     }
 }

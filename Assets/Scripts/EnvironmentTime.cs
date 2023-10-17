@@ -6,6 +6,11 @@ public class EnvironmentTime : MonoBehaviour
     [SerializeField] private Game _game;
     [SerializeField] private float _delayBeforeGameOver = .8f;
 
+    private void Start()
+    {
+        OnTimeStarted();
+    }
+
     private void OnEnable()
     {
         _game.GameStarted += OnTimeStarted;

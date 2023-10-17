@@ -1,12 +1,14 @@
 using UnityEngine;
-using System.Collections;
+using Plugins.Audio.Core;
+using Plugins.Audio.Utils;
 
 [RequireComponent(typeof(Zombie))]
 [RequireComponent(typeof(ZombieMover))]
 [RequireComponent(typeof(ZombieAttacker))]
-public class ZombieWalkingAudio : Audio
+public class ZombieWalkingAudio : MonoBehaviour
 {
-    [SerializeField] private AudioClip _audioClipWalkiing;
+    [SerializeField] private SourceAudio _sourceAudio;
+    [SerializeField] private AudioDataProperty _clip;
 
     private Zombie _zombie;
     private ZombieMover _mover;
@@ -17,9 +19,6 @@ public class ZombieWalkingAudio : Audio
         _zombie = GetComponent<Zombie>();
         _mover = GetComponent<ZombieMover>();
         _attacker = GetComponent<ZombieAttacker>();
-
-        AudioSource.clip = _audioClipWalkiing;
-        AudioSource.loop = true;
     }
 
     private void OnEnable()
@@ -48,20 +47,13 @@ public class ZombieWalkingAudio : Audio
 
     private void PlayWalkingAudio()
     {
-        if (AudioSource.isPlaying == false)
-            AudioSource.Play();
+        _sourceAudio.Play(_clip.Key);
     }
 
     private void StopWalkingAudio()
     {
-        if (AudioSource.isPlaying)
-            AudioSource.Stop();
-    }
-
-    private IEnumerator StopAudioSource()
-    {
-        yield return new WaitWhile(() => AudioSource.isPlaying);
-        AudioSource.Stop();
+        if (_sourceAudio.IsPlaying)
+            _sourceAudio.Stop();
     }
 
     private void OnDied(IDamageable damageable)

@@ -16,20 +16,4 @@ public class BackgroundMusic : MonoBehaviour
     {
         _sourceAudio.Play(_clip.Key);
     }
-
-    //private void OnApplicationFocus(bool hasFocus)
-    //{
-    //    Silence(!hasFocus);
-    //}
-
-    //private void OnApplicationPause(bool isPaused)
-    //{
-    //    Silence(isPaused);
-    //}
-
-    private void Silence(bool silence)
-    {
-        AudioListener.pause = silence;
-        AudioListener.volume = silence ? 0 : 1;
-    }
 }

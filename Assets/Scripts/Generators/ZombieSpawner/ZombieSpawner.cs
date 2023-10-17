@@ -12,7 +12,6 @@ public class ZombieSpawner : ObjectPool
     [SerializeField] private List<SpawnPoint> _spawnPoints;
     [SerializeField] private int _maxLevel;
     [SerializeField] private int _minCircleLevel;
-    [SerializeField] private int _maxActiveZombie;
 
     readonly private int _startWaveIndex = 0;
 
@@ -61,7 +60,7 @@ public class ZombieSpawner : ObjectPool
 
         _timeAfterLastSpawn += Time.deltaTime;
 
-        if (_timeAfterLastSpawn >= _currentWave.Delay && _zombies.Count < _maxActiveZombie)
+        if (_timeAfterLastSpawn >= _currentWave.Delay && _zombies.Count < _currentWave.MaxActiveZombie)
         {
             if (IsSpawnPointEmpty() == false)
                 return;

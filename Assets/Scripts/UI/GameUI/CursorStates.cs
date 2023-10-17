@@ -1,11 +1,8 @@
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class CursorStates : MonoBehaviour
 {
     [SerializeField] private Game _game;
-
-    private readonly int _delayBeforLock = 100;
 
     public bool IsCursorLocked { get; private set; }
 

@@ -5,8 +5,10 @@ using UnityEngine;
 public class Wave : ScriptableObject
 {
     [SerializeField] private List<Zombie> _templates;
+    [SerializeField] private int _maxActiveZombie;
     [SerializeField] private float _delay;
 
+    public int MaxActiveZombie => _maxActiveZombie;
     public int Count => _templates.Count;
     public float Delay => _delay;
 
