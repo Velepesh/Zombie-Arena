@@ -27874,7 +27874,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1434731044
 GameObject:
@@ -33228,9 +33228,8 @@ MonoBehaviour:
   - {fileID: 755336259}
   - {fileID: 612324895}
   - {fileID: 1637346728}
-  _maxLevel: 61
-  _minCircleLevel: 52
-  _maxActiveZombie: 5
+  _maxLevel: 0
+  _minCircleLevel: 19
 --- !u!4 &1766793293
 Transform:
   m_ObjectHideFlags: 0
@@ -42551,7 +42550,7 @@ PrefabInstance:
     - target: {fileID: 2804194261221284521, guid: abd1d2ef1ce039d448c0203f5b8c29b8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2804194261221284521, guid: abd1d2ef1ce039d448c0203f5b8c29b8,
         type: 3}
@@ -43569,6 +43568,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5290042854007309861, guid: 7c6e7cdc249312f4a91b0689bf132121,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665571461682705502, guid: 7c6e7cdc249312f4a91b0689bf132121,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7036772773245412627, guid: 7c6e7cdc249312f4a91b0689bf132121,
         type: 3}
       propertyPath: m_Name
@@ -43578,6 +43587,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559513459533248957, guid: 7c6e7cdc249312f4a91b0689bf132121,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7704659654820675497, guid: 7c6e7cdc249312f4a91b0689bf132121,
         type: 3}
@@ -43633,6 +43647,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7883210709701509914, guid: 7c6e7cdc249312f4a91b0689bf132121,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7883210710065853940, guid: 7c6e7cdc249312f4a91b0689bf132121,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c6e7cdc249312f4a91b0689bf132121, type: 3}
