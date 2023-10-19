@@ -51,4 +51,12 @@ public class EnvironmentTime : MonoBehaviour
         AudioListener.pause = true;
         Time.timeScale = 0;
     }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus) 
+            OnTimeStarted();
+        else 
+            OnTimeStoped();
+    }
 }

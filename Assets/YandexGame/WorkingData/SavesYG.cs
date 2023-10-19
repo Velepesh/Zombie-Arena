@@ -20,7 +20,8 @@ namespace YG
 
         // Ваши сохранения
         public int Level = 1;
-        public int Money = 100000;
+        public int Money = 0;
+        public int Score = 0;
         public int PlayerHealth = 100;
         public int TwinsHealth = 100;
         public float Sensetivity = 1;
