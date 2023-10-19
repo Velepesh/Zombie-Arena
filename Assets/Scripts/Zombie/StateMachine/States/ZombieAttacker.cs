@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.Services.Analytics.Internal;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,11 +26,11 @@ public class ZombieAttacker : State
         _agent = GetComponent<NavAgentEnabler>();
     }
 
+
     private void OnEnable()
     {
-        DisableAttackColliders();
         AddUpdate();
-        // _agent.StopAgent();
+        DisableAttackColliders();
         Attack();
     }
 
@@ -92,5 +91,7 @@ public class ZombieAttacker : State
 
         if (_zombie.CurrentTarget is Twins)
             _zombie.SetAttackedTwins();
+
+        _agent.StopAgent();
     }
 }

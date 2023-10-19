@@ -16,11 +16,6 @@ public class ZombieMover : State
         _agent = GetComponent<NavAgentEnabler>();
     }
 
-    private void Start()
-    {
-        SetMoveSpeed();
-    }
-
     private void OnEnable()
     {
         AddUpdate();
@@ -39,10 +34,5 @@ public class ZombieMover : State
             return;
 
         _agent.Agent.SetDestination(targetPosition);
-    }
-
-    private void SetMoveSpeed()
-    {
-        _agent.Agent.speed = _zombie.Options.MoveSpeed;
     }
 }
