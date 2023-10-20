@@ -415,6 +415,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""095549b0-2a49-4cff-a035-5065df86920c"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""9f1f0667-d05b-44ff-b033-6af3c4c78b8b"",
                     ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",

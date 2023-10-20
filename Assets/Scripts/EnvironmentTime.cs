@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Plugins.Audio.Core;
 
 public class EnvironmentTime : MonoBehaviour
 {
     [SerializeField] private Game _game;
     [SerializeField] private float _delayBeforeGameOver = .8f;
+
+    private bool _isFocused = true;
 
     private void Start()
     {
@@ -13,6 +16,8 @@ public class EnvironmentTime : MonoBehaviour
 
     private void OnEnable()
     {
+        AppFocusHandle.OnFocus += Focus;
+        AppFocusHandle.OnUnfocus += UnFocus;
         _game.GameStarted += OnTimeStarted;
         _game.Continued += OnTimeStarted;
         _game.Reborned += OnTimeStarted;
@@ -22,6 +27,8 @@ public class EnvironmentTime : MonoBehaviour
 
     private void OnDisable()
     {
+        AppFocusHandle.OnFocus -= Focus;
+        AppFocusHandle.OnUnfocus -= UnFocus;
         _game.GameStarted -= OnTimeStarted;
         _game.Continued -= OnTimeStarted;
         _game.Reborned -= OnTimeStarted;
@@ -52,11 +59,21 @@ public class EnvironmentTime : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    private void OnApplicationFocus(bool focus)
+    private void Focus()
     {
-        if (focus) 
-            OnTimeStarted();
-        else 
-            OnTimeStoped();
+        if (_isFocused == true)
+            return;
+
+        _isFocused = true;
+        OnTimeStarted();
+    }
+
+    private void UnFocus()
+    {
+        if (_isFocused == false)
+            return;
+
+        _isFocused = false;
+        OnTimeStoped();
     }
 }
