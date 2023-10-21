@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class RebornScreen : MonoBehaviour
 {
-    [SerializeField] private Button _clickToContinueButton;
+    [SerializeField] private Button _continueButton;
     [SerializeField] private RebornButton _rebornButton;
     [SerializeField] private CanvasFade _canvasFade;
     [SerializeField] private Game _game;
@@ -12,13 +12,13 @@ public class RebornScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        _clickToContinueButton.onClick.AddListener(OnClickToContinueButton);
+        _continueButton.onClick.AddListener(OnClickToContinueButton);
         _rebornButton.RebornButtonClicked += OnRebornButtonClicked;
     }
 
     private void OnDisable()
     {
-        _clickToContinueButton.onClick.RemoveListener(OnClickToContinueButton);
+        _continueButton.onClick.RemoveListener(OnClickToContinueButton);
         _rebornButton.RebornButtonClicked -= OnRebornButtonClicked;
     }
 

@@ -30,98 +30,80 @@ namespace Plugins.Audio.Core
             DontDestroyOnLoad(gameObject);
         }
 
-        private void OnEnable()
-        {
-            AppFocusHandle.OnFocus += Focus;
-            AppFocusHandle.OnUnfocus += UnFocus;
-        }
+        //private void OnEnable()
+        //{
+        //    AppFocusHandle.OnFocus += Focus;
+        //    AppFocusHandle.OnUnfocus += UnFocus;
+        //}
 
-        private void OnDisable()
-        {
-            AppFocusHandle.OnFocus -= Focus;
-            AppFocusHandle.OnUnfocus -= UnFocus;
-        }
+        //private void OnDisable()
+        //{
+        //    AppFocusHandle.OnFocus -= Focus;
+        //    AppFocusHandle.OnUnfocus -= UnFocus;
+        //}
 
-        private void Focus()
-        {
-            if (_isFocused == true)
-            {
-                return;
-            }
-            
-            _isFocused = true;
+        //public void PauseAudio()
+        //{
+        //    if (_isAds == true)
+        //        return;
 
-            if (_isAds == false)
-            {
-                Unpause();
-            }
-        }
+        //    _isAds = true;
+        //    Pause();
+        //}
 
-        private void UnFocus()
-        {
-            if (_isFocused == false)
-            {
-                return;
-            }
-            
-            _isFocused = false;
-            Pause();
-        }
+        //public void UnpauseAudio()
+        //{
+        //    if (_isAds == false)
+        //        return;
 
-        public void PauseAudio()
-        {
-            if (_isAds == true)
-            {
-                return;
-            }
+        //    _isAds = false;
 
-            _isAds = true;
-            Pause();
-        }
+        //    if (_isFocused == true)
+        //        Unpause();
+        //}
 
-        public void UnpauseAudio()
-        {
-            if (_isAds == false)
-            {
-                return;
-            }
+        //private void Focus()
+        //{
+        //    //if (_isFocused == true)
+        //    //    return;
 
-            _isAds = false;
+        //    //_isFocused = true;
 
-            if (_isFocused == true)
-            {
-                Unpause();
-            }
-        }
+        //    //if (_isAds == false)
+        //    //    Unpause();
+        //}
 
-        private void Pause()
+        //private void UnFocus()
+        //{
+        //    //if (_isFocused == false)
+        //    //    return;
+
+        //    //_isFocused = false;
+        //    //Pause();
+        //}
+
+        public void Pause()
         {
             if (IsAudioPause == true)
-            {
                 return;
-            }
             
             AudioListener.pause = true;
             WebAudio.Mute(true);
 
             IsAudioPause = true;
-            
             OnPause?.Invoke();
             AudioManagement.Instance.Log("Pause Audio");
         }
-        
-        private void Unpause()
+
+        public void Unpause()
         {
             if (IsAudioPause == false)
-            {
                 return;
-            }
             
             AudioListener.pause = false;
             WebAudio.Mute(false);
             
             IsAudioPause = false;
-
             OnUnpause?.Invoke();
             AudioManagement.Instance.Log("Unpause Audio");
         }

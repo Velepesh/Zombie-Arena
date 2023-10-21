@@ -35,28 +35,26 @@ namespace Plugins.Audio.Utils
 
         private void Focus()
         {
-            if (_isFocused == false)
-            {
-                AudioListener.pause = false;
-                WebAudio.Mute(false);
+            //if (_isFocused == false)
+            //{
+            //    AudioListener.pause = false;
+            //    WebAudio.Mute(false);
 
-                _isFocused = true;
-
-                Debug.Log("Unpause Audio");
-            }
+            //    _isFocused = true;
+            //    Debug.Log("Focus");
+            //}
         }
 
         private void UnFocus()
         {
-            if (_isFocused)
-            {
-                AudioListener.pause = true;
-                WebAudio.Mute(true);
+            //if (_isFocused)
+            //{
+            //    AudioListener.pause = true;
+            //    WebAudio.Mute(true);
                 
-                _isFocused = false;
-                
-                Debug.Log("Pause Audio");
-            }
+            //    _isFocused = false;
+            //    Debug.Log("UnFocus");
+            //}
         }
     }
 }

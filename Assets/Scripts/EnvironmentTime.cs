@@ -5,58 +5,78 @@ using Plugins.Audio.Core;
 public class EnvironmentTime : MonoBehaviour
 {
     [SerializeField] private Game _game;
-    [SerializeField] private float _delayBeforeGameOver = .8f;
+    [SerializeField] private AudioPauseHandler _audioPauseHandler;
+    [SerializeField] private float _delayBeforeGameOver = .1f;
+    [SerializeField] private RebornButton _rebornButton;
 
+    private bool _isAds = false;
+    private bool _isReborningAds = false;
     private bool _isFocused = true;
 
     private void Start()
     {
-        OnTimeStarted();
+        Unpause();
     }
 
     private void OnEnable()
     {
         AppFocusHandle.OnFocus += Focus;
         AppFocusHandle.OnUnfocus += UnFocus;
-        _game.GameStarted += OnTimeStarted;
-        _game.Continued += OnTimeStarted;
-        _game.Reborned += OnTimeStarted;
+        _rebornButton.RebornButtonClicked += OnRebornButtonClicked;
+        _game.GameStarted += OnGameStarted;
+        _game.Continued += OnContinued;
+        _game.Reborned += OnReborned;
         _game.GameOver += OnGameOver;
-        _game.Paused += OnTimeStoped;
+        _game.Paused += OnPaused;
     }
 
     private void OnDisable()
     {
         AppFocusHandle.OnFocus -= Focus;
         AppFocusHandle.OnUnfocus -= UnFocus;
-        _game.GameStarted -= OnTimeStarted;
-        _game.Continued -= OnTimeStarted;
-        _game.Reborned -= OnTimeStarted;
+        _rebornButton.RebornButtonClicked -= OnRebornButtonClicked;
+        _game.GameStarted -= OnGameStarted;
+        _game.Continued -= OnContinued;
+        _game.Reborned -= OnReborned;
         _game.GameOver -= OnGameOver;
-        _game.Paused -= OnTimeStoped;
+        _game.Paused -= OnPaused;
     }
 
-    private void OnGameOver()
+    public void OpenAdsPause()
     {
-        StartCoroutine(DelayBeforeStopTime());
+        if (_isAds == true)
+            return;
+
+        _isAds = true;
+
+        _audioPauseHandler.Pause();
+        StopTime();
     }
 
-    private IEnumerator DelayBeforeStopTime()
+    public void CloseAdsUnpause()
     {
-        yield return new WaitForSeconds(_delayBeforeGameOver);
-        OnTimeStoped();
+        if (_isAds == false)
+            return;
+
+        if (_isReborningAds)
+            return;
+
+        _isAds = false;
+
+        _audioPauseHandler.Unpause();
+        StartTime();
     }
 
-    private void OnTimeStarted()
+    private void Pause()
     {
-        AudioListener.pause = false;
-        Time.timeScale = 1;
+        _audioPauseHandler.Pause();
+        StopTime();
     }
 
-    private void OnTimeStoped()
+    private void Unpause()
     {
-        AudioListener.pause = true;
-        Time.timeScale = 0;
+        _audioPauseHandler.Unpause();
+        StartTime();
     }
 
     private void Focus()
@@ -65,7 +85,9 @@ public class EnvironmentTime : MonoBehaviour
             return;
 
         _isFocused = true;
-        OnTimeStarted();
+
+        if (_isAds == false)
+            Unpause();
     }
 
     private void UnFocus()
@@ -74,6 +96,53 @@ public class EnvironmentTime : MonoBehaviour
             return;
 
         _isFocused = false;
-        OnTimeStoped();
+        Pause();
+    }
+
+    private void OnRebornButtonClicked()
+    {
+        _isReborningAds = true;
+    }
+
+    private void OnGameOver()
+    {
+        StartCoroutine(DelayBeforePause());
+    }
+
+    private IEnumerator DelayBeforePause()
+    {
+        yield return new WaitForSeconds(_delayBeforeGameOver);
+        Pause();
+    }
+
+    private void OnContinued()
+    {
+        Unpause();
+    }
+
+    private void OnGameStarted()
+    {
+        Unpause();
+    }
+
+    private void OnPaused()
+    {
+        Pause();
+    }
+
+    private void OnReborned()
+    {
+        _isReborningAds = false;
+        CloseAdsUnpause();
+    }
+
+    private void StartTime()
+    {
+        Time.timeScale = 1;
+    }
+
+    private void StopTime()
+    {
+        Time.timeScale = 0;
     }
 }
