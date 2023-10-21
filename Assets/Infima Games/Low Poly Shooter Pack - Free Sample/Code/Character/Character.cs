@@ -6,6 +6,8 @@ using System.Collections;
 using UnityEngine.InputSystem;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
+using YG;
+using Unity.VisualScripting;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -119,15 +121,22 @@ namespace InfimaGames.LowPolyShooterPack
 		[Tooltip("If true, the aiming input has to be held to be active.")]
 		[SerializeField]
 		private bool holdToAim = true;
-		
-		#endregion
 
-		#region FIELDS
+        [SerializeField] private Joystick _joystick;
+        [SerializeField] private float _joystickInputRunY;
 
-		/// <summary>
-		/// True if the character is aiming.
-		/// </summary>
-		private bool aiming;
+        private void OnValidate()
+        {
+			_joystickInputRunY = Mathf.Clamp(_joystickInputRunY, 0f, 1f);
+        }
+        #endregion
+
+        #region FIELDS
+        private bool _isMobile;
+        /// <summary>
+        /// True if the character is aiming.
+        /// </summary>
+        private bool aiming;
 		/// <summary>
 		/// Last Frame's Aiming Value.
 		/// </summary>
@@ -275,10 +284,26 @@ namespace InfimaGames.LowPolyShooterPack
 			//Cache the movement behaviour.
 			movementBehaviour = GetComponent<MovementBehaviour>();
         }
-		/// <summary>
-		/// Start.
-		/// </summary>
-		protected override void Start()
+        /// <summary>
+        /// Start.
+        /// </summary>
+        /// 
+        private void OnEnable()
+        {
+			_joystick.PointerUp += OnPointerUp;
+        }
+
+        private void OnDisable()
+        {
+            _joystick.PointerUp -= OnPointerUp;
+        }
+
+        private void OnPointerUp()
+		{
+			holdingButtonRun = false;
+		}
+
+        protected override void Start()
 		{
             //Initialize Inventory.
             //inventory.Init(weaponIndexEquippedAtStart);
@@ -298,23 +323,40 @@ namespace InfimaGames.LowPolyShooterPack
 			layerActions = characterAnimator.GetLayerIndex("Layer Actions");
 			//Cache a reference to the overlay layer's index.
 			layerOverlay = characterAnimator.GetLayerIndex("Layer Overlay");
-		}
+
+            if (YandexGame.SDKEnabled == true)
+			{
+                if (YandexGame.EnvironmentData.isMobile)
+                {
+                    holdToAim = false;
+                    _isMobile = true;
+                }
+                else
+                {
+                    holdToAim = true;
+                    _isMobile = false;
+                }
+            }
+        }
 
 		/// <summary>
 		/// Update.
 		/// </summary>
 		protected override void Update()
 		{
-            //if (equippedWeapon == null)
-            //    return;
-
             //Match Aim.
             aiming = holdingButtonAim && CanAim();
-			//Match Run.
-			running = holdingButtonRun && CanRun();
+            //Match Run.
+            if (_isMobile)
+            {
+                if (_joystick.InputY >= _joystickInputRunY)
+					holdingButtonRun = true;
+            }
 
-			//Check if we're aiming.
-			switch (aiming)
+            running = holdingButtonRun && CanRun();
+
+            //Check if we're aiming.
+            switch (aiming)
 			{
 				//Just Started.
 				case true when !wasAiming:
@@ -1091,8 +1133,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryAiming(InputAction.CallbackContext context)
 		{
-			//Switch.
-			switch (context.phase)
+            //Switch.
+            switch (context.phase)
 			{
 				//Started.
 				case InputActionPhase.Started:
@@ -1184,6 +1226,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// <summary>
 		/// Run. 
 		/// </summary>
+		/// 
 		public void OnTryRun(InputAction.CallbackContext context)
 		{
 			//Switch.
@@ -1254,6 +1297,33 @@ namespace InfimaGames.LowPolyShooterPack
 					break;
 			}
 		}
+
+        public void OnTryInventoryPrevious(InputAction.CallbackContext context)
+        {
+            //Null Check.
+            if (inventory == null)
+                return;
+
+            //Switch.
+            switch (context)
+            {
+                //Performed.
+                case { phase: InputActionPhase.Performed }:
+                    //Get the index increment direction for our inventory using the scroll wheel direction. If we're not
+                    //actually using one, then just increment by one.
+                    float scrollValue = context.valueType.IsEquivalentTo(typeof(Vector2)) ? Mathf.Sign(context.ReadValue<Vector2>().y) : 1.0f;
+
+                    //Get the next index to switch to.
+                    int indexNext = scrollValue > 0 ? inventory.GetLastIndex() : inventory.GetEquippedIndex();
+                    //Get the current weapon's index.
+                    int indexCurrent = inventory.GetEquippedIndex();
+
+                    //Make sure we're allowed to change, and also that we're not using the same index, otherwise weird things happen!
+                    if (CanChangeWeapon() && (indexCurrent != indexNext))
+                        StartCoroutine(nameof(Equip), indexNext);
+                    break;
+            }
+        }
 
         public void OnTrySetAutomaticRifle(InputAction.CallbackContext context)
         {

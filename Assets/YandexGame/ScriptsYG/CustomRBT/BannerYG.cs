@@ -150,7 +150,7 @@ namespace YG
 
                 if (scaler.uiScaleMode == CanvasScaler.ScaleMode.ScaleWithScreenSize)
                 {
-                    Vector2 multResolution = new Vector2(Screen.width / scaler.referenceResolution.x, Screen.height / scaler.referenceResolution.y);
+                    Vector2 multResolution = new Vector2(UnityEngine.Screen.width / scaler.referenceResolution.x, UnityEngine.Screen.height / scaler.referenceResolution.y);
 
                     if (scaler.matchWidthOrHeight == 0)
                     {
@@ -171,10 +171,10 @@ namespace YG
                 if (width < minSize.x) width = minSize.x;
                 if (height < minSize.y) height = minSize.y;
 
-                width = 100 * width / Screen.width;
-                height = 100 * height / Screen.height;
-                left = 100 * (Screen.width / 2 + left) / Screen.width;
-                top = 100 * (Screen.height / 2 + top) / Screen.height;
+                width = 100 * width / UnityEngine.Screen.width;
+                height = 100 * height / UnityEngine.Screen.height;
+                left = 100 * (UnityEngine.Screen.width / 2 + left) / UnityEngine.Screen.width;
+                top = 100 * (UnityEngine.Screen.height / 2 + top) / UnityEngine.Screen.height;
 
                 left = Mathf.Clamp(left, 0, 100);
                 top = Mathf.Clamp(top, 0, 100);

@@ -256,6 +256,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "InventoryLast",
+                    "type": "Button",
+                    "id": "8e1a9c58-b5fd-468b-9d5b-752248694e7b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -296,7 +305,7 @@
                     "name": "",
                     "id": "1bde3ca2-883c-4584-bed3-9ec8a40d840e",
                     "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Aim",
@@ -318,7 +327,7 @@
                     "name": "",
                     "id": "e6887bb4-0be9-409a-a15d-8003ce2787e5",
                     "path": "<Gamepad>/buttonWest",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Reload",
@@ -471,7 +480,7 @@
                 {
                     "name": "",
                     "id": "a0382ae6-6ecc-441e-a0a6-05fbc67523bb",
-                    "path": "<Gamepad>/dpad/left",
+                    "path": "<Gamepad>/dpad/up",
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "",
@@ -537,7 +546,7 @@
                 {
                     "name": "",
                     "id": "ced9121a-056b-40fc-a663-9d1e81066727",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -850,6 +859,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "SniperRifle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d4edac67-6a84-4dda-a1a1-521c3999dc0d",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryLast",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80d6e70f-8c99-4b24-ba13-7c90968804b7",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryLast",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

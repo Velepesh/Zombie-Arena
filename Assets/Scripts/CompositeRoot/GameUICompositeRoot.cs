@@ -3,14 +3,27 @@ using UnityEngine;
 public class GameUICompositeRoot : CompositeRoot
 {
     [SerializeField] private Canvas _gameCanvas;
+    [SerializeField] private Canvas _glowCanvas;
 
     private void Awake()
     {
-        _gameCanvas.gameObject.SetActive(false);
+        DisableCanvas(_gameCanvas);
+        DisableCanvas(_glowCanvas);
     }
 
     public override void Compose()
     {
-        _gameCanvas.gameObject.SetActive(true);
+        EnableCanvas(_gameCanvas);
+        EnableCanvas(_glowCanvas);
+    }
+
+    private void DisableCanvas(Canvas canvas)
+    {
+        canvas.gameObject.SetActive(false);
+    }
+
+    private void EnableCanvas(Canvas canvas)
+    {
+        canvas.gameObject.SetActive(true);
     }
 }

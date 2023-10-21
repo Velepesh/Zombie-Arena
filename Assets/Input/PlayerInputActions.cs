@@ -278,6 +278,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryLast"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e1a9c58-b5fd-468b-9d5b-752248694e7b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -318,7 +327,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""1bde3ca2-883c-4584-bed3-9ec8a40d840e"",
                     ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Aim"",
@@ -340,7 +349,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""e6887bb4-0be9-409a-a15d-8003ce2787e5"",
                     ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Reload"",
@@ -493,7 +502,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""a0382ae6-6ecc-441e-a0a6-05fbc67523bb"",
-                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
@@ -559,7 +568,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ced9121a-056b-40fc-a663-9d1e81066727"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -874,6 +883,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""SniperRifle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d4edac67-6a84-4dda-a1a1-521c3999dc0d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryLast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80d6e70f-8c99-4b24-ba13-7c90968804b7"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryLast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -977,6 +1008,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_SubmachineGun = m_Player.FindAction("SubmachineGun", throwIfNotFound: true);
         m_Player_Shotgun = m_Player.FindAction("Shotgun", throwIfNotFound: true);
         m_Player_SniperRifle = m_Player.FindAction("SniperRifle", throwIfNotFound: true);
+        m_Player_InventoryLast = m_Player.FindAction("InventoryLast", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Restart = m_UI.FindAction("Restart", throwIfNotFound: true);
@@ -1070,6 +1102,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SubmachineGun;
     private readonly InputAction m_Player_Shotgun;
     private readonly InputAction m_Player_SniperRifle;
+    private readonly InputAction m_Player_InventoryLast;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1102,6 +1135,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @SubmachineGun => m_Wrapper.m_Player_SubmachineGun;
         public InputAction @Shotgun => m_Wrapper.m_Player_Shotgun;
         public InputAction @SniperRifle => m_Wrapper.m_Player_SniperRifle;
+        public InputAction @InventoryLast => m_Wrapper.m_Player_InventoryLast;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1195,6 +1229,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SniperRifle.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSniperRifle;
                 @SniperRifle.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSniperRifle;
                 @SniperRifle.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSniperRifle;
+                @InventoryLast.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventoryLast;
+                @InventoryLast.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventoryLast;
+                @InventoryLast.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventoryLast;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1283,6 +1320,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @SniperRifle.started += instance.OnSniperRifle;
                 @SniperRifle.performed += instance.OnSniperRifle;
                 @SniperRifle.canceled += instance.OnSniperRifle;
+                @InventoryLast.started += instance.OnInventoryLast;
+                @InventoryLast.performed += instance.OnInventoryLast;
+                @InventoryLast.canceled += instance.OnInventoryLast;
             }
         }
     }
@@ -1383,6 +1423,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnSubmachineGun(InputAction.CallbackContext context);
         void OnShotgun(InputAction.CallbackContext context);
         void OnSniperRifle(InputAction.CallbackContext context);
+        void OnInventoryLast(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

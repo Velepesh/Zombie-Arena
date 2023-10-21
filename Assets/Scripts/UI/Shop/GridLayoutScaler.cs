@@ -31,7 +31,7 @@ public class GridLayoutScaler : MonoCache
     public override void OnTick()
     {
         float scaleFactor = _copyOfMainCanvas.scaleFactor;
-        Vector2 screenSize = new Vector2(Screen.width / scaleFactor, Screen.height / scaleFactor);
+        Vector2 screenSize = new Vector2(UnityEngine.Screen.width / scaleFactor, UnityEngine.Screen.height / scaleFactor);
         _layoutGroup.cellSize = (screenSize / _baseSize) * _baseCellSize;
         _layoutGroup.spacing = (screenSize / _baseSize) * _baseCellSpacing;
     }
