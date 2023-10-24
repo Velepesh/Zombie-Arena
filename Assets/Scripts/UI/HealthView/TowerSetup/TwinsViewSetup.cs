@@ -7,7 +7,7 @@ public class TwinsViewSetup : Setup
 
     private TwinViewPresenter _presenter;
 
-    protected override void Awake()
+    private void Awake()
     {
         _presenter = new TwinViewPresenter(_view, _twinsCompositeRoot.Twins);
     }

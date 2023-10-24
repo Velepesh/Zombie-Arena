@@ -415,7 +415,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0.0000019073486}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &73452649358966075
 CanvasRenderer:
@@ -602,10 +602,10 @@ RectTransform:
   m_Father: {fileID: 73452649213972894}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.47100002}
-  m_AnchorMax: {x: 0.5, y: 0.5224814}
-  m_AnchoredPosition: {x: 0, y: 0.0000019073486}
-  m_SizeDelta: {x: 500, y: -0.000002861023}
+  m_AnchorMin: {x: 0.3555364, y: 0.45055443}
+  m_AnchorMax: {x: 0.6440001, y: 0.5194719}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &73452649438960034
 MonoBehaviour:
@@ -670,6 +670,7 @@ GameObject:
   - component: {fileID: 73452649577557444}
   - component: {fileID: 73452649577554491}
   - component: {fileID: 73452649577554490}
+  - component: {fileID: 4964819038510082175}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -804,6 +805,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4964819038510082175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73452649577554488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 1
+  m_AspectRatio: 3.0840611
 --- !u!1 &73452649711349934
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,10 +890,10 @@ RectTransform:
   m_Father: {fileID: 73452649018681085}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.61}
-  m_AnchorMax: {x: 0.5, y: 0.661}
+  m_AnchorMin: {x: 0.356, y: 0.6003437}
+  m_AnchorMax: {x: 0.64400005, y: 0.6708024}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 500, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &73452649956259840
 MonoBehaviour:
@@ -965,10 +980,10 @@ RectTransform:
   m_Father: {fileID: 73452649213972894}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.3414807, y: 0.5224814}
-  m_AnchorMax: {x: 0.65646076, y: 0.569}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -0.00000059604645}
+  m_AnchorMin: {x: 0.3555364, y: 0.525326}
+  m_AnchorMax: {x: 0.6444338, y: 0.5752545}
+  m_AnchoredPosition: {x: 0.7690735, y: -0.302063}
+  m_SizeDelta: {x: -2.7669084, y: 0.13027892}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &73452649958919622
 CanvasRenderer:
@@ -1000,8 +1015,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u042D\u0444\u0444\u0435\u043A\u0442\u044B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9497c7fe63e90c64887d8c9e3a50f298, type: 2}
+  m_sharedMaterial: {fileID: -8165532789776079534, guid: 9497c7fe63e90c64887d8c9e3a50f298,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1153,8 +1169,8 @@ RectTransform:
   m_Father: {fileID: 73452649018681085}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.34143886, y: 0.661}
-  m_AnchorMax: {x: 0.65642905, y: 0.7103333}
+  m_AnchorMin: {x: 0.35553637, y: 0.6743184}
+  m_AnchorMax: {x: 0.6444338, y: 0.72773284}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1188,8 +1204,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u0427\u0443\u0432\u0441\u0442\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9497c7fe63e90c64887d8c9e3a50f298, type: 2}
+  m_sharedMaterial: {fileID: -8165532789776079534, guid: 9497c7fe63e90c64887d8c9e3a50f298,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1343,7 +1360,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -0.0000019073486}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &73452650036893145
 CanvasRenderer:
@@ -1396,6 +1413,7 @@ GameObject:
   - component: {fileID: 73452650089597672}
   - component: {fileID: 73452650089597679}
   - component: {fileID: 73452650089597674}
+  - component: {fileID: 85493598356390625}
   m_Layer: 5
   m_Name: RussiaButton
   m_TagString: Untagged
@@ -1532,6 +1550,20 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 3, y: -3}
   m_UseGraphicAlpha: 1
+--- !u!114 &85493598356390625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73452650089597677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 1
+  m_AspectRatio: 1.0000691
 --- !u!1 &73452650188353992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,10 +1792,10 @@ RectTransform:
   m_Father: {fileID: 73452649167501726}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.34147966, y: 0.384}
-  m_AnchorMax: {x: 0.6564441, y: 0.42900002}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.000015258789, y: 0.000003516674}
+  m_AnchorMin: {x: 0.35522446, y: 0.3733569}
+  m_AnchorMax: {x: 0.6444338, y: 0.4275393}
+  m_AnchoredPosition: {x: -0.022033691, y: -0.75481415}
+  m_SizeDelta: {x: -1.6887727, y: -4.076381}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &73452650528906927
 CanvasRenderer:
@@ -1795,8 +1827,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u041C\u0443\u0437\u044B\u043A\u0430"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9497c7fe63e90c64887d8c9e3a50f298, type: 2}
+  m_sharedMaterial: {fileID: -8165532789776079534, guid: 9497c7fe63e90c64887d8c9e3a50f298,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1948,10 +1981,10 @@ RectTransform:
   m_Father: {fileID: 73452649167501726}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.33468795}
-  m_AnchorMax: {x: 0.5, y: 0.384}
+  m_AnchorMin: {x: 0.35522446, y: 0.29900002}
+  m_AnchorMax: {x: 0.6444338, y: 0.36940485}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 500, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &73452650549601105
 MonoBehaviour:
@@ -2017,6 +2050,7 @@ GameObject:
   - component: {fileID: 73452650731857510}
   - component: {fileID: 73452650731857509}
   - component: {fileID: 73452650731857504}
+  - component: {fileID: 7407499624249763736}
   m_Layer: 5
   m_Name: UKButton
   m_TagString: Untagged
@@ -2042,7 +2076,7 @@ RectTransform:
   m_AnchorMin: {x: 0.476555, y: 0.18055366}
   m_AnchorMax: {x: 0.52344227, y: 0.26388887}
   m_AnchoredPosition: {x: -0.013393402, y: -0.35385132}
-  m_SizeDelta: {x: 0.2780838, y: 0.5616443}
+  m_SizeDelta: {x: 0.2780838, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &73452650731857511
 CanvasRenderer:
@@ -2153,6 +2187,20 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 3, y: -3}
   m_UseGraphicAlpha: 1
+--- !u!114 &7407499624249763736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73452650731857499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 1
+  m_AspectRatio: 0.99710685
 --- !u!1 &73452650834867384
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,6 +2403,7 @@ GameObject:
   - component: {fileID: 4750491972937939632}
   - component: {fileID: 4976619454940151447}
   - component: {fileID: 4782417683658631050}
+  - component: {fileID: 2104210399852526648}
   m_Layer: 5
   m_Name: TurkeyButton
   m_TagString: Untagged
@@ -2491,3 +2540,17 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 3, y: -3}
   m_UseGraphicAlpha: 1
+--- !u!114 &2104210399852526648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6134321192208899484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 1
+  m_AspectRatio: 0.99974704

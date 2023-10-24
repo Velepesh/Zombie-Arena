@@ -5,7 +5,7 @@ using UnityEngine;
 namespace InfimaGames.LowPolyShooterPack.Interface
 {
     /// <summary>
-    /// CanvasAlpha. Changes the canvas alpha based on certain things that can happen in-game.
+    /// CanvasAlpha. Changes the _canvas alpha based on certain things that can happen in-game.
     /// </summary>
     public class CanvasAlpha : Element
     {

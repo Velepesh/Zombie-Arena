@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 using YG;
-using Unity.VisualScripting;
+using UnityScreen = UnityEngine.Screen;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -122,7 +122,8 @@ namespace InfimaGames.LowPolyShooterPack
 		[SerializeField]
 		private bool holdToAim = true;
 
-        [SerializeField] private Joystick _joystick;
+        [SerializeField] private UIVirtualJoystick _runJoystick;
+        [SerializeField] private UIVirtualJoystick _fireJoystick;
         [SerializeField] private float _joystickInputRunY;
 
         private void OnValidate()
@@ -271,7 +272,6 @@ namespace InfimaGames.LowPolyShooterPack
 		/// Amount of shots fired in succession. We use this value to increase the spread, and also to apply recoil
 		/// </summary>
 		private int shotsFired;
-
 		#endregion
 
 		#region UNITY
@@ -290,24 +290,21 @@ namespace InfimaGames.LowPolyShooterPack
         /// 
         private void OnEnable()
         {
-			_joystick.PointerUp += OnPointerUp;
+			_runJoystick.PointerUp += OnRunPointerUp;
         }
 
         private void OnDisable()
         {
-            _joystick.PointerUp -= OnPointerUp;
+            _runJoystick.PointerUp -= OnRunPointerUp;
         }
 
-        private void OnPointerUp()
+        private void OnRunPointerUp()
 		{
 			holdingButtonRun = false;
 		}
 
         protected override void Start()
 		{
-            //Initialize Inventory.
-            //inventory.Init(weaponIndexEquippedAtStart);
-
             //Refresh!
             RefreshWeaponSetup();
             //Max out the grenades.
@@ -346,14 +343,9 @@ namespace InfimaGames.LowPolyShooterPack
 		{
             //Match Aim.
             aiming = holdingButtonAim && CanAim();
-            //Match Run.
-            if (_isMobile)
-            {
-                if (_joystick.InputY >= _joystickInputRunY)
-					holdingButtonRun = true;
-            }
+			//Match Run.
 
-            running = holdingButtonRun && CanRun();
+			running = holdingButtonRun && CanRun();
 
             //Check if we're aiming.
             switch (aiming)
@@ -408,6 +400,29 @@ namespace InfimaGames.LowPolyShooterPack
 			
 			//Save Aiming Value.
 			wasAiming = aiming;
+
+			if (_isMobile)
+			{
+				if (_runJoystick.InputY >= _joystickInputRunY)
+					holdingButtonRun = true;
+				else
+                    holdingButtonRun = false;
+
+				//if (_fireJoystick.IsTouching)
+				//	return;
+
+				//if (Input.touchCount > 0)
+				//{
+    //                Touch touch = Input.GetTouch(0);
+
+    //                if (touch.phase == UnityEngine.TouchPhase.Moved && touch.position.x > UnityScreen.width / 2f)
+    //                    axisLook = Touchscreen.current.touches[0].delta.ReadValue();
+				//	else
+				//		axisLook = Vector2.zero;
+
+				//	axisLook *= aiming ? equippedWeaponScope.GetMultiplierMouseSensitivity() : 1.0f;
+				//}
+			}
 		}
 
 		#endregion
@@ -1371,13 +1386,19 @@ namespace InfimaGames.LowPolyShooterPack
 			//Read.
 			axisMovement = context.ReadValue<Vector2>();
 		}
-		/// <summary>
-		/// Look.
-		/// </summary>
-		public void OnLook(InputAction.CallbackContext context)
+
+        public void OnMoveMobile(Vector2 direction)
+        {
+            //Read.
+            axisMovement = direction;
+        }
+        /// <summary>
+        /// Look.
+        /// </summary>
+
+        public void OnLook(InputAction.CallbackContext context)
 		{
-			//Read.
-			axisLook = context.ReadValue<Vector2>();
+            axisLook = context.ReadValue<Vector2>();
 
 			//Make sure that we have a weapon.
 			if (equippedWeapon == null)
@@ -1387,14 +1408,28 @@ namespace InfimaGames.LowPolyShooterPack
 			if (equippedWeaponScope == null)
 				return;
 
-			//If we're aiming, multiply by the mouse sensitivity multiplier of the _equipped weapon's scope!
-			axisLook *= aiming ? equippedWeaponScope.GetMultiplierMouseSensitivity() : 1.0f;
-		}
+            //If we're aiming, multiply by the mouse sensitivity multiplier of the _equipped weapon's scope!
+            axisLook *= aiming ? equippedWeaponScope.GetMultiplierMouseSensitivity() : 1.0f;
+        }
+		public void OnLookMobile(Vector2 direction)
+		{
+            axisLook = direction;
+			
+            //Make sure that we have a weapon.
+            if (equippedWeapon == null)
+                return;
 
-		/// <summary>
-		/// Called in order to update the tutorial text value.
-		/// </summary>
-		public void OnUpdateTutorial(InputAction.CallbackContext context)
+            //Make sure that we have a scope.
+            if (equippedWeaponScope == null)
+                return;
+
+            //If we're aiming, multiply by the mouse sensitivity multiplier of the _equipped weapon's scope!
+            axisLook *= aiming ? equippedWeaponScope.GetMultiplierMouseSensitivity() : 1.0f;
+        }
+            /// <summary>
+            /// Called in order to update the tutorial text value.
+            /// </summary>
+        public void OnUpdateTutorial(InputAction.CallbackContext context)
 		{
 			//Switch.
 			tutorialTextVisible = context switch

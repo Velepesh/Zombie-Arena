@@ -50,7 +50,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         private void Start()
         {
-            //Make sure the canvas group alpha is set to 0 initially.
+            //Make sure the _canvas group alpha is set to 0 initially.
             canvasGroup.alpha = 0;
         }
 

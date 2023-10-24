@@ -62,7 +62,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         {
             //Hide pause menu on start.
             animatedCanvas.GetComponent<CanvasGroup>().alpha = 0;
-            //Get canvas animation component.
+            //Get _canvas animation component.
             animationComponent = animatedCanvas.GetComponent<Animation>();
 
             //Find post process volumes in scene and assign them.

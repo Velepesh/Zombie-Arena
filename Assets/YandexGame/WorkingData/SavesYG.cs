@@ -24,7 +24,7 @@ namespace YG
         public int Score = 0;
         public int PlayerHealth = 100;
         public int TwinsHealth = 100;
-        public float Sensetivity = 1;
+        public float Sensetivity = 0.25F;
         public float SFX = 0;
         public float Music = -20;
       //  public bool IsExistBackgroundMusic = false;
@@ -32,16 +32,16 @@ namespace YG
         public Dictionary<string, WeaponData> Weapons = new Dictionary<string, WeaponData>()
         {
             { "AK-47", new WeaponData(){IsBought = true, IsEquip = true, IsUnlock = true}},
-            { "M4A1", new WeaponData(){IsBought = true, IsEquip = false, IsUnlock = true}},
-            { "SCAR", new WeaponData(){IsBought = true, IsEquip = false, IsUnlock = true}},
+            { "M4A1", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "SCAR", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
             { "M1911", new WeaponData(){IsBought = true, IsEquip = true, IsUnlock = true}},
-            { "Beretta 92", new WeaponData(){IsBought = true, IsEquip = false, IsUnlock = true}},
-            { "HK USP", new WeaponData(){IsBought = true, IsEquip = false, IsUnlock = true}},
-            { "Sniper Rifle", new WeaponData(){IsBought = true, IsEquip = false, IsUnlock = true}},
-            { "Shotgun", new WeaponData(){IsBought = true, IsEquip = false, IsUnlock = true}},
-            { "UZI", new WeaponData(){IsBought = true, IsEquip = false, IsUnlock = true}},
-            { "P90", new WeaponData(){IsBought = true, IsEquip = false, IsUnlock = true}},
-            { "UMP 45", new WeaponData(){IsBought = true, IsEquip = false, IsUnlock = true}},
+            { "Beretta 92", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "HK USP", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "Sniper Rifle", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "Shotgun", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "UZI", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "P90", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
+            { "UMP 45", new WeaponData(){IsBought = false, IsEquip = false, IsUnlock = false}},
         };
         // ...
 

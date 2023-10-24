@@ -171,10 +171,12 @@ namespace InfimaGames.LowPolyShooterPack
         /// Stores the Time.time value when the character last jumped.
         /// </summary>
         private float lastJumpTime;
-        
+
         #endregion
 
         #region UNITY FUNCTIONS
+
+        public bool Crouching => crouching;
 
         /// <summary>
         /// Awake.

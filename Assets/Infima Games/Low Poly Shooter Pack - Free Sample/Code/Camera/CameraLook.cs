@@ -84,7 +84,6 @@ namespace InfimaGames.LowPolyShooterPack
            
             //Frame Input. The Input to add this frame!
             Vector2 frameInput = playerCharacter.GetInputLook();
-
             //Sensitivity.
             frameInput *= _sensitivity.SensitivityVector;
 
