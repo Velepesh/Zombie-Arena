@@ -123,7 +123,6 @@ namespace InfimaGames.LowPolyShooterPack
 		private bool holdToAim = true;
 
         [SerializeField] private UIVirtualJoystick _runJoystick;
-        [SerializeField] private UIVirtualJoystick _fireJoystick;
         [SerializeField] private float _joystickInputRunY;
 
         private void OnValidate()
@@ -341,6 +340,14 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		protected override void Update()
 		{
+            if (_isMobile)
+            {
+                if (_runJoystick.InputY >= _joystickInputRunY)
+                    holdingButtonRun = true;
+                else
+                    holdingButtonRun = false;
+            }
+
             //Match Aim.
             aiming = holdingButtonAim && CanAim();
 			//Match Run.
@@ -400,29 +407,6 @@ namespace InfimaGames.LowPolyShooterPack
 			
 			//Save Aiming Value.
 			wasAiming = aiming;
-
-			if (_isMobile)
-			{
-				if (_runJoystick.InputY >= _joystickInputRunY)
-					holdingButtonRun = true;
-				else
-                    holdingButtonRun = false;
-
-				//if (_fireJoystick.IsTouching)
-				//	return;
-
-				//if (Input.touchCount > 0)
-				//{
-    //                Touch touch = Input.GetTouch(0);
-
-    //                if (touch.phase == UnityEngine.TouchPhase.Moved && touch.position.x > UnityScreen.width / 2f)
-    //                    axisLook = Touchscreen.current.touches[0].delta.ReadValue();
-				//	else
-				//		axisLook = Vector2.zero;
-
-				//	axisLook *= aiming ? equippedWeaponScope.GetMultiplierMouseSensitivity() : 1.0f;
-				//}
-			}
 		}
 
 		#endregion
@@ -1398,6 +1382,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         public void OnLook(InputAction.CallbackContext context)
 		{
+			Debug.Log("OnLook");
             axisLook = context.ReadValue<Vector2>();
 
 			//Make sure that we have a weapon.

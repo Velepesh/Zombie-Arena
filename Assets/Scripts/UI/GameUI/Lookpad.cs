@@ -1,0 +1,53 @@
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityScreen = UnityEngine.Screen;
+
+[RequireComponent(typeof(CanvasGroup))]
+public class Lookpad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
+{
+    [SerializeField] private UIVirtualJoystick _fireJoystick;
+
+    private Vector2 _touchInput, _prevDelta, _dragInput;
+    private CanvasGroup _canvasGroup;
+
+    [Header("Output")]
+    public UnityEvent<Vector2> joystickOutputEvent;
+
+    private void Start()
+    {
+        _canvasGroup = GetComponent<CanvasGroup>();
+        _canvasGroup.alpha = 0;
+    }
+    private void Update()
+    {
+        if (_fireJoystick.IsTouching)
+            return;
+
+        _touchInput = _dragInput - _prevDelta;
+        _prevDelta = _dragInput;
+
+        OutputPointerEventValue(_touchInput);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        _prevDelta = _dragInput = eventData.position;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (eventData.position.x > UnityScreen.width / 2f)
+            _dragInput = eventData.position;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        _touchInput = Vector2.zero;
+    }
+
+    private void OutputPointerEventValue(Vector2 pointerPosition)
+    {
+        joystickOutputEvent?.Invoke(pointerPosition);
+    }
+}
