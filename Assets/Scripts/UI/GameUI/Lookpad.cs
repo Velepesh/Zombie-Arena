@@ -7,6 +7,7 @@ using UnityScreen = UnityEngine.Screen;
 public class Lookpad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private UIVirtualJoystick _fireJoystick;
+    [SerializeField] private Vector2 _scaleTouchVctor2;
 
     private Vector2 _touchInput, _prevDelta, _dragInput;
     private CanvasGroup _canvasGroup;
@@ -27,6 +28,7 @@ public class Lookpad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointe
         _touchInput = _dragInput - _prevDelta;
         _prevDelta = _dragInput;
 
+        _touchInput = Vector2.Scale(_touchInput, _scaleTouchVctor2);
         OutputPointerEventValue(_touchInput);
     }
 

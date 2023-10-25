@@ -122,7 +122,7 @@ namespace InfimaGames.LowPolyShooterPack
 		[SerializeField]
 		private bool holdToAim = true;
 
-        [SerializeField] private UIVirtualJoystick _runJoystick;
+        [SerializeField] private FloatJoystick _runJoystick;
         [SerializeField] private float _joystickInputRunY;
 
         private void OnValidate()
@@ -1382,7 +1382,6 @@ namespace InfimaGames.LowPolyShooterPack
 
         public void OnLook(InputAction.CallbackContext context)
 		{
-			Debug.Log("OnLook");
             axisLook = context.ReadValue<Vector2>();
 
 			//Make sure that we have a weapon.

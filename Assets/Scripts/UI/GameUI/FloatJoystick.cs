@@ -1,30 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Windows;
 using UnityScreen = UnityEngine.Screen;
 
-public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class FloatJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
-    public float Horizontal { get { return (snapX) ? SnapFloat(input.x, AxisOptions.Horizontal) : input.x; } }
-    public float Vertical { get { return (snapY) ? SnapFloat(input.y, AxisOptions.Vertical) : input.y; } }
-    public Vector2 Direction { get { return new Vector2(Horizontal, Vertical); } }
-
-    public float HandleRange
-    {
-        get { return handleRange; }
-        set { handleRange = Mathf.Abs(value); }
-    }
-
-    public float DeadZone
-    {
-        get { return deadZone; }
-        set { deadZone = Mathf.Abs(value); }
-    }
-
-    public AxisOptions AxisOptions { get { return AxisOptions; } set { axisOptions = value; } }
-    public bool SnapX { get { return snapX; } set { snapX = value; } }
-    public bool SnapY { get { return snapY; } set { snapY = value; } }
-
     [SerializeField] private float handleRange = 1;
     [SerializeField] private float deadZone = 0;
     [SerializeField] private AxisOptions axisOptions = AxisOptions.Both;
@@ -34,10 +15,14 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     [SerializeField] protected RectTransform background = null;
     [SerializeField] private RectTransform handle = null;
 
+    [Header("Output")]
+    public UnityEvent<Vector2> joystickOutputEvent;
+
     private RectTransform baseRect = null;
 
     private Canvas canvas;
     private Camera cam;
+    private bool _isTouching;
 
     private Vector2 input = Vector2.zero;
 
@@ -47,8 +32,6 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
     protected virtual void Start()
     {
-        HandleRange = handleRange;
-        DeadZone = deadZone;
         baseRect = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
         if (canvas == null)
@@ -60,12 +43,17 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         handle.anchorMax = center;
         handle.pivot = center;
         handle.anchoredPosition = Vector2.zero;
+        background.gameObject.SetActive(false);
     }
 
     public virtual void OnPointerDown(PointerEventData eventData)
     {
-        if(eventData.position.x < UnityScreen.width / 2)
+        if (eventData.position.x < UnityScreen.width / 2)
+        {
+            background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
+            background.gameObject.SetActive(true);
             OnDrag(eventData);
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -76,20 +64,29 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
                 cam = canvas.worldCamera;
 
+            if(_isTouching == false)
+                background.gameObject.SetActive(true);
+
             Vector2 position = RectTransformUtility.WorldToScreenPoint(cam, background.position);
             Vector2 radius = background.sizeDelta / 2;
             input = (eventData.position - position) / (radius * canvas.scaleFactor);
             FormatInput();
-            HandleInput(input.magnitude, input.normalized, radius, cam);
+            HandleInput(input.magnitude, input.normalized);
             handle.anchoredPosition = input * radius * handleRange;
+            OutputPointerEventValue(input);
+            _isTouching = true;
         }
         else
         {
-            OnPointerUp(eventData);
+            _isTouching = false;
         }
+
+
+        if (_isTouching == false)
+            OnPointerUp(eventData);
     }
 
-    protected virtual void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)
+    protected virtual void HandleInput(float magnitude, Vector2 normalised)
     {
         if (magnitude > deadZone)
         {
@@ -100,6 +97,11 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             input = Vector2.zero;
     }
 
+    private void OutputPointerEventValue(Vector2 pointerPosition)
+    {
+        joystickOutputEvent?.Invoke(pointerPosition);
+    }
+
     private void FormatInput()
     {
         if (axisOptions == AxisOptions.Horizontal)
@@ -108,43 +110,12 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             input = new Vector2(0f, input.y);
     }
 
-    private float SnapFloat(float value, AxisOptions snapAxis)
-    {
-        if (value == 0)
-            return value;
-
-        if (axisOptions == AxisOptions.Both)
-        {
-            float angle = Vector2.Angle(input, Vector2.up);
-            if (snapAxis == AxisOptions.Horizontal)
-            {
-                if (angle < 22.5f || angle > 157.5f)
-                    return 0;
-                else
-                    return (value > 0) ? 1 : -1;
-            }
-            else if (snapAxis == AxisOptions.Vertical)
-            {
-                if (angle > 67.5f && angle < 112.5f)
-                    return 0;
-                else
-                    return (value > 0) ? 1 : -1;
-            }
-            return value;
-        }
-        else
-        {
-            if (value > 0)
-                return 1;
-            if (value < 0)
-                return -1;
-        }
-        return 0;
-    }
-
     public virtual void OnPointerUp(PointerEventData eventData)
     {
+        background.gameObject.SetActive(false);
         input = Vector2.zero;
+        HandleInput(input.magnitude, input.normalized);
+        OutputPointerEventValue(input);
         handle.anchoredPosition = Vector2.zero;
         PointerUp?.Invoke();
     }
@@ -160,5 +131,3 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         return Vector2.zero;
     }
 }
-
-public enum AxisOptions { Both, Horizontal, Vertical }
