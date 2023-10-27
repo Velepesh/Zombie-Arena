@@ -5,6 +5,7 @@ public class Zombie : MonoCache, IDamageable
 {
     [SerializeField] private Health _health;
     [SerializeField] private ZombieOptions _options;
+    [SerializeField] private ZombieOptions _mobileOptions;
 
     private ZombieTargetsCompositeRoot _zombieTargets;
     private ITarget _currentTarget;
@@ -14,8 +15,9 @@ public class Zombie : MonoCache, IDamageable
     private bool _isAttackedTwins;
     private bool _isAttacking;
     private DamageHandlerType _lastDamageHandlerType;
+    private ZombieOptions _currentOptions;
 
-    public ZombieOptions Options => _options;
+    public ZombieOptions Options => _currentOptions;
     public bool IsDied => _health.Value <= 0;
     public bool IsAttacking => _isAttacking;
     public bool WasHeadHit { get; private set; }
@@ -47,9 +49,10 @@ public class Zombie : MonoCache, IDamageable
             _damageHandlers[i].HitTaken -= OnHitTaken;
     }
 
-    public void Init(ZombieTargetsCompositeRoot zombieTargets)
+    public void Init(ZombieTargetsCompositeRoot zombieTargets, bool isMobile)
     {
         _zombieTargets = zombieTargets;
+        SetOptions(isMobile);
 
         _currentTarget = _zombieTargets.GetRandomTarget();
         _mainTarget = _currentTarget;
@@ -103,6 +106,14 @@ public class Zombie : MonoCache, IDamageable
     public void DisableZombie()
     {
         Disabled?.Invoke(this);
+    }
+
+    private void SetOptions(bool isMobile)
+    {
+        if (isMobile)
+            _currentOptions = _mobileOptions;
+        else
+            _currentOptions = _options;
     }
 
     private void ChangeCurrentTarget()

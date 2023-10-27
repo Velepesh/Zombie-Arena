@@ -10,11 +10,12 @@ public class ZombieSpawner : ObjectPool
     [SerializeField] private LevelCounter _levelCounter;
     [SerializeField] private ZombieTargetsCompositeRoot _targets;
     [SerializeField] private List<SpawnPoint> _spawnPoints;
-    [SerializeField] private int _maxLevel;
-    [SerializeField] private int _minCircleLevel;
+    [SerializeField] private int _maxLevelIndex;
+    [SerializeField] private int _minCircleLevelIndex;
 
     readonly private int _startWaveIndex = 0;
 
+    private bool _isMobile;
     private Level _currentLevel;
     private Wave _currentWave;
     private float _timeAfterLastSpawn;
@@ -33,6 +34,12 @@ public class ZombieSpawner : ObjectPool
     public event UnityAction<Zombie> ZombieDied;
     public event UnityAction<int> WaveSetted;
     public event UnityAction Loaded;
+
+    private void OnValidate()
+    {
+        _minCircleLevelIndex = Math.Clamp(_minCircleLevelIndex, 0, _levels.Count - 1);
+        _maxLevelIndex = Math.Clamp(_maxLevelIndex, _minCircleLevelIndex, _levels.Count - 1);
+    }
 
     private void OnEnable()
     {
@@ -53,6 +60,7 @@ public class ZombieSpawner : ObjectPool
         }
     }
 
+
     public override void OnTick()
     {
         if (_currentWave == null)
@@ -60,7 +68,7 @@ public class ZombieSpawner : ObjectPool
 
         _timeAfterLastSpawn += Time.deltaTime;
 
-        if (_timeAfterLastSpawn >= _currentWave.Delay && _zombies.Count < _currentWave.MaxActiveZombie)
+        if (_timeAfterLastSpawn >= _currentWave.Delay && _zombies.Count < _currentWave.GetMaxActiveZombie(_isMobile))
         {
             if (IsSpawnPointEmpty() == false)
                 return;
@@ -71,6 +79,11 @@ public class ZombieSpawner : ObjectPool
                 _timeAfterLastSpawn = 0;
             }
         }
+    }
+
+    public void SetPlatform(bool isMobile)
+    {
+        _isMobile = isMobile;
     }
 
     public override void GeneratePrefabs()
@@ -94,8 +107,8 @@ public class ZombieSpawner : ObjectPool
     {
         int levelIndex = _levelCounter.Level - 1;
 
-        if (levelIndex > _maxLevel)
-            levelIndex = _minCircleLevel;
+        if (levelIndex > _maxLevelIndex)
+            levelIndex = _minCircleLevelIndex;
         
         _currentLevel = _levels[levelIndex];
         _currentWaveNumber = _startWaveIndex;
@@ -119,7 +132,7 @@ public class ZombieSpawner : ObjectPool
             zombieObject.SetActive(true);
             zombieObject.transform.position = spawnPoint.Position;
             spawnPoint.Init(zombie);
-            zombie.Init(_targets);
+            zombie.Init(_targets, _isMobile);
             zombie.Died += OnDied;
             zombie.Disabled += OnDisabled;
             zombie.HitTaken += OnHitTaken;

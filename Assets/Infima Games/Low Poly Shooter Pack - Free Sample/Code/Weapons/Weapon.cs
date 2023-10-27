@@ -414,7 +414,16 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// GetAutomaticallyReloadOnEmpty.
         /// </summary>
-        public override bool GetAutomaticallyReloadOnEmpty() => automaticReloadOnEmpty;
+        public override bool GetAutomaticallyReloadOnEmpty(bool isMobile)
+        {
+           if(isMobile)
+                automaticReloadOnEmpty = true;
+           else
+                automaticReloadOnEmpty = false;
+
+            return automaticReloadOnEmpty;
+        }
+
         /// <summary>
         /// GetAutomaticallyReloadOnEmptyDelay.
         /// </summary>

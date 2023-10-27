@@ -1,17 +1,12 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using UnityEngine.Windows;
 using UnityScreen = UnityEngine.Screen;
 
 public class FloatJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     [SerializeField] private float handleRange = 1;
     [SerializeField] private float deadZone = 0;
-    [SerializeField] private AxisOptions axisOptions = AxisOptions.Both;
-    [SerializeField] private bool snapX = false;
-    [SerializeField] private bool snapY = false;
-
     [SerializeField] protected RectTransform background = null;
     [SerializeField] private RectTransform handle = null;
 
@@ -70,7 +65,6 @@ public class FloatJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, I
             Vector2 position = RectTransformUtility.WorldToScreenPoint(cam, background.position);
             Vector2 radius = background.sizeDelta / 2;
             input = (eventData.position - position) / (radius * canvas.scaleFactor);
-            FormatInput();
             HandleInput(input.magnitude, input.normalized);
             handle.anchoredPosition = input * radius * handleRange;
             OutputPointerEventValue(input);
@@ -102,14 +96,6 @@ public class FloatJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         joystickOutputEvent?.Invoke(pointerPosition);
     }
 
-    private void FormatInput()
-    {
-        if (axisOptions == AxisOptions.Horizontal)
-            input = new Vector2(input.x, 0f);
-        else if (axisOptions == AxisOptions.Vertical)
-            input = new Vector2(0f, input.y);
-    }
-
     public virtual void OnPointerUp(PointerEventData eventData)
     {
         background.gameObject.SetActive(false);
@@ -128,6 +114,7 @@ public class FloatJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, I
             Vector2 pivotOffset = baseRect.pivot * baseRect.sizeDelta;
             return localPoint - (background.anchorMax * baseRect.sizeDelta) + pivotOffset;
         }
+
         return Vector2.zero;
     }
 }

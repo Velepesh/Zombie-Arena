@@ -621,7 +621,7 @@ namespace InfimaGames.LowPolyShooterPack
 				UpdateBolt(true);
 
 			//Automatically reload the weapon if we need to. This is very helpful for things like grenade launchers or rocket launchers.
-			if (!equippedWeapon.HasAmmunition() && equippedWeapon.GetAutomaticallyReloadOnEmpty())
+			if (!equippedWeapon.HasAmmunition() && equippedWeapon.GetAutomaticallyReloadOnEmpty(_isMobile))
 				StartCoroutine(nameof(TryReloadAutomatic));
 		}
 		

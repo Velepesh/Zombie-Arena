@@ -133,7 +133,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Returns true if the weapon should be automatically reload when empty.
         /// </summary>
-        public abstract bool GetAutomaticallyReloadOnEmpty();
+        public abstract bool GetAutomaticallyReloadOnEmpty(bool isMobile);
         /// <summary>
         /// Returns the delay after firing the last shot when the weapon should start automatically reloading.
         /// </summary>

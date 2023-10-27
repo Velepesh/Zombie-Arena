@@ -14,13 +14,13 @@ public class NavAgentEnabler : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _zombie = GetComponent<Zombie>();
-
-        SetAgentOptions();
     }
 
     public void EnableAgent()
     {
-        if(_agent.enabled == false)
+        SetAgentOptions();
+
+        if (_agent.enabled == false)
             _agent.enabled = true;
     }
 

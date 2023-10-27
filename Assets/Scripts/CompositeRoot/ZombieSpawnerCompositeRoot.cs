@@ -1,4 +1,5 @@
 using UnityEngine;
+using YG;
 
 public class ZombieSpawnerCompositeRoot : CompositeRoot
 {
@@ -7,5 +8,8 @@ public class ZombieSpawnerCompositeRoot : CompositeRoot
     public override void Compose()
     {
         _zombieSpawner.StartSpawn();
+
+        if (YandexGame.SDKEnabled == true)
+            _zombieSpawner.SetPlatform(YandexGame.EnvironmentData.isMobile);
     }
 }
