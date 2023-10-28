@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class HealthAdder : MonoBehaviour
 {
     [SerializeField] private int _adID;
+    [SerializeField] private string _label;
     [SerializeField] private Builder _builderCompositeRoot;
     [SerializeField] private int _addedHealth = 25;
     [SerializeField] private int _price;
@@ -16,6 +17,7 @@ public class HealthAdder : MonoBehaviour
     private Health _health;
 
     public int Price => _price;
+    public string Label => _label;
 
     public event UnityAction<int> HealthChanged;
     public event UnityAction<HealthAdder, int> BuyHealthButtonClicked;
@@ -45,6 +47,7 @@ public class HealthAdder : MonoBehaviour
     public void AddHealth()
     {
         _builderCompositeRoot.AddHealth(_addedHealth);
+        MetricaSender.Reward("health_adder");
     }
 
     public void HideHealthAdderPanel()

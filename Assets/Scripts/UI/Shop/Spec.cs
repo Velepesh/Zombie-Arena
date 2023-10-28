@@ -138,6 +138,7 @@ public class Spec : MonoBehaviour
             AdsButtonClicked?.Invoke(_currentWeapon);
             SetInventoryText(_currentWeapon);
             UpdateButtonsVisibility(_currentWeapon);
+            MetricaSender.Reward("weapon");
         }
     }
 

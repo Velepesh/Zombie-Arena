@@ -4,7 +4,6 @@ using YG;
 
 public class LevelCounter : MonoBehaviour
 {
-    [SerializeField] private Game _game;
     [SerializeField] private LangYGAdditionalText _levelText;
 
     public int Level { get; private set; }
@@ -17,17 +16,7 @@ public class LevelCounter : MonoBehaviour
         SetValue(level);
     }
 
-    private void OnEnable()
-    {
-        _game.Won += OnWon;
-    }
-
-    private void OnDisable()
-    {
-        _game.Won -= OnWon;
-    }
-
-    private void OnWon()
+    public void IncreaseLevel()
     {
         Level++;
         SetValue(Level);

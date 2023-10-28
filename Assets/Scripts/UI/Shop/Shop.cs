@@ -1,6 +1,7 @@
 using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Purchasing;
 
 public class Shop : MonoBehaviour
 {
@@ -89,6 +90,7 @@ public class Shop : MonoBehaviour
         {
             healthAdder.AddHealth();
             _walletSetup.Wallet.RemoveMoney(price);
+            MetricaSender.Money("health_adder", healthAdder.Label, price);
         }
     }
 
@@ -115,6 +117,7 @@ public class Shop : MonoBehaviour
             weapon.Buy();
             _walletSetup.Wallet.RemoveMoney(weapon.Price);
             Equip(weapon);
+            MetricaSender.Money("weapon", weapon.Label, weapon.Price);
         }
     }
 

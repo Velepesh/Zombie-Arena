@@ -42,6 +42,7 @@ public class MoneyAdder : MonoBehaviour
     {
         _walletSetup.Wallet.AddMoney(_money);
         SetText(_money);
+        MetricaSender.Reward("money_adder");
     }
 
     private void SetText(int value)

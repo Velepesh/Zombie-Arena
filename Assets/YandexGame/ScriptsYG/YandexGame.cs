@@ -333,6 +333,7 @@ namespace YG
         static void AfterLoading()
         {
             _SDKEnabled = true;
+            MetricaSender.Device(YandexGame.EnvironmentData.deviceType);
             GetDataEvent?.Invoke();
 
             if (Instance.infoYG.LocalizationEnable &&

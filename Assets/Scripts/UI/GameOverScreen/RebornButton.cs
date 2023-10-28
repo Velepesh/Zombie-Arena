@@ -37,6 +37,7 @@ public class RebornButton : MonoBehaviour
         for (int i = 0; i < _builders.Count; i++)
             _builders[i].Reborn();
 
+        MetricaSender.Reward("reborn");
         RebornButtonClicked?.Invoke();
         DisableRebornButton();
     }

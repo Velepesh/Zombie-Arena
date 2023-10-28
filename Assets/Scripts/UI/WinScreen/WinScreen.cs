@@ -42,6 +42,9 @@ public class WinScreen : MonoBehaviour
     private void Rewarded(int id)
     {
         if (id == _adID)
+        {
             _game.NextLevelDoubleEarnings();
+            MetricaSender.Reward("double_earnings");
+        }
     }
 }
