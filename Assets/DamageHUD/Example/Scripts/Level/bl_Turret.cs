@@ -68,7 +68,7 @@ public class bl_Turret : MonoBehaviour
         Rigidbody r = ball.GetComponent<Rigidbody>();
         float y = Target.position.y;
         r.AddForce((FirePosition.forward * FireSpeed) * (y - 0.54f), ForceMode.Impulse);
-        //If you use a attaker that is instance from enemy, like a bullet,ray,power,etc..
+        //If you use a attaker that is instance from enemy, like a bullet,ray,_power,etc..
         //then it is recommendable to send the reference of the real enemy / sender to the instance,like this:
         //cache the reference in a var of the instance
         ball.GetComponent<bl_Attaker>().Sender = this.gameObject;

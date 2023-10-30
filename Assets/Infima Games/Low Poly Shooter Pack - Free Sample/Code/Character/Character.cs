@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 using YG;
-using UnityScreen = UnityEngine.Screen;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -435,6 +434,11 @@ namespace InfimaGames.LowPolyShooterPack
 		/// GetCameraWorld.
 		/// </summary>
 		public override Camera GetCameraWorld() => cameraWorld;
+
+        public override void SetTotalGrenades(int grenadesCount)
+		{
+			grenadeTotal = grenadesCount;
+        }
 
         /// <summary>
         /// GetCameraDepth.
@@ -1194,14 +1198,16 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryThrowGrenade(InputAction.CallbackContext context)
 		{
-			//Switch.
-			switch (context.phase)
+            //Switch.
+            switch (context.phase)
 			{
 				//Performed.
 				case InputActionPhase.Performed:
 					//Try Play.
-					if (CanPlayAnimationGrenadeThrow())
+					if (CanPlayAnimationGrenadeThrow()) 
+					{ 
 						PlayGrenadeThrow();
+					}
 					break;
 			}
 		}

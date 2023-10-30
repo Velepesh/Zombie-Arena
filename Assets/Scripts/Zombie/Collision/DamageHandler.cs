@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Collider))]
-public class DamageHandler : MonoBehaviour
+public class DamageHandler : MonoBehaviour, IDamageable
 {
     [SerializeField] private DamageHandlerType _type;
 
@@ -15,6 +15,7 @@ public class DamageHandler : MonoBehaviour
     private Collider _collider;
     private List<ParticleSystem> _holeEffects = new List<ParticleSystem>();
 
+    public Zombie Zombie => _zombie;
     public DamageHandlerType Type => _type;
 
     public event UnityAction<DamageHandlerType> HitTaken;

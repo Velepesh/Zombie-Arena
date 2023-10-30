@@ -21,9 +21,9 @@ public abstract class HealthView : MonoBehaviour
         _damagedDsuration = Mathf.Clamp(_damagedDsuration, 0f, float.MaxValue);
     }
 
-    protected void Init(IDamageable damageable)
+    protected void Init(IHealth health)
     {
-        AssignStartValues(damageable);
+        AssignStartValues(health);
     }
 
     protected void DisableSliders()
@@ -49,9 +49,9 @@ public abstract class HealthView : MonoBehaviour
         ChangeSliderValue();
     }
 
-    private void AssignStartValues(IDamageable damageable)
+    private void AssignStartValues(IHealth health)
     {
-        StartHealth = damageable.Health.Value;
+        StartHealth = health.Health.Value;
 
         _currentHealth = StartHealth;
         SetSliderStartValue(_slider, StartHealth);

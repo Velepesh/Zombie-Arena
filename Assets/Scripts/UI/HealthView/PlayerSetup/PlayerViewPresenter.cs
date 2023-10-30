@@ -19,7 +19,7 @@
         _model.Health.HealthChanged += OnHealthChanged;
         _view.HealthChanged += OnHealthChanged;
 
-        _view.SetIDamageable(_model);
+        _view.SetIHealth(_model);
         _indicator.SetPlayer(_model);
     }
 

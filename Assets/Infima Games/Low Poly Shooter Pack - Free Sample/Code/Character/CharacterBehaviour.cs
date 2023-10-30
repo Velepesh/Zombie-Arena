@@ -44,6 +44,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public abstract bool IsLowered();
 
+        public abstract void SetTotalGrenades(int grenadesCount);
         /// <summary>
         /// Returns the player character's main camera.
         /// </summary>

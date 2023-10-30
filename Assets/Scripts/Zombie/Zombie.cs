@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Zombie : MonoCache, IDamageable
+public class Zombie : MonoCache, IDamageable, IHealth, IDie
 {
     [SerializeField] private Health _health;
     [SerializeField] private ZombieOptions _options;

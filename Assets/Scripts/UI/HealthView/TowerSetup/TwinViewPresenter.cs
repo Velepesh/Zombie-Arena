@@ -13,7 +13,7 @@ public class TwinViewPresenter
     {
         _model.Health.HealthChanged += OnHealthChanged;
 
-        _view.SetIDamageable(_model);
+        _view.SetIHealth(_model);
     }
 
     public void Disable()

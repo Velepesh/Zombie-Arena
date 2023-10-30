@@ -4,10 +4,10 @@ public class DamageableHealthView : HealthView
 {
     public event UnityAction<int, int> HealthChanged;
 
-    public void SetIDamageable(IDamageable damageable)
+    public void SetIHealth(IHealth health)
     {
-        Init(damageable);
-        UpdateView(damageable.Health.Value);
+        Init(health);
+        UpdateView(health.Health.Value);
     }
 
     public void UpdateView(int health)

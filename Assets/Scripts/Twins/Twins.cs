@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Twins : MonoBehaviour, IDamageable, ITarget
+public class Twins : MonoBehaviour, IDamageable, ITarget, IHealth, IDie
 {
     [SerializeField] private Health _health;
     [SerializeField] private List<TwinCollider> _twinColliders;

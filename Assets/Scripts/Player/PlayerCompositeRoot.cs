@@ -8,8 +8,12 @@ public class PlayerCompositeRoot : Builder
     [SerializeField] private PlayerViewSetup _setup;
     [SerializeField] private Equipment _equipment;
     [SerializeField] private Inventory _inventory;
+    [SerializeField] private LevelCounter _levelCounter;
+    [SerializeField] private Character _character;
 
     public Player Player => _player;
+
+    readonly private int _grenadeIncreaseThresholdByLevel = 5;
 
     private void Start()
     {
@@ -35,6 +39,9 @@ public class PlayerCompositeRoot : Builder
     {
         _setup.enabled = true;
         _inventory.Init(_equipment.GetEquipedWeapons());
+
+        int grenadesCount = _levelCounter.Level / _grenadeIncreaseThresholdByLevel;
+        _character.SetTotalGrenades(grenadesCount);
     }
 
     public override Health GetHealth()

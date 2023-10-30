@@ -4,7 +4,7 @@
     public delegate void NewIndicator(bl_IndicatorInfo info);
     public static NewIndicator OnIndicator;
 
-    //Delegate for invoke a new damage effect.
+    //Delegate for invoke a new _damage effect.
     public delegate void NewDamageDelegate(bl_DamageInfo info);
     public static NewDamageDelegate OnDamageEvent;
 
@@ -23,7 +23,7 @@
     }
 
     /// <summary>
-    /// Invoke this for call Damage HUD.
+    /// Invoke this for call DoDamage HUD.
     /// </summary>
     public static void OnDamage(bl_DamageInfo info)
     {

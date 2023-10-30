@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Player : MonoBehaviour, IDamageable, ITarget
+public class Player : MonoBehaviour, IDamageable, ITarget, IHealth, IDie
 {
     [SerializeField] private Health _health;
 

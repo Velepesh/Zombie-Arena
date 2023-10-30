@@ -8,7 +8,6 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 {
 	public class Impact : MonoBehaviour
 	{
-
 		[Header("Impact Despawn Timer")]
 		//How long before the impact is destroyed
 		public float despawnTimer = 10.0f;
@@ -26,8 +25,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			StartCoroutine(DespawnTimer());
 
 			//Get a random impact sound from the array
-			audioSource.clip = impactSounds
-				[Random.Range(0, impactSounds.Length)];
+			audioSource.clip = impactSounds[Random.Range(0, impactSounds.Length)];
 			//Play the random impact sound
 			audioSource.Play();
         }

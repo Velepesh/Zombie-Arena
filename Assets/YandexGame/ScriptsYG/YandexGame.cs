@@ -1430,6 +1430,7 @@ namespace YG
         }
 
         public static Action<string> PurchaseSuccessEvent;
+
         public void OnPurchaseSuccess(string id)
         {
             PurchaseByID(id).consumed = true;

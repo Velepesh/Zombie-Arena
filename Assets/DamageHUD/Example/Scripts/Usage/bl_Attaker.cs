@@ -19,18 +19,18 @@ public class bl_Attaker : MonoBehaviour {
         //If impact with the player
        if (c.transform.tag == "Player")
         {
-            //Damage caused to the player
+            //DoDamage caused to the player
             float damage = Random.Range(DamageRange.x, DamageRange.y);
 
             //This is the important that you impliment in your own scripts.
             //No need use the struct 'bl_DamageInfo', just sure of send this two variables:
-            //---GameObject Sender---- = the enemy that inflict the damage, 
+            //---GameObject Sender---- = the enemy that inflict the _damage, 
             //in this case the turrent that shoot this ball.
 
             //This is the method that use for this example, you can use your own for notify the player
-            //that have received damage
+            //that have received _damage
             bl_DamageInfo info = new bl_DamageInfo(damage);
-            //Send the sender (enemy) that inflict this damage.
+            //Send the sender (enemy) that inflict this _damage.
             info.Sender = Sender;
             c.transform.GetComponent<bl_DamageCallback>().OnDamage(info);
             //And the other important variable is the position of enemy.

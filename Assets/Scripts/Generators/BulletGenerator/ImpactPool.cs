@@ -78,4 +78,5 @@ public enum ImpactPoolType
     ExplosiveBarrel,
     ForceField,
     Grass,
+    Grenade,
 }

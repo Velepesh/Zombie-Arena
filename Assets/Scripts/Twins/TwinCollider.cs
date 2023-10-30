@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
-public class TwinCollider : MonoBehaviour
+public class TwinCollider : MonoBehaviour, IDamageable
 {
     public event UnityAction<int, Vector3> Damaged;
 

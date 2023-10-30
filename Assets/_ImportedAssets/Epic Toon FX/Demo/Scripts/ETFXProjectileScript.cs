@@ -31,7 +31,7 @@ using System.Collections;
 			
             RaycastHit hit;
 			
-            float radius; // Sets the radius of the collision detection
+            float radius; // Sets the _radius of the collision detection
             if (transform.GetComponent<SphereCollider>())
                 radius = transform.GetComponent<SphereCollider>().radius;
             else

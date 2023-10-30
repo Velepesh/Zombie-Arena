@@ -83,7 +83,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
     			//If the explosion hit the tag "GasTank"
     			if (hit.GetComponent<Collider>().tag == "GasTank") 
     			{
-    				//If gas tank is within radius, explode it
+    				//If gas tank is within _radius, explode it
     				hit.gameObject.GetComponent<GasTankScript> ().isHit = true;
     				hit.gameObject.GetComponent<GasTankScript> ().explosionTimer = 0.05f;
     			}
