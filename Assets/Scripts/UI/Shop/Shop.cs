@@ -1,7 +1,6 @@
 using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.Purchasing;
 
 public class Shop : MonoBehaviour
 {
@@ -47,6 +46,13 @@ public class Shop : MonoBehaviour
         _spec.EquipButtonClicked -= OnEquipButtonClicked;
         _spec.BuyButtonClicked -= OnBuyButtonClicked;
         _spec.AdsButtonClicked -= OnAdsButtonClicked;
+    }
+
+    public void BuyWeaponForYan(Weapon weapon)
+    {    
+        weapon.Buy();
+        Equip(weapon);
+        MetricaSender.Yan(weapon.Label);
     }
 
     private void OnEquipmenInited()

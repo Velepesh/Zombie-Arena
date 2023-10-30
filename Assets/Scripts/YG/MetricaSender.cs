@@ -57,6 +57,16 @@ public static class MetricaSender
         YandexMetrica.Send("money", eventParams);
     }
 
+    public static void Yan(string weapon)
+    {
+        var eventParams = new Dictionary<string, string>
+        {
+            { "weapon", weapon },
+        };
+
+        YandexMetrica.Send("yan", eventParams);
+    }
+
     public static void Device(string type)
     {
         var eventParams = new Dictionary<string, string>

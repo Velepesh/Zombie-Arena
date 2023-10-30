@@ -57,6 +57,11 @@ namespace YG
             if (imageLoad) imageLoad.Load(data.imageURI);
         }
 
+        public void SetDataId(string id)
+        {
+            data.id = id;
+        }
+
         public void BuyPurchase()
         {
             YandexGame.BuyPayments(data.id);

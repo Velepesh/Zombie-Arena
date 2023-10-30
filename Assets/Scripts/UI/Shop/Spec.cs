@@ -1,4 +1,5 @@
 using InfimaGames.LowPolyShooterPack;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,6 +13,7 @@ public class Spec : MonoBehaviour
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private TMP_Text _label;
     [SerializeField] private TMP_Text _price;
+    [SerializeField] private TMP_Text _yan;
     [SerializeField] private TMP_Text _inEquipmentText;
     [SerializeField] private TMP_Text _openText;
     [SerializeField] private —haracteristic _damageCharacteristic;
@@ -24,6 +26,8 @@ public class Spec : MonoBehaviour
     [SerializeField] private Button _buyForYanButton;
     [SerializeField] private Button _unlockByAdsButton;
     [SerializeField] private Button _equipButton;
+    [SerializeField] private GamePurchases _purchases;
+ 
 
     private Weapon _currentWeapon;
 
@@ -50,7 +54,11 @@ public class Spec : MonoBehaviour
         _currentWeapon = weapon;
         SetInventoryText(weapon);
         SetLabel(weapon.Label);
-        SetPrice(weapon.Price);
+        SetPrice(weapon.Price, weapon.Yan);
+        
+        if(String.IsNullOrEmpty(weapon.Id) == false)
+            _purchases.SetCurrentWeapon(weapon);
+
         Update—haracteristics(weapon);
         UpdateButtonsVisibility(weapon);
     }
@@ -147,9 +155,10 @@ public class Spec : MonoBehaviour
         _label.text = label;
     }
 
-    private void SetPrice(int price)
+    private void SetPrice(int price, int yan)
     {
         _price.text = price.ToString();
+        _yan.text = yan.ToString();
     }
 
     private void Update—haracteristics(Weapon weapon)

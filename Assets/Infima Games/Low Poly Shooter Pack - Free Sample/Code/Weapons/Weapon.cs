@@ -18,6 +18,8 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField] private bool _isUnlock;
         [SerializeField] private bool _isEquip;
         [SerializeField] private int _price;
+        [SerializeField] private int _yan;
+        [SerializeField] private string _id;
         #region FIELDS SERIALIZED
 
         [Title(label: "Settings")]
@@ -205,7 +207,8 @@ namespace InfimaGames.LowPolyShooterPack
         public int Mobility => (int)(multiplierMovementSpeed * 100) - 20;
         public WeaponType Type => _type;
         public int Price => _price;
-
+        public int Yan => _yan;
+        public string Id => _id;
        
         public bool IsBought => _isBought;
         public bool IsEquip => _isEquip;
