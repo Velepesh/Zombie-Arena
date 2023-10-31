@@ -9,7 +9,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 {
 	public class Projectile : MonoBehaviour
 	{
-        //[SerializeField] private int _damage;
+        //[SerializeField] private int _damageToEnemy;
         private int _damage;
 
         [Range(5, 100)]

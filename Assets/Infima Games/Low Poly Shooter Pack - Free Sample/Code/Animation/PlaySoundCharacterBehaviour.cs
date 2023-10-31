@@ -116,9 +116,10 @@ namespace InfimaGames.LowPolyShooterPack
                 
                 //Bolt Action.
                 SoundType.BoltAction => weaponBehaviour.GetAudioClipBoltAction(),
-                
-                //Default.
-                _ => default
+                SoundType.GrenadeThrow => weaponBehaviour.GetAudioClipGrenadeThrowAction(),
+
+             //Default.
+             _ => default
             };
 
             #endregion

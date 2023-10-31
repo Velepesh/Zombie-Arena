@@ -4,7 +4,7 @@
     public delegate void NewIndicator(bl_IndicatorInfo info);
     public static NewIndicator OnIndicator;
 
-    //Delegate for invoke a new _damage effect.
+    //Delegate for invoke a new _damageToEnemy effect.
     public delegate void NewDamageDelegate(bl_DamageInfo info);
     public static NewDamageDelegate OnDamageEvent;
 

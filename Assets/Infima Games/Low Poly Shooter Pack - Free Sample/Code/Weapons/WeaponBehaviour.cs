@@ -81,6 +81,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// Returns the bolt action audio clip.
         /// </summary>
         public abstract AudioClip GetAudioClipBoltAction();
+        public abstract AudioClip GetAudioClipGrenadeThrowAction();
 
         /// <summary>
         /// Returns the fire audio clip.

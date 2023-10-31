@@ -7,7 +7,7 @@ public class bl_DamageCallback : MonoBehaviour {
     private bool isDie = false;
 
     /// <summary>
-    /// This callback for receive _damage
+    /// This callback for receive _damageToEnemy
     /// If you have your own 'Player DoDamage' script, you can use this as reference
     /// for implement.
     /// </summary>
@@ -20,7 +20,7 @@ public class bl_DamageCallback : MonoBehaviour {
         Health -= info.Damage;
         //If you not receive a 'bl_DamageInfo' in your own function of your script ->
         //you can create in the same function like this ->
-        //--------bl_DamageInfo info = new bl_DamageInfo((float)DamageReceive); //'DamageReceive' is the _damage that player receive.
+        //--------bl_DamageInfo info = new bl_DamageInfo((float)DamageReceive); //'DamageReceive' is the _damageToEnemy that player receive.
         //--------info.Sender = EnemyAttaker; //send sender (this need receive in your funtion).
         //them just send.
         bl_DamageDelegate.OnDamageEvent(info);

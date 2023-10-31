@@ -57,7 +57,7 @@ namespace InfimaGames.LowPolyShooterPack
 		
 		[Tooltip("Knife GameObject.")]
 		[SerializeField]
-		private GameObject knife;
+		private Wrench knife;
 
 		[Title(label: "Cameras")]
 
@@ -310,7 +310,7 @@ namespace InfimaGames.LowPolyShooterPack
 			
 			//Hide knife. We do this so we don't see a giant knife stabbing through the character's hands all the time!
 			if (knife != null)
-				knife.SetActive(false);
+				knife.gameObject.SetActive(false);
 			
 			//Cache a reference to the holster layer's index.
 			layerHolster = characterAnimator.GetLayerIndex("Layer Holster");
@@ -434,6 +434,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// GetCameraWorld.
 		/// </summary>
 		public override Camera GetCameraWorld() => cameraWorld;
+
 
         public override void SetTotalGrenades(int grenadesCount)
 		{
@@ -625,7 +626,7 @@ namespace InfimaGames.LowPolyShooterPack
 				UpdateBolt(true);
 
 			//Automatically reload the weapon if we need to. This is very helpful for things like grenade launchers or rocket launchers.
-			if (!equippedWeapon.HasAmmunition() && equippedWeapon.GetAutomaticallyReloadOnEmpty(_isMobile))
+			if (!equippedWeapon.HasAmmunition())
 				StartCoroutine(nameof(TryReloadAutomatic));
 		}
 		
@@ -746,11 +747,11 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		private void PlayMelee()
 		{
-			//Start State.
-			meleeing = true;
-			
-			//Play Normal.
-			characterAnimator.CrossFade("Knife Attack", 0.05f,
+            //Start State.
+            meleeing = true;
+			knife.StartAttack();
+            //Play Normal.
+            characterAnimator.CrossFade("Knife Attack", 0.05f,
 				characterAnimator.GetLayerIndex("Layer Actions Arm Left"), 0.0f);
 			
 			//Play Additive.
@@ -1521,7 +1522,8 @@ namespace InfimaGames.LowPolyShooterPack
 		{
 			//Stop Melee.
 			meleeing = false;
-		}
+            knife.EndAttack();
+        }
 
 		/// <summary>
 		/// AnimationEndedInspect.
@@ -1557,7 +1559,7 @@ namespace InfimaGames.LowPolyShooterPack
 		public override void SetActiveKnife(int active)
 		{
 			//Set Active.
-			knife.SetActive(active != 0);
+			knife.gameObject.SetActive(active != 0);
 		}
 
 		#endregion

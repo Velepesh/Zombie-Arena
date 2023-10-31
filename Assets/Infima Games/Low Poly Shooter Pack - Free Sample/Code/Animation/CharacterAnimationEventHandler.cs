@@ -93,8 +93,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		private void OnAnimationEndedReload()
 		{
-			//Notify the character.
-			if(playerCharacter != null)
+            //Notify the character.
+            if (playerCharacter != null)
 				playerCharacter.AnimationEndedReload();
 		}
 

@@ -148,6 +148,10 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private AudioClip audioClipBoltAction;
 
+        [Tooltip("")]
+        [SerializeField]
+        private AudioClip grenadeThrowAction;
+
         #endregion
 
         #region FIELDS
@@ -386,6 +390,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// GetAudioClipBoltAction.
         /// </summary>
         public override AudioClip GetAudioClipBoltAction() => audioClipBoltAction;
+        public override AudioClip GetAudioClipGrenadeThrowAction() => grenadeThrowAction;
         
         /// <summary>
         /// GetAudioClipFire.

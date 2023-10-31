@@ -40,7 +40,7 @@ public class PlayerCompositeRoot : Builder
         _setup.enabled = true;
         _inventory.Init(_equipment.GetEquipedWeapons());
 
-        int grenadesCount = _levelCounter.Level / _grenadeIncreaseThresholdByLevel;
+        int grenadesCount = (_levelCounter.Level / _grenadeIncreaseThresholdByLevel) + 1;
         _character.SetTotalGrenades(grenadesCount);
     }
 

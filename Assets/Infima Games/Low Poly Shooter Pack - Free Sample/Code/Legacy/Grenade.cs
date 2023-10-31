@@ -106,7 +106,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
             Vector3 explosionPos = transform.position;
             Collider[] colliders = Physics.OverlapSphere(explosionPos, _radius);
 
-            bool itTwins = false;
+            bool isTwins = false;
             List<Zombie> zombies = new List<Zombie>();
 
             foreach (Collider hit in colliders)
@@ -117,10 +117,10 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
                 {
                     if (damageable is TwinCollider twin)
                     {
-                        if(itTwins == false)
+                        if(isTwins == false)
                             twin.TakeDamage(_damageToTwins, Vector3.zero);
 
-                        itTwins = true;
+                        isTwins = true;
                     }
                     else if(damageable is Player player)
                     {
