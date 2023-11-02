@@ -19,7 +19,7 @@ public class bl_Attaker : MonoBehaviour {
         //If impact with the player
        if (c.transform.tag == "Player")
         {
-            //DoDamage caused to the player
+            //IdentifyDamageTargets caused to the player
             float damage = Random.Range(DamageRange.x, DamageRange.y);
 
             //This is the important that you impliment in your own scripts.

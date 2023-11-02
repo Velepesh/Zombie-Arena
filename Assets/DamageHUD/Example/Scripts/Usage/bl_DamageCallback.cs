@@ -8,7 +8,7 @@ public class bl_DamageCallback : MonoBehaviour {
 
     /// <summary>
     /// This callback for receive _damageToEnemy
-    /// If you have your own 'Player DoDamage' script, you can use this as reference
+    /// If you have your own 'Player IdentifyDamageTargets' script, you can use this as reference
     /// for implement.
     /// </summary>
     /// <param name="info"></param>

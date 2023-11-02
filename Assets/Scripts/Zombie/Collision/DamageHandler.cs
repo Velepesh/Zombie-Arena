@@ -51,7 +51,7 @@ public class DamageHandler : MonoBehaviour, IDamageable
 
         if (_zombie.Health.Value > 0)
         {
-            if (damage <= 0)
+            if (damage < 0)
                 throw new ArgumentException(nameof(damage));
 
             if (_type == DamageHandlerType.Head)

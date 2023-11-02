@@ -11,9 +11,9 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		[Tooltip("Time before the grenade explodes")]
 		[SerializeField] private float _grenadeTimer = 5.0f;
         [SerializeField] private float _groundDistance = 5.0f;
-        [SerializeField] private int _damageToEnemy = 50;
-        [SerializeField] private int _damageToPlayer = 19;
-        [SerializeField] private int _damageToTwins = 9;
+        [SerializeField] private int _maxEnemyDamage = 110;
+        [SerializeField] private int _maxPlayerDamage = 55;
+        [SerializeField] private int _maxTwinsDamage = 15;
 
 		[Header("Explosion Prefabs")]
         [SerializeField] private Explosion _explosion;
@@ -42,9 +42,9 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
         {
 			_grenadeTimer = Mathf.Clamp(_grenadeTimer, 0f, float.MaxValue);
             _groundDistance = Mathf.Clamp(_groundDistance, 0f, float.MaxValue);
-            _damageToEnemy = Mathf.Clamp(_damageToEnemy, 0, int.MaxValue);
-            _damageToPlayer = Mathf.Clamp(_damageToPlayer, 0, int.MaxValue);
-            _damageToTwins = Mathf.Clamp(_damageToTwins, 0, int.MaxValue);
+            _maxEnemyDamage = Mathf.Clamp(_maxEnemyDamage, 0, int.MaxValue);
+            _maxPlayerDamage = Mathf.Clamp(_maxPlayerDamage, 0, int.MaxValue);
+            _maxTwinsDamage = Mathf.Clamp(_maxTwinsDamage, 0, int.MaxValue);
             _radius = Mathf.Clamp(_radius, 0f, float.MaxValue);
             _power = Mathf.Clamp(_power, 0f, float.MaxValue);
             _minimumForce = Mathf.Clamp(_minimumForce, 0f, float.MaxValue);
@@ -76,7 +76,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
             yield return new WaitForSeconds(_grenadeTimer);
 
             Explode();
-            DoDamage();
+            IdentifyDamageTargets();
 
             gameObject.SetActive(false);
         }
@@ -101,7 +101,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
             }
         }
 
-        private void DoDamage()
+        private void IdentifyDamageTargets()
 		{
             Vector3 explosionPos = transform.position;
             Collider[] colliders = Physics.OverlapSphere(explosionPos, _radius);
@@ -117,26 +117,43 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
                 {
                     if (damageable is TwinCollider twin)
                     {
-                        if(isTwins == false)
-                            twin.TakeDamage(_damageToTwins, Vector3.zero);
-
-                        isTwins = true;
+                        if (isTwins == false)
+                        {
+                            DoDamage(twin, _maxTwinsDamage, hit);
+                            isTwins = true;
+                        }
                     }
                     else if(damageable is Player player)
                     {
-                        player.TakeDamage(_damageToPlayer, Vector3.zero);
+                        DoDamage(player, _maxPlayerDamage, hit);
                     }
                     else if (damageable is DamageHandler damageHandler)
                     {
                         Zombie zombie = damageHandler.Zombie;
                         if (IsZombieInList(zombies, zombie) == false)
                         {
-                            damageHandler.TakeDamage(_damageToEnemy, Vector3.zero);
+                            DoDamage(damageHandler, _maxEnemyDamage, hit);
                             zombies.Add(zombie);
                         }
                     }                       
                 }
             }
+        }
+
+        private void DoDamage(IDamageable damageable, int maxDamage, Collider hit)
+        {
+            float distanceToExplosion = Vector3.Distance(transform.position, hit.transform.position);
+            int damage = CalculateGrenadeDamage(maxDamage, _radius, distanceToExplosion);
+
+            damageable.TakeDamage(damage / 2, Vector3.zero);
+        }
+
+        private int CalculateGrenadeDamage(float maxDamage, float explosionRadius, float distanceToExplosion)
+        {
+            float normalizedDistance = Mathf.Clamp01(1.0f - (distanceToExplosion / explosionRadius));
+            float actualDamage = maxDamage * normalizedDistance;
+
+            return (int)actualDamage;
         }
 
         private bool IsZombieInList(List<Zombie> zombies, Zombie zombie)

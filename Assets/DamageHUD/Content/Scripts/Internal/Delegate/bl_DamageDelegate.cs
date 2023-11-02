@@ -23,7 +23,7 @@
     }
 
     /// <summary>
-    /// Invoke this for call DoDamage HUD.
+    /// Invoke this for call IdentifyDamageTargets HUD.
     /// </summary>
     public static void OnDamage(bl_DamageInfo info)
     {
