@@ -13,11 +13,10 @@ public class FloatJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     [Header("Output")]
     public UnityEvent<Vector2> joystickOutputEvent;
 
-    private RectTransform baseRect = null;
+    private RectTransform _baseRect = null;
 
-    private Canvas canvas;
-    private Camera cam;
-    private bool _isTouching;
+    private Canvas _canvas;
+    private Camera _cam;
 
     private Vector2 input = Vector2.zero;
 
@@ -27,9 +26,9 @@ public class FloatJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, I
 
     protected virtual void Start()
     {
-        baseRect = GetComponent<RectTransform>();
-        canvas = GetComponentInParent<Canvas>();
-        if (canvas == null)
+        _baseRect = GetComponent<RectTransform>();
+        _canvas = GetComponentInParent<Canvas>();
+        if (_canvas == null)
             Debug.LogError("The Joystick is not placed inside a canvas");
 
         Vector2 center = new Vector2(0.5f, 0.5f);
@@ -53,31 +52,16 @@ public class FloatJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (eventData.position.x < UnityScreen.width / 2)
-        {
-            cam = null;
-            if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
-                cam = canvas.worldCamera;
+        _cam = null;
+        if (_canvas.renderMode == RenderMode.ScreenSpaceCamera)
+            _cam = _canvas.worldCamera;
 
-            if(_isTouching == false)
-                background.gameObject.SetActive(true);
-
-            Vector2 position = RectTransformUtility.WorldToScreenPoint(cam, background.position);
-            Vector2 radius = background.sizeDelta / 2;
-            input = (eventData.position - position) / (radius * canvas.scaleFactor);
-            HandleInput(input.magnitude, input.normalized);
-            handle.anchoredPosition = input * radius * handleRange;
-            OutputPointerEventValue(input);
-            _isTouching = true;
-        }
-        else
-        {
-            _isTouching = false;
-        }
-
-
-        if (_isTouching == false)
-            OnPointerUp(eventData);
+        Vector2 position = RectTransformUtility.WorldToScreenPoint(_cam, background.position);
+        Vector2 radius = background.sizeDelta / 2;
+        input = (eventData.position - position) / (radius * _canvas.scaleFactor);
+        HandleInput(input.magnitude, input.normalized);
+        handle.anchoredPosition = input * radius * handleRange;
+        OutputPointerEventValue(input);
     }
 
     protected virtual void HandleInput(float magnitude, Vector2 normalised)
@@ -88,7 +72,9 @@ public class FloatJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, I
                 input = normalised;
         }
         else
+        {
             input = Vector2.zero;
+        }
     }
 
     private void OutputPointerEventValue(Vector2 pointerPosition)
@@ -109,12 +95,12 @@ public class FloatJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     protected Vector2 ScreenPointToAnchoredPosition(Vector2 screenPosition)
     {
         Vector2 localPoint = Vector2.zero;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(baseRect, screenPosition, cam, out localPoint))
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_baseRect, screenPosition, _cam, out localPoint))
         {
-            Vector2 pivotOffset = baseRect.pivot * baseRect.sizeDelta;
-            return localPoint - (background.anchorMax * baseRect.sizeDelta) + pivotOffset;
+            Vector2 pivotOffset = _baseRect.pivot * _baseRect.sizeDelta;
+            return localPoint - (background.anchorMax * _baseRect.sizeDelta) + pivotOffset;
         }
 
-        return Vector2.zero;
+        return localPoint;
     }
 }

@@ -6,6 +6,10 @@ public class ScreenSelector : MonoBehaviour
     [SerializeField] private Screen _desktopScreen;
     [SerializeField] private Screen _mobileScreen;
 
+    private void OnEnable() => YandexGame.GetDataEvent += Load;
+
+    private void OnDisable() => YandexGame.GetDataEvent -= Load;
+
     private void Start()
     {
         if (YandexGame.SDKEnabled == true)
@@ -14,10 +18,10 @@ public class ScreenSelector : MonoBehaviour
 
     private void Load()
     {
-        if (YandexGame.EnvironmentData.isMobile)
-            SetMobileScreen();
-        else
+        if (YandexGame.EnvironmentData.isDesktop)
             SetDesktopScreen();
+        else
+            SetMobileScreen();
     }
 
     private void SetMobileScreen()

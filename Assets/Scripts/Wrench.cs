@@ -1,18 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 public class Wrench : MonoBehaviour
 {
-    [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private AudioClip _attackClip;
-    [SerializeField] private AudioClip _hitClip;
     [SerializeField] private int _damageToEnemy;
     [SerializeField] private int _damageToTwins;
 
     private Collider _collider;
     private bool _isTwinsHitted;
     private List<IDamageable> _damageables = new List<IDamageable>();
+
+    public event UnityAction Hit;
+    public event UnityAction AttackStarted;
 
     private void OnValidate()
     {
@@ -31,7 +32,7 @@ public class Wrench : MonoBehaviour
         _damageables.Clear();
         _isTwinsHitted = false;
         EnableCollider();
-        _audioSource.PlayOneShot(_attackClip);
+        AttackStarted?.Invoke();
     }
 
     public void EndAttack()
@@ -59,6 +60,7 @@ public class Wrench : MonoBehaviour
                 {
                     twinCollider.TakeDamage(_damageToTwins, Vector3.zero);
                     _isTwinsHitted = true;
+                    Hit?.Invoke();
                 }
             }
             else if (damageable is DamageHandler damageHandler)
@@ -69,10 +71,9 @@ public class Wrench : MonoBehaviour
                 {
                     damageHandler.TakeDamage(_damageToEnemy, Vector3.zero);
                     _damageables.Add(zombie);
+                    Hit?.Invoke();
                 }
             }
-
-            _audioSource.PlayOneShot(_hitClip);
         }
     }
 

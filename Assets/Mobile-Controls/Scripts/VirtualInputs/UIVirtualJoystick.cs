@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
-public class UIVirtualJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class UIVirtualJoystick : MonoCache, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     [System.Serializable]
     public class Event : UnityEvent<Vector2> { }
@@ -12,99 +12,82 @@ public class UIVirtualJoystick : MonoBehaviour, IPointerDownHandler, IDragHandle
     public RectTransform handleRect;
 
     [Header("Settings")]
-    public float joystickRange = 50f;
-    public float magnitudeMultiplier = 1f;
-    public bool invertXOutputValue;
-    public bool invertYOutputValue;
+    [SerializeField] private float _joystickRange = 120f;
+    [SerializeField] private float _magnitudeMultiplier = 1f;
 
     [Header("Output")]
-    public Event joystickOutputEvent;
+    [SerializeField] private Event _joystickOutputEvent;
 
     [SerializeField] private float _deadZone = 0;
-    [SerializeField] private float _activeJoystickDistance;
     [SerializeField] private Canvas _canvas;
+    [SerializeField] private Vector2 _scaleTouchInput;
 
-    private bool isTouching = false;
+    private Vector2 _touchInput, _prevDelta, _dragInput;
+    private bool _isTouching = false;
 
     public event UnityAction PointerUp;
 
-    private float _inputY;
+    public bool IsTouching => _isTouching;
 
-    public float InputY => _inputY;
-    public bool IsTouching => isTouching;
-
-    void Start()
+    private void OnEnable()
     {
-        _activeJoystickDistance = _activeJoystickDistance * _canvas.scaleFactor;
-        SetupHandle();
+        AddUpdate();
     }
 
-    private void SetupHandle()
+    private void OnDisable()
     {
-        if(handleRect)
-        {
-            UpdateHandleRectPosition(Vector2.zero);
-        }
+        RemoveUpdate();
+    }
+
+    private void Start()
+    {
+        UpdateHandleRectPosition(Vector2.zero);
+    }
+
+    public override void OnTick()
+    {
+        _touchInput = _dragInput - _prevDelta;
+        _prevDelta = _dragInput;
+        _touchInput = Vector2.Scale(_touchInput, _scaleTouchInput);
+
+        OutputPointerEventValue(_touchInput);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        OnDrag(eventData);
+         _prevDelta = _dragInput = eventData.position;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (Vector2.Distance(eventData.position, containerRect.position) < _activeJoystickDistance)
-        {
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(containerRect, eventData.position, eventData.pressEventCamera, out Vector2 position);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(containerRect, eventData.position, eventData.pressEventCamera, out Vector2 position);
 
-            position = ApplySizeDelta(position);
+        position = ApplySizeDelta(position);
+        Vector2 clampedPosition = ClampValuesToMagnitude(position);
 
-            Vector2 clampedPosition = ClampValuesToMagnitude(position);
-
-            if (clampedPosition.magnitude > _deadZone)
-            {
-                Vector2 outputPosition = ApplyInversionFilter(position);
-
-                OutputPointerEventValue(outputPosition * magnitudeMultiplier);
-
-                if (handleRect)
-                    UpdateHandleRectPosition(clampedPosition * joystickRange);
-            }
-            else
-            {
-                Vector2 outputPosition = Vector2.zero;
-                OutputPointerEventValue(outputPosition);
-                if (handleRect)
-                    UpdateHandleRectPosition(outputPosition);
-            }
-
-            _inputY = clampedPosition.y;
-            isTouching = true;
-        }
+        if (clampedPosition.magnitude > _deadZone)
+            UpdateHandleRectPosition(clampedPosition * _joystickRange);
         else
-        {
-            isTouching = false;
-        }
+            UpdateHandleRectPosition(Vector2.zero);
 
-        if (isTouching == false)
-            OnPointerUp(eventData);
+        _dragInput = eventData.position;
+        _isTouching = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        OutputPointerEventValue(Vector2.zero);
+        _touchInput = Vector2.zero;
+       
+        UpdateHandleRectPosition(Vector2.zero);
 
-        if(handleRect)
-             UpdateHandleRectPosition(Vector2.zero);
-
-        isTouching = false;
+        _isTouching = false;
         PointerUp?.Invoke();
     }
 
+
     private void OutputPointerEventValue(Vector2 pointerPosition)
     {
-        joystickOutputEvent.Invoke(pointerPosition);
+        _joystickOutputEvent.Invoke(pointerPosition);
     }
 
     private void UpdateHandleRectPosition(Vector2 newPosition)
@@ -123,79 +106,4 @@ public class UIVirtualJoystick : MonoBehaviour, IPointerDownHandler, IDragHandle
     {
         return Vector2.ClampMagnitude(position, 1);
     }
-
-    Vector2 ApplyInversionFilter(Vector2 position)
-    {
-        if(invertXOutputValue)
-        {
-            position.x = InvertValue(position.x);
-        }
-
-        if(invertYOutputValue)
-        {
-            position.y = InvertValue(position.y);
-        }
-
-        return position;
-    }
-
-    float InvertValue(float value)
-    {
-        return -value;
-    }
-    
 }
-/*
- public void OnDrag(PointerEventData eventData)
-    {
-        for (int i = 0; i < Input.touchCount; i++)
-        {
-            Touch touch = Input.GetTouch(i);
-            if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Stationary)
-            {
-                Debug.Log(touch.position);
-
-                Debug.Log(touch.position);
-                if (Vector2.Distance(touch.position, containerRect.position) < _activeJoystickDistance)
-                {
-                    RectTransformUtility.ScreenPointToLocalPointInRectangle(containerRect, eventData.position, eventData.pressEventCamera, out Vector2 position);
-
-                    position = ApplySizeDelta(position);
-
-                    Vector2 clampedPosition = ClampValuesToMagnitude(position);
-
-                    if (clampedPosition.magnitude > _deadZone)
-                    {
-                        Vector2 outputPosition = ApplyInversionFilter(position);
-
-                        OutputPointerEventValue(outputPosition * magnitudeMultiplier);
-
-                        if (handleRect)
-                            UpdateHandleRectPosition(clampedPosition * joystickRange);
-                    }
-                    else
-                    {
-                        Vector2 outputPosition = Vector2.zero;
-                        OutputPointerEventValue(outputPosition);
-                        if (handleRect)
-                            UpdateHandleRectPosition(outputPosition);
-                    }
-
-                    _inputY = clampedPosition.y;
-                    isTouching = true;
-                }
-                else
-                {
-                    isTouching = false;
-                }
-
-
-                if (isTouching == false)
-                    OnPointerUp(eventData);
-
-                break;
-            }
-        }
-    }
-
- */

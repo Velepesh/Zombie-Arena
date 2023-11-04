@@ -14,6 +14,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
         [SerializeField] private int _maxEnemyDamage = 110;
         [SerializeField] private int _maxPlayerDamage = 55;
         [SerializeField] private int _maxTwinsDamage = 15;
+        [SerializeField] private LayerMask _groundMask;
 
 		[Header("Explosion Prefabs")]
         [SerializeField] private Explosion _explosion;
@@ -81,24 +82,23 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
             gameObject.SetActive(false);
         }
 
-        private void InstantiateExplosion(Vector3 position, Quaternion rotation)
+        private void InstantiateExplosion(Vector3 position, Quaternion rotation, bool isLanded)
 		{
-            Instantiate(_explosion.gameObject, position, rotation);
+            Explosion explosion =  Instantiate(_explosion.gameObject, position, rotation).GetComponent<Explosion>();
+
+            if (isLanded)
+                explosion.EnableBurnMark();
+            else
+                explosion.DisableBurnMark();
         }
 
         private void Explode()
 		{
             RaycastHit checkGround;
-            if (Physics.Raycast(transform.position, Vector3.down, out checkGround, _groundDistance))
-            {
-                _explosion.EnableBurnMark();
-                InstantiateExplosion(checkGround.point, Quaternion.FromToRotation(Vector3.forward, checkGround.normal));
-            }
+            if (Physics.Raycast(transform.position, Vector3.down, out checkGround, _groundDistance, _groundMask))
+                InstantiateExplosion(checkGround.point, Quaternion.FromToRotation(Vector3.forward, checkGround.normal), true);
             else
-            {
-                _explosion.DisableBurnMark();
-                InstantiateExplosion(transform.position, Quaternion.identity);
-            }
+                InstantiateExplosion(transform.position, Quaternion.identity, false);
         }
 
         private void IdentifyDamageTargets()

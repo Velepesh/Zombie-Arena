@@ -4,10 +4,10 @@ using UnityEngine.EventSystems;
 using UnityScreen = UnityEngine.Screen;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class Lookpad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
+public class Lookpad : MonoCache, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private UIVirtualJoystick _fireJoystick;
-    [SerializeField] private Vector2 _scaleTouchVctor2;
+    [SerializeField] private Vector2 _scaleTouchInput;
 
     private Vector2 _touchInput, _prevDelta, _dragInput;
     private CanvasGroup _canvasGroup;
@@ -15,12 +15,23 @@ public class Lookpad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointe
     [Header("Output")]
     public UnityEvent<Vector2> joystickOutputEvent;
 
+    private void OnEnable()
+    {
+        AddUpdate();
+    }
+
+    private void OnDisable()
+    {
+        RemoveUpdate();
+    }
+
     private void Start()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         _canvasGroup.alpha = 0;
     }
-    private void Update()
+
+    public override void OnTick()
     {
         if (_fireJoystick.IsTouching)
             return;
@@ -28,19 +39,19 @@ public class Lookpad : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointe
         _touchInput = _dragInput - _prevDelta;
         _prevDelta = _dragInput;
 
-        _touchInput = Vector2.Scale(_touchInput, _scaleTouchVctor2);
+        _touchInput = Vector2.Scale(_touchInput, _scaleTouchInput);
         OutputPointerEventValue(_touchInput);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _prevDelta = _dragInput = eventData.position;
+        if (eventData.position.x > UnityScreen.width / 2f)
+            _prevDelta = _dragInput = eventData.position;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (eventData.position.x > UnityScreen.width / 2f)
-            _dragInput = eventData.position;
+        _dragInput = eventData.position;
     }
 
     public void OnPointerUp(PointerEventData eventData)

@@ -321,15 +321,15 @@ namespace InfimaGames.LowPolyShooterPack
 
             if (YandexGame.SDKEnabled == true)
 			{
-                if (YandexGame.EnvironmentData.isMobile)
-                {
-                    holdToAim = false;
-                    _isMobile = true;
-                }
-                else
+                if (YandexGame.EnvironmentData.isDesktop)
                 {
                     holdToAim = true;
                     _isMobile = false;
+                }
+                else
+                {
+                    holdToAim = false;
+                    _isMobile = true;
                 }
             }
         }

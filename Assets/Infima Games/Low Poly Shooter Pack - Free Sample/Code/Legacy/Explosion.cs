@@ -33,6 +33,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
         public void DisableBurnMark()
         {
+            Debug.Log("_burnMark");
             _burnMark.gameObject.SetActive(false);
         }
 

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.U2D;
@@ -17,6 +18,11 @@ public class SpriteFromAtlas : MonoBehaviour
 
     private void SetSprite()
     {
-        _image.sprite = _atlas.GetSprite(_image.sprite.name);
+        Sprite sprite = _atlas.GetSprite(_image.sprite.name);
+
+        if (sprite == null)
+            throw new ArgumentNullException(nameof(sprite));
+
+        _image.sprite = sprite;
     }
 }
