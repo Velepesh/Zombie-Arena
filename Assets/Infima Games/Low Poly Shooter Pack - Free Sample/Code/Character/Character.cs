@@ -44,8 +44,13 @@ namespace InfimaGames.LowPolyShooterPack
 		[Tooltip("Total amount of grenades at start.")]
 		[SerializeField]
 		private int grenadeTotal = 10;
-		
-		[Tooltip("Grenade spawn offset from the character's camera.")]
+
+        [SerializeField]
+        private int maxGrenadeCount = 10;
+        [SerializeField]
+        private int minGrenadeCount = 1;
+
+        [Tooltip("Grenade spawn offset from the character's camera.")]
 		[SerializeField]
 		private float grenadeSpawnOffset = 1.0f;
 		
@@ -438,7 +443,13 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override void SetTotalGrenades(int grenadesCount)
 		{
-			grenadeTotal = grenadesCount;
+			if (grenadesCount > maxGrenadeCount)
+				grenadesCount = maxGrenadeCount;
+
+            if (grenadesCount < minGrenadeCount)
+                grenadesCount = minGrenadeCount;
+
+            grenadeTotal = grenadesCount;
         }
 
         /// <summary>
@@ -883,10 +894,6 @@ namespace InfimaGames.LowPolyShooterPack
 
 			//Block.
 			if (meleeing || throwingGrenade)
-				return false;
-
-			//Block.
-			if (reloading || bolting)
 				return false;
 
             //Block.

@@ -618,6 +618,7 @@ namespace YG
         public static void SwitchLanguage(string language)
         {
             savesData.language = language;
+            Debug.Log(savesData.language + " savesData.language ");
             SwitchLangEvent?.Invoke(language);
         }
 

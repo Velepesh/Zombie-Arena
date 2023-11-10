@@ -24,7 +24,7 @@ namespace YG
         public int Score = 0;
         public int PlayerHealth = 100;
         public int TwinsHealth = 100;
-        public float Sensetivity = 0.25F;
+        public float Sensetivity = 0.27F;
         public float SFX = 0;
         public float Music = -20;
       //  public bool IsExistBackgroundMusic = false;

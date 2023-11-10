@@ -8,7 +8,7 @@ public class Game : MonoCache
 {
     [SerializeField] private CompositionOrder _order;
     [SerializeField] private ZombieTargetsCompositeRoot _targets;
-    [SerializeField] private ZombieSpawner _zombieSpawner;
+    [SerializeField] private ZombieSpawnerCompositeRoot _zombieSpawnerCompositeRoot;
     [SerializeField] private ScoreSetup _scoreSetup;
     [SerializeField] private LevelCounter _levelCounter;
     [SerializeField] private Timer _timer;
@@ -36,14 +36,14 @@ public class Game : MonoCache
     }
 
     private void OnEnable()
-    { 
-        _zombieSpawner.Ended += OnZombieEnded;
+    {
+        _zombieSpawnerCompositeRoot.Ended += OnZombieEnded;
         _targets.TargetDied += OnTargetDied;
     }
 
     private void OnDisable()
     {
-        _zombieSpawner.Ended -= OnZombieEnded;
+        _zombieSpawnerCompositeRoot.Ended -= OnZombieEnded;
         _targets.TargetDied -= OnTargetDied;
     }
 

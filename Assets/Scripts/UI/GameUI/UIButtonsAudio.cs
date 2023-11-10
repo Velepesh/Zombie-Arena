@@ -10,6 +10,7 @@ public class UIButtonsAudio : Audio
     private void Awake()
     {
         _buttons = GetComponentsInChildren<Button>();
+        AudioSource.ignoreListenerPause = true;
     }
 
     private void OnEnable()

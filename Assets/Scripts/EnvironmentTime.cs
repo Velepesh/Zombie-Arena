@@ -10,8 +10,10 @@ public class EnvironmentTime : MonoBehaviour
     [SerializeField] private RebornButton _rebornButton;
 
     private bool _isAds = false;
+    private bool _isPaused = false;
     private bool _isReborningAds = false;
     private bool _isFocused = true;
+    private Coroutine _delayBeforePauseCoroutine;
 
     private void Start()
     {
@@ -69,12 +71,18 @@ public class EnvironmentTime : MonoBehaviour
 
     private void Pause()
     {
+        if (_delayBeforePauseCoroutine != null)
+            StopCoroutine(_delayBeforePauseCoroutine);
+
         _audioPauseHandler.Pause();
         StopTime();
     }
 
     private void Unpause()
     {
+        if (_isPaused)
+            return;
+
         _audioPauseHandler.Unpause();
         StartTime();
     }
@@ -106,7 +114,7 @@ public class EnvironmentTime : MonoBehaviour
 
     private void OnGameOver()
     {
-        StartCoroutine(DelayBeforePause());
+        _delayBeforePauseCoroutine =  StartCoroutine(DelayBeforePause());
     }
 
     private IEnumerator DelayBeforePause()
@@ -117,6 +125,7 @@ public class EnvironmentTime : MonoBehaviour
 
     private void OnContinued()
     {
+        _isPaused = false;
         Unpause();
     }
 
@@ -127,6 +136,7 @@ public class EnvironmentTime : MonoBehaviour
 
     private void OnPaused()
     {
+        _isPaused = true;
         Pause();
     }
 
