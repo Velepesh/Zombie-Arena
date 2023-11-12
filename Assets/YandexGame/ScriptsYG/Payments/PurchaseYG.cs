@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using YG.Utils.Pay;
+using InfimaGames.LowPolyShooterPack;
 #if YG_TEXT_MESH_PRO
 using TMPro;
 #endif
@@ -11,6 +12,7 @@ namespace YG
     [HelpURL("https://www.notion.so/PluginYG-d457b23eee604b7aa6076116aab647ed#10e7dfffefdc42ec93b39be0c78e77cb")]
     public class PurchaseYG : MonoBehaviour
     {
+        [SerializeField] private Weapon _weapon;
         [Serializable]
         public struct TextLegasy
         {
@@ -34,6 +36,8 @@ namespace YG
 
         public Purchase data = new Purchase();
 
+        public Weapon Weapon => _weapon;
+
         [ContextMenu(nameof(UpdateEntries))]
         public void UpdateEntries()
         {
@@ -55,11 +59,6 @@ namespace YG
             }
 #endif
             if (imageLoad) imageLoad.Load(data.imageURI);
-        }
-
-        public void SetDataId(string id)
-        {
-            data.id = id;
         }
 
         public void BuyPurchase()

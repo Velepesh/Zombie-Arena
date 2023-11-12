@@ -1434,7 +1434,7 @@ namespace YG
 
         public void OnPurchaseSuccess(string id)
         {
-            PurchaseByID(id).consumed = true;
+            //PurchaseByID(id).consumed = true;
             PurchaseSuccess?.Invoke();
             PurchaseSuccessEvent?.Invoke(id);
         }

@@ -26,8 +26,7 @@ public class Spec : MonoBehaviour
     [SerializeField] private Button _buyForYanButton;
     [SerializeField] private Button _unlockByAdsButton;
     [SerializeField] private Button _equipButton;
-    [SerializeField] private GamePurchases _purchases;
- 
+    [SerializeField] private ReceivingPurchase _receivingPurchase;
 
     private Weapon _currentWeapon;
 
@@ -52,13 +51,16 @@ public class Spec : MonoBehaviour
     public void UpdateSpec(Weapon weapon)
     {
         _currentWeapon = weapon;
+
+        if (weapon.TryGetComponent(out PurchaseYG purchase))
+        {
+            _receivingPurchase.SetCurrentPurchase(purchase);
+            SetYan(purchase.data.priceValue);
+        }
+
         SetInventoryText(weapon);
         SetLabel(weapon.Label);
-        SetPrice(weapon.Price, weapon.Yan);
-        
-        if(String.IsNullOrEmpty(weapon.Id) == false)
-            _purchases.SetCurrentWeapon(weapon);
-
+        SetPrice(weapon.Price);
         Update—haracteristics(weapon);
         UpdateButtonsVisibility(weapon);
     }
@@ -155,10 +157,14 @@ public class Spec : MonoBehaviour
         _label.text = label;
     }
 
-    private void SetPrice(int price, int yan)
+    private void SetPrice(int price)
     {
         _price.text = price.ToString();
-        _yan.text = yan.ToString();
+    }
+
+    private void SetYan(string yan)
+    {
+        _yan.text = yan;
     }
 
     private void Update—haracteristics(Weapon weapon)

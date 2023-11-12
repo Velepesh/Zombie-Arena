@@ -22,6 +22,7 @@ namespace YG
             {
                 consume = true;
                 YandexGame.ConsumePurchases();
+                Debug.Log("ConsumePurchases");
             }
         }
     }
