@@ -26,7 +26,9 @@ namespace Plugins.Audio.Core
         [SerializeField] private AudioRolloffMode _volumeRolloff = AudioRolloffMode.Logarithmic;
         [SerializeField] private float _minDistance = 1;
         [SerializeField] private float _maxDistance = 500;
-        
+
+        public AudioProvider CurrentProvider => _currentProvider;
+
         private AudioProvider _currentProvider;
         
         public string CurrentKey { get; private set; }
@@ -40,6 +42,26 @@ namespace Plugins.Audio.Core
             {
                 _volume = value;
                 _currentProvider.Volume = value;
+            }
+        }
+
+        public float SpatialBlend
+        {
+            get => _currentProvider.SpatialBlend;
+            set
+            {
+                _spatialBlend = value;
+                _currentProvider.SpatialBlend = value;
+            }
+        }
+
+        public AudioMixerGroup MixerGroup
+        {
+            get => _currentProvider.MixerGroup;
+            set
+            {
+                _output = value;
+                _currentProvider.MixerGroup = value;
             }
         }
 
@@ -154,8 +176,6 @@ namespace Plugins.Audio.Core
                 minDistance = _minDistance,
                 maxDistance = _maxDistance,
             };
-
-            _currentProvider.RefreshSettings(settings);
         }
 
         private void OnDestroy()

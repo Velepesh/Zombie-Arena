@@ -1,10 +1,11 @@
-using System.Collections;
+using Plugins.Audio.Core;
+using Plugins.Audio.Utils;
 using UnityEngine;
 
 public class ZombieStatesAudio : Audio
 {
-    [SerializeField] private AudioClip _deadAudioClip;
-    [SerializeField] private AudioClip _spawnAudioClip;
+    [SerializeField] private AudioDataProperty _deadAudioClip;
+    [SerializeField] private AudioDataProperty _spawnAudioClip;
 
     private Zombie _zombie;
 
@@ -25,23 +26,11 @@ public class ZombieStatesAudio : Audio
 
     private void Start()
     {
-        PlayOneShot(_spawnAudioClip);
-    }
-
-    private void PlayWalkingAudio()
-    {
-        if (AudioSource.isPlaying == false)
-            AudioSource.Play();
-    }
-
-    private IEnumerator StopAudioSource()
-    {
-        yield return new WaitWhile(() => AudioSource.isPlaying);
-        AudioSource.Stop();
+        SourceAudio.PlayOneShot(_spawnAudioClip.Key);
     }
 
     private void OnDied(IDamageable damageable)
     {
-        PlayOneShot(_deadAudioClip);
+        SourceAudio.PlayOneShot(_deadAudioClip.Key);
     }
 }

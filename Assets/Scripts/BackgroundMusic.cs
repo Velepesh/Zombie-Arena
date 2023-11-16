@@ -1,19 +1,12 @@
-using Plugins.Audio.Core;
 using Plugins.Audio.Utils;
 using UnityEngine;
 
-public class BackgroundMusic : MonoBehaviour
+public class BackgroundMusic : Audio
 {
-    [SerializeField] private SourceAudio _sourceAudio;
-    [SerializeField] private AudioDataProperty _clip;
+    [SerializeField] private AudioDataProperty _backgroundClip;
 
-    private void Start()
+    public void Play()
     {
-        RunMusic();
-    }
-
-    private void RunMusic()
-    {
-        _sourceAudio.Play(_clip.Key);
+        SourceAudio.Play(_backgroundClip.Key);
     }
 }

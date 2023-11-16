@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using Plugins.Audio.Utils;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -90,7 +91,7 @@ namespace InfimaGames.LowPolyShooterPack
             #region Select Correct Clip To Play
 
             //Switch.
-            AudioClip clip = soundType switch
+            AudioDataProperty clip = soundType switch
             {
                 //Holster.
                 SoundType.Holster => weaponBehaviour.GetAudioClipHolster(),

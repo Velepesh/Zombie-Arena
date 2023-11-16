@@ -1,6 +1,7 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
 using InfimaGames.LowPolyShooterPack.Legacy;
+using Plugins.Audio.Utils;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
@@ -106,49 +107,49 @@ namespace InfimaGames.LowPolyShooterPack
 
         [Tooltip("Holster Audio Clip.")]
         [SerializeField]
-        private AudioClip audioClipHolster;
+        private AudioDataProperty audioClipHolster;
 
         [Tooltip("Unholster Audio Clip.")]
         [SerializeField]
-        private AudioClip audioClipUnholster;
+        private AudioDataProperty audioClipUnholster;
         
         [Title(label: "Audio Clips Reloads")]
 
         [Tooltip("Reload Audio Clip.")]
         [SerializeField]
-        private AudioClip audioClipReload;
+        private AudioDataProperty audioClipReload;
         
         [Tooltip("Reload Empty Audio Clip.")]
         [SerializeField]
-        private AudioClip audioClipReloadEmpty;
+        private AudioDataProperty audioClipReloadEmpty;
         
         [Title(label: "Audio Clips Reloads Cycled")]
         
         [Tooltip("Reload Open Audio Clip.")]
         [SerializeField]
-        private AudioClip audioClipReloadOpen;
+        private AudioDataProperty audioClipReloadOpen;
         
         [Tooltip("Reload Insert Audio Clip.")]
         [SerializeField]
-        private AudioClip audioClipReloadInsert;
+        private AudioDataProperty audioClipReloadInsert;
         
         [Tooltip("Reload Close Audio Clip.")]
         [SerializeField]
-        private AudioClip audioClipReloadClose;
+        private AudioDataProperty audioClipReloadClose;
         
         [Title(label: "Audio Clips Other")]
 
         [Tooltip("AudioClip played when this weapon is fired without any ammunition.")]
         [SerializeField]
-        private AudioClip audioClipFireEmpty;
+        private AudioDataProperty audioClipFireEmpty;
         
         [Tooltip("")]
         [SerializeField]
-        private AudioClip audioClipBoltAction;
+        private AudioDataProperty audioClipBoltAction;
 
         [Tooltip("")]
         [SerializeField]
-        private AudioClip grenadeThrowAction;
+        private AudioDataProperty grenadeThrowAction;
 
         #endregion
 
@@ -349,48 +350,48 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// GetAudioClipHolster.
         /// </summary>
-        public override AudioClip GetAudioClipHolster() => audioClipHolster;
+        public override AudioDataProperty GetAudioClipHolster() => audioClipHolster;
         /// <summary>
         /// GetAudioClipUnholster.
         /// </summary>
-        public override AudioClip GetAudioClipUnholster() => audioClipUnholster;
+        public override AudioDataProperty GetAudioClipUnholster() => audioClipUnholster;
 
         /// <summary>
         /// GetAudioClipReload.
         /// </summary>
-        public override AudioClip GetAudioClipReload() => audioClipReload;
+        public override AudioDataProperty GetAudioClipReload() => audioClipReload;
         /// <summary>
         /// GetAudioClipReloadEmpty.
         /// </summary>
-        public override AudioClip GetAudioClipReloadEmpty() => audioClipReloadEmpty;
+        public override AudioDataProperty GetAudioClipReloadEmpty() => audioClipReloadEmpty;
         
         /// <summary>
         /// GetAudioClipReloadOpen.
         /// </summary>
-        public override AudioClip GetAudioClipReloadOpen() => audioClipReloadOpen;
+        public override AudioDataProperty GetAudioClipReloadOpen() => audioClipReloadOpen;
         /// <summary>
         /// GetAudioClipReloadInsert.
         /// </summary>
-        public override AudioClip GetAudioClipReloadInsert() => audioClipReloadInsert;
+        public override AudioDataProperty GetAudioClipReloadInsert() => audioClipReloadInsert;
         /// <summary>
         /// GetAudioClipReloadClose.
         /// </summary>
-        public override AudioClip GetAudioClipReloadClose() => audioClipReloadClose;
+        public override AudioDataProperty GetAudioClipReloadClose() => audioClipReloadClose;
 
         /// <summary>
         /// GetAudioClipFireEmpty.
         /// </summary>
-        public override AudioClip GetAudioClipFireEmpty() => audioClipFireEmpty;
+        public override AudioDataProperty GetAudioClipFireEmpty() => audioClipFireEmpty;
         /// <summary>
         /// GetAudioClipBoltAction.
         /// </summary>
-        public override AudioClip GetAudioClipBoltAction() => audioClipBoltAction;
-        public override AudioClip GetAudioClipGrenadeThrowAction() => grenadeThrowAction;
+        public override AudioDataProperty GetAudioClipBoltAction() => audioClipBoltAction;
+        public override AudioDataProperty GetAudioClipGrenadeThrowAction() => grenadeThrowAction;
         
         /// <summary>
         /// GetAudioClipFire.
         /// </summary>
-        public override AudioClip GetAudioClipFire() => muzzleBehaviour.GetAudioClipFire();
+        public override AudioDataProperty GetAudioClipFire() => muzzleBehaviour.GetAudioClipFire();
         /// <summary>
         /// GetAmmunitionCurrent.
         /// </summary>
@@ -565,8 +566,9 @@ namespace InfimaGames.LowPolyShooterPack
             //Spawn casing prefab at spawn point.
             if (socketEjection != null)
             {
-                GameObject casing = _casingPool.GetCasing();
-                _casingPool.SetCasingTransform(casing, socketEjection.position, socketEjection.rotation);
+                Casing casing = _casingPool.GetCasing();
+                _casingPool.SetCasingTransform(casing.gameObject, socketEjection.position, socketEjection.rotation);
+                casing.PlayCasing();
             }
         }
 

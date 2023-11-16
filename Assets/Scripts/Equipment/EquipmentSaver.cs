@@ -58,7 +58,6 @@ public class EquipmentSaver : MonoBehaviour
         YandexGame.SaveProgress();
     }
 
-
     private void OnBought(Weapon weapon)
     {
         WeaponData weaponData = CheckSavedWeaponData(weapon);

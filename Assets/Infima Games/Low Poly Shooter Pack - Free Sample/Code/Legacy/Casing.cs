@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace InfimaGames.LowPolyShooterPack.Legacy
 {
-	[RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody))]
 	public class Casing : MonoBehaviour
 	{
 		[Header("Force X")]
@@ -41,36 +41,32 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		[Tooltip("How long after spawning that the casing is destroyed")]
 		public float despawnTime;
 
-		[Header("Audio")]
-		public AudioClip[] casingSounds;
-
-		public AudioSource audioSource;
-
 		[Header("Spin Settings")]
 		//How fast the casing spins
 		[Tooltip("How fast the casing spins over time")]
 		public float speed = 2500.0f;
 
 		public event UnityAction<Casing> Disabled;
+        public event UnityAction Despawned;
 
-		private Rigidbody _rigidbody;
+        private Rigidbody _rigidbody;
 
-        //Launch the casing at start
-        private void Awake()
+		//Launch the casing at start
+		private void Awake()
 		{
-            _rigidbody = GetComponent<Rigidbody>();
+			_rigidbody = GetComponent<Rigidbody>();
 		}
 
-        private void OnEnable()
-        {
+		public void PlayCasing()
+		{
             AddRelativeTorque();
-			AddRelativeForce();
+            AddRelativeForce();
             //Start the remove/destroy coroutine
             StartCoroutine(RemoveCasing());
             //Set random rotation at start
             transform.rotation = Random.rotation;
+            Despawned?.Invoke();
             //Start play sound coroutine
-            StartCoroutine(PlaySound());
         }
 
 		private void FixedUpdate()
@@ -80,41 +76,30 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 			transform.Rotate(Vector3.down, speed * Time.deltaTime);
 		}
 
-        private void AddRelativeTorque()
+		private void AddRelativeTorque()
 		{
-            _rigidbody.AddRelativeTorque(
+			_rigidbody.AddRelativeTorque(
 				 Random.Range(minimumRotation, maximumRotation), //X Axis
 				 Random.Range(minimumRotation, maximumRotation), //Y Axis
 				 Random.Range(minimumRotation, maximumRotation) //Z Axis
 				 * Time.deltaTime);
-        }
+		}
 
-        private void AddRelativeForce()
+		private void AddRelativeForce()
 		{
-            //Random direction the casing will be ejected in
-            _rigidbody.AddRelativeForce(
-                Random.Range(minimumXForce, maximumXForce), //X Axis
-                Random.Range(minimumYForce, maximumYForce), //Y Axis
-                Random.Range(minimumZForce, maximumZForce)); //Z Axis		    
-        }
-
-		private IEnumerator PlaySound()
-		{
-			//WaitBeforeLockCursor for random time before playing sound clip
-			yield return new WaitForSeconds(Random.Range(0.25f, 0.85f));
-			//Get a random casing sound from the array 
-			audioSource.clip = casingSounds
-				[Random.Range(0, casingSounds.Length)];
-			//Play the random casing sound
-			audioSource.Play();
+			//Random direction the casing will be ejected in
+			_rigidbody.AddRelativeForce(
+				Random.Range(minimumXForce, maximumXForce), //X Axis
+				Random.Range(minimumYForce, maximumYForce), //Y Axis
+				Random.Range(minimumZForce, maximumZForce)); //Z Axis		    
 		}
 
 		private IEnumerator RemoveCasing()
 		{
 			yield return new WaitForSeconds(despawnTime);
-            _rigidbody.velocity = Vector3.zero;
-            _rigidbody.angularVelocity = Vector3.zero;
-            Disabled?.Invoke(this);
+			_rigidbody.velocity = Vector3.zero;
+			_rigidbody.angularVelocity = Vector3.zero;
+			Disabled?.Invoke(this);
 		}
 	}
 }

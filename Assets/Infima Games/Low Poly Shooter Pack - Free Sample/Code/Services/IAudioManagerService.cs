@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using Plugins.Audio.Utils;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -14,7 +15,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         /// <param name="clip">Clip to play.</param>
         /// <param name="settings">Audio VolumeSettings.</param>
-        void PlayOneShot(AudioClip clip, AudioSettings settings = default);
+        void PlayOneShot(AudioDataProperty clip, AudioSettings settings = default);
 
         /// <summary>
         /// Plays a one shot of the AudioClip, but waits for <paramref name="delay"/> before doing so.
@@ -22,6 +23,6 @@ namespace InfimaGames.LowPolyShooterPack
         /// <param name="clip">Clip to play.</param>
         /// <param name="settings">Audio settings to use for this sound.</param>
         /// <param name="delay">Time to wait before we start playing this AudioClip.</param>
-        void PlayOneShotDelayed(AudioClip clip, AudioSettings settings = default, float delay = 1.0f);
+        void PlayOneShotDelayed(AudioDataProperty clip, AudioSettings settings = default, float delay = 1.0f);
     }
 }

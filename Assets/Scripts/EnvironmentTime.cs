@@ -5,7 +5,6 @@ using Plugins.Audio.Core;
 public class EnvironmentTime : MonoBehaviour
 {
     [SerializeField] private Game _game;
-    [SerializeField] private AudioPauseHandler _audioPauseHandler;
     [SerializeField] private float _delayBeforeGameOver = .1f;
     [SerializeField] private RebornButton _rebornButton;
 
@@ -17,7 +16,7 @@ public class EnvironmentTime : MonoBehaviour
 
     private void Start()
     {
-        Unpause();
+        Pause();
     }
 
     private void OnEnable()
@@ -51,7 +50,6 @@ public class EnvironmentTime : MonoBehaviour
 
         _isAds = true;
 
-        _audioPauseHandler.Pause();
         StopTime();
     }
 
@@ -65,7 +63,6 @@ public class EnvironmentTime : MonoBehaviour
 
         _isAds = false;
 
-        _audioPauseHandler.Unpause();
         StartTime();
     }
 
@@ -74,7 +71,6 @@ public class EnvironmentTime : MonoBehaviour
         if (_delayBeforePauseCoroutine != null)
             StopCoroutine(_delayBeforePauseCoroutine);
 
-        _audioPauseHandler.Pause();
         StopTime();
     }
 
@@ -83,7 +79,6 @@ public class EnvironmentTime : MonoBehaviour
         if (_isPaused)
             return;
 
-        _audioPauseHandler.Unpause();
         StartTime();
     }
 
@@ -105,16 +100,6 @@ public class EnvironmentTime : MonoBehaviour
 
         _isFocused = false;
         Pause();
-    }
-
-    private void OnRebornButtonClicked()
-    {
-        _isReborningAds = true;
-    }
-
-    private void OnGameOver()
-    {
-        _delayBeforePauseCoroutine =  StartCoroutine(DelayBeforePause());
     }
 
     private IEnumerator DelayBeforePause()
@@ -140,6 +125,16 @@ public class EnvironmentTime : MonoBehaviour
         Pause();
     }
 
+    private void OnRebornButtonClicked()
+    {
+        _isReborningAds = true;
+    }
+
+    private void OnGameOver()
+    {
+        _delayBeforePauseCoroutine = StartCoroutine(DelayBeforePause());
+    }
+
     private void OnReborned()
     {
         _isReborningAds = false;
@@ -149,10 +144,12 @@ public class EnvironmentTime : MonoBehaviour
     private void StartTime()
     {
         Time.timeScale = 1;
+        AudioPauseHandler.Instance.Unpause();
     }
 
     private void StopTime()
     {
+        AudioPauseHandler.Instance.Pause();
         Time.timeScale = 0;
     }
 }

@@ -1,16 +1,18 @@
+using Plugins.Audio.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIButtonsAudio : Audio
 {
-    [SerializeField] private AudioClip _buttonClickAudioClip;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioDataProperty _clip;
 
     private Button[] _buttons;
 
     private void Awake()
     {
+        _audioSource.ignoreListenerPause = true;
         _buttons = GetComponentsInChildren<Button>();
-        AudioSource.ignoreListenerPause = true;
     }
 
     private void OnEnable()
@@ -27,6 +29,6 @@ public class UIButtonsAudio : Audio
 
     private void OnButtonClick()
     {
-        PlayOneShot(_buttonClickAudioClip);
+        SourceAudio.PlayOneShot(_clip.Key);
     }
 }

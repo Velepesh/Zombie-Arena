@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using System.Collections;
+using Plugins.Audio.Utils;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -24,7 +25,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         [Tooltip("Audio clip played when firing through this muzzle.")]
         [SerializeField]
-        private AudioClip audioClipFire;
+        private AudioDataProperty audioClipFire;
         
         [Title(label: "Particles")]
         
@@ -126,7 +127,7 @@ namespace InfimaGames.LowPolyShooterPack
         public override Transform GetSocket() => socket;
 
         public override Sprite GetSprite() => sprite;
-        public override AudioClip GetAudioClipFire() => audioClipFire;
+        public override AudioDataProperty GetAudioClipFire() => audioClipFire;
         
         public override ParticleSystem GetParticlesFire() => particles;
         public override int GetParticlesFireCount() => flashParticlesCount;

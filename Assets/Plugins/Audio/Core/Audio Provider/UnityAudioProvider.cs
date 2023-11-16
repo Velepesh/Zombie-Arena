@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Plugins.Audio.Utils;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Plugins.Audio.Core
 {
@@ -8,7 +10,19 @@ namespace Plugins.Audio.Core
     {
         private readonly SourceAudio _sourceAudio;
         private readonly AudioSource _unitySource;
-        
+
+        public override float SpatialBlend 
+        {
+            get => _unitySource.spatialBlend;
+            set => _unitySource.spatialBlend = value;
+        }
+
+        public override AudioMixerGroup MixerGroup 
+        {
+            get => _unitySource.outputAudioMixerGroup;
+            set => _unitySource.outputAudioMixerGroup = value;
+        }
+
         public override float Volume
         {
             get => _unitySource.volume;
@@ -38,7 +52,7 @@ namespace Plugins.Audio.Core
             get => _unitySource.time;
             set => _unitySource.time = value;
         }
-        
+
         public override bool IsPlaying => _unitySource.isPlaying;
 
         private Coroutine _playRoutine;
@@ -56,6 +70,8 @@ namespace Plugins.Audio.Core
             if (_sourceAudio.TryGetComponent(out _unitySource) == false)
             {
                 _unitySource = sourceAudio.gameObject.AddComponent<AudioSource>();
+
+               // _unitySource.SetData(_sourceAudio);
             }
         }
 
@@ -116,9 +132,14 @@ namespace Plugins.Audio.Core
                 yield break;
             }
 
+            //_unitySource.clip = _clip;
+            //_unitySource.Play();
+            //_loadClip = false;
+            //_beginPlaying = true;
+
             _unitySource.clip = _clip;
+            _unitySource.time = _lastTime = 0;
             _unitySource.Play();
-            _loadClip = false;
             _beginPlaying = true;
             _lastTime = 0;
         }
@@ -155,8 +176,8 @@ namespace Plugins.Audio.Core
             {
                 _beginPlaying = false;
                 _sourceAudio.ClipFinished();
-                
-                /*if (Loop)
+
+                if (Loop)
                 {
                     AudioManagement.Instance.Log("Audio Loop: " + _sourceAudio.CurrentKey);
 
@@ -164,7 +185,7 @@ namespace Plugins.Audio.Core
                     _unitySource.Play();
                     _lastTime = 0;
                     _beginPlaying = true;
-                }*/
+                }
             }
         }
 

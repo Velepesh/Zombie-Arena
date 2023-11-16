@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Plugins.Audio.Core
 {
@@ -66,6 +67,7 @@ namespace Plugins.Audio.Core
             set => WebAudio.SetSourceTime(_id, value);
         }
 
+
         private bool _mute;
         private float _volume;
         private bool _loop;
@@ -86,6 +88,9 @@ namespace Plugins.Audio.Core
         }
 
         public override bool IsPlaying => WebAudio.IsPlayingAudioSource(_id);
+
+        public override float SpatialBlend { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override AudioMixerGroup MixerGroup { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public override void Play(string key)
         {

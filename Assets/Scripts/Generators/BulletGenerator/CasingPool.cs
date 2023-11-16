@@ -33,7 +33,7 @@ public class CasingPool : ObjectPool
         casing.transform.rotation = rotation;
     }
 
-    public GameObject GetCasing()
+    public Casing GetCasing()
     {
         if (TryGetObject(out GameObject casingObject))
         {
@@ -49,7 +49,7 @@ public class CasingPool : ObjectPool
 
             casingObject.SetActive(true);
 
-            return casingObject;
+            return casing;
         }
 
         throw new Exception("No active casing here");

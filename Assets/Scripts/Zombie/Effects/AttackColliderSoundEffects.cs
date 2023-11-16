@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using Plugins.Audio.Utils;
+using UnityEngine;
 
 [RequireComponent(typeof(AttackCollider))]
 public class AttackColliderSoundEffects : Audio
 {
-    [SerializeField] private AudioClip _takeDamageSound;
-    [SerializeField] private AudioClip _attackAudioClip;
+    [SerializeField] private AudioDataProperty _takeDamageSound;
+    [SerializeField] private AudioDataProperty _attackAudioClip;
 
     private AttackCollider _attackCollider;
 
@@ -27,11 +28,11 @@ public class AttackColliderSoundEffects : Audio
 
     private void OnAttacked()
     {
-        PlayOneShot(_attackAudioClip);
+        SourceAudio.PlayOneShot(_attackAudioClip.Key);
     }
     
     private void OnHit()
     {
-        PlayOneShot(_takeDamageSound);
+        SourceAudio.PlayOneShot(_takeDamageSound.Key);
     }
 }

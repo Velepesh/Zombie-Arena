@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using Plugins.Audio.Utils;
+using UnityEngine;
 
-public class WrenchSound : MonoBehaviour
+public class WrenchSound : Audio
 {
     [SerializeField] private Wrench _wrench;
     [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private AudioClip _attackClip;
-    [SerializeField] private AudioClip _hitClip;
+    [SerializeField] private AudioDataProperty _attackClip;
+    [SerializeField] private AudioDataProperty _hitClip;
 
     private void OnEnable()
     {
@@ -21,11 +22,11 @@ public class WrenchSound : MonoBehaviour
 
     private void OnAttackStarted()
     {
-        _audioSource.PlayOneShot(_attackClip);
+        SourceAudio.PlayOneShot(_attackClip.Key);
     }
 
     private void OnHit()
     {
-        _audioSource.PlayOneShot(_hitClip);
+        SourceAudio.PlayOneShot(_hitClip.Key);
     }
 }

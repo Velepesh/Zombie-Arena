@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using Plugins.Audio.Utils;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -45,48 +46,48 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Returns the holster audio clip.
         /// </summary>
-        public abstract AudioClip GetAudioClipHolster();
+        public abstract AudioDataProperty GetAudioClipHolster();
         /// <summary>
         /// Returns the unholster audio clip.
         /// </summary>
-        public abstract AudioClip GetAudioClipUnholster();
+        public abstract AudioDataProperty GetAudioClipUnholster();
 
         /// <summary>
         /// Returns the reload audio clip.
         /// </summary>
-        public abstract AudioClip GetAudioClipReload();
+        public abstract AudioDataProperty GetAudioClipReload();
         /// <summary>
         /// Returns the reload empty audio clip.
         /// </summary>
-        public abstract AudioClip GetAudioClipReloadEmpty();
+        public abstract AudioDataProperty GetAudioClipReloadEmpty();
         
         /// <summary>
         /// Returns the reload open audio clip.
         /// </summary>
-        public abstract AudioClip GetAudioClipReloadOpen();
+        public abstract AudioDataProperty GetAudioClipReloadOpen();
         /// <summary>
         /// Returns the reload insert audio clip.
         /// </summary>
-        public abstract AudioClip GetAudioClipReloadInsert();
+        public abstract AudioDataProperty GetAudioClipReloadInsert();
         /// <summary>
         /// Returns the reload close audio clip.
         /// </summary>
-        public abstract AudioClip GetAudioClipReloadClose();
+        public abstract AudioDataProperty GetAudioClipReloadClose();
 
         /// <summary>
         /// Returns the fire empty audio clip.
         /// </summary>
-        public abstract AudioClip GetAudioClipFireEmpty();
+        public abstract AudioDataProperty GetAudioClipFireEmpty();
         /// <summary>
         /// Returns the bolt action audio clip.
         /// </summary>
-        public abstract AudioClip GetAudioClipBoltAction();
-        public abstract AudioClip GetAudioClipGrenadeThrowAction();
+        public abstract AudioDataProperty GetAudioClipBoltAction();
+        public abstract AudioDataProperty GetAudioClipGrenadeThrowAction();
 
         /// <summary>
         /// Returns the fire audio clip.
         /// </summary>
-        public abstract AudioClip GetAudioClipFire();
+        public abstract AudioDataProperty GetAudioClipFire();
         
         /// <summary>
         /// Returns Current Ammunition. 

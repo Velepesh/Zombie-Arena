@@ -1,10 +1,14 @@
 ﻿using System;
+using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Plugins.Audio.Core
 {
     public abstract class AudioProvider : IDisposable
     {
         public abstract float Volume { get; set; }
+        public abstract float SpatialBlend { get; set; }
+        public abstract AudioMixerGroup MixerGroup { get; set; }
         public abstract bool Mute { get; set; }
         public abstract bool Loop { get; set; }
         public abstract float Pitch { get; set; }
@@ -25,6 +29,8 @@ namespace Plugins.Audio.Core
         public virtual void RefreshSettings(SourceAudio.AudioSettings settings)
         {
             Volume = settings.volume;
+            SpatialBlend = settings.spatialBlend;
+            MixerGroup = settings.mixerGroup;
             Loop = settings.loop;
             Pitch = settings.pitch;
             Mute = settings.mute;

@@ -1,5 +1,7 @@
 //Copyright 2022, Infima Games. All Rights Reserved.
 
+using Plugins.Audio.Core;
+using Plugins.Audio.Utils;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -25,7 +27,7 @@ namespace InfimaGames.LowPolyShooterPack
         
         [Tooltip("The character's footstep-dedicated Audio Source component.")]
         [SerializeField, NotNull]
-        private AudioSource audioSource;
+        private SourceAudio sourceAudio;
 
         [Title(label: "Settings")]
 
@@ -36,30 +38,15 @@ namespace InfimaGames.LowPolyShooterPack
         [Title(label: "Audio Clips")]
         
         [Tooltip("The audio clip that is played while walking.")]
-        [SerializeField]
-        private AudioClip audioClipWalking;
+        [SerializeField] private AudioDataProperty audioClipWalking;
 
         [Tooltip("The audio clip that is played while running.")]
-        [SerializeField]
-        private AudioClip audioClipRunning;
-        
+        [SerializeField] private AudioDataProperty audioClipRunning;
+
+        private bool _isPlaying;
         #endregion
-        
+
         #region UNITY
-        
-        /// <summary>
-        /// Awake.
-        /// </summary>
-        private void Awake()
-        {
-            //Make sure we have an Audio Source assigned.
-            if (audioSource != null)
-            {
-                //Audio Source Setup.
-                audioSource.clip = audioClipWalking;
-                audioSource.loop = true;   
-            }
-        }
 
         /// <summary>
         /// Update.
@@ -67,7 +54,7 @@ namespace InfimaGames.LowPolyShooterPack
         private void Update()
         {
             //Check for missing references.
-            if (characterAnimator == null || movementBehaviour == null || audioSource == null)
+            if (characterAnimator == null || movementBehaviour == null || sourceAudio == null)
             {
                 //Reference Error.
                 Log.ReferenceError(this, gameObject);
@@ -75,19 +62,25 @@ namespace InfimaGames.LowPolyShooterPack
                 //Return.
                 return;
             }
-            
+
             //Check if we're moving on the ground. We don't need footsteps in the air.
             if (movementBehaviour.IsGrounded() && movementBehaviour.GetVelocity().sqrMagnitude > minVelocityMagnitude)
             {
                 //Select the correct audio clip to play.
-                audioSource.clip = characterAnimator.GetBool(AHashes.Running) ? audioClipRunning : audioClipWalking;
+                AudioDataProperty clip = characterAnimator.GetBool(AHashes.Running) ? audioClipRunning : audioClipWalking;
                 //Play it!
-                if (!audioSource.isPlaying)
-                    audioSource.Play();
+                if (_isPlaying == false)
+                {
+                    sourceAudio.Play(clip.Key);
+                    _isPlaying = true;
+                }
             }
             //Pause it if we're doing something like flying, or not moving!
-            else if (audioSource.isPlaying)
-                audioSource.Pause();
+            else if (_isPlaying)
+            {
+                sourceAudio.Stop();
+                _isPlaying = false;
+            }
         }
         
         #endregion

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 namespace InfimaGames.LowPolyShooterPack.Legacy
 {
-	[RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody))]
 	public class Grenade : MonoBehaviour
 	{
 		[Header("Timer")]
@@ -33,8 +34,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 		[Tooltip("Maximum throw force")]
         [SerializeField] private float _maximumForce = 2500.0f;
 
-		[Header("Audio")]
-        [SerializeField] private AudioSource _impactSound;
+        public event UnityAction Collided;
 
 		private float _throwForce;
 		private Rigidbody _rigidbody;
@@ -69,8 +69,8 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 		private void OnCollisionEnter(Collision collision)
 		{
-			_impactSound.Play();
-		}
+            Collided?.Invoke();
+        }
 
         private IEnumerator ExplosionTimer()
         {

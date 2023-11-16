@@ -1,11 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Plugins.Audio.Utils;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Plugins.Audio.Core
 {
     public class StreamingAudioProvider : AudioProvider
     {
+        public override float SpatialBlend 
+        {
+            get => _unitySource.spatialBlend;
+            set => _unitySource.spatialBlend = value;
+        }
+
+        public override AudioMixerGroup MixerGroup 
+        {
+            get => _unitySource.outputAudioMixerGroup;
+            set => _unitySource.outputAudioMixerGroup = value;
+        }
+
         public override float Volume
         {
             get => _unitySource.volume;
@@ -62,7 +76,7 @@ namespace Plugins.Audio.Core
         public override void RefreshSettings(SourceAudio.AudioSettings settings)
         {
             base.RefreshSettings(settings);
-
+            Debug.Log(settings.mixerGroup);
             _unitySource.SetData(settings);
         }
 
@@ -112,9 +126,9 @@ namespace Plugins.Audio.Core
             }
 
             _unitySource.clip = _clip;
+            _unitySource.time = _lastTime = 0;
             _unitySource.Play();
             _beginPlaying = true;
-            _lastTime = 0;
 
             _loadClip = false;
             
@@ -185,7 +199,7 @@ namespace Plugins.Audio.Core
                 _beginPlaying = false;
                 _sourceAudio.ClipFinished();
                 
-                /*if (Loop)
+                if (Loop)
                 {
                     AudioManagement.Instance.Log("Audio Loop: " + _sourceAudio.CurrentKey);
 
@@ -193,7 +207,7 @@ namespace Plugins.Audio.Core
                     _unitySource.Play();
                     _lastTime = 0;
                     _beginPlaying = true;
-                }*/
+                }
             }
         }
 
@@ -205,7 +219,7 @@ namespace Plugins.Audio.Core
 
                 AudioManagement.Instance.Log(_sourceAudio.CurrentKey + " Last Time: " + _lastTime);
             }
-            
+
             _isFocus = true;
         }
 
@@ -216,7 +230,7 @@ namespace Plugins.Audio.Core
                 _lastTime = _unitySource.time;
                 AudioManagement.Instance.Log(_sourceAudio.CurrentKey + "Set Last Time: " + _lastTime);
             }
-            
+
             _isFocus = false;
         }
     }

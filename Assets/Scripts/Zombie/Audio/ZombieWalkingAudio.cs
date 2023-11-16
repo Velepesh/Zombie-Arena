@@ -5,9 +5,8 @@ using Plugins.Audio.Utils;
 [RequireComponent(typeof(Zombie))]
 [RequireComponent(typeof(ZombieMover))]
 [RequireComponent(typeof(ZombieAttacker))]
-public class ZombieWalkingAudio : MonoBehaviour
+public class ZombieWalkingAudio : Audio
 {
-    [SerializeField] private SourceAudio _sourceAudio;
     [SerializeField] private AudioDataProperty _clip;
 
     private Zombie _zombie;
@@ -47,13 +46,13 @@ public class ZombieWalkingAudio : MonoBehaviour
 
     private void PlayWalkingAudio()
     {
-        _sourceAudio.Play(_clip.Key);
+        SourceAudio.Play(_clip.Key);
     }
 
     private void StopWalkingAudio()
     {
-        if (_sourceAudio.IsPlaying)
-            _sourceAudio.Stop();
+        if (SourceAudio.IsPlaying)
+            SourceAudio.Stop();
     }
 
     private void OnDied(IDamageable damageable)

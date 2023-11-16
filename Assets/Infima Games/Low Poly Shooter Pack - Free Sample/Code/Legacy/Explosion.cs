@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 namespace InfimaGames.LowPolyShooterPack.Legacy
 {
-	public class Explosion : MonoBehaviour 
+    public class Explosion : MonoBehaviour 
     {
     	[Header("Customizable Options")]
         [SerializeField] private float _despawnTime = 4f;
@@ -12,19 +13,17 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
     	[Header("Light")]
         [SerializeField] private Light _lightFlash;
         [SerializeField] private ParticleSystem _burnMark;
-    
-    	[Header("Audio")]
-        [SerializeField] private AudioClip[] _explosionSounds;
-        [SerializeField] private AudioSource _audioSource;
-    
-    	private void Start () 
+
+        public event UnityAction Exploded;
+
+
+        private void Start() 
         {
     		StartCoroutine(DestroyTimer());
     		StartCoroutine(LightFlash());
     
-    		_audioSource.clip = _explosionSounds[Random.Range(0, _explosionSounds.Length)];
-    		_audioSource.Play();
-    	}
+            Exploded?.Invoke();
+        }
 
         public void EnableBurnMark()
         {
@@ -33,7 +32,6 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
         public void DisableBurnMark()
         {
-            Debug.Log("_burnMark");
             _burnMark.gameObject.SetActive(false);
         }
 

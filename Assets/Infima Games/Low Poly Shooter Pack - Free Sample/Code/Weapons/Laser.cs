@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using Plugins.Audio.Utils;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -42,7 +43,7 @@ namespace InfimaGames.LowPolyShooterPack
         
         [Tooltip("The AudioClip played when toggling the laser.")]
         [SerializeField]
-        private AudioClip toggleClip;
+        private AudioDataProperty toggleClip;
 
         [Tooltip("The AudioSettings used for the toggleClip.")]
         [SerializeField]
@@ -104,7 +105,7 @@ namespace InfimaGames.LowPolyShooterPack
             
             //Activate/Deactivate the laser.
             Reapply();
-            
+            Debug.Log("LASER");
             //Plays a little sound now that we're toggling this laser!
             if(toggleClip != null)
                 ServiceLocator.Current.Get<IAudioManagerService>().PlayOneShot(toggleClip, toggleAudioSettings);

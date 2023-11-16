@@ -41,7 +41,7 @@ public class ImpactPool : ObjectPool
         impact.rotation = rotation;
     }
 
-    public GameObject GetImpact()
+    public Impact GetImpact()
     {
         if (TryGetObject(out GameObject bulletObject))
         {
@@ -55,7 +55,7 @@ public class ImpactPool : ObjectPool
                 throw new NullReferenceException(nameof(impact));
             }
 
-            return bulletObject;
+            return impact;
         }
 
         throw new Exception("No active impact here");

@@ -116,7 +116,7 @@ namespace Plugins.Audio.Core
         {
             if (CanDebug == true)
             {
-                //Debug.Log(message);
+                Debug.Log(message);
             }
         }
 

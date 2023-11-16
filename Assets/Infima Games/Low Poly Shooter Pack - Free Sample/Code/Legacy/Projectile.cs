@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;
 using UnityEngine.Events;
+using DG.Tweening;
 
 namespace InfimaGames.LowPolyShooterPack.Legacy
 {
@@ -122,9 +123,10 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
             {
                 if (_impactPools[i].Type == type)
                 {
-                    GameObject impact = _impactPools[i].GetImpact();
-                    impact.SetActive(true);
+                    Impact impact = _impactPools[i].GetImpact();
+                    impact.gameObject.SetActive(true);
                     _impactPools[i].SetImpactTransform(impact.transform, point, Quaternion.LookRotation(contactNormal));
+                    impact.Play();
                     break;
                 }
             }

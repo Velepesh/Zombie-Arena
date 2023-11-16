@@ -49,7 +49,7 @@ public class Shop : MonoBehaviour
     }
 
     public void BuyWeaponForYan(Weapon weapon)
-    {    
+    {
         weapon.Buy();
         Equip(weapon);
         MetricaSender.Yan(weapon.Label);

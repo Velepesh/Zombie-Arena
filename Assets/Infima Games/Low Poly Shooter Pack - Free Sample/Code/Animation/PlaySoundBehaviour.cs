@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using Plugins.Audio.Utils;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -15,7 +16,7 @@ namespace InfimaGames.LowPolyShooterPack
         
         [Tooltip("AudioClip to play!")]
         [SerializeField]
-        private AudioClip clip;
+        private AudioDataProperty clip;
         
         [Title(label: "Settings")]
 

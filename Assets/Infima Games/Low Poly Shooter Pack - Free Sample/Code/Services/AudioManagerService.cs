@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting;
-using static Unity.VisualScripting.Member;
+using Plugins.Audio.Utils;
+using Plugins.Audio.Core;
 
 namespace InfimaGames.LowPolyShooterPack
 {
@@ -18,7 +19,7 @@ namespace InfimaGames.LowPolyShooterPack
             /// <summary>
             /// Audio Clip.
             /// </summary>
-            public AudioClip Clip { get; }
+            public AudioDataProperty Clip { get; }
             /// <summary>
             /// Audio VolumeSettings.
             /// </summary>
@@ -31,7 +32,7 @@ namespace InfimaGames.LowPolyShooterPack
             /// <summary>
             /// Constructor.
             /// </summary>
-            public OneShotCoroutine(AudioClip clip, AudioSettings settings, float delay)
+            public OneShotCoroutine(AudioDataProperty clip, AudioSettings settings, float delay)
             {
                 //Clip.
                 Clip = clip;
@@ -45,21 +46,21 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Destroys the audio source once it has finished playing.
         /// </summary>
-        private IEnumerator DestroySourceWhenFinished(AudioSource source)
+        private IEnumerator DestroySourceWhenFinished(SourceAudio source)
         {
             //WaitBeforeLockCursor for the audio source to complete playing the clip.
             yield return new WaitWhile(() => IsPlaying(source));
             //Destroy the audio game object, since we're not using it anymore.
             //This isn't really too great for performance, but it works, for now.
             if (source != null)
-                DestroyImmediate(source.gameObject);
+                Destroy(source.gameObject, 5f);
         }
-        private bool IsPlaying(AudioSource source)
+        private bool IsPlaying(SourceAudio source)
         {
             if (source.IsDestroyed())
                 return false;
 
-            return source.isPlaying;
+            return source.IsPlaying;
         }
         /// <summary>
         /// Waits for a certain amount of time before starting to play a one shot sound.
@@ -75,25 +76,24 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Internal PlayOneShot. Basically does the whole function's name!
         /// </summary>
-        private void PlayOneShot_Internal(AudioClip clip, AudioSettings settings)
+        private void PlayOneShot_Internal(AudioDataProperty clip, AudioSettings settings)
         {
             //No need to do absolutely anything if the clip is null.
             if (clip == null)
                 return;
 
             //Spawn a game object for the audio source.
-            var newSourceObject = new GameObject($"Audio Source -> {clip.name}");
+            var newSourceObject = new GameObject($"Audio Source -> {clip.Key}");
             //Add an audio source component to that object.
-            var newAudioSource = newSourceObject.AddComponent<AudioSource>();
+            var newAudioSource = newSourceObject.AddComponent<SourceAudio>();
 
             //Set volume.
-            newAudioSource.volume = settings.Volume;
+            newAudioSource.Volume = settings.Volume;
             //Set spatial blend.
-            newAudioSource.spatialBlend = settings.SpatialBlend;
-            newAudioSource.outputAudioMixerGroup = settings.MixerGroup;
-           // Debug.Log(settings.MixerGroup.name + " !");
+            newAudioSource.SpatialBlend = settings.SpatialBlend;
+            newAudioSource.MixerGroup = settings.MixerGroup;
             //PlayOneShot the clip!
-            newAudioSource.PlayOneShot(clip);
+            newAudioSource.PlayOneShot(clip.Key);
 
             //Start a coroutine that will destroy the whole object once it is done!
             if (settings.AutomaticCleanup)
@@ -102,13 +102,13 @@ namespace InfimaGames.LowPolyShooterPack
 
         #region Audio Manager Service Interface
 
-        public void PlayOneShot(AudioClip clip, AudioSettings settings = default)
+        public void PlayOneShot(AudioDataProperty clip, AudioSettings settings = default)
         {
             //PlayOneShot.
             PlayOneShot_Internal(clip, settings);
         }
 
-        public void PlayOneShotDelayed(AudioClip clip, AudioSettings settings = default, float delay = 1.0f)
+        public void PlayOneShotDelayed(AudioDataProperty clip, AudioSettings settings = default, float delay = 1.0f)
         {
             //PlayOneShot.
             StartCoroutine(nameof(PlayOneShotAfterDelay), new OneShotCoroutine(clip, settings, delay));

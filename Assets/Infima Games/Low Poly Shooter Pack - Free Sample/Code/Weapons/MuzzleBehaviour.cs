@@ -1,5 +1,6 @@
 ﻿//Copyright 2022, Infima Games. All Rights Reserved.
 
+using Plugins.Audio.Utils;
 using UnityEngine;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -23,7 +24,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// <summary>
         /// Returns the AudioClip to play when firing.
         /// </summary>
-        public abstract AudioClip GetAudioClipFire();
+        public abstract AudioDataProperty GetAudioClipFire();
         
         /// <summary>
         /// Returns the particle system to use when firing.

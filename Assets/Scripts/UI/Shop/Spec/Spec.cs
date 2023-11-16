@@ -1,9 +1,7 @@
 using InfimaGames.LowPolyShooterPack;
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 using YG;
 
 public class Spec : MonoBehaviour
@@ -22,10 +20,10 @@ public class Spec : MonoBehaviour
     [SerializeField] private Ñharacteristic _hipAccuracyCharacteristic;
     [SerializeField] private Ñharacteristic _aimAccuracyCharacteristic;
     [SerializeField] private Ñharacteristic _mobilityCharacteristic;
-    [SerializeField] private Button _buyForMoneyButton;
-    [SerializeField] private Button _buyForYanButton;
-    [SerializeField] private Button _unlockByAdsButton;
-    [SerializeField] private Button _equipButton;
+    [SerializeField] private SpecButton _buyForMoneyButton;
+    [SerializeField] private SpecButton _buyForYanButton;
+    [SerializeField] private SpecButton _unlockByAdsButton;
+    [SerializeField] private SpecButton _equipButton;
     [SerializeField] private ReceivingPurchase _receivingPurchase;
 
     private Weapon _currentWeapon;
@@ -37,15 +35,19 @@ public class Spec : MonoBehaviour
     private void OnEnable()
     {
         YandexGame.RewardVideoEvent += Rewarded;
-        _equipButton.onClick.AddListener(OnEquipButtonClick);
-        _buyForMoneyButton.onClick.AddListener(OnBuyButtonClick);
+        _equipButton.Clicked += OnEquipButtonClick;
+        _buyForMoneyButton.Clicked += OnBuyForMoneyButtonClick;
+        _buyForYanButton.Clicked += OnBuyForYanButtonClick;
+        _receivingPurchase.PurchaseBought += OnPurchaseBought;
     }
 
     private void OnDisable()
     {
         YandexGame.RewardVideoEvent -= Rewarded;
-        _equipButton.onClick.RemoveListener(OnEquipButtonClick);
-        _buyForMoneyButton.onClick.RemoveListener(OnBuyButtonClick);
+        _equipButton.Clicked -= OnEquipButtonClick;
+        _buyForMoneyButton.Clicked -= OnBuyForMoneyButtonClick;
+        _buyForYanButton.Clicked -= OnBuyForYanButtonClick;
+        _receivingPurchase.PurchaseBought -= OnPurchaseBought;
     }
 
     public void UpdateSpec(Weapon weapon)
@@ -93,14 +95,14 @@ public class Spec : MonoBehaviour
         }
     }
 
-    private void DisableButtonView(Button button)
+    private void DisableButtonView(SpecButton specButton)
     {
-        button.gameObject.SetActive(false);
+        specButton.DisableButton();
     }
 
-    private void EnableButtonView(Button button)
+    private void EnableButtonView(SpecButton specButton)
     {
-        button.gameObject.SetActive(true);
+        specButton.EnableButton();
     }
 
     private void SetInventoryText(Weapon weapon)
@@ -134,9 +136,20 @@ public class Spec : MonoBehaviour
         UpdateButtonsVisibility(_currentWeapon);
     }
 
-    private void OnBuyButtonClick()
+    private void OnBuyForMoneyButtonClick()
     {
         BuyButtonClicked?.Invoke(_currentWeapon);
+        SetInventoryText(_currentWeapon);
+        UpdateButtonsVisibility(_currentWeapon);
+    }
+
+    private void OnBuyForYanButtonClick()
+    {
+        _receivingPurchase.BuyPurchase();
+    }
+
+    private void OnPurchaseBought()
+    {
         SetInventoryText(_currentWeapon);
         UpdateButtonsVisibility(_currentWeapon);
     }

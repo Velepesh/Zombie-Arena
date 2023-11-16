@@ -1,9 +1,10 @@
+using Plugins.Audio.Utils;
 using UnityEngine;
 
 [RequireComponent(typeof(ZombieSpawner))]
 public class ZombieSpawnerAudio : Audio
 {
-    [SerializeField] private AudioClip _headKilledAudioClip;
+    [SerializeField] private AudioDataProperty _headKilledAudioClip;
 
     private ZombieSpawner _zombieSpawner;
 
@@ -25,6 +26,6 @@ public class ZombieSpawnerAudio : Audio
     private void OnZombieDied(Zombie zombie)
     {
         if (zombie.IsHeadKill)
-            PlayOneShot(_headKilledAudioClip);
+            SourceAudio.PlayOneShot(_headKilledAudioClip.Key);
     }
 }

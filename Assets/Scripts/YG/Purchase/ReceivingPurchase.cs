@@ -8,11 +8,11 @@ using YG;
 public class ReceivingPurchase : MonoBehaviour
 {
     [SerializeField] private List<PurchaseYG> _purchases;
-    //[SerializeField] private Spec _spec;
     [SerializeField] private UnityEvent<Weapon> _onSuccessPurchased;
     [SerializeField] private UnityEvent _onFailedPurchased;
 
     private PurchaseYG _currentPurchaseYG;
+    public event UnityAction PurchaseBought;
 
     private void OnEnable()
     {
@@ -42,7 +42,9 @@ public class ReceivingPurchase : MonoBehaviour
             _currentPurchaseYG = GetPurchases(id);
 
         _currentPurchaseYG.data.consumed = true;
+
         _onSuccessPurchased?.Invoke(_currentPurchaseYG.Weapon);
+        PurchaseBought?.Invoke();
     }
 
     private void OnFailedPurchased(string id)
