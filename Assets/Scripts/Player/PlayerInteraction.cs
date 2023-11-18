@@ -9,6 +9,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Character _character;
     [SerializeField] private LowerWeapon _lowerWeapon;
     [SerializeField] private PlayerInputMapChanger _actionMapChanger;
+    [SerializeField] private FootstepPlayer _footstepPlayer;
     [SerializeField] private Animator _animator;
     [SerializeField] private float _delayBeforeDeactivate;
 
@@ -99,6 +100,7 @@ public class PlayerInteraction : MonoBehaviour
         _character.enabled = true;
         _lowerWeapon.enabled = true;
         _animator.enabled = true;
+        _footstepPlayer.enabled = true;
     }
 
     private void Deactivate()
@@ -106,5 +108,6 @@ public class PlayerInteraction : MonoBehaviour
         _character.enabled = false;
         _lowerWeapon.enabled = false;
         _animator.enabled = false;
+        _footstepPlayer.enabled = false;
     }
 }

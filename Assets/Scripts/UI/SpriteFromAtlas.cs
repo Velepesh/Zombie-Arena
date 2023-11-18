@@ -6,7 +6,7 @@ using UnityEngine.U2D;
 [RequireComponent(typeof(Image))]
 public class SpriteFromAtlas : MonoBehaviour
 {
-    [SerializeField] private SpriteAtlas _atlas; 
+    [SerializeField, NotNull] private SpriteAtlas _atlas; 
 
     private Image _image;
 

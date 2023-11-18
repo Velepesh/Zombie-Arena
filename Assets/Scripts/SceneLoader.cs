@@ -5,7 +5,7 @@ public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private Game _game;
 
-    private readonly int _loaderSceneBuildIndex = 0;
+//    private readonly int _loaderSceneBuildIndex = 0;
 
     private void OnEnable()
     {
@@ -24,6 +24,6 @@ public class SceneLoader : MonoBehaviour
 
     private void RestartScene()
     {
-        SceneManager.LoadScene(_loaderSceneBuildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

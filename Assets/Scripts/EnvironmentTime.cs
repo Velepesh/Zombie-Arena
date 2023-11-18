@@ -14,11 +14,6 @@ public class EnvironmentTime : MonoBehaviour
     private bool _isFocused = true;
     private Coroutine _delayBeforePauseCoroutine;
 
-    private void Start()
-    {
-        Pause();
-    }
-
     private void OnEnable()
     {
         AppFocusHandle.OnFocus += Focus;

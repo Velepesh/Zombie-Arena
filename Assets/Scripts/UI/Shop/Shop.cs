@@ -1,5 +1,6 @@
 using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class Shop : MonoBehaviour
@@ -7,6 +8,7 @@ public class Shop : MonoBehaviour
     [SerializeField] private WalletSetup _walletSetup;
     [SerializeField] private Spec _spec;
     [SerializeField] private List<HealthAdder> _healthAdders;
+    [SerializeField] private List<Button> _healthAdderBonusButtons;
     [SerializeField] private Equipment _equipment;
 
     private WeaponView[] _weaponViews;
@@ -26,6 +28,9 @@ public class Shop : MonoBehaviour
         for (int i = 0; i < _healthAdders.Count; i++)
             _healthAdders[i].BuyHealthButtonClicked += OnBuyHealthButtonClicked;
 
+        for (int i = 0; i < _healthAdderBonusButtons.Count; i++)
+            _healthAdderBonusButtons[i].onClick.AddListener(OnHealthAdderBonusButtons);
+
         _equipment.Inited += OnEquipmenInited;
         _equipment.Equiped += OnEquiped;
         _spec.EquipButtonClicked += OnEquipButtonClicked;
@@ -40,6 +45,9 @@ public class Shop : MonoBehaviour
 
         for (int i = 0; i < _healthAdders.Count; i++)
             _healthAdders[i].BuyHealthButtonClicked -= OnBuyHealthButtonClicked;
+
+        for (int i = 0; i < _healthAdderBonusButtons.Count; i++)
+            _healthAdderBonusButtons[i].onClick.RemoveListener(OnHealthAdderBonusButtons);
 
         _equipment.Inited -= OnEquipmenInited;
         _equipment.Equiped -= OnEquiped;
@@ -61,7 +69,13 @@ public class Shop : MonoBehaviour
 
         ShowSpecPanel();
         _spec.UpdateSpec(weapon);
-        SetCurrentWeaponView(weapon);
+        SelectWeaponView(weapon);
+    }
+
+    private void OnHealthAdderBonusButtons()
+    {
+        for (int i = 0; i < _weaponViews.Length; i++)
+            _weaponViews[i].UpdateView();
     }
 
     private void OnEquiped(Weapon weapon)
@@ -133,7 +147,7 @@ public class Shop : MonoBehaviour
         UpdateWeaponViewByType(weapon);
     }
 
-    private void SetCurrentWeaponView(Weapon weapon)
+    private void SelectWeaponView(Weapon weapon)
     {
         for (int i = 0; i < _weaponViews.Length; i++)
         {

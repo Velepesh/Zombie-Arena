@@ -30,10 +30,6 @@ public class Game : MonoCache
     public event UnityAction Reborned;
     public event UnityAction<int> Earned;
 
-    private void Awake()
-    {
-        Application.targetFrameRate = 60;
-    }
 
     private void OnEnable()
     {
