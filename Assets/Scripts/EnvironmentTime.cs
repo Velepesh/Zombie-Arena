@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Plugins.Audio.Core;
+using static Unity.Burst.Intrinsics.Arm;
 
 public class EnvironmentTime : MonoBehaviour
 {
     [SerializeField] private Game _game;
     [SerializeField] private float _delayBeforeGameOver = .1f;
+    [SerializeField] private float _delayBeforeWin = .5f;
     [SerializeField] private RebornButton _rebornButton;
 
     private bool _isAds = false;
@@ -22,6 +24,7 @@ public class EnvironmentTime : MonoBehaviour
         _game.GameStarted += OnGameStarted;
         _game.Continued += OnContinued;
         _game.Reborned += OnReborned;
+        _game.Won += OnWon;
         _game.GameOver += OnGameOver;
         _game.Paused += OnPaused;
     }
@@ -34,6 +37,7 @@ public class EnvironmentTime : MonoBehaviour
         _game.GameStarted -= OnGameStarted;
         _game.Continued -= OnContinued;
         _game.Reborned -= OnReborned;
+        _game.Won -= OnWon;
         _game.GameOver -= OnGameOver;
         _game.Paused -= OnPaused;
     }
@@ -97,9 +101,9 @@ public class EnvironmentTime : MonoBehaviour
         Pause();
     }
 
-    private IEnumerator DelayBeforePause()
+    private IEnumerator DelayBeforePause(float delayTime)
     {
-        yield return new WaitForSeconds(_delayBeforeGameOver);
+        yield return new WaitForSeconds(delayTime);
         Pause();
     }
 
@@ -127,7 +131,17 @@ public class EnvironmentTime : MonoBehaviour
 
     private void OnGameOver()
     {
-        _delayBeforePauseCoroutine = StartCoroutine(DelayBeforePause());
+        WaitPause(_delayBeforeGameOver);
+    }
+
+    private void OnWon()
+    {
+        WaitPause(_delayBeforeWin);
+    }
+
+    private void WaitPause(float delayTime)
+    {
+        _delayBeforePauseCoroutine = StartCoroutine(DelayBeforePause(delayTime));
     }
 
     private void OnReborned()

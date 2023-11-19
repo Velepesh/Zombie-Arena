@@ -859,27 +859,18 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		private bool CanPlayAnimationGrenadeThrow()
 		{
-			//Block.
-			if (holstered || holstering)
-				return false;
-
-			//Block.
 			if (meleeing || throwingGrenade)
 				return false;
 
-			//Block.
 			if (reloading || bolting)
 				return false;
 
-            //Block.
             if (inspecting)
                 AnimationEndedInspect();
 
-            //We need to have grenades!
             if (!grenadesUnlimited && grenadeCount == 0)
 				return false;
 			
-			//Return.
 			return true;
 		}
 

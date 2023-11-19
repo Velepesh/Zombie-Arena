@@ -16,19 +16,25 @@ public class WinScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        YandexGame.RewardVideoEvent += Rewarded;
+        YandexGame.RewardVideoEvent += OnRewardVideo;
         _game.Won += OnWon;
         _continueButton.onClick.AddListener(OnContinueButton);
     }
 
     private void OnDisable()
     {
-        YandexGame.RewardVideoEvent -= Rewarded;
+        YandexGame.RewardVideoEvent -= OnRewardVideo;
         _game.Won -= OnWon;
         _continueButton.onClick.RemoveListener(OnContinueButton);
     }
 
     private void OnWon()
+    {
+        SetRewardInfo();
+        _game.Reward();
+    }
+
+    private void SetRewardInfo()
     {
         _doubleEarningsText.text = $"{_game.DoubleEarnings} {_dollar}";
         _additionalText.additionalText = $"{_game.TotalScore}{_dollar} {_rightBracket}";
@@ -39,11 +45,11 @@ public class WinScreen : MonoBehaviour
         _game.NextLevel();
     }
 
-    private void Rewarded(int id)
+    private void OnRewardVideo(int id)
     {
         if (id == _adID)
         {
-            _game.NextLevelDoubleEarnings();
+            _game.Reward();
             MetricaSender.Reward("double_earnings");
         }
     }

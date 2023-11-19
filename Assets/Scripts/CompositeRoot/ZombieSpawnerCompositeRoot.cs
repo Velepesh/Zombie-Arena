@@ -25,7 +25,10 @@ public class ZombieSpawnerCompositeRoot : CompositeRoot
         _zombieSpawner.StartSpawn();
 
         if (YandexGame.SDKEnabled == true)
-            _zombieSpawner.SetPlatform(YandexGame.EnvironmentData.isDesktop == false);
+        {
+            bool isMobile = YandexGame.EnvironmentData.isDesktop == false;
+            _zombieSpawner.SetPlatform(isMobile);
+        }
     }
 
     private void OnEnded()

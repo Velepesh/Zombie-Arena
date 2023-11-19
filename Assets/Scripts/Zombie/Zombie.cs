@@ -92,8 +92,6 @@ public class Zombie : MonoCache, IDamageable, IHealth, IDie
 
     public void Die()
     {
-        IgnorePlayerCollider();
-
         if (_lastDamageHandlerType == DamageHandlerType.Head)
         {
             IsHeadKill = true;
@@ -149,11 +147,5 @@ public class Zombie : MonoCache, IDamageable, IHealth, IDie
 
         _lastDamageHandlerType = type;
         HitTaken?.Invoke(type);
-    }
-
-    private void IgnorePlayerCollider()
-    {
-        for (int i = 0; i < _damageHandlers.Length; i++)
-            _damageHandlers[i].IgnorePlayerCollider();
     }
 }

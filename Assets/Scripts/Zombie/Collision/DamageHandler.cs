@@ -62,10 +62,10 @@ public class DamageHandler : MonoBehaviour, IDamageable
         }
     }
 
-    public void IgnorePlayerCollider()
-    {
-        _isIgnoringPlayer = true;
-    }
+    //public void IgnorePlayerCollider()
+    //{
+    //    _isIgnoringPlayer = true;
+    //}
 
     public void AddHoleEffect(ParticleSystem holeEffect)
     {
@@ -100,6 +100,7 @@ public class DamageHandler : MonoBehaviour, IDamageable
 
     private void SwitchLayerToIgnorePLayer()
     {
+        _isIgnoringPlayer = true;
         gameObject.layer = LayerMask.NameToLayer("IgnorePlayer");
     }
 }

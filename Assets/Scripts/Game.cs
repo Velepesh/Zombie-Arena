@@ -13,7 +13,6 @@ public class Game : MonoCache
     [SerializeField] private LevelCounter _levelCounter;
     [SerializeField] private Timer _timer;
 
-    private int _defaultEarnings => TotalScore;
     private bool _isPaused;
     private bool _isLose;
     private bool _isWin;
@@ -29,7 +28,6 @@ public class Game : MonoCache
     public event UnityAction Restarted;
     public event UnityAction Reborned;
     public event UnityAction<int> Earned;
-
 
     private void OnEnable()
     {
@@ -57,14 +55,14 @@ public class Game : MonoCache
         Continued?.Invoke();
     }
 
-    public void NextLevel()
+    public void Reward()
     {
-        EndLevel(_defaultEarnings);
+        Earned?.Invoke(TotalScore);
     }
 
-    public void NextLevelDoubleEarnings()
+    public void NextLevel()
     {
-        EndLevel(DoubleEarnings);
+        EndLevel();
     }
 
     public void OnTryPause(InputAction.CallbackContext context)
@@ -101,9 +99,8 @@ public class Game : MonoCache
         Win();
     }
 
-    private void EndLevel(int money)
+    private void EndLevel()
     {
-        Earned?.Invoke(money);
         Restart();
     }
 

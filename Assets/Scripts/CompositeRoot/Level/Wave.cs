@@ -9,8 +9,6 @@ public class Wave : ScriptableObject
     [SerializeField] private int _maxActiveZombieDesktop;
     [SerializeField] private float _delay;
 
-    private int _maxActiveZombieMobile;
-
     public int Count => _templates.Count;
     public float Delay => _delay;
 
@@ -35,14 +33,14 @@ public class Wave : ScriptableObject
     {
         if (isMobile)
         {
-            if (_templates.Count > 8)
-                _maxActiveZombieMobile = _maxActiveZombieDesktop - 2;
-            else if (_templates.Count > 5)
-                _maxActiveZombieMobile = _maxActiveZombieDesktop - 1;
-            else
-                _maxActiveZombieMobile = _maxActiveZombieDesktop;
+            int maxMobileCount = _maxActiveZombieDesktop;
 
-            return _maxActiveZombieMobile;
+            if (_templates.Count > 8)
+                maxMobileCount = _maxActiveZombieDesktop - 2;
+            else if (_templates.Count > 4)
+                maxMobileCount = _maxActiveZombieDesktop - 1;
+
+            return maxMobileCount;
         }
         else 
         {
