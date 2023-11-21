@@ -50,6 +50,7 @@ public class WinScreen : MonoBehaviour
         if (id == _adID)
         {
             _game.Reward();
+            OnContinueButton();
             MetricaSender.Reward("double_earnings");
         }
     }

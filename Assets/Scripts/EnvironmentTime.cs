@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Plugins.Audio.Core;
-using static Unity.Burst.Intrinsics.Arm;
+using Cysharp.Threading.Tasks;
+using System;
 
 public class EnvironmentTime : MonoBehaviour
 {
@@ -101,12 +101,6 @@ public class EnvironmentTime : MonoBehaviour
         Pause();
     }
 
-    private IEnumerator DelayBeforePause(float delayTime)
-    {
-        yield return new WaitForSeconds(delayTime);
-        Pause();
-    }
-
     private void OnContinued()
     {
         _isPaused = false;
@@ -139,9 +133,10 @@ public class EnvironmentTime : MonoBehaviour
         WaitPause(_delayBeforeWin);
     }
 
-    private void WaitPause(float delayTime)
+    private async void WaitPause(float delayTime)
     {
-        _delayBeforePauseCoroutine = StartCoroutine(DelayBeforePause(delayTime));
+        await UniTask.Delay(TimeSpan.FromSeconds(delayTime), ignoreTimeScale: true);
+        Pause();
     }
 
     private void OnReborned()

@@ -64,6 +64,7 @@ public class EquipmentSaver : MonoBehaviour
 
         weaponData.IsBought = weapon.IsBought;
         weaponData.IsUnlock = weapon.IsUnlock;
+
         Save();
     }
 
