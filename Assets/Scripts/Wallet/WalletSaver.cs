@@ -1,49 +1,30 @@
-using UnityEngine;
 using YG;
-
-public class WalletSaver : MonoBehaviour
+public class WalletSaver
 {
-    [SerializeField] private WalletSetup _walletSetup;
-
-    private int _money;
-
-    private void Awake()
+    public WalletSaver()
     {
-        if (YandexGame.SDKEnabled)
-            Load();
+        Load();
     }
 
-    private void OnEnable()
-    {
-        YandexGame.GetDataEvent += Load;
-        _walletSetup.Wallet.MoneyChanged += OnMoneyChanged;
-    }
+    public int Money { get; private set; }
 
-    private void OnDisable()
+    public void OnMoneyChanged(int money)
     {
-        YandexGame.GetDataEvent -= Load;
-        _walletSetup.Wallet.MoneyChanged -= OnMoneyChanged;
-    }
-
-    private void OnMoneyChanged(int money)
-    {
-        _money = money;
+        Money = money;
         Save();
     }
 
     private void Load()
     {
-        _money = YandexGame.savesData.Money;
-
-        _walletSetup.Wallet.AddMoney(_money);
+        Money = YandexGame.savesData.Money;
     }
 
     private void Save()
     {
-        if (_money == YandexGame.savesData.Money)
+        if (Money == YandexGame.savesData.Money)
             return;
 
-        YandexGame.savesData.Money = _money;
+        YandexGame.savesData.Money = Money;
         YandexGame.SaveProgress();
     }
 }

@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
+using System;
 
-public class SensitivitySettings : MonoBehaviour
+public class SensitivityView : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
 
-    public event UnityAction<float> SensitivityUpdated;
+    public event Action<float> SensitivityUpdated;
 
     private void OnEnable()
     {

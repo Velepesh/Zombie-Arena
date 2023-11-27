@@ -4,9 +4,12 @@ using YG;
 
 public class ZombieSpawnerCompositeRoot : CompositeRoot
 {
-    [SerializeField] private ZombieSpawner _zombieSpawner;
+    [SerializeField] private WavesSpawner _zombieSpawner;
+    [SerializeField] private ZombieSpawnerView _spawnerView;
 
-    public ZombieSpawner ZombieSpawner => _zombieSpawner;
+    private LevelCounter _levelCounter;
+
+    public WavesSpawner ZombieSpawner => _zombieSpawner;
 
     public event UnityAction Ended;
 
@@ -20,9 +23,15 @@ public class ZombieSpawnerCompositeRoot : CompositeRoot
         _zombieSpawner.Ended -= OnEnded;
     }
 
+    public void Init(LevelCounter levelCounter)
+    {
+        _levelCounter = levelCounter;
+    }
+
     public override void Compose()
     {
-        _zombieSpawner.StartSpawn();
+        _zombieSpawner.StartSpawn(_levelCounter);
+        _spawnerView.Init(_zombieSpawner);
 
         if (YandexGame.SDKEnabled == true)
         {

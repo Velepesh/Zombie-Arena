@@ -12,7 +12,7 @@ namespace InfimaGames.LowPolyShooterPack
         #region FIELDS
 
         /// <summary>
-        /// Equiped Weapon.
+        /// WeaponEquiped Weapon.
         /// </summary>
         private WeaponBehaviour weapon;
 

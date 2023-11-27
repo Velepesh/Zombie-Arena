@@ -21,7 +21,7 @@ namespace InfimaGames.LowPolyShooterPack
             /// </summary>
             public AudioDataProperty Clip { get; }
             /// <summary>
-            /// Audio VolumeSettings.
+            /// Audio VolumeView.
             /// </summary>
             public AudioSettings Settings { get; }
             /// <summary>
@@ -36,7 +36,7 @@ namespace InfimaGames.LowPolyShooterPack
             {
                 //Clip.
                 Clip = clip;
-                //VolumeSettings
+                //VolumeView
                 Settings = settings;
                 //DelayBeforeMove.
                 Delay = delay;

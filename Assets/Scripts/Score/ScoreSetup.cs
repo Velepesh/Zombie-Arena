@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class ScoreSetup : MonoBehaviour
 {
-    [SerializeField] private ZombieSpawner _zombieSpawner;
+    [SerializeField] private WavesSpawner _zombieSpawner;
     [SerializeField] private AnimatedScoreView _view;
 
     private ScorePresenter _presenter;

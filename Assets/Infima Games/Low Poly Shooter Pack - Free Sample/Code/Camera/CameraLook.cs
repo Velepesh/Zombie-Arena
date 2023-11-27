@@ -18,8 +18,6 @@ namespace InfimaGames.LowPolyShooterPack
         private CursorStates _cursorStates;
         [Header("Settings")]
 
-        private Sensitivity _sensitivity = new Sensitivity();
-
         [Tooltip("Minimum and maximum up/down rotation angle the camera can have.")]
         [SerializeField]
         private Vector2 yClamp = new Vector2(-60, 60);
@@ -34,7 +32,7 @@ namespace InfimaGames.LowPolyShooterPack
         [SerializeField]
         private float interpolationSpeed = 25.0f;
 
-        public Sensitivity Sensitivity => _sensitivity;
+        private Sensitivity _sensitivity;
         #endregion
 
         #region FIELDS
@@ -61,6 +59,10 @@ namespace InfimaGames.LowPolyShooterPack
         
         #region UNITY
         
+        public void Init(Sensitivity sensitivity)
+        {
+            _sensitivity = sensitivity;
+        }
         /// <summary>
         /// Start.
         /// </summary>
@@ -81,7 +83,10 @@ namespace InfimaGames.LowPolyShooterPack
         {
             if (_cursorStates.IsCursorLocked == false)
                 return;
-           
+
+            if(_sensitivity == null)
+                return;
+
             //Frame Input. The Input to add this frame!
             Vector2 frameInput = playerCharacter.GetInputLook();
             //Sensitivity.

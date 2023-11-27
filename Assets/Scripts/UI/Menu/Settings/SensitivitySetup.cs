@@ -1,28 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using InfimaGames.LowPolyShooterPack;
 
 public class SensitivitySetup : MonoBehaviour
 {
     [SerializeField] private CameraLook _cameraLook;
-    [SerializeField] private List<SensitivitySettings> _settings;
+    [SerializeField] private List<SensitivityView> _sensitivityViews;
 
     private Sensitivity _model;
     private SensitivityPresenter _presenter;
 
-    private void Awake()
+    public void Init(SettingsSaver saver)
     {
-        if (_cameraLook.Sensitivity == null)
-            throw new ArgumentNullException(nameof(_cameraLook.Sensitivity));
+        _model = new Sensitivity(saver.Sensetivity);
+        _cameraLook.Init(_model);
 
-        _model = _cameraLook.Sensitivity;
-
-        _presenter = new SensitivityPresenter(_settings, _model);
-    }
-
-    private void OnEnable()
-    {
+        _presenter = new SensitivityPresenter(_sensitivityViews, _model, saver);
         _presenter.Enable();
     }
 

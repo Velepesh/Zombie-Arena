@@ -7,7 +7,7 @@ using UnityEngine.Rendering.PostProcessing;
 namespace InfimaGames.LowPolyShooterPack.Interface
 {
     /// <summary>
-    /// Quality VolumeSettings Menu.
+    /// Quality VolumeView Menu.
     /// </summary>
     public class MenuQualitySettings : Element
     {
@@ -50,7 +50,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         private PostProcessVolume postProcessingVolumeScope;
 
         /// <summary>
-        /// Depth Of Field VolumeSettings.
+        /// Depth Of Field VolumeView.
         /// </summary>
         private DepthOfField depthOfField;
 

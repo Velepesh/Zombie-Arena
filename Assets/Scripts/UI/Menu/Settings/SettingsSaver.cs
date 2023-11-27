@@ -1,102 +1,56 @@
-using System.Collections.Generic;
-using UnityEngine;
 using YG;
 
-public class SettingsSaver : MonoBehaviour
+public class SettingsSaver
 {
-    [SerializeField] private List<SettingsScreen> _settingsScreens;
+    public float Sensetivity => YandexGame.savesData.Sensetivity;
+    public float Sfx => YandexGame.savesData.SFX;
+    public float Music => YandexGame.savesData.Music;
 
-    private float _sensetivity = 0;
-    private float _sfx = 0;
-    private float _music = 0;
+    private float _currentSensetivity;
+    private float _currentSFX;
+    private float _currentMusic;
 
-    private void Awake()
+    public SettingsSaver()
     {
-        if (YandexGame.SDKEnabled)
-            Load();
+        Load();
     }
-
-    private void OnEnable()
-    {
-        YandexGame.GetDataEvent += Load;
-
-        for (int i = 0; i < _settingsScreens.Count; i++)
-        {
-            _settingsScreens[i].Showed += OnShowed;
-            _settingsScreens[i].SensitivityUpdated += OnSensitivityUpdated;
-            _settingsScreens[i].SFXUpdated += OnSFXUpdated;
-            _settingsScreens[i].MusicUpdated += OnMusicUpdated;
-            _settingsScreens[i].BackButtonClicked += OnBackButtonClicked;
-        }
-    }
-
-    private void OnDisable()
-    {
-        YandexGame.GetDataEvent -= Load;
-
-        for (int i = 0; i < _settingsScreens.Count; i++)
-        {
-            _settingsScreens[i].Showed -= OnShowed;
-            _settingsScreens[i].SensitivityUpdated -= OnSensitivityUpdated;
-            _settingsScreens[i].SFXUpdated -= OnSFXUpdated;
-            _settingsScreens[i].MusicUpdated -= OnMusicUpdated;
-            _settingsScreens[i].BackButtonClicked -= OnBackButtonClicked;
-        }
-    }
-
 
     private void Load()
     {
-        _sensetivity = YandexGame.savesData.Sensetivity;
-        _sfx = YandexGame.savesData.SFX;
-        _music = YandexGame.savesData.Music;
-
-        for (int i = 0; i < _settingsScreens.Count; i++)
-            SetSettingsData(_settingsScreens[i]);
+        _currentSensetivity = YandexGame.savesData.Sensetivity;
+        _currentSFX = YandexGame.savesData.SFX;
+        _currentMusic = YandexGame.savesData.Music;
     }
 
-    private void Save()
+    public void Save()
     {
+        YandexGame.savesData.Sensetivity = _currentSensetivity;
+        YandexGame.savesData.Music = _currentMusic;
+        YandexGame.savesData.SFX = _currentSFX;
+        
         YandexGame.SaveProgress();
     }
 
-    private void OnBackButtonClicked()
+    public void OnSensitivityUpdated(float value)
     {
-        Save();
+        SetCurrentValue(ref _currentSensetivity, value);
     }
 
-    private void OnShowed(SettingsScreen screen)
+    public void OnSFXUpdated(float value)
     {
-        SetSettingsData(screen);
+        SetCurrentValue(ref _currentSFX, value);
     }
 
-    private void SetSettingsData(SettingsScreen screen)
+    public void OnMusicUpdated(float value)
     {
-        screen.SensitivitySettings.Init(_sensetivity);
-        screen.VolumeSettings.Init(_sfx, _music);
+        SetCurrentValue(ref _currentMusic, value);
     }
 
-    private void OnSensitivityUpdated(float value)
-    {
-        SetValue(ref _sensetivity, value, ref YandexGame.savesData.Sensetivity);
-    }
-
-    private void OnSFXUpdated(float value)
-    {
-        SetValue(ref _sfx, value, ref YandexGame.savesData.SFX);
-    }
-
-    private void OnMusicUpdated(float value)
-    {
-        SetValue(ref _music, value, ref YandexGame.savesData.Music);
-    }
-
-    private void SetValue(ref float currentValue, float newValue, ref float saverValue)
+    private void SetCurrentValue(ref float currentValue, float newValue)
     {
         if (newValue == currentValue)
             return;
 
         currentValue = newValue;
-        saverValue = currentValue;
     }
 }

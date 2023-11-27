@@ -1,6 +1,7 @@
 using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections.Generic;
 
 public class Shop : MonoBehaviour
@@ -9,34 +10,10 @@ public class Shop : MonoBehaviour
     [SerializeField] private Spec _spec;
     [SerializeField] private List<HealthAdder> _healthAdders;
     [SerializeField] private List<Button> _healthAdderBonusButtons;
-    [SerializeField] private Equipment _equipment;
-
+    
+    private Equipment _equipment;
     private WeaponView[] _weaponViews;
     private EquipmentView[] _equipmentViews;
-
-    private void Awake()
-    {
-        _weaponViews = GetComponentsInChildren<WeaponView>();
-        _equipmentViews = GetComponentsInChildren<EquipmentView>();
-    }
-
-    private void OnEnable()
-    {
-        for (int i = 0; i < _weaponViews.Length; i++)
-            _weaponViews[i].Clicked += OnWeaponViewClicked;
-
-        for (int i = 0; i < _healthAdders.Count; i++)
-            _healthAdders[i].BuyHealthButtonClicked += OnBuyHealthButtonClicked;
-
-        for (int i = 0; i < _healthAdderBonusButtons.Count; i++)
-            _healthAdderBonusButtons[i].onClick.AddListener(OnHealthAdderBonusButtons);
-
-        _equipment.Inited += OnEquipmenInited;
-        _equipment.Equiped += OnEquiped;
-        _spec.EquipButtonClicked += OnEquipButtonClicked;
-        _spec.BuyButtonClicked += OnBuyButtonClicked;
-        _spec.AdsButtonClicked += OnAdsButtonClicked;
-    }
 
     private void OnDisable()
     {
@@ -49,11 +26,41 @@ public class Shop : MonoBehaviour
         for (int i = 0; i < _healthAdderBonusButtons.Count; i++)
             _healthAdderBonusButtons[i].onClick.RemoveListener(OnHealthAdderBonusButtons);
 
-        _equipment.Inited -= OnEquipmenInited;
-        _equipment.Equiped -= OnEquiped;
+        if (_equipment != null)
+        {
+            _equipment.Inited -= OnEquipmentInited;
+            _equipment.WeaponEquiped -= OnEquiped;
+        }
+
         _spec.EquipButtonClicked -= OnEquipButtonClicked;
         _spec.BuyButtonClicked -= OnBuyButtonClicked;
         _spec.AdsButtonClicked -= OnAdsButtonClicked;
+    }
+
+    public void Init(Equipment equipment)
+    {
+        if(equipment == null)
+            throw new ArgumentNullException(nameof(equipment));
+
+        _equipment = equipment;
+        
+        _equipment.Inited += OnEquipmentInited;
+        _equipment.WeaponEquiped += OnEquiped;
+        _spec.EquipButtonClicked += OnEquipButtonClicked;
+        _spec.BuyButtonClicked += OnBuyButtonClicked;
+        _spec.AdsButtonClicked += OnAdsButtonClicked;
+
+        _weaponViews = GetComponentsInChildren<WeaponView>();
+        _equipmentViews = GetComponentsInChildren<EquipmentView>();
+
+        for (int i = 0; i < _weaponViews.Length; i++)
+            _weaponViews[i].Clicked += OnWeaponViewClicked;
+
+        for (int i = 0; i < _healthAdders.Count; i++)
+            _healthAdders[i].BuyHealthButtonClicked += OnBuyHealthButtonClicked;
+
+        for (int i = 0; i < _healthAdderBonusButtons.Count; i++)
+            _healthAdderBonusButtons[i].onClick.AddListener(OnHealthAdderBonusButtons);
     }
 
     public void BuyWeaponForYan(Weapon weapon)
@@ -63,7 +70,7 @@ public class Shop : MonoBehaviour
         MetricaSender.Yan(weapon.Label);
     }
 
-    private void OnEquipmenInited()
+    private void OnEquipmentInited()
     {
         Weapon weapon = _equipment.AutomaticRifle;
 

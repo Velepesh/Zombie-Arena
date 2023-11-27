@@ -7,6 +7,14 @@ public class Wallet
     public delegate void MoneyChangedHandler(int value);
     public event MoneyChangedHandler MoneyChanged;
 
+    public Wallet(int money) 
+    {
+        if (money < 0)
+            throw new ArgumentOutOfRangeException(nameof(money));
+
+        AddMoney(money);
+    }
+
     public void AddMoney(int value)
     {
         if (value < 0)

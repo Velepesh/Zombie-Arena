@@ -35,6 +35,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         /// </summary>
         protected override void Tick()
         {
+            if (equippedWeaponBehaviour == false)
+                return;
+
             //Current Ammunition.
             float current = equippedWeaponBehaviour.GetAmmunitionCurrent();
             //Total Ammunition.

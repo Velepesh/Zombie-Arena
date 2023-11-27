@@ -1,8 +1,8 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using YG;
 
 public class Game : MonoCache
 {
@@ -10,9 +10,9 @@ public class Game : MonoCache
     [SerializeField] private ZombieTargetsCompositeRoot _targets;
     [SerializeField] private ZombieSpawnerCompositeRoot _zombieSpawnerCompositeRoot;
     [SerializeField] private ScoreSetup _scoreSetup;
-    [SerializeField] private LevelCounter _levelCounter;
     [SerializeField] private Timer _timer;
 
+    private LevelCounter _levelCounter;
     private bool _isPaused;
     private bool _isLose;
     private bool _isWin;
@@ -20,6 +20,7 @@ public class Game : MonoCache
     public int TotalScore => _scoreSetup.Score.TotalScore;
     public int DoubleEarnings => TotalScore * 2;
 
+    public event UnityAction Inited;
     public event UnityAction Won;
     public event UnityAction GameStarted;
     public event UnityAction GameOver;
@@ -27,7 +28,6 @@ public class Game : MonoCache
     public event UnityAction Paused;
     public event UnityAction Restarted;
     public event UnityAction Reborned;
-    public event UnityAction<int> Earned;
 
     private void OnEnable()
     {
@@ -39,6 +39,14 @@ public class Game : MonoCache
     {
         _zombieSpawnerCompositeRoot.Ended -= OnZombieEnded;
         _targets.TargetDied -= OnTargetDied;
+    }
+
+    public void Init(LevelCounter levelCounter)
+    {
+        if (levelCounter == null)
+            throw new ArgumentNullException(nameof(levelCounter));
+
+        _levelCounter = levelCounter;
     }
 
     public void StartLevel()
@@ -53,11 +61,6 @@ public class Game : MonoCache
     {
         _isPaused = false;
         Continued?.Invoke();
-    }
-
-    public void Reward()
-    {
-        Earned?.Invoke(TotalScore);
     }
 
     public void NextLevel()

@@ -75,7 +75,7 @@ public class DamageHandler : MonoBehaviour, IDamageable
     private void DestroyHoleEffects()
     {
         for (int i = 0; i < _holeEffects.Count; i++)
-            _holeEffects[i].gameObject.SetActive(false);
+            ObjectEnabler.Disable(_holeEffects[i].gameObject);
     }
 
     private void OnHeadKilled()

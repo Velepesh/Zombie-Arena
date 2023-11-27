@@ -47,7 +47,7 @@ public class CasingPool : ObjectPool
                 throw new NullReferenceException(nameof(casing));
             }
 
-            casingObject.SetActive(true);
+            ObjectEnabler.Enable(casingObject);
 
             return casing;
         }
@@ -58,6 +58,6 @@ public class CasingPool : ObjectPool
     private void OnDisabled(Casing casing)
     {
         _casings.Remove(casing);
-        casing.gameObject.SetActive(false);
+        ObjectEnabler.Disable(casing.gameObject);
     }
 }

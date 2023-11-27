@@ -37,7 +37,7 @@ public class FloatJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         handle.anchorMax = center;
         handle.pivot = center;
         handle.anchoredPosition = Vector2.zero;
-        background.gameObject.SetActive(false);
+        ObjectEnabler.Disable(background.gameObject);
     }
 
     public virtual void OnPointerDown(PointerEventData eventData)
@@ -45,7 +45,7 @@ public class FloatJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         if (eventData.position.x < UnityScreen.width / 2)
         {
             background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
-            background.gameObject.SetActive(true);
+            ObjectEnabler.Enable(background.gameObject);
             OnDrag(eventData);
         }
     }
@@ -84,7 +84,7 @@ public class FloatJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, I
 
     public virtual void OnPointerUp(PointerEventData eventData)
     {
-        background.gameObject.SetActive(false);
+        ObjectEnabler.Disable(background.gameObject);
         input = Vector2.zero;
         HandleInput(input.magnitude, input.normalized);
         OutputPointerEventValue(input);

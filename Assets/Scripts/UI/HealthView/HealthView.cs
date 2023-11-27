@@ -21,17 +21,17 @@ public abstract class HealthView : MonoBehaviour
         _damagedDsuration = Mathf.Clamp(_damagedDsuration, 0f, float.MaxValue);
     }
 
-    protected void Init(IHealth health)
+    protected virtual void Init(IHealth health)
     {
         AssignStartValues(health);
     }
 
     protected void DisableSliders()
     {
-        _slider.gameObject.SetActive(false);
+        ObjectEnabler.Disable(_slider.gameObject);
 
         if(_damagedSlider != null)
-            _damagedSlider.gameObject.SetActive(false);
+            ObjectEnabler.Disable(_damagedSlider.gameObject);
     }
 
     protected void ChangeSliderValue()

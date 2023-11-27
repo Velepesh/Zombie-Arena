@@ -1,14 +1,11 @@
 using InfimaGames.LowPolyShooterPack;
 using System.Collections.Generic;
 using System;
-using UnityEngine;
-using UnityEngine.Events;
+using System.Diagnostics;
 
-public class Equipment : MonoBehaviour
+public class Equipment
 {
-    [SerializeField] private List<Weapon> _weapons = new List<Weapon>();
-
-    private int _countOfInitedWeapons = 0;
+    private IReadOnlyList<Weapon> _weapons = new List<Weapon>();
     private List<Weapon> _equipmentWeapons = new List<Weapon>();
     private Weapon _automaticRifle;
     private Weapon _pistol;
@@ -18,10 +15,30 @@ public class Equipment : MonoBehaviour
 
     public Weapon AutomaticRifle => _automaticRifle;
 
-    public IEnumerable<Weapon> EquipmentWeapons => _equipmentWeapons;
+    public IEnumerable<IReadOnlyWeapon> EquipmentWeapons => _equipmentWeapons;
 
-    public event UnityAction Inited;
-    public event UnityAction<Weapon> Equiped;
+    public event Action Inited;
+    public event Action<Weapon> WeaponEquiped;
+
+    public Equipment(IReadOnlyList<Weapon> weapons)
+    {
+        _weapons = weapons;
+    }
+
+    public void InitWeapons()
+    {
+        for (int i = 0; i < _weapons.Count; i++)
+        {
+            if (_weapons[i].IsEquip == false)
+                continue;
+
+            SetWeapon(_weapons[i]);
+        }
+
+        EquipByBoughtWeapon();
+
+        Inited?.Invoke();
+    }
 
     public void UpdateEquipment(Weapon weapon)
     {
@@ -34,26 +51,6 @@ public class Equipment : MonoBehaviour
         _equipmentWeapons = OrderEquipedWeaponsList();
 
         return _equipmentWeapons;
-    }
-
-    private void OnEnable()
-    {
-        for (int i = 0; i < _weapons.Count; i++)
-            _weapons[i].Inited += OnInited;
-    }
-
-    private void OnDisable()
-    {
-        for (int i = 0; i < _weapons.Count; i++)
-            _weapons[i].Inited -= OnInited;
-    }
-
-    private void OnInited()
-    {
-        _countOfInitedWeapons++;
-
-        if(_countOfInitedWeapons == _weapons.Count)
-            InitWeapons(_weapons);
     }
 
     private List<Weapon> OrderEquipedWeaponsList()
@@ -76,21 +73,6 @@ public class Equipment : MonoBehaviour
             weapons.Add(_sniperRifle);
 
         return weapons;
-    }
-
-    private void InitWeapons(List<Weapon> weapons)
-    {
-        for (int i = 0; i < weapons.Count; i++)
-        {
-            if (weapons[i].IsEquip == false)
-                continue;
-
-            SetWeapon(weapons[i]);
-        }
-
-        EquipByBoughtWeapon();
-
-        Inited?.Invoke();
     }
 
     private void SetWeapon(Weapon weapon)
@@ -124,7 +106,7 @@ public class Equipment : MonoBehaviour
 
         currentWeapon = newWeapon;
         AddToEquipmentList(currentWeapon);
-        Equiped?.Invoke(currentWeapon);
+        WeaponEquiped?.Invoke(currentWeapon);
     }
 
     private void AddToEquipmentList(Weapon weapon)
@@ -174,7 +156,7 @@ public class Equipment : MonoBehaviour
             {
                 _equipmentWeapons.Add(weapon);
                 weapon.Equip();
-                Equiped?.Invoke(weapon);
+                WeaponEquiped?.Invoke(weapon);
                 currentWeapon = weapon;
                 break;
             }

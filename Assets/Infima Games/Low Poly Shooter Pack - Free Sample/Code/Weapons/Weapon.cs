@@ -4,7 +4,7 @@ using InfimaGames.LowPolyShooterPack.Legacy;
 using Plugins.Audio.Utils;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Events;
+using System;
 using UnityEngine.UI;
 
 namespace InfimaGames.LowPolyShooterPack
@@ -12,7 +12,13 @@ namespace InfimaGames.LowPolyShooterPack
     /// <summary>
     /// Weapon. This class handles most of the things that weaponsBehaviour need.
     /// </summary>
-    public class Weapon : WeaponBehaviour
+    public interface IReadOnlyWeapon
+    {
+        bool IsBought { get; }
+        bool IsEquip { get; }
+        bool IsUnlock { get; }
+    }
+    public class Weapon : WeaponBehaviour, IReadOnlyWeapon
     {
         [SerializeField] private WeaponType _type;
         [SerializeField] private bool _isBought;
@@ -172,16 +178,16 @@ namespace InfimaGames.LowPolyShooterPack
         #region Attachment Behaviours
         
         /// <summary>
-        /// Equiped scope Reference.
+        /// WeaponEquiped scope Reference.
         /// </summary>
         private ScopeBehaviour scopeBehaviour;
         
         /// <summary>
-        /// Equiped Magazine Reference.
+        /// WeaponEquiped Magazine Reference.
         /// </summary>
         private MagazineBehaviour magazineBehaviour;
         /// <summary>
-        /// Equiped Muzzle Reference.
+        /// WeaponEquiped Muzzle Reference.
         /// </summary>
         private MuzzleBehaviour muzzleBehaviour;
 
@@ -214,9 +220,9 @@ namespace InfimaGames.LowPolyShooterPack
         public bool IsEquip => _isEquip;
         public bool IsUnlock => _isUnlock;
 
-        public event UnityAction Inited;
-        public event UnityAction<Weapon> Bought;
-        public event UnityAction<Weapon> Equiped;
+        public event Action Inited;
+        public event Action<Weapon> Bought;
+        public event Action<Weapon> Equiped;
         #endregion
 
         #region UNITY
@@ -514,7 +520,7 @@ namespace InfimaGames.LowPolyShooterPack
                 //Determine a random spread value using all of our multipliers.
                 if (timeAfterLastShot < cooldownTime || shotCount > 1)
                 {
-                    spreadValue = Random.insideUnitSphere * (spread * spreadMultiplier);
+                    spreadValue = UnityEngine.Random.insideUnitSphere * (spread * spreadMultiplier);
                     //Remove the forward spread component, since locally this would go inside the object we're shooting!
                     spreadValue.z = 0;
                 }

@@ -1,6 +1,5 @@
 ﻿using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class EquipmentView : ItemView
 {

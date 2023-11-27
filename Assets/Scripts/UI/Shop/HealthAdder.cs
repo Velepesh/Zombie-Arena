@@ -7,7 +7,7 @@ public class HealthAdder : MonoBehaviour
 {
     [SerializeField] private int _startHealth;
     [SerializeField] private string _label;
-    [SerializeField] private Builder _builderCompositeRoot;
+    [SerializeField] private TargetSetup _targetSetup;
     [SerializeField] private int _addedHealth = 10;
     [SerializeField] private int _price;
     [SerializeField] private int _addPrice;
@@ -19,7 +19,7 @@ public class HealthAdder : MonoBehaviour
 
     public string Label => _label;
 
-    public event UnityAction<int> HealthChanged;
+    public event UnityAction<int> HealthAdded;
     public event UnityAction<int> PriceIncreased;
     public event UnityAction<HealthAdder, int> BuyHealthButtonClicked;
 
@@ -32,21 +32,22 @@ public class HealthAdder : MonoBehaviour
 
     private void OnEnable()
     {
-        _builderCompositeRoot.HealthLoaded += OnHealthLoaded;
+        _targetSetup.HealthLoaded += OnHealthLoaded;
         _buyButton.onClick.AddListener(OnBuyHealthButtonClick);
     }
 
     private void OnDisable()
     {
+        _targetSetup.HealthLoaded -= OnHealthLoaded;
         _buyButton.onClick.RemoveListener(OnBuyHealthButtonClick);
 
         if(_health != null)
-            _health.HealthChanged -= OnHealthChanged;
+            _health.HealthChanged -= OnHealthAdded;
     }
 
     public void AddHealth()
     {
-        _builderCompositeRoot.AddHealth(_addedHealth);
+        _targetSetup.AddHealth(_addedHealth);
         IncreasePrice();
         MetricaSender.Reward("health_adder");
     }
@@ -60,9 +61,9 @@ public class HealthAdder : MonoBehaviour
     private void OnHealthLoaded(Health health)
     {
         _health = health;
-        _health.HealthChanged += OnHealthChanged;
+        _health.HealthAdded += OnHealthAdded;
         SetPrice();
-        OnHealthChanged(_health.Value);
+        OnHealthAdded(_health.Value);
     }
 
     private void IncreasePrice()
@@ -71,9 +72,9 @@ public class HealthAdder : MonoBehaviour
         PriceIncreased?.Invoke(_price);
     }
 
-    private void OnHealthChanged(int value)
+    private void OnHealthAdded(int value)
     {
-        HealthChanged?.Invoke(value);
+        HealthAdded?.Invoke(value);
     }
 
     private void OnBuyHealthButtonClick()

@@ -19,11 +19,11 @@ public class GameUICompositeRoot : CompositeRoot
 
     private void DisableCanvas(Canvas canvas)
     {
-        canvas.gameObject.SetActive(false);
+        canvas.enabled = false;
     }
 
     private void EnableCanvas(Canvas canvas)
     {
-        canvas.gameObject.SetActive(true);
+        canvas.enabled = true;
     }
 }

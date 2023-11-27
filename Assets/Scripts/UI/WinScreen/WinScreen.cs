@@ -1,12 +1,11 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using YG;
 
 public class WinScreen : MonoBehaviour
 {
-    [SerializeField] private int _adID;
-    [SerializeField] private Game _game;
+    [SerializeField] private WinReward _winReward;
     [SerializeField] private TMP_Text _doubleEarningsText;
     [SerializeField] private Button _continueButton;
     [SerializeField] private LangYGAdditionalText _additionalText;
@@ -16,42 +15,36 @@ public class WinScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        YandexGame.RewardVideoEvent += OnRewardVideo;
-        _game.Won += OnWon;
+        _winReward.WinRewarded += OnWinRewarded;
+        _winReward.AdRewarded += OnAdRewarded;
         _continueButton.onClick.AddListener(OnContinueButton);
     }
 
     private void OnDisable()
     {
-        YandexGame.RewardVideoEvent -= OnRewardVideo;
-        _game.Won -= OnWon;
+        _winReward.WinRewarded -= OnWinRewarded;
+        _winReward.AdRewarded -= OnAdRewarded;
         _continueButton.onClick.RemoveListener(OnContinueButton);
     }
 
-    private void OnWon()
+    private void OnWinRewarded(Game game)
     {
-        SetRewardInfo();
-        _game.Reward();
+        ShowRewardInfo(game);
     }
 
-    private void SetRewardInfo()
+    private void ShowRewardInfo(Game game)
     {
-        _doubleEarningsText.text = $"{_game.DoubleEarnings} {_dollar}";
-        _additionalText.additionalText = $"{_game.TotalScore}{_dollar} {_rightBracket}";
+        _doubleEarningsText.text = $"{game.DoubleEarnings} {_dollar}";
+        _additionalText.additionalText = $"{game.TotalScore}{_dollar} {_rightBracket}";
+    }
+
+    private void OnAdRewarded()
+    {
+        OnContinueButton();
     }
 
     private void OnContinueButton()
     {
-        _game.NextLevel();
-    }
-
-    private void OnRewardVideo(int id)
-    {
-        if (id == _adID)
-        {
-            _game.Reward();
-            OnContinueButton();
-            MetricaSender.Reward("double_earnings");
-        }
+        _winReward.Game.NextLevel();
     }
 }

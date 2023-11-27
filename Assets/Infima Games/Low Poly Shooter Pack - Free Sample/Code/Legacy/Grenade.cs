@@ -79,7 +79,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
             Explode();
             IdentifyDamageTargets();
 
-            gameObject.SetActive(false);
+            ObjectEnabler.Disable(gameObject);
         }
 
         private void InstantiateExplosion(Vector3 position, Quaternion rotation, bool isLanded)

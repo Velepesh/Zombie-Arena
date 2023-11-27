@@ -28,7 +28,7 @@ namespace InfimaGames.LowPolyShooterPack
         #region FIELDS
         
         /// <summary>
-        /// Equiped Laser.
+        /// WeaponEquiped Laser.
         /// </summary>
         private LaserBehaviour laserBehaviour;
 

@@ -1,38 +1,47 @@
-﻿public class PlayerViewPresenter
+﻿public class PlayerPresenter
 {
     private DamageableHealthView _view;
     private Player _model;
-    private bl_IndicatorManager _indicator;
-    private HudDamageScreen _damageScreen;
+    private DamagePanel _damagePanel;
+    private PlayerSaver _saver;
 
-    public PlayerViewPresenter(DamageableHealthView view, Player model, bl_IndicatorManager indicator, HudDamageScreen damageScreen)
+    public PlayerPresenter(DamageableHealthView view, Player model, PlayerSaver saver, DamagePanel damagePanel)
     {
         _view = view;
         _model = model;
-        _indicator = indicator;
-        _damageScreen = damageScreen;
+        _saver = saver;
+        _damagePanel = damagePanel;
     }
 
     public void Enable()
     {
         _model.Attacked += OnAttacked;
         _model.Health.HealthChanged += OnHealthChanged;
+        _model.Health.HealthAdded += OnHealthAdded;
+        _model.Died += OnDied;
         _view.HealthChanged += OnHealthChanged;
 
         _view.SetIHealth(_model);
-        _indicator.SetPlayer(_model);
+        _damagePanel.Init(_model);
     }
 
     public void Disable()
     {
         _model.Attacked -= OnAttacked;
         _model.Health.HealthChanged -= OnHealthChanged;
+        _model.Health.HealthAdded -= OnHealthAdded;
+        _model.Died -= OnDied;
         _view.HealthChanged -= OnHealthChanged;
     }
 
     private void OnAttacked(Zombie zombie)
     {
-        _indicator.SetIndicator(zombie);
+        _damagePanel.OnAttacked(zombie);
+    }
+
+    private void OnHealthAdded(int health)
+    {
+        _saver.Save(health);
     }
 
     private void OnHealthChanged(int health)
@@ -42,6 +51,11 @@
 
     private void OnHealthChanged(int startHealth, int health)
     {
-        _damageScreen.UpdateDamageScreen(startHealth, health);
+        _damagePanel.OnHealthChanged(startHealth, health);
+    }
+
+    private void OnDied(IDamageable damageable)
+    {
+
     }
 }

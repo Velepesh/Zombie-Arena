@@ -1,43 +1,17 @@
-using UnityEngine;
 using System.Collections.Generic;
 using InfimaGames.LowPolyShooterPack;
 using System;
 using YG;
 
-public class EquipmentSaver : MonoBehaviour
+public class EquipmentSaver
 {
-    [SerializeField] private List<Weapon> _weapons;
+    private IReadOnlyList<Weapon> _weapons;
 
-    public void Start()
+    public EquipmentSaver(IReadOnlyList<Weapon> weapons)
     {
-        if (YandexGame.SDKEnabled)
-            Load();
-    }
+        _weapons = weapons;
 
-    private void OnEnable()
-    {
-        YandexGame.GetDataEvent += Load;
-
-        for (int i = 0; i < _weapons.Count; i++)
-        {
-            Weapon weapon = _weapons[i];
-
-            weapon.Bought += OnBought;
-            weapon.Equiped += OnEquiped;
-        }
-    }
-
-    private void OnDisable()
-    {
-        YandexGame.GetDataEvent -= Load;
-
-        for (int i = 0; i < _weapons.Count; i++)
-        {
-            Weapon weapon = _weapons[i];
-
-            weapon.Bought -= OnBought;
-            weapon.Equiped -= OnEquiped;
-        }
+        Load();
     }
 
     private void Load()
@@ -58,7 +32,7 @@ public class EquipmentSaver : MonoBehaviour
         YandexGame.SaveProgress();
     }
 
-    private void OnBought(Weapon weapon)
+    public void OnBought(Weapon weapon)
     {
         WeaponData weaponData = CheckSavedWeaponData(weapon);
 
@@ -68,7 +42,7 @@ public class EquipmentSaver : MonoBehaviour
         Save();
     }
 
-    private void OnEquiped(Weapon weapon)
+    public void OnEquiped(Weapon weapon)
     {
         if (weapon.IsBought == false)
             return;

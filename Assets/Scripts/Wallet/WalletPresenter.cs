@@ -1,20 +1,18 @@
-
 public class WalletPresenter
 {
     private WalletView _view;
     private Wallet _model;
-    private Game _game;
+    private WalletSaver _saver;
 
-    public WalletPresenter(WalletView view, Wallet model, Game game)
+    public WalletPresenter(WalletView view, Wallet model, WalletSaver saver)
     {
         _view = view;
         _model = model;
-        _game = game;
+        _saver = saver;
     }
 
     public void Enable()
     {
-        _game.Earned += OnEarned;
         _model.MoneyChanged += OnMoneyChanged;
 
         _view.SetWalletValue(_model.Money);
@@ -22,17 +20,12 @@ public class WalletPresenter
 
     public void Disable()
     {
-        _game.Earned -= OnEarned;
         _model.MoneyChanged -= OnMoneyChanged;
     }
      
-    private void OnEarned(int money)
-    {
-        _model.AddMoney(money);
-    }
-
     private void OnMoneyChanged(int value)
     {
         _view.SetWalletValue(value);
+        _saver.OnMoneyChanged(value);
     }
 }

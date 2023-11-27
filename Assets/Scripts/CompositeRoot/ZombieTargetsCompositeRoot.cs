@@ -4,31 +4,33 @@ using UnityEngine.Events;
 
 public class ZombieTargetsCompositeRoot : CompositeRoot
 {
-    [SerializeField] private PlayerCompositeRoot _playerCompositeRoot;
-    [SerializeField] private TwinsCompositeRoot _twinsCompositeRoot;
+    private Player _player;
+    private Twins _twins;
 
     private List<ITarget> _targets = new List<ITarget>();
 
     public event UnityAction TargetDied;
 
-    public Player Player => _playerCompositeRoot.Player;
-    public Twins Twins => _twinsCompositeRoot.Twins;
-
-    private void OnEnable()
-    {
-        _playerCompositeRoot.Died += OnDied;
-        _twinsCompositeRoot.Died += OnDied;
-    }
+    public Player Player => _player;
 
     private void OnDisable()
     {
-        _playerCompositeRoot.Died -= OnDied;
-        _twinsCompositeRoot.Died -= OnDied;
+        if(_player != null)
+            _player.Died -= OnDied;
+
+        if (_twins != null)
+            _twins.Died -= OnDied;
+    }
+
+    public void Init(Player player, Twins twins)
+    {
+        _player = player;
+        _twins = twins;
     }
 
     public override void Compose()
     {
-       InitTargets();
+        InitTargets();
     }
 
     public ITarget GetRandomTarget()
@@ -38,11 +40,14 @@ public class ZombieTargetsCompositeRoot : CompositeRoot
 
     private void InitTargets()
     {
-        _targets.Add(Player);
-        _targets.Add(Twins);
+        _targets.Add(_player);
+        _targets.Add(_twins);
+
+        _player.Died += OnDied;
+        _twins.Died += OnDied;
     }
 
-    private void OnDied()
+    private void OnDied(IDamageable damageable)
     {
         TargetDied?.Invoke();
     }

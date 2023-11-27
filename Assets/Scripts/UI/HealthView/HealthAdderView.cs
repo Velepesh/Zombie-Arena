@@ -9,17 +9,17 @@ public class HealthAdderView : MonoBehaviour
 
     private void OnEnable()
     {
-        _healthAdder.HealthChanged += OnHealthChanged;
+        _healthAdder.HealthAdded += OnHealthAdded;
         _healthAdder.PriceIncreased += OnPriceIncreased;
     }
 
     private void OnDisable()
     {
-        _healthAdder.HealthChanged -= OnHealthChanged;
+        _healthAdder.HealthAdded -= OnHealthAdded;
         _healthAdder.PriceIncreased -= OnPriceIncreased;
     }
 
-    private void OnHealthChanged(int health)
+    private void OnHealthAdded(int health)
     {
         UpdateText(_currentHealthText, health);
     }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 using System;
 
 [Serializable]
@@ -10,7 +9,9 @@ public class Health
     private int _startHealth;
 
     public int Value => _health;
-    public event UnityAction<int> HealthChanged;
+
+    public event Action<int> HealthChanged;
+    public event Action<int> HealthAdded;
 
     public void SetHealth(int value)
     {
@@ -34,7 +35,7 @@ public class Health
 
         _health += value;
         SetStartHealth(value);
-        HealthChanged?.Invoke(_health);
+        HealthAdded?.Invoke(_health);
     }
 
     public void TakeDamage(int damage)

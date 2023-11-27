@@ -32,7 +32,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         {
             //Spawn Interface.
             Instantiate(canvasPrefab);
-            //Spawn Quality VolumeSettings Menu.
+            //Spawn Quality VolumeView Menu.
             Instantiate(qualitySettingsPrefab);
         }
 

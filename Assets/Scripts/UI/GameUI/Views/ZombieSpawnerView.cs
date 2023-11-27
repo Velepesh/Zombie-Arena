@@ -4,32 +4,32 @@ using UnityEngine.Events;
 
 public class ZombieSpawnerView : MonoBehaviour
 {
-    [SerializeField] private ZombieSpawner _zombieSpawner;
     [SerializeField] private TMP_Text _zombiesNumberText;
     [SerializeField] private TMP_Text _currentWaveText;
     [SerializeField] private TMP_Text _totalWavesText;
 
+    private WavesSpawner _zombieSpawner;
     private int _currentZombiesNumber;
     private int _waveNumber;
 
     public event UnityAction<int> WaveSetted;
 
-    private void OnEnable()
-    {
-        _zombieSpawner.Loaded += OnLoaded;
-        _zombieSpawner.WaveSetted += OnWaveSetted;
-        _zombieSpawner.ZombieDied += OnZombieDied;
-    }
-
     private void OnDisable()
     {
-        _zombieSpawner.Loaded -= OnLoaded;
-        _zombieSpawner.WaveSetted -= OnWaveSetted;
-        _zombieSpawner.ZombieDied -= OnZombieDied;
+        if (_zombieSpawner != null)
+        {
+            _zombieSpawner.WaveSetted -= OnWaveSetted;
+            _zombieSpawner.ZombieDied -= OnZombieDied;
+        }
     }
 
-    private void OnLoaded()
+    public void Init(WavesSpawner wavesSpawner)
     {
+        _zombieSpawner = wavesSpawner;
+
+        _zombieSpawner.WaveSetted += OnWaveSetted;
+        _zombieSpawner.ZombieDied += OnZombieDied;
+
         UpdateText(_totalWavesText, _zombieSpawner.WavesCount);
     }
 

@@ -31,7 +31,7 @@ public class bl_IndicatorManager : MonoCache
             _panelIndicator.localEulerAngles = new Vector3(_inclination, 0, 0);
     }
 
-    public void SetPlayer(Player player)
+    public void Init(Player player)
     {
         _player = player;
     }

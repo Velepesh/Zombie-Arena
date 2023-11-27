@@ -1,70 +1,60 @@
 using InfimaGames.LowPolyShooterPack;
+using System;
 using UnityEngine;
 using YG;
 
-public class PlayerCompositeRoot : Builder
+public class PlayerCompositeRoot : CompositeRoot
 {
     [SerializeField] private Player _player;
-    [SerializeField] private PlayerViewSetup _setup;
-    [SerializeField] private Equipment _equipment;
+    [SerializeField] private PlayerSetup _setup;
     [SerializeField] private Inventory _inventory;
-    [SerializeField] private LevelCounter _levelCounter;
     [SerializeField] private Character _character;
-
-    public Player Player => _player;
 
     readonly private int _grenadeIncreaseThresholdByLevel = 5;
 
-    private void Start()
-    {
-        _setup.enabled = false;
+    private LevelCounter _levelCounter;
+    private Equipment _equipment;
 
-        if (YandexGame.SDKEnabled)
-            Load();
-    }
+    public Player Player => _player;
 
-    private void OnEnable()
+    public void Init(LevelCounter levelCounter, Equipment equipment)
     {
-        YandexGame.GetDataEvent += Load;
-        _player.Died += OnPlayerDied;
-    }
+        _levelCounter = levelCounter;
+        _equipment = equipment;
 
-    private void OnDisable()
-    {
-        YandexGame.GetDataEvent -= Load;
-        _player.Died -= OnPlayerDied;
+        _setup.Init(_player);
     }
 
     public override void Compose()
     {
-        _setup.enabled = true;
         _inventory.Init(_equipment.GetEquipedWeapons());
 
         int grenadesCount = (_levelCounter.Level / _grenadeIncreaseThresholdByLevel) + 1;
         _character.SetTotalGrenades(grenadesCount);
     }
+}
 
-    public override Health GetHealth()
+public class PlayerSaver
+{
+    private Player _player;
+
+    public PlayerSaver(Player player)
     {
-        return _player.Health;
-    }
-
-    public override void AddHealth(int value)
-    {
-        _player.Health.AddHealth(value);
-
-        Save();
-    }
-
-    public override void Reborn()
-    {
-        _player.Health.Reborn();
+        _player = player;
+        Load();
     }
 
 
-    private void OnPlayerDied(IDamageable damageable)
+    public void Save(int health)
     {
-        OnDied();
+        if (health <= 0)
+            throw new ArgumentException(nameof(health));
+        
+        if (health == YandexGame.savesData.PlayerHealth)
+            return;
+
+        YandexGame.savesData.PlayerHealth = health;
+        YandexGame.SaveProgress();
     }
 
     private void Load()
@@ -72,15 +62,5 @@ public class PlayerCompositeRoot : Builder
         int health = YandexGame.savesData.PlayerHealth;
 
         _player.Health.SetHealth(health);
-        OnHealthLoaded(_player.Health);
     }
-
-    private void Save()
-    {
-        if (_player.Health.Value == YandexGame.savesData.PlayerHealth)
-            return;
-
-        YandexGame.savesData.PlayerHealth = _player.Health.Value;
-        YandexGame.SaveProgress();
-    } 
 }

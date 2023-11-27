@@ -14,7 +14,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// Plays a one shot of the AudioClip.
         /// </summary>
         /// <param name="clip">Clip to play.</param>
-        /// <param name="settings">Audio VolumeSettings.</param>
+        /// <param name="settings">Audio VolumeView.</param>
         void PlayOneShot(AudioDataProperty clip, AudioSettings settings = default);
 
         /// <summary>

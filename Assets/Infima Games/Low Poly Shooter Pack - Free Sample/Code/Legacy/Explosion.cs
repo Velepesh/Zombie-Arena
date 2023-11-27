@@ -27,12 +27,12 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
         public void EnableBurnMark()
         {
-            _burnMark.gameObject.SetActive(true);
+            ObjectEnabler.Enable(_burnMark.gameObject);
         }
 
         public void DisableBurnMark()
         {
-            _burnMark.gameObject.SetActive(false);
+            ObjectEnabler.Disable(_burnMark.gameObject);
         }
 
         private IEnumerator LightFlash () 
@@ -46,7 +46,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
     	private IEnumerator DestroyTimer () 
         {
     		yield return new WaitForSeconds (_despawnTime);
-    		gameObject.SetActive(false);
-    	}
+            ObjectEnabler.Disable(gameObject);
+        }
     }
 }

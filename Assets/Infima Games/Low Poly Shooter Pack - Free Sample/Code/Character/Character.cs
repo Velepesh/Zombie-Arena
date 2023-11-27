@@ -315,7 +315,7 @@ namespace InfimaGames.LowPolyShooterPack
 			
 			//Hide knife. We do this so we don't see a giant knife stabbing through the character's hands all the time!
 			if (knife != null)
-				knife.gameObject.SetActive(false);
+                ObjectEnabler.Disable(knife.gameObject);
 			
 			//Cache a reference to the holster layer's index.
 			layerHolster = characterAnimator.GetLayerIndex("Layer Holster");

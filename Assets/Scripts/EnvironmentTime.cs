@@ -135,7 +135,7 @@ public class EnvironmentTime : MonoBehaviour
 
     private async void WaitPause(float delayTime)
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(delayTime), ignoreTimeScale: true);
+        await UniTask.Delay(TimeSpan.FromSeconds(delayTime), ignoreTimeScale: false);//хз
         Pause();
     }
 

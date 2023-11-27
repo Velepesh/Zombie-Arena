@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HitMarkers : MonoBehaviour
 {
-    [SerializeField] private ZombieSpawner _spawner;
+    [SerializeField] private WavesSpawner _spawner;
     [SerializeField] private Marker _killMark;
     [SerializeField] private Marker _headshotMark;
     [SerializeField] private Marker _bodyShotMark;
