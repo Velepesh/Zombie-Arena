@@ -1,16 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "Level_", menuName = "Level/Level", order = 51)]
-public class Level : ScriptableObject
+public abstract class Level : ScriptableObject
 {
     [SerializeField] private List<Wave> _waves;
 
-    public int WavesCount => _waves.Count;
+    protected IReadOnlyList<IWave> Waves => _waves;
+
+    public int GetWavesCount(ILevel level)
+    {
+        return level.WavesCount;
+    }
 
     public Wave GetWave(int index)
     {
-        return _waves[index];
+       return _waves[index];
     }
 }

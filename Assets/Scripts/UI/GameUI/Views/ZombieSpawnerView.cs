@@ -1,6 +1,6 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
+using System;
 
 public class ZombieSpawnerView : MonoBehaviour
 {
@@ -8,11 +8,13 @@ public class ZombieSpawnerView : MonoBehaviour
     [SerializeField] private TMP_Text _currentWaveText;
     [SerializeField] private TMP_Text _totalWavesText;
 
-    private WavesSpawner _zombieSpawner;
+    private readonly string _infinitySign = "∞";
+
+    private IZombieSpawner _zombieSpawner;
     private int _currentZombiesNumber;
     private int _waveNumber;
 
-    public event UnityAction<int> WaveSetted;
+    public event Action<int> WaveSetted;
 
     private void OnDisable()
     {
@@ -23,13 +25,16 @@ public class ZombieSpawnerView : MonoBehaviour
         }
     }
 
-    public void Init(WavesSpawner wavesSpawner)
+    public void Init(IZombieSpawner zombieSpawner)
     {
-        _zombieSpawner = wavesSpawner;
+        _zombieSpawner = zombieSpawner;
 
         _zombieSpawner.WaveSetted += OnWaveSetted;
         _zombieSpawner.ZombieDied += OnZombieDied;
+    }
 
+    public void Enable()
+    {
         UpdateText(_totalWavesText, _zombieSpawner.WavesCount);
     }
 
@@ -54,6 +59,17 @@ public class ZombieSpawnerView : MonoBehaviour
 
     private void UpdateText(TMP_Text text, int number)
     {
-        text.text = number.ToString();
+        if(IsInfinity(number))
+            text.text = _infinitySign;
+        else
+            text.text = number.ToString();
+    }
+
+    private bool IsInfinity(int value)
+    {
+        if (value == int.MaxValue)
+            return true;
+
+        return false;
     }
 }

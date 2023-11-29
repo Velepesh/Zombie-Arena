@@ -32,6 +32,8 @@ public class AppStartup : MonoBehaviour
 
     private void Init()
     {
+        bool isMobile = YandexGame.EnvironmentData.isDesktop == false;
+
         _levelCounterSetup.Init();
         LevelCounter levelCounter = _levelCounterSetup.LevelCounter;
 
@@ -49,7 +51,7 @@ public class AppStartup : MonoBehaviour
         _playerCompositeRoot.Init(levelCounter, equipment);
         _twinsCompositeRoot.Init();
         _zombieTargetsCompositeRoot.Init(_playerCompositeRoot.Player, _twinsCompositeRoot.Twins);
-        _zombieSpawnerCompositeRoot.Init(levelCounter);
+        _zombieSpawnerCompositeRoot.Init(levelCounter, _zombieTargetsCompositeRoot, isMobile);
         _winReward.Init(wallet);
         _game.Init(levelCounter);
     }

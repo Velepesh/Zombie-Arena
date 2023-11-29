@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class HitMarkers : MonoBehaviour
 {
-    [SerializeField] private WavesSpawner _spawner;
     [SerializeField] private Marker _killMark;
     [SerializeField] private Marker _headshotMark;
     [SerializeField] private Marker _bodyShotMark;
@@ -11,7 +10,7 @@ public class HitMarkers : MonoBehaviour
     [SerializeField] private float _lineDuration;
     [SerializeField] private float _skullDuration;
 
-    private Zombie _lastHitZombie;
+    private ZombiesSpawner _spawner;
 
     private void OnValidate()
     {
@@ -19,8 +18,10 @@ public class HitMarkers : MonoBehaviour
         _skullDuration = Mathf.Clamp(_skullDuration, 0f, float.MaxValue);
     }
 
-    private void OnEnable()
+    public void Init(ZombiesSpawner spawner)
     {
+        _spawner = spawner;
+
         _spawner.ZombieDied += OnZombieDied;
         _spawner.HeadshotReceived += OnHeadshotReceived;
         _spawner.BodyshotReceived += OnBodyshotReceived;
@@ -28,9 +29,12 @@ public class HitMarkers : MonoBehaviour
 
     private void OnDisable()
     {
-        _spawner.ZombieDied -= OnZombieDied;
-        _spawner.HeadshotReceived -= OnHeadshotReceived;
-        _spawner.BodyshotReceived -= OnBodyshotReceived;
+        if (_spawner != null)
+        {
+            _spawner.ZombieDied -= OnZombieDied;
+            _spawner.HeadshotReceived -= OnHeadshotReceived;
+            _spawner.BodyshotReceived -= OnBodyshotReceived;
+        }
     }
 
     private void OnZombieDied(Zombie zombie)

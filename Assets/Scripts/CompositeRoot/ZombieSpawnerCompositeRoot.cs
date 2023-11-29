@@ -1,43 +1,46 @@
 using UnityEngine;
 using UnityEngine.Events;
-using YG;
 
 public class ZombieSpawnerCompositeRoot : CompositeRoot
 {
-    [SerializeField] private WavesSpawner _zombieSpawner;
+    [SerializeField] private ZombieSpawnersCreator _creator;
     [SerializeField] private ZombieSpawnerView _spawnerView;
+    [SerializeField] private HitMarkers _hitMarkers;
 
+    private ZombiesSpawner _zombieSpawner;
     private LevelCounter _levelCounter;
-
-    public WavesSpawner ZombieSpawner => _zombieSpawner;
+    private ZombieTargetsCompositeRoot _targets;
+    private bool _isMobilePlatform;
 
     public event UnityAction Ended;
 
-    private void OnEnable()
-    {
-        _zombieSpawner.Ended += OnEnded;
-    }
-
     private void OnDisable()
     {
-        _zombieSpawner.Ended -= OnEnded;
-    }
-
-    public void Init(LevelCounter levelCounter)
-    {
-        _levelCounter = levelCounter;
+        if(_zombieSpawner != null)
+            _zombieSpawner.Ended -= OnEnded;
     }
 
     public override void Compose()
     {
-        _zombieSpawner.StartSpawn(_levelCounter);
         _spawnerView.Init(_zombieSpawner);
+        _hitMarkers.Init(_zombieSpawner);
+        _zombieSpawner.StartSpawn();
+        _spawnerView.Enable();
+    }
 
-        if (YandexGame.SDKEnabled == true)
-        {
-            bool isMobile = YandexGame.EnvironmentData.isDesktop == false;
-            _zombieSpawner.SetPlatform(isMobile);
-        }
+    public void Init(LevelCounter levelCounter, ZombieTargetsCompositeRoot targets, bool isMobilePlatform)
+    {
+        _levelCounter = levelCounter;
+        _targets = targets;
+        _isMobilePlatform = isMobilePlatform;
+    }
+
+    public ZombiesSpawner InitSpawner(GameMode gameMode)
+    {
+        _zombieSpawner = _creator.CreateSpawner(gameMode, _levelCounter, _targets, _isMobilePlatform);
+        _zombieSpawner.Ended += OnEnded;
+
+        return _zombieSpawner;
     }
 
     private void OnEnded()

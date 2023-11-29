@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class ObjectPool : MonoCache
 {
-    [SerializeField] private GameObject _container;
+    [SerializeField] private Transform _container;
 
     private List<GameObject> _pool = new List<GameObject>();
     
@@ -12,8 +12,8 @@ public abstract class ObjectPool : MonoCache
 
     protected GameObject SpawnPrefab(GameObject prefab)
     {
-        GameObject spawned = Instantiate(prefab, _container.transform.position, Quaternion.identity);
-        spawned.transform.SetParent(_container.transform);
+        GameObject spawned = Instantiate(prefab, _container.position, Quaternion.identity);
+        spawned.transform.SetParent(_container);
         spawned.SetActive(false);
 
         _pool.Add(spawned);

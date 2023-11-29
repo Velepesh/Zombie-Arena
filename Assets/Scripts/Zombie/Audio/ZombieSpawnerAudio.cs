@@ -1,16 +1,16 @@
 using Plugins.Audio.Utils;
 using UnityEngine;
 
-[RequireComponent(typeof(WavesSpawner))]
+[RequireComponent(typeof(IZombieSpawner))]
 public class ZombieSpawnerAudio : Audio
 {
     [SerializeField] private AudioDataProperty _headKilledAudioClip;
 
-    private WavesSpawner _zombieSpawner;
+    private IZombieSpawner _zombieSpawner;
 
     private void Awake()
     {
-        _zombieSpawner = GetComponent<WavesSpawner>();
+        _zombieSpawner = GetComponent<IZombieSpawner>();
     }
 
     private void OnEnable()

@@ -2,9 +2,9 @@
 {
     private AnimatedScoreView _view;
     private Score _model;
-    private WavesSpawner _zombieSpawner;
+    private ZombiesSpawner _zombieSpawner;
 
-    public ScorePresenter(AnimatedScoreView view, Score model, WavesSpawner zombieSpawner)
+    public ScorePresenter(AnimatedScoreView view, Score model, ZombiesSpawner zombieSpawner)
     {
         _view = view;
         _model = model;

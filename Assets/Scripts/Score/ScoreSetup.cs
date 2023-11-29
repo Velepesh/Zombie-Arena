@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
+using System;
 
 public class ScoreSetup : MonoBehaviour
 {
-    [SerializeField] private WavesSpawner _zombieSpawner;
     [SerializeField] private AnimatedScoreView _view;
 
     private ScorePresenter _presenter;
@@ -11,14 +10,13 @@ public class ScoreSetup : MonoBehaviour
 
     public Score Score => _model;
 
-    private void Awake()
+    public void Init(ZombiesSpawner zombiesSpawner)
     {
-        _model = new Score();
-        _presenter = new ScorePresenter(_view, _model, _zombieSpawner);
-    }
+        if(zombiesSpawner == null)
+            throw new ArgumentNullException(nameof(zombiesSpawner));
 
-    private void OnEnable()
-    {
+        _model = new Score();
+        _presenter = new ScorePresenter(_view, _model, zombiesSpawner);
         _presenter.Enable();
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Wave_", menuName = "Level/Wave", order = 51)]
-public class Wave : ScriptableObject
+public class Wave : ScriptableObject, IWave
 {
     [SerializeField] private List<Zombie> _templates;
     [SerializeField] private int _maxActiveZombieDesktop;
@@ -47,4 +47,10 @@ public class Wave : ScriptableObject
             return _maxActiveZombieDesktop;
         }
     }
+}
+
+public interface IWave
+{
+    public int Count { get; }
+    public float Delay { get; }
 }

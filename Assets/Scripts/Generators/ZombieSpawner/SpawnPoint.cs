@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpawnPoint : MonoBehaviour
+public class SpawnPoint : MonoBehaviour, ISpawnPoint
 {
     private Zombie _zombie;
 
