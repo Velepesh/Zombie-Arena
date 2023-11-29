@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Game : MonoCache
@@ -21,14 +20,14 @@ public class Game : MonoCache
     public int TotalScore => _scoreSetup.Score.TotalScore;
     public int DoubleEarnings => TotalScore * 2;
 
-    public event UnityAction Inited;
-    public event UnityAction Won;
-    public event UnityAction GameStarted;
-    public event UnityAction GameOver;
-    public event UnityAction Continued;
-    public event UnityAction Paused;
-    public event UnityAction Restarted;
-    public event UnityAction Reborned;
+    public event Action Inited;
+    public event Action Won;
+    public event Action GameStarted;
+    public event Action GameOver;
+    public event Action Continued;
+    public event Action Paused;
+    public event Action Restarted;
+    public event Action Reborned;
 
     private void OnEnable()
     {
