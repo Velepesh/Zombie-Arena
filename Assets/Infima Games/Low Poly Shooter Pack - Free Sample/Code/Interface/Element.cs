@@ -12,7 +12,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         #region FIELDS
         
         /// <summary>
-        /// Game Mode Service.
+        /// _game Mode Service.
         /// </summary>
         protected IGameModeService gameModeService;
         
@@ -39,7 +39,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         /// </summary>
         protected virtual void Awake()
         {
-            //Get Game Mode Service. Very useful to get Game Mode references.
+            //Get _game Mode Service. Very useful to get _game Mode references.
             gameModeService = ServiceLocator.Current.Get<IGameModeService>();
             
             //Get Player Character.

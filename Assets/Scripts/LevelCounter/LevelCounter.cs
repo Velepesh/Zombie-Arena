@@ -7,16 +7,16 @@ public class LevelCounter
         if (level <= 0)
             throw new ArgumentException(nameof(level));
 
-        Level = level;
+        Index = level;
     }
 
-    public int Level { get; private set; }
+    public int Index { get; private set; }
 
     public event Action<int> LevelIncreased;
 
     public void IncreaseLevel()
     {
-        Level++;
-        LevelIncreased?.Invoke(Level);
+        Index++;
+        LevelIncreased?.Invoke(Index);
     }
 }

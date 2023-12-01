@@ -103,7 +103,7 @@ public class Auto_Quality_FPS : MonoCache
 					//If fps is below the minimum fps target
 					if(Current_FPS < TargetFPS_min)
 					{
-						//Decreasing Quality Level
+						//Decreasing Quality Highscore
 						QualitySettings.DecreaseLevel(ApplyExpensiveQualityChanges);
 
 						//If the quality has changed
@@ -128,7 +128,7 @@ public class Auto_Quality_FPS : MonoCache
 						//If fps is over the maximum fps target
 						if(Current_FPS > TargetFPS_max)
 						{
-							//Increasing Quality Level
+							//Increasing Quality Highscore
 							QualitySettings.IncreaseLevel(ApplyExpensiveQualityChanges);
 
 							//If the quality has changed

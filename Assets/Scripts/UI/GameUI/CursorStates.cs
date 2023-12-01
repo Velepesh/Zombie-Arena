@@ -8,22 +8,22 @@ public class CursorStates : MonoBehaviour
 
     private void OnEnable()
     {
-        _game.GameStarted += OnGameStarted;
-        _game.Continued += OnContinued;
+        _game.Started += OnGameStarted;
+        _game.Unpaused += OnContinued;
         _game.Paused += OnPaused;
         _game.Won += OnWon;
-        _game.GameOver += OnGameOver;
-        _game.Reborned += OnReborned;
+        _game.Ended += OnGameOver;
+        _game.Continued += OnReborned;
     }
 
     private void OnDisable()
     {
-        _game.GameStarted -= OnGameStarted;
-        _game.Continued -= OnContinued;
+        _game.Started -= OnGameStarted;
+        _game.Unpaused -= OnContinued;
         _game.Paused -= OnPaused;
         _game.Won -= OnWon;
-        _game.GameOver -= OnGameOver;
-        _game.Reborned -= OnReborned;
+        _game.Ended -= OnGameOver;
+        _game.Continued -= OnReborned;
     }
 
     private void Awake()

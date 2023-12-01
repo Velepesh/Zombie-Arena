@@ -278,7 +278,7 @@ namespace InfimaGames.LowPolyShooterPack
         {
             //Get Movement Input!
             Vector2 frameInput = Vector3.ClampMagnitude(playerCharacter.GetInputMovement(), 1.0f);
-            //Calculate local-space direction by using the player's input.
+            //CalculateLoseAward local-space direction by using the player's input.
             var desiredDirection = new Vector3(frameInput.x, 0.0f, frameInput.y);
 
             if (isSliding == false)

@@ -1,7 +1,6 @@
-using InfimaGames.LowPolyShooterPack;
 using System;
+using InfimaGames.LowPolyShooterPack;
 using UnityEngine;
-using YG;
 
 public class PlayerCompositeRoot : CompositeRoot
 {
@@ -10,16 +9,21 @@ public class PlayerCompositeRoot : CompositeRoot
     [SerializeField] private Inventory _inventory;
     [SerializeField] private Character _character;
 
-    readonly private int _grenadeIncreaseThresholdByLevel = 5;
-
-    private LevelCounter _levelCounter;
+    private int _currentLevel;
+    private GameMode _gameMode;
     private Equipment _equipment;
 
     public Player Player => _player;
 
-    public void Init(LevelCounter levelCounter, Equipment equipment)
+    public void Init(int currentLevel, Equipment equipment)
     {
-        _levelCounter = levelCounter;
+        if (currentLevel <= 0)
+            throw new ArgumentException(nameof(currentLevel));
+
+        if (equipment == null)
+            throw new ArgumentNullException(nameof(equipment));
+
+        _currentLevel = currentLevel;
         _equipment = equipment;
 
         _setup.Init(_player);
@@ -29,38 +33,11 @@ public class PlayerCompositeRoot : CompositeRoot
     {
         _inventory.Init(_equipment.GetEquipedWeapons());
 
-        int grenadesCount = (_levelCounter.Level / _grenadeIncreaseThresholdByLevel) + 1;
-        _character.SetTotalGrenades(grenadesCount);
-    }
-}
-
-public class PlayerSaver
-{
-    private Player _player;
-
-    public PlayerSaver(Player player)
-    {
-        _player = player;
-        Load();
+        _character.AddGrenadesByLevel(_currentLevel, _gameMode);
     }
 
-
-    public void Save(int health)
+    public void OnGameModeSelected(GameMode gameMode)
     {
-        if (health <= 0)
-            throw new ArgumentException(nameof(health));
-        
-        if (health == YandexGame.savesData.PlayerHealth)
-            return;
-
-        YandexGame.savesData.PlayerHealth = health;
-        YandexGame.SaveProgress();
-    }
-
-    private void Load()
-    {
-        int health = YandexGame.savesData.PlayerHealth;
-
-        _player.Health.SetHealth(health);
+        _gameMode = gameMode;
     }
 }

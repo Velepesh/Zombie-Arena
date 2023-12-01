@@ -49,7 +49,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
             //Determine if we should update the text's color.
             if (updateColor)
             {
-                //Calculate Color Alpha. Helpful to make the text color change based on count.
+                //CalculateLoseAward Color Alpha. Helpful to make the text color change based on count.
                 float colorAlpha = (current / total) * emptySpeed;
                 //Lerp Color. This makes sure that the text color changes based on count.
                 textMesh.color = Color.Lerp(emptyColor, Color.white, colorAlpha);   

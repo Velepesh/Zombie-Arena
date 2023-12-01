@@ -136,6 +136,9 @@ namespace InfimaGames.LowPolyShooterPack
         #endregion
 
         #region FIELDS
+        readonly private int _defaultGrenadesCount = 5;
+        readonly private int _grenadeIncreaseThresholdByLevel = 5;
+
         private bool _isMobile;
         /// <summary>
         /// True if the character is aiming.
@@ -275,14 +278,14 @@ namespace InfimaGames.LowPolyShooterPack
 		/// Amount of shots fired in succession. We use this value to increase the spread, and also to apply recoil
 		/// </summary>
 		private int shotsFired;
-		#endregion
+        #endregion
 
-		#region UNITY
+        #region UNITY
 
-		/// <summary>
-		/// Awake.
-		/// </summary>
-		protected override void Awake()
+        /// <summary>
+        /// Awake.
+        /// </summary>
+        protected override void Awake()
 		{
 			//Cache the movement behaviour.
 			movementBehaviour = GetComponent<MovementBehaviour>();
@@ -441,16 +444,33 @@ namespace InfimaGames.LowPolyShooterPack
 		public override Camera GetCameraWorld() => cameraWorld;
 
 
-        public override void SetTotalGrenades(int grenadesCount)
+        public override void AddGrenadesByLevel(int currentLevel, GameMode gameMode)
 		{
-			if (grenadesCount > maxGrenadeCount)
-				grenadesCount = maxGrenadeCount;
+			int grenadesCount = 0;
 
-            if (grenadesCount < minGrenadeCount)
-                grenadesCount = minGrenadeCount;
+            if (gameMode == GameMode.Infinite)
+			{
+				grenadesCount = _defaultGrenadesCount;
+			}
+			else
+			{
+				grenadesCount = CalculateGrenades(currentLevel);
+
+				if (grenadesCount > maxGrenadeCount)
+					grenadesCount = maxGrenadeCount;
+
+				if (grenadesCount < minGrenadeCount)
+					grenadesCount = minGrenadeCount;
+			}
 
             grenadeTotal = grenadesCount;
         }
+
+		private int CalculateGrenades(int level)
+		{
+            int grenadesCount = (level / _grenadeIncreaseThresholdByLevel) + 1;
+			return grenadesCount;
+		}
 
         /// <summary>
         /// GetCameraDepth.
@@ -1473,7 +1493,7 @@ namespace InfimaGames.LowPolyShooterPack
 			
 			//Get Camera Transform.
 			Transform cTransform = cameraWorld.transform;
-			//Calculate the throwing location.
+			//CalculateLoseAward the throwing location.
 			Vector3 position = cTransform.position;
 			position += cTransform.forward * grenadeSpawnOffset;
 			//Throw.

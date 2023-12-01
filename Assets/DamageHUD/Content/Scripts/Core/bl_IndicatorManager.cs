@@ -118,13 +118,13 @@ public class bl_IndicatorManager : MonoCache
             //If show distance
             if (indicator.Info.ShowDistance)
             {
-                //Calculate distance from sender
+                //CalculateLoseAward distance from sender
                 float d = Vector3.Distance(indicator.Info.Sender.transform.position, _player.transform.position);
                 indicator.UpdateDistance(d);
             }
             Vector3 forward = _player.transform.forward;
           
-            //Calculate direction 
+            //CalculateLoseAward direction 
             Vector3 rhs = indicator.Info.Direction - _player.transform.position;
             Vector3 offset = indicator.Transform.localEulerAngles;
             //Convert angle into screen space
@@ -132,10 +132,10 @@ public class bl_IndicatorManager : MonoCache
             rhs.Normalize();
             //Get the angle between two positions.
             float angle = Vector3.Angle(rhs, forward);
-            //Calculate the perpendicular of both vectors
+            //CalculateLoseAward the perpendicular of both vectors
             //More information about this calculation: https://unity3d.com/es/learn/tutorials/modules/beginner/scripting/vector-maths-dot-cross-products?playlist=17117
             Vector3 Perpendicular = Vector3.Cross(forward, rhs);
-            //Calculate magnitude between two vectors
+            //CalculateLoseAward magnitude between two vectors
             float dot = -Vector3.Dot(Perpendicular, _player.transform.up);
             //get the horizontal angle in direction of target / sender.
             angle = bl_IndicatorUtils.AngleCircumference(dot, angle);

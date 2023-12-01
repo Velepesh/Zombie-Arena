@@ -80,7 +80,7 @@ namespace InfimaGames.LowPolyShooterPack
 		}
 
 		/// <summary>
-		/// Bolt Animation Ended. This function is called from an Animation Event.
+		/// Bolt Animation ZombiesEnded. This function is called from an Animation Event.
 		/// </summary>
 		private void OnAnimationEndedBolt()
 		{
@@ -89,7 +89,7 @@ namespace InfimaGames.LowPolyShooterPack
 				playerCharacter.AnimationEndedBolt();
 		}
 		/// <summary>
-		/// Reload Animation Ended. This function is called from an Animation Event.
+		/// Reload Animation ZombiesEnded. This function is called from an Animation Event.
 		/// </summary>
 		private void OnAnimationEndedReload()
 		{
@@ -99,7 +99,7 @@ namespace InfimaGames.LowPolyShooterPack
 		}
 
 		/// <summary>
-		/// Grenade Throw Animation Ended. This function is called from an Animation Event.
+		/// Grenade Throw Animation ZombiesEnded. This function is called from an Animation Event.
 		/// </summary>
 		private void OnAnimationEndedGrenadeThrow()
 		{
@@ -108,7 +108,7 @@ namespace InfimaGames.LowPolyShooterPack
 				playerCharacter.AnimationEndedGrenadeThrow();
 		}
 		/// <summary>
-		/// Melee Animation Ended. This function is called from an Animation Event.
+		/// Melee Animation ZombiesEnded. This function is called from an Animation Event.
 		/// </summary>
 		private void OnAnimationEndedMelee()
 		{
@@ -118,7 +118,7 @@ namespace InfimaGames.LowPolyShooterPack
 		}
 
 		/// <summary>
-		/// Inspect Animation Ended. This function is called from an Animation Event.
+		/// Inspect Animation ZombiesEnded. This function is called from an Animation Event.
 		/// </summary>
 		private void OnAnimationEndedInspect()
 		{
@@ -127,7 +127,7 @@ namespace InfimaGames.LowPolyShooterPack
 				playerCharacter.AnimationEndedInspect();
 		}
 		/// <summary>
-		/// Holster Animation Ended. This function is called from an Animation Event.
+		/// Holster Animation ZombiesEnded. This function is called from an Animation Event.
 		/// </summary>
 		private void OnAnimationEndedHolster()
 		{

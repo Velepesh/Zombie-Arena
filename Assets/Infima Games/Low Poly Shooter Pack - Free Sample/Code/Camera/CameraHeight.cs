@@ -55,7 +55,7 @@ namespace InfimaGames.LowPolyShooterPack
                 return;
             }
             
-            //Calculate the height from the top of the character controller at which to place the camera.
+            //CalculateLoseAward the height from the top of the character controller at which to place the camera.
             //We do this in a somewhat lazy way, by just using the default height at which cameras are usually
             //placed.
             float heightTarget = characterController.height * 0.9f;

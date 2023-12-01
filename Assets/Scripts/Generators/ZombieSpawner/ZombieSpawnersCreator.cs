@@ -11,14 +11,14 @@ public class ZombieSpawnersCreator : MonoBehaviour
     private ZombieTargetsCompositeRoot _targets;
     private bool _isMobilePlatform;
 
-    public ZombiesSpawner CreateSpawner(GameMode gameMode, LevelCounter levelCounter, ZombieTargetsCompositeRoot targets, bool isMobilePlatform)
+    public ZombiesSpawner CreateSpawner(GameMode gameMode, int levelIndex, ZombieTargetsCompositeRoot targets, bool isMobilePlatform)
     {
         _targets = targets;
         _isMobilePlatform = isMobilePlatform;
 
         if (gameMode == GameMode.Classic)
         {
-            return InitSpawner(Instantiate(_spawnerPrefab), _levelsHolder.GetClassicLevel(levelCounter), new ClassicWavesSetter());
+            return InitSpawner(Instantiate(_spawnerPrefab), _levelsHolder.GetClassicLevel(levelIndex), new ClassicWavesSetter());
         }
         else if (gameMode == GameMode.Infinite)
         {

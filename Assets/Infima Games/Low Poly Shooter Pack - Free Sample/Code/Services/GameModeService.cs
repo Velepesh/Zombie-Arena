@@ -3,7 +3,7 @@
 namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
-    /// Game Mode Service.
+    /// _game Mode Service.
     /// </summary>
     public class GameModeService : IGameModeService
     {

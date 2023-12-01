@@ -15,6 +15,25 @@ public class Shop : MonoBehaviour
     private WeaponView[] _weaponViews;
     private EquipmentView[] _equipmentViews;
 
+    private void OnEnable()
+    {
+        _weaponViews = GetComponentsInChildren<WeaponView>();
+        _equipmentViews = GetComponentsInChildren<EquipmentView>();
+
+        for (int i = 0; i < _weaponViews.Length; i++)
+            _weaponViews[i].Clicked += OnWeaponViewClicked;
+
+        for (int i = 0; i < _healthAdders.Count; i++)
+            _healthAdders[i].BuyHealthButtonClicked += OnBuyHealthButtonClicked;
+
+        for (int i = 0; i < _healthAdderBonusButtons.Count; i++)
+            _healthAdderBonusButtons[i].onClick.AddListener(OnHealthAdderBonusButtons);
+
+        _spec.EquipButtonClicked += OnEquipButtonClicked;
+        _spec.BuyButtonClicked += OnBuyButtonClicked;
+        _spec.AdsButtonClicked += OnAdsButtonClicked;
+    }
+
     private void OnDisable()
     {
         for (int i = 0; i < _weaponViews.Length; i++)
@@ -46,21 +65,6 @@ public class Shop : MonoBehaviour
         
         _equipment.Inited += OnEquipmentInited;
         _equipment.WeaponEquiped += OnEquiped;
-        _spec.EquipButtonClicked += OnEquipButtonClicked;
-        _spec.BuyButtonClicked += OnBuyButtonClicked;
-        _spec.AdsButtonClicked += OnAdsButtonClicked;
-
-        _weaponViews = GetComponentsInChildren<WeaponView>();
-        _equipmentViews = GetComponentsInChildren<EquipmentView>();
-
-        for (int i = 0; i < _weaponViews.Length; i++)
-            _weaponViews[i].Clicked += OnWeaponViewClicked;
-
-        for (int i = 0; i < _healthAdders.Count; i++)
-            _healthAdders[i].BuyHealthButtonClicked += OnBuyHealthButtonClicked;
-
-        for (int i = 0; i < _healthAdderBonusButtons.Count; i++)
-            _healthAdderBonusButtons[i].onClick.AddListener(OnHealthAdderBonusButtons);
     }
 
     public void BuyWeaponForYan(Weapon weapon)

@@ -3,9 +3,9 @@
     private DamageableHealthView _view;
     private Player _model;
     private DamagePanel _damagePanel;
-    private PlayerSaver _saver;
+    private PlayerHealthSaver _saver;
 
-    public PlayerPresenter(DamageableHealthView view, Player model, PlayerSaver saver, DamagePanel damagePanel)
+    public PlayerPresenter(DamageableHealthView view, Player model, PlayerHealthSaver saver, DamagePanel damagePanel)
     {
         _view = view;
         _model = model;

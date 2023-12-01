@@ -21,6 +21,7 @@ namespace YG
 
         // Ваши сохранения
         public int Level = 1;
+        public int Highscore = 0;
         public int Money = 0;
         public int Score = 0;
         public int PlayerHealth = 100;

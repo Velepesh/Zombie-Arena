@@ -44,7 +44,7 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public abstract bool IsLowered();
 
-        public abstract void SetTotalGrenades(int grenadesCount);
+        public abstract void AddGrenadesByLevel(int grenadesCount, GameMode gameMode);
         /// <summary>
         /// Returns the player character's main camera.
         /// </summary>
@@ -163,29 +163,29 @@ namespace InfimaGames.LowPolyShooterPack
         public abstract void SetActiveMagazine(int active);
         
         /// <summary>
-        /// Bolt Animation Ended.
+        /// Bolt Animation ZombiesEnded.
         /// </summary>
         public abstract void AnimationEndedBolt();
         /// <summary>
-        /// Reload Animation Ended.
+        /// Reload Animation ZombiesEnded.
         /// </summary>
         public abstract void AnimationEndedReload();
 
         /// <summary>
-        /// Grenade Throw Animation Ended.
+        /// Grenade Throw Animation ZombiesEnded.
         /// </summary>
         public abstract void AnimationEndedGrenadeThrow();
         /// <summary>
-        /// Melee Animation Ended.
+        /// Melee Animation ZombiesEnded.
         /// </summary>
         public abstract void AnimationEndedMelee();
 
         /// <summary>
-        /// Inspect Animation Ended.
+        /// Inspect Animation ZombiesEnded.
         /// </summary>
         public abstract void AnimationEndedInspect();
         /// <summary>
-        /// Holster Animation Ended.
+        /// Holster Animation ZombiesEnded.
         /// </summary>
         public abstract void AnimationEndedHolster();
 

@@ -27,6 +27,9 @@ public class ZombieSpawnerView : MonoBehaviour
 
     public void Init(IZombieSpawner zombieSpawner)
     {
+        if(zombieSpawner == null)
+            throw new ArgumentNullException(nameof(zombieSpawner));
+
         _zombieSpawner = zombieSpawner;
 
         _zombieSpawner.WaveSetted += OnWaveSetted;

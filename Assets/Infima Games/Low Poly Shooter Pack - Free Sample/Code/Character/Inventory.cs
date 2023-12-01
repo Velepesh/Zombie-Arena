@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -69,7 +70,6 @@ namespace InfimaGames.LowPolyShooterPack
             _equipped = _equipedWeapons[_equippedIndex];
             //Activate the newly-_equipped weapon.
             _equipped.gameObject.SetActive(true);
-
             //Return.
             return _equipped;
         }

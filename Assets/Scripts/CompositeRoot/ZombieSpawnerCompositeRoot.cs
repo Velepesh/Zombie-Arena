@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Events;
+using System;
 
 public class ZombieSpawnerCompositeRoot : CompositeRoot
 {
@@ -7,44 +7,41 @@ public class ZombieSpawnerCompositeRoot : CompositeRoot
     [SerializeField] private ZombieSpawnerView _spawnerView;
     [SerializeField] private HitMarkers _hitMarkers;
 
-    private ZombiesSpawner _zombieSpawner;
-    private LevelCounter _levelCounter;
-    private ZombieTargetsCompositeRoot _targets;
-    private bool _isMobilePlatform;
+    private ZombiesSpawner _zombiesSpawner;
 
-    public event UnityAction Ended;
+    public event Action ZombiesEnded;
+    public event Action<ZombiesSpawner> SpawnerInited;
 
     private void OnDisable()
     {
-        if(_zombieSpawner != null)
-            _zombieSpawner.Ended -= OnEnded;
+        if(_zombiesSpawner != null)
+            _zombiesSpawner.Ended -= OnZombiesEnded;
     }
 
     public override void Compose()
     {
-        _spawnerView.Init(_zombieSpawner);
-        _hitMarkers.Init(_zombieSpawner);
-        _zombieSpawner.StartSpawn();
+        _spawnerView.Init(_zombiesSpawner);
+        _hitMarkers.Init(_zombiesSpawner);
+        _zombiesSpawner.StartSpawn();
         _spawnerView.Enable();
     }
 
-    public void Init(LevelCounter levelCounter, ZombieTargetsCompositeRoot targets, bool isMobilePlatform)
+    public void Init(GameMode gameMode, int levelIndex, ZombieTargetsCompositeRoot targets, bool isMobilePlatform)
     {
-        _levelCounter = levelCounter;
-        _targets = targets;
-        _isMobilePlatform = isMobilePlatform;
+        if (levelIndex <= 0)
+            throw new ArgumentException(nameof(levelIndex));
+
+        if (targets == null)
+            throw new ArgumentException(nameof(targets));
+
+        _zombiesSpawner = _creator.CreateSpawner(gameMode, levelIndex, targets, isMobilePlatform);
+        _zombiesSpawner.Ended += OnZombiesEnded;
+
+        SpawnerInited?.Invoke(_zombiesSpawner);
     }
 
-    public ZombiesSpawner InitSpawner(GameMode gameMode)
+    private void OnZombiesEnded()
     {
-        _zombieSpawner = _creator.CreateSpawner(gameMode, _levelCounter, _targets, _isMobilePlatform);
-        _zombieSpawner.Ended += OnEnded;
-
-        return _zombieSpawner;
-    }
-
-    private void OnEnded()
-    {
-        Ended?.Invoke();
+        ZombiesEnded?.Invoke();
     }
 }

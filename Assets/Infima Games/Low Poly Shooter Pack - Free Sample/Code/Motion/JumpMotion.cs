@@ -89,7 +89,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Check Grounded.
             if (!movementBehaviour.IsGrounded())
             {
-                //Calculate Air Time.
+                //CalculateLoseAward Air Time.
                 float airTime = Time.time - movementBehaviour.GetLastJumpTime();
 
                 //Check if the air time was caused by a jump.

@@ -15,7 +15,7 @@ public class LevelCounterPresenter
     {
         _model.LevelIncreased += OnLevelIncreased;
 
-        _view.OnLevelIncreased(_model.Level);
+        _view.OnLevelIncreased(_model.Index);
     }
 
     public void Disable()

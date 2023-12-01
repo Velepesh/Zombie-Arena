@@ -1,27 +1,24 @@
 ﻿using UnityEngine;
-using System;
 
 public class ScoreSetup : MonoBehaviour
 {
-    [SerializeField] private AnimatedScoreView _view;
+    [SerializeField] private ScoreView _view;
 
     private ScorePresenter _presenter;
     private Score _model;
 
-    public Score Score => _model;
+    public int TotalScore => _model.TotalScore;
 
-    public void Init(ZombiesSpawner zombiesSpawner)
+    public void Init(ZombiesSpawner spawner)
     {
-        if(zombiesSpawner == null)
-            throw new ArgumentNullException(nameof(zombiesSpawner));
-
         _model = new Score();
-        _presenter = new ScorePresenter(_view, _model, zombiesSpawner);
+        _presenter = new ScorePresenter(_view, _model, spawner);
         _presenter.Enable();
     }
 
     private void OnDisable()
     {
+        Debug.Log("ScoreSetup ON DISABLE");
         _presenter.Disable();
     }
 }

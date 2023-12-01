@@ -17,9 +17,9 @@ public class LevelsHolder : MonoBehaviour
         _maxCircleClassicLevelIndex = Math.Clamp(_maxCircleClassicLevelIndex, _minCircleClassicLevel, _classicLevels.Count - 1);
     }
 
-    public Level GetClassicLevel(LevelCounter levelCounter)
+    public Level GetClassicLevel(int currentLevel)
     {
-        int levelIndex = levelCounter.Level - 1;
+        int levelIndex = currentLevel - 1;
 
         if (levelIndex > _maxCircleClassicLevelIndex)
             levelIndex = _minCircleClassicLevel;

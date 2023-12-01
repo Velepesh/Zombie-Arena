@@ -8,7 +8,6 @@ public class EnvironmentTime : MonoBehaviour
     [SerializeField] private Game _game;
     [SerializeField] private float _delayBeforeGameOver = .1f;
     [SerializeField] private float _delayBeforeWin = .5f;
-    [SerializeField] private RebornButton _rebornButton;
 
     private bool _isAds = false;
     private bool _isPaused = false;
@@ -20,12 +19,12 @@ public class EnvironmentTime : MonoBehaviour
     {
         AppFocusHandle.OnFocus += Focus;
         AppFocusHandle.OnUnfocus += UnFocus;
-        _rebornButton.RebornButtonClicked += OnRebornButtonClicked;
-        _game.GameStarted += OnGameStarted;
-        _game.Continued += OnContinued;
         _game.Reborned += OnReborned;
+        _game.Started += OnGameStarted;
+        _game.Unpaused += OnUnpaused;
+        _game.Continued += OnContinued;
         _game.Won += OnWon;
-        _game.GameOver += OnGameOver;
+        _game.Ended += OnGameOver;
         _game.Paused += OnPaused;
     }
 
@@ -33,12 +32,12 @@ public class EnvironmentTime : MonoBehaviour
     {
         AppFocusHandle.OnFocus -= Focus;
         AppFocusHandle.OnUnfocus -= UnFocus;
-        _rebornButton.RebornButtonClicked -= OnRebornButtonClicked;
-        _game.GameStarted -= OnGameStarted;
-        _game.Continued -= OnContinued;
         _game.Reborned -= OnReborned;
+        _game.Started -= OnGameStarted;
+        _game.Unpaused -= OnUnpaused;
+        _game.Continued -= OnContinued;
         _game.Won -= OnWon;
-        _game.GameOver -= OnGameOver;
+        _game.Ended -= OnGameOver;
         _game.Paused -= OnPaused;
     }
 
@@ -101,7 +100,7 @@ public class EnvironmentTime : MonoBehaviour
         Pause();
     }
 
-    private void OnContinued()
+    private void OnUnpaused()
     {
         _isPaused = false;
         Unpause();
@@ -118,7 +117,7 @@ public class EnvironmentTime : MonoBehaviour
         Pause();
     }
 
-    private void OnRebornButtonClicked()
+    private void OnReborned()
     {
         _isReborningAds = true;
     }
@@ -135,11 +134,11 @@ public class EnvironmentTime : MonoBehaviour
 
     private async void WaitPause(float delayTime)
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(delayTime), ignoreTimeScale: false);//хз
+        await UniTask.Delay(TimeSpan.FromSeconds(delayTime), ignoreTimeScale: true);
         Pause();
     }
 
-    private void OnReborned()
+    private void OnContinued()
     {
         _isReborningAds = false;
         CloseAdsUnpause();

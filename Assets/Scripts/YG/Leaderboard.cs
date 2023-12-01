@@ -23,7 +23,7 @@ public class Leaderboard : MonoBehaviour
 
     private void OnWon()
     {
-        _currentScore = YandexGame.savesData.Score + _scoreSetup.Score.TotalScore;
+        _currentScore = YandexGame.savesData.Score + _scoreSetup.TotalScore;
         YandexGame.NewLeaderboardScores(_nameLB, _currentScore);
 
         Save();

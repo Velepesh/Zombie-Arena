@@ -21,7 +21,6 @@ public class ZombiesSpawner : ObjectPool, IZombieSpawner
     private IWaveSetter _waveSetter;
     private int _wavesCount;
 
-    //public int WavesCount => _currentLevel.WavesCount;
     public int WavesCount => _wavesCount;
     public int ZombiesNumberInWave => _currentWave.Count;
 

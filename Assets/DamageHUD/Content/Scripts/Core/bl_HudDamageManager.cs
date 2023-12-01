@@ -59,7 +59,7 @@ public class bl_HudDamageManager : MonoBehaviour {
 
     void OnDamage(int health)
     {
-        //Calculate the diference in health for apply to the alpha.
+        //CalculateLoseAward the diference in health for apply to the alpha.
         //Alpha = (_player.Health.StartValue - health) / 100;
         //Ensure that alpha is never less than the minimum allowed
         Alpha = Mathf.Clamp(Alpha, MinAlpha, 1);

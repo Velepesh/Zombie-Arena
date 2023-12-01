@@ -4,7 +4,6 @@ using System;
 public abstract class TargetSetup : MonoBehaviour
 {
     public abstract void AddHealth(int value);
-    public abstract void Reborn();
 
     public event Action<Health> HealthLoaded;
 

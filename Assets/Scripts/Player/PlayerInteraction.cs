@@ -28,24 +28,22 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnEnable()
     {
-        _game.GameStarted += OnGameStarted;
-        _game.Restarted += OnRestarted;
+        _game.Started += OnGameStarted;
         _game.Won += OnWon;
-        _game.GameOver += OnGameOver;
+        _game.Ended += OnGameOver;
         _game.Paused += OnPaused;
-        _game.Continued += OnContinued;
-        _game.Reborned += OnReborned;
+        _game.Unpaused += OnContinued;
+        _game.Continued += OnContunued;
     }
 
     private void OnDisable()
     {
-        _game.GameStarted -= OnGameStarted;
-        _game.Restarted -= OnRestarted;
+        _game.Started -= OnGameStarted;
         _game.Won -= OnWon;
-        _game.GameOver -= OnGameOver;
+        _game.Ended -= OnGameOver;
         _game.Paused -= OnPaused;
-        _game.Continued -= OnContinued;
-        _game.Reborned -= OnReborned;
+        _game.Unpaused -= OnContinued;
+        _game.Continued -= OnContunued;
     }
 
     public void OnRestart(InputAction.CallbackContext context)
@@ -74,11 +72,6 @@ public class PlayerInteraction : MonoBehaviour
         Deactivate();
     }
 
-    private void OnRestarted()
-    {
-        Deactivate();
-    }
-
     private void OnPaused()
     {
         Deactivate();
@@ -89,7 +82,7 @@ public class PlayerInteraction : MonoBehaviour
         Activate();
     }
 
-    private void OnReborned()
+    private void OnContunued()
     {
         Activate();
     }

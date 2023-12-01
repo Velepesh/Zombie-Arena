@@ -6,6 +6,8 @@ public class GameModeSelector : MonoBehaviour
 {
     [SerializeField, NotNull] private List<ModeButton> _modeButtons;
 
+    public GameMode Mode { get; private set; }
+
     public event Action<GameMode> Selected;
 
     private void OnEnable()
@@ -22,6 +24,7 @@ public class GameModeSelector : MonoBehaviour
 
     private void OnModeButtonClicked(GameMode gameMode)
     {
+        Mode = gameMode;
         Selected?.Invoke(gameMode);
     }
 }

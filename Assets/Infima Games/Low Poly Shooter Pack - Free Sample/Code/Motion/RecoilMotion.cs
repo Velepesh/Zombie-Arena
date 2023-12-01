@@ -140,7 +140,7 @@ namespace InfimaGames.LowPolyShooterPack
                 if (recoilCurves.LocationCurves.Length == 3)
                 {
                     /*
-                    * Calculate the final recoil location by evaluating the recoil curve at the correct time.
+                    * CalculateLoseAward the final recoil location by evaluating the recoil curve at the correct time.
                     * The correct time in this case is always the amount of shots that we have just fired, so the recoil
                     * curves are built to be based on specific ammo counts. Just something to take into account.
                    */
@@ -152,7 +152,7 @@ namespace InfimaGames.LowPolyShooterPack
                 //We need three curves for things to work properly.
                 if(recoilCurves.RotationCurves.Length == 3)
                 {
-                    //Calculate the final recoil rotation by evaluating the recoil curve at the correct time.
+                    //CalculateLoseAward the final recoil rotation by evaluating the recoil curve at the correct time.
                     recoilRotation.x = recoilCurves.RotationCurves[0].Evaluate(shotsFired);
                     recoilRotation.y = recoilCurves.RotationCurves[1].Evaluate(shotsFired);
                     recoilRotation.z = recoilCurves.RotationCurves[2].Evaluate(shotsFired);

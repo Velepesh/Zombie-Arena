@@ -5,61 +5,45 @@ using UnityEngine.InputSystem;
 
 public class Game : MonoCache
 {
-    [SerializeField] private GameModeSelector _selector;
-    [SerializeField] private CompositionOrder _order;
-    [SerializeField] private ZombieTargetsCompositeRoot _targets;
-    [SerializeField] private ZombieSpawnerCompositeRoot _zombieSpawnerCompositeRoot;
-    [SerializeField] private ScoreSetup _scoreSetup;
     [SerializeField] private Timer _timer;
 
-    private LevelCounter _levelCounter;
+    private int _currentLevel;
     private bool _isPaused;
     private bool _isLose;
     private bool _isWin;
-
-    public int TotalScore => _scoreSetup.Score.TotalScore;
-    public int DoubleEarnings => TotalScore * 2;
+    private bool _canReborn = true;
+    private GameMode _gameMode;
 
     public event Action Inited;
     public event Action Won;
-    public event Action GameStarted;
-    public event Action GameOver;
-    public event Action Continued;
+    public event Action Started;
+    public event Action Ended;
+    public event Action Unpaused;
     public event Action Paused;
     public event Action Restarted;
+    public event Action Continued;
+    public event Action GameOver;
+    public event Action FirstLoss;
+    public event Action InfinityGameEnded;
     public event Action Reborned;
 
-    private void OnEnable()
+    public void Init(int currentLevel)
     {
-        _selector.Selected += OnGameModeSelected;
-        _zombieSpawnerCompositeRoot.Ended += OnZombieEnded;
-        _targets.TargetDied += OnTargetDied;
+        if (currentLevel <= 0)
+            throw new ArgumentException(nameof(currentLevel));
+        
+        _currentLevel = currentLevel;
     }
 
-    private void OnDisable()
-    {
-        _selector.Selected -= OnGameModeSelected;
-        _zombieSpawnerCompositeRoot.Ended -= OnZombieEnded;
-        _targets.TargetDied -= OnTargetDied;
-    }
-
-    public void Init(LevelCounter levelCounter)
-    {
-        if (levelCounter == null)
-            throw new ArgumentNullException(nameof(levelCounter));
-
-        _levelCounter = levelCounter;
-    }
-
-    public void Continue()
+    public void Unpause()
     {
         _isPaused = false;
-        Continued?.Invoke();
+        Unpaused?.Invoke();
     }
 
     public void NextLevel()
     {
-        EndLevel();
+        Restart();
     }
 
     public void OnTryPause(InputAction.CallbackContext context)
@@ -74,11 +58,11 @@ public class Game : MonoCache
     public void Restart()
     {
         if(_isLose)
-            MetricaSender.Fail(_levelCounter.Level, _timer.SpentTime);
+            MetricaSender.Fail(_currentLevel, _timer.SpentTime);
         else if(_isWin)
-            MetricaSender.LevelComplete(_levelCounter.Level, _timer.SpentTime);
+            MetricaSender.LevelComplete(_currentLevel, _timer.SpentTime);
         else
-            MetricaSender.Restart(_levelCounter.Level);
+            MetricaSender.Restart(_currentLevel);
 
         DOTween.Clear(true);       
         Restarted?.Invoke();
@@ -86,53 +70,54 @@ public class Game : MonoCache
 
     public void Reborn()
     {
-        _isLose = false;
-        _timer.StopTimer();
         Reborned?.Invoke();
     }
 
-    private void OnGameModeSelected(GameMode gameMode)
+    public void ContunueAfterReborn()
     {
-        StartLevel(gameMode);
-    }
-
-    private void StartLevel(GameMode gameMode)
-    {
-        ZombiesSpawner zombiesSpawner = _zombieSpawnerCompositeRoot.InitSpawner(gameMode);
-        _scoreSetup.Init(zombiesSpawner);
-        _order.Compose();
+        _isLose = false;
         _timer.StartTimer();
-        GameStarted?.Invoke();
-        MetricaSender.LevelStart(_levelCounter.Level);
+        Continued?.Invoke();
     }
 
-    private void OnZombieEnded()
+    public void StartLevel(GameMode gameMode)
     {
-        Win();
+        _gameMode = gameMode;
+        _timer.StartTimer();
+        Started?.Invoke();
+        MetricaSender.LevelStart(_currentLevel);
     }
 
-    private void EndLevel()
-    {
-        Restart();
-    }
-
-    private void Win()
+    public void Win()
     {
         _isWin = true;
         _timer.StopTimer();
-        _levelCounter.IncreaseLevel();
         Won?.Invoke();
     }
 
-    private void OnTargetDied()
-    {
-        Lose();
-    }
 
-    private void Lose()
+    public void End()
     {
         _timer.StopTimer();
         _isLose = true;
-        GameOver?.Invoke();
+
+        Ended?.Invoke();
+        OfferToReborn();
+
+        if (_gameMode == GameMode.Infinite)
+            InfinityGameEnded?.Invoke();
+    }
+
+    private void OfferToReborn()
+    {
+        if (_canReborn)
+        {
+            FirstLoss?.Invoke();
+            _canReborn = false;
+        }
+        else
+        {
+            GameOver?.Invoke();
+        }
     }
 }

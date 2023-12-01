@@ -3,7 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class AnimatedScoreView : MonoBehaviour
+public class ScoreView : MonoBehaviour
 {
     [SerializeField] private float _startAppeareDuration;
     [SerializeField] private float _waitBeforeMoveDuration;
@@ -14,7 +14,6 @@ public class AnimatedScoreView : MonoBehaviour
     [SerializeField] private TMP_Text _totalScoreText;
     [SerializeField] private Canvas _copyOfMainCanvas;
     [SerializeField] private CanvasGroup _canvasGroup;
-
 
     private void OnValidate()
     {

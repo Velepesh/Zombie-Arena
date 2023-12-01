@@ -11,7 +11,7 @@ public class LoadingScreen : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        DontDestroyOnLoad(this);
+       // DontDestroyOnLoad(this);
     }
 
     public async void Load()
