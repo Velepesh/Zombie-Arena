@@ -4,7 +4,6 @@ using UnityEngine;
 public class WrenchSound : Audio
 {
     [SerializeField] private Wrench _wrench;
-    [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioDataProperty _attackClip;
     [SerializeField] private AudioDataProperty _hitClip;
 

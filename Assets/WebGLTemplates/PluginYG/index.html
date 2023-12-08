@@ -289,13 +289,13 @@
     //}
 
     // Пикселизируем экран на телефоне и пк
-if('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-  // Телефон
-  config.devicePixelRatio = 1.35;
-} else {
-  // ПК
-  config.devicePixelRatio = 1.8;
-}
+    if('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    // Телефон
+        config.devicePixelRatio = 1.3;
+    } else {
+    // ПК
+         config.devicePixelRatio = 1.8;
+    }
 
     var backgroundUnity = "url('" + buildUrl + "/{{{ BACKGROUND_FILENAME.replace(/'/g, '%27') }}}') center / cover";
     canvas.style.background = "url('background.png') center / cover";

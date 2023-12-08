@@ -89,9 +89,9 @@ namespace InfimaGames.LowPolyShooterPack
 
             //Frame Input. The Input to add this frame!
             Vector2 frameInput = playerCharacter.GetInputLook();
+
             //Sensitivity.
             frameInput *= _sensitivity.SensitivityVector;
-
             //Yaw.
             Quaternion rotationYaw = Quaternion.Euler(0.0f, frameInput.x, 0.0f);
             //Pitch.
@@ -121,11 +121,11 @@ namespace InfimaGames.LowPolyShooterPack
                 localRotation *= rotationPitch;
                 //Clamp.
                 localRotation = Clamp(localRotation);
-
+             
                 //Rotate character.
                 playerCharacter.transform.rotation *= rotationYaw;
             }
-            
+
             //Set.
             transform.localRotation = localRotation;
         }

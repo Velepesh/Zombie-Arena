@@ -76,7 +76,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Null Check.
             if(prefabFlashParticles != null)
             {
-                //Instantiate Particles.
+                //InstantiateZombiesSpawner Particles.
                 GameObject spawnedParticlesPrefab = Instantiate(prefabFlashParticles, socket);
                 //Reset the position.
                 spawnedParticlesPrefab.transform.localPosition = default;
@@ -90,7 +90,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Null Check.
             if (prefabFlashLight)
             {
-                //Instantiate.
+                //InstantiateZombiesSpawner.
                 GameObject spawnedFlashLightPrefab = Instantiate(prefabFlashLight, socket);
                 //Reset the position.
                 spawnedFlashLightPrefab.transform.localPosition = flashLightOffset;

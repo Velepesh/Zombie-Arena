@@ -18,7 +18,7 @@ public class ScoreSetup : MonoBehaviour
 
     private void OnDisable()
     {
-        Debug.Log("ScoreSetup ON DISABLE");
-        _presenter.Disable();
+        if(_presenter != null)
+            _presenter.Disable();
     }
 }

@@ -24,7 +24,7 @@ public class EnvironmentTime : MonoBehaviour
         _game.Unpaused += OnUnpaused;
         _game.Continued += OnContinued;
         _game.Won += OnWon;
-        _game.Ended += OnGameOver;
+        _game.Ended += OnEnded;
         _game.Paused += OnPaused;
     }
 
@@ -37,7 +37,7 @@ public class EnvironmentTime : MonoBehaviour
         _game.Unpaused -= OnUnpaused;
         _game.Continued -= OnContinued;
         _game.Won -= OnWon;
-        _game.Ended -= OnGameOver;
+        _game.Ended -= OnEnded;
         _game.Paused -= OnPaused;
     }
 
@@ -122,7 +122,7 @@ public class EnvironmentTime : MonoBehaviour
         _isReborningAds = true;
     }
 
-    private void OnGameOver()
+    private void OnEnded()
     {
         WaitPause(_delayBeforeGameOver);
     }

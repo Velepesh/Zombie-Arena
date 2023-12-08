@@ -38,6 +38,20 @@ public class Health
         HealthAdded?.Invoke(_health);
     }
 
+    public void ReplenishHealth(int value)
+    {
+        if (value < 0)
+            throw new ArgumentException(nameof(value));
+
+        int targetHealth = _health + value;
+
+        if (targetHealth > _startHealth)
+            targetHealth = _startHealth;
+
+        _health = targetHealth;
+        HealthChanged?.Invoke(_health);
+    }
+
     public void TakeDamage(int damage)
     {
         if (damage < 0)

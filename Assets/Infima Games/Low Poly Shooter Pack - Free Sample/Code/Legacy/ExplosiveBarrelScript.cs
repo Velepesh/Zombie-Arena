@@ -93,7 +93,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
     		RaycastHit checkGround;
     		if (Physics.Raycast(transform.position, Vector3.down, out checkGround, 50))
     		{
-    			//Instantiate explosion prefab at hit position
+    			//InstantiateZombiesSpawner explosion prefab at hit position
     			Instantiate (explosionPrefab, checkGround.point, 
     				Quaternion.FromToRotation (Vector3.forward, checkGround.normal)); 
     		}

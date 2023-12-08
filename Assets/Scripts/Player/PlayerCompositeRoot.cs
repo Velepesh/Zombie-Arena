@@ -15,7 +15,7 @@ public class PlayerCompositeRoot : CompositeRoot
 
     public Player Player => _player;
 
-    public void Init(int currentLevel, Equipment equipment)
+    public void Init(int currentLevel, Equipment equipment, bool isMobile)
     {
         if (currentLevel <= 0)
             throw new ArgumentException(nameof(currentLevel));
@@ -27,6 +27,7 @@ public class PlayerCompositeRoot : CompositeRoot
         _equipment = equipment;
 
         _setup.Init(_player);
+        _character.SetPlatform(isMobile);
     }
 
     public override void Compose()

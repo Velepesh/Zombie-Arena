@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class HighscorePresenter : MonoBehaviour
+public class HighscorePresenter
 {
     private HighscoreView _view;
     private Highscore _model;
@@ -17,7 +15,7 @@ public class HighscorePresenter : MonoBehaviour
     {
         _model.Recorded += OnRecorded;
 
-        _view.ShowRecorded(_model.Value);
+        UpdateView(_model.Value);
     }
 
     public void Disable()
@@ -25,10 +23,15 @@ public class HighscorePresenter : MonoBehaviour
         _model.Recorded -= OnRecorded;
     }
 
-
     private void OnRecorded(int highscore)
     {
-        _view.ShowRecorded(highscore);
+        UpdateView(highscore);
         _saver.OnRecorded(highscore);
+    }
+
+    private void UpdateView(int highscore)
+    {
+        _view.ShowRecorded(highscore);
+        _view.SetMedalIcon(_model);
     }
 }

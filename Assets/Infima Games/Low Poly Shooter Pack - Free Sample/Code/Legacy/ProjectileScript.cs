@@ -165,7 +165,7 @@ namespace InfimaGames.LowPolyShooterPack.Legacy
 
 			StartCoroutine(DestroyTimerAfterCollision());
 
-			//Instantiate explosion prefab at collision position
+			//InstantiateZombiesSpawner explosion prefab at collision position
 			Instantiate(explosionPrefab, collision.contacts[0].point,
 				Quaternion.LookRotation(collision.contacts[0].normal));
 

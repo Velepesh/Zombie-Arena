@@ -23,7 +23,7 @@ namespace InfimaGames.LowPolyShooterPack
             
             #region Sound Manager Service
 
-            //CreateSpawner an object for the sound manager, and add the component!
+            //CreateZombieSpawner an object for the sound manager, and add the component!
             var soundManagerObject = new GameObject("Sound Manager");
             var soundManagerService = soundManagerObject.AddComponent<AudioManagerService>();
             

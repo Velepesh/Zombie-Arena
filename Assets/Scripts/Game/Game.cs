@@ -1,18 +1,19 @@
 using DG.Tweening;
 using System;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Game : MonoCache
 {
-    [SerializeField] private Timer _timer;
-
     private int _currentLevel;
     private bool _isPaused;
     private bool _isLose;
     private bool _isWin;
     private bool _canReborn = true;
     private GameMode _gameMode;
+
+    public int CurrentLevel => _currentLevel;
+    public bool IsLose => _isLose;
+    public bool IsWon => _isWin;
 
     public event Action Inited;
     public event Action Won;
@@ -57,13 +58,6 @@ public class Game : MonoCache
 
     public void Restart()
     {
-        if(_isLose)
-            MetricaSender.Fail(_currentLevel, _timer.SpentTime);
-        else if(_isWin)
-            MetricaSender.LevelComplete(_currentLevel, _timer.SpentTime);
-        else
-            MetricaSender.Restart(_currentLevel);
-
         DOTween.Clear(true);       
         Restarted?.Invoke();
     }
@@ -76,32 +70,30 @@ public class Game : MonoCache
     public void ContunueAfterReborn()
     {
         _isLose = false;
-        _timer.StartTimer();
         Continued?.Invoke();
     }
 
     public void StartLevel(GameMode gameMode)
     {
         _gameMode = gameMode;
-        _timer.StartTimer();
         Started?.Invoke();
-        MetricaSender.LevelStart(_currentLevel);
     }
 
     public void Win()
     {
         _isWin = true;
-        _timer.StopTimer();
         Won?.Invoke();
     }
 
 
     public void End()
     {
-        _timer.StopTimer();
-        _isLose = true;
+        if (_isLose == true)
+            return;
 
+        _isLose = true;
         Ended?.Invoke();
+        
         OfferToReborn();
 
         if (_gameMode == GameMode.Infinite)

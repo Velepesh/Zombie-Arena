@@ -116,7 +116,7 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         /// </summary>
         private void Hide()
         {
-            //Disabled.
+            //PickedUp.
            // menuIsEnabled = false;
 
             //Play Clip.

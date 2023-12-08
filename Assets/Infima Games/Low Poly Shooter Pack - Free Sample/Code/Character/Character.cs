@@ -136,8 +136,8 @@ namespace InfimaGames.LowPolyShooterPack
         #endregion
 
         #region FIELDS
-        readonly private int _defaultGrenadesCount = 5;
-        readonly private int _grenadeIncreaseThresholdByLevel = 5;
+        readonly private int _defaultGrenadesCount = 3;
+        readonly private int _grenadeIncreaseThresholdByLevel = 3;
 
         private bool _isMobile;
         /// <summary>
@@ -326,20 +326,6 @@ namespace InfimaGames.LowPolyShooterPack
 			layerActions = characterAnimator.GetLayerIndex("Layer Actions");
 			//Cache a reference to the overlay layer's index.
 			layerOverlay = characterAnimator.GetLayerIndex("Layer Overlay");
-
-            if (YandexGame.SDKEnabled == true)
-			{
-                if (YandexGame.EnvironmentData.isDesktop)
-                {
-                    holdToAim = true;
-                    _isMobile = false;
-                }
-                else
-                {
-                    holdToAim = false;
-                    _isMobile = true;
-                }
-            }
         }
 
 		/// <summary>
@@ -423,7 +409,18 @@ namespace InfimaGames.LowPolyShooterPack
 		/// <summary>
 		/// GetShotsFired.
 		/// </summary>
-		public override int GetShotsFired() => shotsFired;
+		/// 
+		public void SetPlatform(bool isMobile)
+		{
+			_isMobile = isMobile;
+
+            if (_isMobile)
+                holdToAim = false;
+            else
+                holdToAim = true;
+        }
+
+        public override int GetShotsFired() => shotsFired;
 
 		/// <summary>
 		/// IsLowered.
@@ -443,6 +440,10 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public override Camera GetCameraWorld() => cameraWorld;
 
+        public override void AddGrenade()
+		{
+            grenadeCount++;
+        }
 
         public override void AddGrenadesByLevel(int currentLevel, GameMode gameMode)
 		{
@@ -1407,23 +1408,23 @@ namespace InfimaGames.LowPolyShooterPack
 
         public void OnLook(InputAction.CallbackContext context)
 		{
-            axisLook = context.ReadValue<Vector2>();
+			axisLook = context.ReadValue<Vector2>();
 
-			//Make sure that we have a weapon.
-			if (equippedWeapon == null)
+            //Make sure that we have a weapon.
+            if (equippedWeapon == null)
 				return;
 
 			//Make sure that we have a scope.
 			if (equippedWeaponScope == null)
 				return;
 
-            //If we're aiming, multiply by the mouse sensitivity multiplier of the _equipped weapon's scope!
-            axisLook *= aiming ? equippedWeaponScope.GetMultiplierMouseSensitivity() : 1.0f;
-        }
+			//If we're aiming, multiply by the mouse sensitivity multiplier of the _equipped weapon's scope!
+			axisLook *= aiming ? equippedWeaponScope.GetMultiplierMouseSensitivity() : 1.0f;
+		}
 		public void OnLookMobile(Vector2 direction)
 		{
             axisLook = direction;
-			
+
             //Make sure that we have a weapon.
             if (equippedWeapon == null)
                 return;
@@ -1431,7 +1432,6 @@ namespace InfimaGames.LowPolyShooterPack
             //Make sure that we have a scope.
             if (equippedWeaponScope == null)
                 return;
-
             //If we're aiming, multiply by the mouse sensitivity multiplier of the _equipped weapon's scope!
             axisLook *= aiming ? equippedWeaponScope.GetMultiplierMouseSensitivity() : 1.0f;
         }

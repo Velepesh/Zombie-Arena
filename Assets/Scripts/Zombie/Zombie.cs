@@ -7,7 +7,7 @@ public class Zombie : MonoCache, IDamageable, IHealth, IDie
     [SerializeField] private ZombieOptions _options;
     [SerializeField] private ZombieOptions _mobileOptions;
 
-    private ZombieTargetsCompositeRoot _zombieTargets;
+    private TargetsCompositeRoot _zombieTargets;
     private ITarget _currentTarget;
     private ITarget _mainTarget;
     private Vector3 _contactPosition;
@@ -16,6 +16,7 @@ public class Zombie : MonoCache, IDamageable, IHealth, IDie
     private bool _isAttacking;
     private DamageHandlerType _lastDamageHandlerType;
     private ZombieOptions _currentOptions;
+    private ISpawnPoint _spawnPoint;
 
     public ZombieOptions Options => _currentOptions;
     public bool IsDied => _health.Value <= 0;
@@ -49,9 +50,11 @@ public class Zombie : MonoCache, IDamageable, IHealth, IDie
             _damageHandlers[i].HitTaken -= OnHitTaken;
     }
 
-    public void Init(ZombieTargetsCompositeRoot zombieTargets, bool isMobile)
+    public void Init(TargetsCompositeRoot zombieTargets, bool isMobile, ISpawnPoint spawnPoint)
     {
         _zombieTargets = zombieTargets;
+        _spawnPoint = spawnPoint;
+        _spawnPoint.TakePoint();
         SetOptions(isMobile);
 
         _currentTarget = _zombieTargets.GetRandomTarget();
@@ -65,6 +68,7 @@ public class Zombie : MonoCache, IDamageable, IHealth, IDie
 
     public void EndSpawn()
     {
+        _spawnPoint.ResetPoint();
         Spawned?.Invoke(this);
     }
 
@@ -97,7 +101,8 @@ public class Zombie : MonoCache, IDamageable, IHealth, IDie
             IsHeadKill = true;
             HeadKilled?.Invoke();
         }
-
+        
+        _spawnPoint.ResetPoint();
         Died?.Invoke(this);
     }
 

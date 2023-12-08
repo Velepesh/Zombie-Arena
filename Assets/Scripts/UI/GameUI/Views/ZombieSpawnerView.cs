@@ -41,9 +41,9 @@ public class ZombieSpawnerView : MonoBehaviour
         UpdateText(_totalWavesText, _zombieSpawner.WavesCount);
     }
 
-    private void OnWaveSetted(int index)
+    private void OnWaveSetted()
     {
-        _waveNumber = index + 1;
+        _waveNumber++;
 
         _currentZombiesNumber = _zombieSpawner.ZombiesNumberInWave;
 

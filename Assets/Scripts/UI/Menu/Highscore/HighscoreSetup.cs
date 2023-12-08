@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class HighscoreSetup : MonoBehaviour
 {
+    [SerializeField] private Highscore _model;
     [SerializeField] private HighscoreView _view;
 
     private HighscorePresenter _presenter;
-    private Highscore _model;
     private HighscoreSaver _saver;
 
     public Highscore Model => _model;
@@ -13,12 +13,12 @@ public class HighscoreSetup : MonoBehaviour
     public void Init()
     {
         _saver = new HighscoreSaver();
-        _model = new Highscore(_saver.Highscore);
+        _model.Init(_saver.Highscore);
         _presenter = new HighscorePresenter(_view, _model, _saver);
         _presenter.Enable();
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         _presenter.Disable();
     }

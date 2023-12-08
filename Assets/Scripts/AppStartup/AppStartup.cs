@@ -1,5 +1,5 @@
 using Cysharp.Threading.Tasks;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 using YG;
 
@@ -16,11 +16,13 @@ public class AppStartup : MonoBehaviour
     [SerializeField] private SettingsSetup _settingsSetup;
     [SerializeField] private PlayerCompositeRoot _playerCompositeRoot;
     [SerializeField] private TwinsCompositeRoot _twinsCompositeRoot;
-    [SerializeField] private ZombieTargetsCompositeRoot _zombieTargetsCompositeRoot;
-    [SerializeField] private ZombieSpawnerCompositeRoot _zombieSpawnerCompositeRoot;
+    [SerializeField] private TargetsCompositeRoot _zombieTargetsCompositeRoot;
+    [SerializeField] private SpawnersCompositeRoot _spawnersCompositeRoot;
     [SerializeField] private Reward _reward;
     [SerializeField] private CompositionOrder _order;
     [SerializeField] private RebornSetup _rebornSetup;
+    [SerializeField] private Leaderboard _leaderboard;
+    [SerializeField] private List<ScreenSelector> _screenSelectors;
 
     private bool _isMobilePlatform;
     private LevelCounter _levelCounter;
@@ -42,7 +44,10 @@ public class AppStartup : MonoBehaviour
 
     private void Init()
     {
-        _isMobilePlatform = YandexGame.EnvironmentData.isDesktop == false;
+        _isMobilePlatform = DeviceType.IsMobileBrowser() == true;
+
+        for (int i = 0; i < _screenSelectors.Count; i++)
+            _screenSelectors[i].Init(_isMobilePlatform);
 
         _levelCounterSetup.Init();
         _levelCounter = _levelCounterSetup.LevelCounter;
@@ -58,7 +63,7 @@ public class AppStartup : MonoBehaviour
         _shop.Init(equipment);
         equipment.InitWeapons();
 
-        _playerCompositeRoot.Init(_levelCounter.Index, equipment);
+        _playerCompositeRoot.Init(_levelCounter.Index, equipment, _isMobilePlatform);
         _twinsCompositeRoot.Init();
         _zombieTargetsCompositeRoot.Init(_playerCompositeRoot.Player, _twinsCompositeRoot.Twins);
         _rebornSetup.Init(_playerCompositeRoot.Player, _twinsCompositeRoot.Twins);
@@ -71,11 +76,11 @@ public class AppStartup : MonoBehaviour
 
         _game.Started += OnStarted;
 
-        _zombieSpawnerCompositeRoot.SpawnerInited += (spawner) => _scoreSetup.Init(spawner);
+        _spawnersCompositeRoot.SpawnerInited += (spawner) => _scoreSetup.Init(spawner);
         
         _zombieTargetsCompositeRoot.TargetDied += OnTargetDied;
 
-        _zombieSpawnerCompositeRoot.ZombiesEnded += OnZombiesEnded;
+        _spawnersCompositeRoot.ZombiesEnded += OnZombiesEnded;
 
         _rebornSetup.Reborned += () => _game.Reborn();
         _game.InfinityGameEnded += () => _highscoreSetup.Model.Record(_scoreSetup.TotalScore);
@@ -90,11 +95,11 @@ public class AppStartup : MonoBehaviour
 
         _game.Started -= OnStarted;
 
-        _zombieSpawnerCompositeRoot.SpawnerInited -= (spawner) => _scoreSetup.Init(spawner);
+        _spawnersCompositeRoot.SpawnerInited -= (spawner) => _scoreSetup.Init(spawner);
 
         _zombieTargetsCompositeRoot.TargetDied -= OnTargetDied;
 
-        _zombieSpawnerCompositeRoot.ZombiesEnded -= OnZombiesEnded;
+        _spawnersCompositeRoot.ZombiesEnded -= OnZombiesEnded;
 
         _rebornSetup.Reborned -= () => _game.Reborn();
         _game.InfinityGameEnded -= () => _highscoreSetup.Model.Record(_scoreSetup.TotalScore);
@@ -110,7 +115,7 @@ public class AppStartup : MonoBehaviour
 
     private void OnStarted()
     {
-        _zombieSpawnerCompositeRoot.Init(_selector.Mode, _levelCounter.Index, _zombieTargetsCompositeRoot, _isMobilePlatform);
+        _spawnersCompositeRoot.Init(_selector.Mode, _levelCounter.Index, _zombieTargetsCompositeRoot, _isMobilePlatform);
         _order.Compose();
     }
 
@@ -125,5 +130,6 @@ public class AppStartup : MonoBehaviour
         _game.Win();
         _levelCounter.IncreaseLevel();
         _reward.GiveWinReward(_scoreSetup.TotalScore);
+        _leaderboard.UpdateLeaderboard(_scoreSetup.TotalScore);
     }
 }

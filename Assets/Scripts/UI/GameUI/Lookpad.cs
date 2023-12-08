@@ -3,14 +3,12 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityScreen = UnityEngine.Screen;
 
-[RequireComponent(typeof(CanvasGroup))]
 public class Lookpad : MonoCache, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private UIVirtualJoystick _fireJoystick;
     [SerializeField] private Vector2 _scaleTouchInput;
 
     private Vector2 _touchInput, _prevDelta, _dragInput;
-    private CanvasGroup _canvasGroup;
 
     [Header("Output")]
     public UnityEvent<Vector2> joystickOutputEvent;
@@ -25,17 +23,10 @@ public class Lookpad : MonoCache, IDragHandler, IPointerDownHandler, IPointerUpH
         RemoveUpdate();
     }
 
-    private void Start()
-    {
-        _canvasGroup = GetComponent<CanvasGroup>();
-        _canvasGroup.alpha = 0;
-    }
-
     public override void OnTick()
     {
         if (_fireJoystick.IsTouching)
             return;
-
         _touchInput = _dragInput - _prevDelta;
         _prevDelta = _dragInput;
 

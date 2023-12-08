@@ -147,6 +147,7 @@ namespace YG
                 {
                     EnvironmentData.isMobile = true;
                     EnvironmentData.deviceType = "mobile";
+                    Debug.Log(EnvironmentData.isMobile + " EnvironmentData.isMobile ");
                 }
 #endif
                 _debug = infoYG.debug;

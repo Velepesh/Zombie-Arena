@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Timer : MonoCache
 {
+    [SerializeField] private Game _game;
+
     private float _spentTime = 0f;
     private bool _isPlaying;
 
@@ -9,11 +11,21 @@ public class Timer : MonoCache
 
     private void OnEnable()
     {
+        _game.Started += OnStarted;
+        _game.Continued += OnContinued;
+        _game.Won += OnWon;
+        _game.Ended += OnEnded;
+        
         AddUpdate();
     }
 
     private void OnDisable()
     {
+        _game.Started -= OnStarted;
+        _game.Continued -= OnContinued;
+        _game.Won -= OnWon;
+        _game.Ended -= OnEnded;
+
         RemoveUpdate();
     }
 
@@ -25,12 +37,33 @@ public class Timer : MonoCache
         _spentTime += Time.deltaTime;
     }
 
-    public void StartTimer()
+    private void OnStarted()
+    {
+        StartTimer();
+    }
+
+    private void OnContinued()
+    {
+        StartTimer();
+    }
+
+    private void OnWon()
+    {
+        StopTimer();
+    }
+
+    private void OnEnded()
+    {
+        StopTimer();
+    }
+
+
+    private void StartTimer()
     {
         _isPlaying = true;
     }
 
-    public void StopTimer()
+    private void StopTimer()
     {
         _isPlaying = false;
     }
