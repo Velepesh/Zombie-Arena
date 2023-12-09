@@ -16,6 +16,7 @@ public class GoodsSpawner : ObjectPool
     private float _timeAfterLastSpawn;
     private bool _isRunning;
     private Health _twinsHealth;
+    private ZombiesSpawner _zombiesSpawner;
 
     private void OnValidate()
     {
@@ -40,7 +41,9 @@ public class GoodsSpawner : ObjectPool
 
         _timeAfterLastSpawn += Time.deltaTime;
 
-        if (_timeAfterLastSpawn >= _timeBetweenSpawn && _currentEnableGoods < _maxEnabledGoods)
+        if (_timeAfterLastSpawn >= _timeBetweenSpawn 
+            && _currentEnableGoods < _maxEnabledGoods
+            && _zombiesSpawner.IsWaveEnding == false)
         {
             if (IsSpawnPointEmpty() == false)
                 return;
@@ -62,11 +65,15 @@ public class GoodsSpawner : ObjectPool
         }
     }
 
-    public void Init(Health twinsHealth)
+    public void Init(Health twinsHealth, ZombiesSpawner zombiesSpawner)
     {
         if (twinsHealth == null)
             throw new ArgumentNullException(nameof(twinsHealth));
 
+        if (zombiesSpawner == null)
+            throw new ArgumentNullException(nameof(zombiesSpawner));
+
+        _zombiesSpawner = zombiesSpawner;
         _twinsHealth = twinsHealth;
     }
 

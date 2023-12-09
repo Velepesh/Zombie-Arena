@@ -42,7 +42,7 @@ public class SpawnersCompositeRoot : CompositeRoot
         _zombiesSpawner = _creator.CreateZombieSpawner(gameMode, levelIndex, targets, isMobilePlatform);
         
         if(gameMode == GameMode.Infinite)
-            _creator.CreateGoodsSpawner(targets.Twins.Health);
+            _creator.CreateGoodsSpawner(targets.Twins.Health, _zombiesSpawner);
         
         _zombiesSpawner.Ended += OnZombiesEnded;
         SpawnerInited?.Invoke(_zombiesSpawner);

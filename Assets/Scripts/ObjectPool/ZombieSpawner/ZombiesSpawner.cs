@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class ZombiesSpawner : ObjectPool, IZombieSpawner
 {
     readonly private int _startWaveIndex = 0;
+    readonly private int _endWaveZombiesCount = 3;
 
     private IReadOnlyList<ISpawnPoint> _spawnPoints;
     private TargetsCompositeRoot _targets;
@@ -21,6 +22,7 @@ public class ZombiesSpawner : ObjectPool, IZombieSpawner
     private IWaveSetter _waveSetter;
     private int _wavesCount;
 
+    public bool IsWaveEnding => _currentAliveZombieInWave <= _endWaveZombiesCount;
     public int WavesCount => _wavesCount;
     public int ZombiesNumberInWave => _currentWave.Count;
 

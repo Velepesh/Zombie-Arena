@@ -121,15 +121,17 @@ public class AppStartup : MonoBehaviour
 
     private void OnTargetDied()
     {
+        if(_game.IsLose == false)
+            _reward.GiveGameOverReward(_selector.Mode, _scoreSetup.TotalScore);
+
         _game.End();
-        _reward.GiveGameOverReward(_selector.Mode, _scoreSetup.TotalScore);
     }
 
     private void OnZombiesEnded()
     {
+        _reward.GiveWinReward(_scoreSetup.TotalScore);
         _game.Win();
         _levelCounter.IncreaseLevel();
-        _reward.GiveWinReward(_scoreSetup.TotalScore);
         _leaderboard.UpdateLeaderboard(_scoreSetup.TotalScore);
     }
 }

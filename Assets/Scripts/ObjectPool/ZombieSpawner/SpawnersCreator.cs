@@ -39,10 +39,10 @@ public class SpawnersCreator : MonoBehaviour
         return _zombiesSpawner;
     }
 
-    public void CreateGoodsSpawner(Health twinsHealth)
+    public void CreateGoodsSpawner(Health twinsHealth, ZombiesSpawner zombiesSpawner)
     {
         _goodsSpawner = InstantiateGoodsSpawner();
-        _goodsSpawner.Init(twinsHealth);
+        _goodsSpawner.Init(twinsHealth, zombiesSpawner);
     }
 
 
