@@ -60,10 +60,10 @@ namespace YG
         [SerializeField]
         private UnityEvent onUpdateData;
 
-        private string photoSize = "small";
+        private string photoSize;
         private LBPlayerDataYG[] players = new LBPlayerDataYG[0];
 
-        void Awake()
+        void Start()
         {
             if (playerPhoto == PlayerPhoto.NonePhoto)
                 photoSize = "nonePhoto";
@@ -119,7 +119,7 @@ namespace YG
                 }
                 else
                 {
-                    DestroyPurchasesList();
+                    DestroyLBList();
 
                     if (lb.entries == "no data")
                     {
@@ -145,7 +145,7 @@ namespace YG
             }
         }
 
-        private void DestroyPurchasesList()
+        private void DestroyLBList()
         {
             int childCount = rootSpawnPlayersData.childCount;
             for (int i = childCount - 1; i >= 0; i--)

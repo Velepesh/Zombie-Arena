@@ -101,7 +101,7 @@ namespace InfimaGames.LowPolyShooterPack
         }
 
         /// <summary>
-        /// Loading Screen Fade.
+        /// Loading PlatformScreen Fade.
         /// </summary>
         private IEnumerator FadeLoadingScreen(float targetValue, float duration)
         {

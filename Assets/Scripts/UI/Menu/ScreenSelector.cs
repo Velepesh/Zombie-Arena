@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class ScreenSelector : MonoBehaviour
 {
-    [SerializeField] private Screen _desktopScreen;
-    [SerializeField] private Screen _mobileScreen;
+    [SerializeField] private PlatformScreen _desktopScreen;
+    [SerializeField] private PlatformScreen _mobileScreen;
 
     public void Init(bool isMobile)
     {
@@ -30,12 +30,12 @@ public class ScreenSelector : MonoBehaviour
         EnableScreen(_desktopScreen);
     }
 
-    private void EnableScreen(Screen screen)
+    private void EnableScreen(PlatformScreen screen)
     {
         screen.ShowScreen();
     }
 
-    private void DisableScreen(Screen screen)
+    private void DisableScreen(PlatformScreen screen)
     {
         screen.DisableScreen();
     }

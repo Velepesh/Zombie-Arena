@@ -74,12 +74,12 @@ namespace Plugins.Audio.Editor
             EditorGUILayout.PropertyField(loopProp);
             EditorGUILayout.PropertyField(muteProp);
             
-            EditorGUILayout.Slider(pitchProp, -3f, 3, Styles.pitchLabel);
+            EditorGUILayout.Slider(pitchProp, -0.5f, 3, Styles.pitchLabel);
             
-            if (providerType == AudioProviderType.JS)
+            /*if (providerType == AudioProviderType.JS)
             {
                 EditorGUILayout.HelpBox("Pitch is not supported in JS Provider", MessageType.Info);
-            }
+            }*/
             
             if (providerType == AudioProviderType.Unity)
             {

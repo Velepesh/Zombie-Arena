@@ -15,21 +15,30 @@ namespace Plugins.Audio.Core
         private AudioConfiguration _configuration;
         private AudioDatabase _database;
         
+        public event Action OnPause;
+        public event Action OnUnpause;
+        
+        public bool IsAudioPause { get; private set; }
+        private float _volume;
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Init()
         {
             GameObject instance = new GameObject("Audio Management");
             Instance = instance.AddComponent<AudioManagement>();
 
+            Application.runInBackground = true;
             DontDestroyOnLoad(instance); 
         }
 
         private void Awake()
         {
+            WebAudio.Init();
             _configuration = AudioConfiguration.GetInstance();
             _database = _configuration.GetDatabase();
             _database.Initialize();
-            
+            IsAudioPause = false;
+
             PreloadAudio();
         }
 
@@ -124,5 +133,47 @@ namespace Plugins.Audio.Core
         {
             Debug.LogError(message);
         }
+        
+        public void Pause()
+        {
+            if (IsAudioPause == true)
+            {
+                return;
+            }
+            
+            AudioListener.pause = true;
+            //WebAudio.Pause();
+
+            IsAudioPause = true;
+            
+            OnPause?.Invoke();
+            Log("Pause Audio");
+        }
+        
+        public void Unpause()
+        {
+            if (IsAudioPause == false)
+            {
+                return;
+            }
+            
+            AudioListener.pause = false;
+            //WebAudio.UnPause();
+            
+            IsAudioPause = false;
+
+            OnUnpause?.Invoke();
+            Log("UnPause Audio");
+        }
+
+        public void SetVolume(float value)
+        {
+            _volume = Mathf.Clamp01(value);
+
+            AudioListener.volume = _volume;
+            WebAudio.SetVolume(_volume);
+        }
+
+        public float GetVolume() => _volume;
     }
 }

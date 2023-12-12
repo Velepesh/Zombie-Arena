@@ -12,7 +12,6 @@ public class RewardInfo : MonoBehaviour
 
     public void ShowInfo(int reward)
     {
-        Debug.Log("ShowInfo");
         int doubleReward = reward * 2; 
         _doubleRewardText.text = $"{doubleReward} {_dollar}";
         _additionalRewardText.additionalText = $"{reward}{_dollar} {_rightBracket}";

@@ -59,6 +59,12 @@ public class EnvironmentTime : MonoBehaviour
         if (_isReborningAds)
             return;
 
+        if (_game.IsLose == true)
+            return;
+
+        if (_game.IsWon == true)
+            return;
+
         _isAds = false;
 
         StartTime();
@@ -147,12 +153,12 @@ public class EnvironmentTime : MonoBehaviour
     private void StartTime()
     {
         Time.timeScale = 1;
-        AudioPauseHandler.Instance.Unpause();
+        AudioPauseHandler.Instance.UnpauseAudio();
     }
 
     private void StopTime()
     {
-        AudioPauseHandler.Instance.Pause();
+        AudioPauseHandler.Instance.PauseAudio();
         Time.timeScale = 0;
     }
 }

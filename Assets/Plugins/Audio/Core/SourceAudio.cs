@@ -26,9 +26,7 @@ namespace Plugins.Audio.Core
         [SerializeField] private AudioRolloffMode _volumeRolloff = AudioRolloffMode.Logarithmic;
         [SerializeField] private float _minDistance = 1;
         [SerializeField] private float _maxDistance = 500;
-
-        public AudioProvider CurrentProvider => _currentProvider;
-
+        
         private AudioProvider _currentProvider;
         
         public string CurrentKey { get; private set; }
@@ -42,6 +40,16 @@ namespace Plugins.Audio.Core
             {
                 _volume = value;
                 _currentProvider.Volume = value;
+            }
+        }
+
+        public bool Mute
+        {
+            get => _currentProvider.Mute;
+            set
+            {
+                _mute = value;
+                _currentProvider.Mute = value;
             }
         }
 
@@ -65,16 +73,6 @@ namespace Plugins.Audio.Core
             }
         }
 
-        public bool Mute
-        {
-            get => _currentProvider.Mute;
-            set
-            {
-                _mute = value;
-                _currentProvider.Mute = value;
-            }
-        }
-
         public bool Loop
         {
             get => _currentProvider.Loop;
@@ -90,8 +88,8 @@ namespace Plugins.Audio.Core
             get => _currentProvider.Pitch;
             set
             {
-                _pitch = value;
-                _currentProvider.Pitch = value;
+                _pitch = Mathf.Clamp(value, -0.5f, 3);
+                _currentProvider.Pitch = _pitch;
             }
         }
 
@@ -103,10 +101,10 @@ namespace Plugins.Audio.Core
 
         public bool IsPlaying => _currentProvider.IsPlaying;
 
-        public void Play(string key)
+        public void Play(string key, float time = 0)
         {
             CurrentKey = key;
-            _currentProvider.Play(key);
+            _currentProvider.Play(key, time);
         }
 
         public void PlayOneShot(string key)
@@ -118,6 +116,16 @@ namespace Plugins.Audio.Core
         {
             CurrentKey = string.Empty;
             _currentProvider.Stop();
+        }
+
+        public void Pause()
+        {
+            _currentProvider.Pause();
+        }
+
+        public void UnPause()
+        {
+            _currentProvider.UnPause();
         }
 
 #if UNITY_EDITOR
@@ -176,6 +184,8 @@ namespace Plugins.Audio.Core
                 minDistance = _minDistance,
                 maxDistance = _maxDistance,
             };
+
+            _currentProvider.RefreshSettings(settings);
         }
 
         private void OnDestroy()
@@ -185,14 +195,14 @@ namespace Plugins.Audio.Core
 
         private void OnEnable()
         {
-            AudioPauseHandler.OnPause += OnAudioPaused;
-            AudioPauseHandler.OnUnpause += OnAudioUnpaused;
+            AudioManagement.Instance.OnPause += OnAudioPaused;
+            AudioManagement.Instance.OnUnpause += OnAudioUnpaused;
         }
 
         private void OnDisable()
         {
-            AudioPauseHandler.OnPause -= OnAudioPaused;
-            AudioPauseHandler.OnUnpause -= OnAudioUnpaused;
+            AudioManagement.Instance.OnPause -= OnAudioPaused;
+            AudioManagement.Instance.OnUnpause -= OnAudioUnpaused;
         }
 
         private void Update()
@@ -202,12 +212,12 @@ namespace Plugins.Audio.Core
 
         private void OnAudioPaused()
         {
-            _currentProvider.OnAudioPaused();
+            _currentProvider.OnGlobalAudioPaused();
         }
 
         private void OnAudioUnpaused()
         {
-            _currentProvider.OnAudioUnpaused();
+            _currentProvider.OnGlobalAudioUnpaused();
         }
 
         [Serializable]

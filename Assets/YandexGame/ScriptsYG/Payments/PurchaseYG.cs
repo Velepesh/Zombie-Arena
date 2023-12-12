@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using YG.Utils.Pay;
@@ -31,13 +31,11 @@ namespace YG
 
         public ImageLoadYG imageLoad;
 
-        [Tooltip("Äîáàâèòü ßí/Yan ê ñòðîêå öåíû")]
+        [Tooltip("Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð¯Ð½/Yan Ðº ÑÑ‚Ñ€Ð¾ÐºÐµ Ñ†ÐµÐ½Ñ‹")]
         public bool addYAN_toPrice = true;
 
         public Purchase data = new Purchase();
-
         public Weapon Weapon => _weapon;
-
         [ContextMenu(nameof(UpdateEntries))]
         public void UpdateEntries()
         {
@@ -69,7 +67,7 @@ namespace YG
         private string Yan()
         {
             if (YandexGame.savesData.language == "ru")
-                return " ßí";
+                return " Ð¯Ð½";
             else
                 return " Yan";
         }

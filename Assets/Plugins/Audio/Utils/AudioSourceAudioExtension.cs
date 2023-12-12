@@ -1,5 +1,4 @@
-﻿using DG.Tweening;
-using Plugins.Audio.Core;
+﻿using Plugins.Audio.Core;
 using UnityEngine;
 
 namespace Plugins.Audio.Utils
@@ -34,17 +33,5 @@ namespace Plugins.Audio.Utils
             audioSource.minDistance = settings.minDistance;
             audioSource.maxDistance = settings.maxDistance;
         }
-
-        //public static void SetData(this AudioSource audioSource, SourceAudio sourceAudio)
-        //{
-        //    audioSource.volume = sourceAudio.Volume;
-        //    audioSource.outputAudioMixerGroup = sourceAudio.MixerGroup;
-        //    audioSource.mute = sourceAudio.Mute;
-        //    audioSource.loop = sourceAudio.Loop;
-        //    audioSource.pitch = sourceAudio.Pitch;
-        //    audioSource.time = sourceAudio.Time;
-
-        //    audioSource.spatialBlend = sourceAudio.SpatialBlend;
-        //}
     }
 }

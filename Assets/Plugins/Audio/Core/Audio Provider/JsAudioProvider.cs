@@ -48,16 +48,19 @@ namespace Plugins.Audio.Core
             }
         }
 
+        public override float SpatialBlend { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override AudioMixerGroup MixerGroup { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public override float Pitch
         {
             get
             {
-                AudioManagement.Instance.Log("JS Provider not support Pitch");
-                return 1;
+                return WebAudio.GetAudioSourcePitch(_id);
             }
             set
             {
-                AudioManagement.Instance.Log("JS Provider not support Pitch");
+                _pitch = value;
+                WebAudio.SetAudioSourcePitch(_id, _pitch);
             }
         }
 
@@ -67,19 +70,24 @@ namespace Plugins.Audio.Core
             set => WebAudio.SetSourceTime(_id, value);
         }
 
-
         private bool _mute;
-        private float _volume;
+        private float _volume = 1;
         private bool _loop;
+        private float _pitch = 1;
 
         private readonly string _id;
         
         private readonly SourceAudio _sourceAudio;
+        public override bool IsPlaying => WebAudio.IsPlayingAudioSource(_id);
+
+        private bool _isPaused;
 
         public JsAudioProvider(SourceAudio sourceAudio)
         {
             _sourceAudio = sourceAudio;
             _id = Guid.NewGuid().ToString();
+
+            WebAudio.RegistrySource(this, _id);
         }
 
         public override void Dispose()
@@ -87,12 +95,8 @@ namespace Plugins.Audio.Core
             WebAudio.DeleteSource(_id);
         }
 
-        public override bool IsPlaying => WebAudio.IsPlayingAudioSource(_id);
 
-        public override float SpatialBlend { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public override AudioMixerGroup MixerGroup { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public override void Play(string key)
+        public override void Play(string key, float time)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -101,8 +105,9 @@ namespace Plugins.Audio.Core
             }
             
             string clipPath = AudioManagement.Instance.GetClipPath(key);
+            _isPaused = false;
                 
-            WebAudio.PlayAudio(_id, clipPath, _loop, _volume, _mute);
+            WebAudio.PlayAudioSource(_id, clipPath, _loop, _volume, _mute, _pitch, time);
 
             AudioManagement.Instance.Log("Start play audio: " + key);
         }
@@ -115,6 +120,49 @@ namespace Plugins.Audio.Core
         public override void Stop()
         {
             WebAudio.StopSource(_id);
+        }
+
+        public override void Pause()
+        {
+            if (_isPaused)
+            {
+                return;
+            }
+
+            _isPaused = true;
+            WebAudio.PauseAudioSource(_id);
+        }
+        
+        public override void UnPause()
+        {
+            if (_isPaused == false)
+            {
+                return;
+            }
+
+            _isPaused = false;
+            WebAudio.UnpauseAudioSource(_id);
+        }
+
+        public void ClipFinished()
+        {
+            _sourceAudio.ClipFinished();
+        }
+
+        public override void OnGlobalAudioPaused()
+        {
+            if (_isPaused == false)
+            {
+                WebAudio.PauseAudioSource(_id);
+            }
+        }
+
+        public override void OnGlobalAudioUnpaused()
+        {
+            if (_isPaused == false)
+            {
+                WebAudio.UnpauseAudioSource(_id);
+            }
         }
     }
 }

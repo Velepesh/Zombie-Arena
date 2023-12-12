@@ -11,12 +11,12 @@ public class UIButtonsAudio : Audio
 
     private void Awake()
     {
-        _audioSource.ignoreListenerPause = true;
         _buttons = GetComponentsInChildren<Button>();
     }
 
     private void OnEnable()
     {
+        _audioSource.ignoreListenerPause = true;
         for (int i = 0; i < _buttons.Length; i++)
             _buttons[i].onClick.AddListener(OnButtonClick);
     }

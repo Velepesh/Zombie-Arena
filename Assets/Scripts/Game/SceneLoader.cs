@@ -17,7 +17,6 @@ public class SceneLoader : MonoBehaviour
 
     private void OnRestarted()
     {
-        Debug.Log("Restar Scene");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

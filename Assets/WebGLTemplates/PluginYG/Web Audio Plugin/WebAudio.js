@@ -1,7 +1,13 @@
 ﻿const audioPath = "./StreamingAssets/Audio/";
 const sourceDictionary = {};
 
-function PlayAudio(sourceID, clipPath, loop, volume, mute){
+let onSourceEndCallback = undefined;
+
+function InitAudio(sourceEndCallback) {
+    onSourceEndCallback = sourceEndCallback;
+}
+
+function PlayAudioSource(sourceID, clipPath, loop, volume, mute, pitch, time){
     if(sourceDictionary[sourceID] !== undefined){
         sourceDictionary[sourceID].stop();
     }
@@ -15,9 +21,14 @@ function PlayAudio(sourceID, clipPath, loop, volume, mute){
         autoplay: true,
         volume: volume,
         mute: Boolean(mute),
+        rate: pitch,
     })
 
-    //source.on("end", endCallback)
+    source.seek(time);
+    source.on("end", function(){
+        onSourceEndCallback(sourceID);
+    });
+
     sourceDictionary[sourceID] = source;
 }
 
@@ -55,10 +66,6 @@ function StopAudioSource(sourceID) {
     }
 }
 
-function AudioMute(value){
-    Howler.mute(Boolean(value));
-}
-
 function DeleteAudioSource(sourceID){
     StopAudioSource(sourceID);
 
@@ -70,19 +77,31 @@ function SetAudioSourcePitch(sourceID, value){
     
     if(source !== undefined){
         source.rate(value);
-        console.log("rate");
     }
 }
 
-function SetGlobalVolume(value){
-    Howler.volume(value);
+function GetAudioSourcePitch(sourceID){
+    const source = sourceDictionary[sourceID];
+    
+    if(source !== undefined){
+        return source.rate();
+    }
+
+    return 0;
+}
+
+function SetAudioSourceTime(sourceID, value){
+    const source = sourceDictionary[sourceID];
+    
+    if(source !== undefined){
+        source.seek(value);
+    }
 }
 
 function GetAudioSourceTime(sourceID){
     const source = sourceDictionary[sourceID];
     
     if(source !== undefined){
-        source.rate(value);
         return source.seek();
     }
 
@@ -93,9 +112,41 @@ function IsPlayingAudioSource(sourceID){
     const source = sourceDictionary[sourceID];
     
     if(source !== undefined){
-        source.rate(value);
         return source.playing();
     }
 
     return false;
+}
+
+function PauseAudioSource(sourceID) {
+    const source = sourceDictionary[sourceID];
+
+    if(source !== undefined){
+        source.pause();
+    }
+}
+
+function UnpauseAudioSource(sourceID) {
+    const source = sourceDictionary[sourceID];
+
+    if(source !== undefined){
+        source.play();
+    }
+}
+
+// Global Audio
+function SetGlobalVolume(value){
+    Howler.volume(value);
+}
+
+function AudioMute(value){
+    Howler.mute(Boolean(value));
+}
+
+function PauseAudio(){
+    AudioMute(true);
+}
+
+function UnPauseAudio(){
+    AudioMute(false)
 }

@@ -35,9 +35,9 @@ public class Wave : ScriptableObject, IWave
         {
             int maxMobileCount = _maxActiveZombieDesktop;
 
-            if (_templates.Count > 8)
+            if (_maxActiveZombieDesktop > 8)
                 maxMobileCount = _maxActiveZombieDesktop - 2;
-            else if (_templates.Count > 4)
+            else if (_maxActiveZombieDesktop > 4)
                 maxMobileCount = _maxActiveZombieDesktop - 1;
 
             return maxMobileCount;

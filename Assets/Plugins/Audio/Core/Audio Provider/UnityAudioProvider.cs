@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Plugins.Audio.Utils;
 using UnityEngine;
 using UnityEngine.Audio;
 
 namespace Plugins.Audio.Core
 {
-    public class UnityAudioProvider : AudioProvider
+    public class UnityAudioProvider : BaseUnityAudioProvider
     {
         private readonly SourceAudio _sourceAudio;
         private readonly AudioSource _unitySource;
 
-        public override float SpatialBlend 
+        public override float SpatialBlend
         {
             get => _unitySource.spatialBlend;
             set => _unitySource.spatialBlend = value;
         }
 
-        public override AudioMixerGroup MixerGroup 
+        public override AudioMixerGroup MixerGroup
         {
             get => _unitySource.outputAudioMixerGroup;
             set => _unitySource.outputAudioMixerGroup = value;
@@ -52,7 +51,7 @@ namespace Plugins.Audio.Core
             get => _unitySource.time;
             set => _unitySource.time = value;
         }
-
+        
         public override bool IsPlaying => _unitySource.isPlaying;
 
         private Coroutine _playRoutine;
@@ -66,13 +65,7 @@ namespace Plugins.Audio.Core
         public UnityAudioProvider(SourceAudio sourceAudio)
         {
             _sourceAudio = sourceAudio;
-
-            if (_sourceAudio.TryGetComponent(out _unitySource) == false)
-            {
-                _unitySource = sourceAudio.gameObject.AddComponent<AudioSource>();
-
-               // _unitySource.SetData(_sourceAudio);
-            }
+            _unitySource = CreateAudioSource(_sourceAudio);
         }
 
         public override void RefreshSettings(SourceAudio.AudioSettings settings)
@@ -82,7 +75,7 @@ namespace Plugins.Audio.Core
             _unitySource.SetData(settings);
         }
 
-        public override void Play(string key)
+        public override void Play(string key, float time)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -95,7 +88,7 @@ namespace Plugins.Audio.Core
                 _sourceAudio.StopCoroutine(_playRoutine);
             }
             
-            _playRoutine = _sourceAudio.StartCoroutine(PlayRoutine(key));
+            _playRoutine = _sourceAudio.StartCoroutine(PlayRoutine(key, time));
         }
 
         public override void PlayOneShot(string key)
@@ -116,8 +109,18 @@ namespace Plugins.Audio.Core
             _lastTime = 0;
             Time = 0;
         }
+        
+        public override void Pause()
+        {
+            _unitySource.Pause();
+        }
 
-        private IEnumerator PlayRoutine(string key)
+        public override void UnPause()
+        {
+            _unitySource.UnPause();
+        }
+
+        private IEnumerator PlayRoutine(string key, float time)
         {
             _beginPlaying = false;
             _loadClip = true;
@@ -132,16 +135,13 @@ namespace Plugins.Audio.Core
                 yield break;
             }
 
-            //_unitySource.clip = _clip;
-            //_unitySource.Play();
-            //_loadClip = false;
-            //_beginPlaying = true;
-
             _unitySource.clip = _clip;
-            _unitySource.time = _lastTime = 0;
             _unitySource.Play();
+            _loadClip = false;
             _beginPlaying = true;
-            _lastTime = 0;
+
+            _unitySource.time = time;
+            _lastTime = time;
         }
 
         private IEnumerator PlayOneShotRoutine(string key)
@@ -176,20 +176,10 @@ namespace Plugins.Audio.Core
             {
                 _beginPlaying = false;
                 _sourceAudio.ClipFinished();
-
-                if (Loop)
-                {
-                    AudioManagement.Instance.Log("Audio Loop: " + _sourceAudio.CurrentKey);
-
-                    _unitySource.Stop();
-                    _unitySource.Play();
-                    _lastTime = 0;
-                    _beginPlaying = true;
-                }
             }
         }
 
-        public override void OnAudioUnpaused()
+        public override void OnGlobalAudioUnpaused()
         {
             if (_isFocus == false && _beginPlaying && _lastTime > 0)
             {
@@ -201,7 +191,7 @@ namespace Plugins.Audio.Core
             _isFocus = true;
         }
 
-        public override void OnAudioPaused()
+        public override void OnGlobalAudioPaused()
         {
             if (_isFocus && _beginPlaying)
             {

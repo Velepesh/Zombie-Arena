@@ -82,7 +82,6 @@ public class AppStartup : MonoBehaviour
 
         _spawnersCompositeRoot.ZombiesEnded += OnZombiesEnded;
 
-        _rebornSetup.Reborned += () => _game.Reborn();
         _game.InfinityGameEnded += () => _highscoreSetup.Model.Record(_scoreSetup.TotalScore);
        
         _reward.DoubleRewarded += () => _game.NextLevel();
@@ -101,7 +100,6 @@ public class AppStartup : MonoBehaviour
 
         _spawnersCompositeRoot.ZombiesEnded -= OnZombiesEnded;
 
-        _rebornSetup.Reborned -= () => _game.Reborn();
         _game.InfinityGameEnded -= () => _highscoreSetup.Model.Record(_scoreSetup.TotalScore);
 
         _reward.DoubleRewarded -= () => _game.NextLevel();
